@@ -1,0 +1,85 @@
+language: rust
+rust:
+- stable
+- beta
+- nightly
+sudo: false
+os:
+- linux
+cache:
+  directories:
+  - "$HOME/.cargo"
+  - target
+matrix:
+  fast_finish: true
+  allow_failures:
+  - rust: nightly
+env:
+  matrix:
+  - CARGO_FEATURES=qmp
+  - CARGO_FEATURES=qga
+  - CARGO_FEATURES="qga qmp"
+  global:
+  - CARGO_QUIET=
+before_install:
+- curl -L https://github.com/arcnmx/ci/archive/0.2.tar.gz | tar -xzC $HOME && . $HOME/ci-0.2/src
+script:
+- cd $TRAVIS_BUILD_DIR
+- cargo test
+- cargo build
+- |
+  [[ $CARGO_FEATURES != *qga* ]] || cargo build --example guest_info
+  [[ $CARGO_FEATURES != *qmp* ]] || cargo build --example qmp_query
+- cd $TRAVIS_BUILD_DIR/codegen
+- cargo test
+- cargo build
+- cd $TRAVIS_BUILD_DIR/parser
+- cargo test
+- cargo build
+- cd $TRAVIS_BUILD_DIR/qga
+- cargo test
+- cargo build
+- cd $TRAVIS_BUILD_DIR/qmp
+- cargo test
+- cargo build
+- cd $TRAVIS_BUILD_DIR/spec
+- cargo test
+- cargo build
+deploy:
+  provider: script
+  script: 'true'
+  on:
+    tags: true
+    all_branches: true
+    condition: "$TRAVIS_RUST_VERSION = stable && $CARGO_FEATURES = 'qga qmp'"
+before_deploy:
+- cd $TRAVIS_BUILD_DIR
+- cargo doc -p qapi-codegen
+- cargo doc -p qapi-parser
+- cargo doc -p qapi-qga
+- cargo doc -p qapi-qmp
+- cargo doc -p qapi-spec
+- cargo doc
+- cd $TRAVIS_BUILD_DIR/spec
+- cargo package
+- cd $TRAVIS_BUILD_DIR/parser
+- cargo package
+after_deploy:
+- cd $TRAVIS_BUILD_DIR
+- cargo pages-publish
+- cd $TRAVIS_BUILD_DIR/spec
+- cargo publish
+- cd $TRAVIS_BUILD_DIR/parser
+- cargo publish
+- cd $TRAVIS_BUILD_DIR/codegen
+- cargo package
+- cargo publish
+- cd $TRAVIS_BUILD_DIR/qga
+- cargo package
+- cargo publish
+- cd $TRAVIS_BUILD_DIR/qmp
+- cargo package
+- cargo publish
+- cd $TRAVIS_BUILD_DIR
+- cargo package
+- cargo publish
