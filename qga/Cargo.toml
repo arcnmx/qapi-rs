@@ -2,6 +2,19 @@
 name = "qapi-qga"
 version = "0.0.1"
 build = "build.rs"
+authors = ["arcnmx"]
+
+description = "QEMU Guest Agent protocol types"
+keywords = ["qemu", "qga", "qapi"]
+
+documentation = "http://arcnmx.github.io/qapi-rs/qapi_qga"
+repository = "https://github.com/arcnmx/qapi-rs"
+readme = "../README.md"
+license = "MIT"
+
+[badges]
+travis-ci = { repository = "arcnmx/qapi-rs" }
+maintenance = { status = "passively-maintained" }
 
 [build-dependencies]
 qapi-codegen = { version = "^0.0.1", path = "../codegen" }

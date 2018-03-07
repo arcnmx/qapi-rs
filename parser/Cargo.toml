@@ -1,6 +1,19 @@
 [package]
 name = "qapi-parser"
 version = "0.0.1"
+authors = ["arcnmx"]
+
+description = "QEMU QAPI JSON specification parser"
+keywords = ["qemu", "qmp", "qga", "qapi"]
+
+documentation = "http://arcnmx.github.io/qapi-rs/qapi_parser"
+repository = "https://github.com/arcnmx/qapi-rs"
+readme = "../README.md"
+license = "MIT"
+
+[badges]
+travis-ci = { repository = "arcnmx/qapi-rs" }
+maintenance = { status = "passively-maintained" }
 
 [dependencies]
 serde = "^1.0.27"

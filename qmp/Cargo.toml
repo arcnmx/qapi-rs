@@ -2,6 +2,19 @@
 name = "qapi-qmp"
 version = "0.0.1"
 build = "build.rs"
+authors = ["arcnmx"]
+
+description = "QEMU Machine Protocol types"
+keywords = ["qemu", "qmp", "qapi"]
+
+documentation = "http://arcnmx.github.io/qapi-rs/qapi_qmp"
+repository = "https://github.com/arcnmx/qapi-rs"
+readme = "../README.md"
+license = "MIT"
+
+[badges]
+travis-ci = { repository = "arcnmx/qapi-rs" }
+maintenance = { status = "passively-maintained" }
 
 [build-dependencies]
 qapi-codegen = { version = "^0.0.1", path = "../codegen" }

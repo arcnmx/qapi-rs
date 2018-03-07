@@ -1,6 +1,19 @@
 [package]
 name = "qapi"
 version = "0.0.1"
+authors = ["arcnmx"]
+
+description = "QEMU QMP and Guest Agent API"
+keywords = ["qemu", "qmp", "qga", "qapi"]
+
+documentation = "http://arcnmx.github.io/qapi-rs/qapi"
+repository = "https://github.com/arcnmx/qapi-rs"
+readme = "README.md"
+license = "MIT"
+
+[badges]
+travis-ci = { repository = "arcnmx/qapi-rs" }
+maintenance = { status = "passively-maintained" }
 
 [dependencies]
 log = "^0.4.1"
