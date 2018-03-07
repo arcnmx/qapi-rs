@@ -10,6 +10,10 @@ See the [documentation][docs] for up to date information, as well as the
 reference documentation for both the [QEMU Machine Protocol](https://qemu.weilnetz.de/doc/qemu-qmp-ref.html)
 and [Guest Agent](https://qemu.weilnetz.de/doc/qemu-ga-ref.html) APIs.
 
+### Examples
+
+Short examples are available for both [QMP](examples/qmp_query.rs) and [Guest
+Agent](examples/guest_info.rs).
 
 [travis-badge]: https://img.shields.io/travis/arcnmx/qapi-rs/master.svg?style=flat-square
 [travis]: https://travis-ci.org/arcnmx/qapi-rs
