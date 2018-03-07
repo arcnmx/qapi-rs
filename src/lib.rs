@@ -1,4 +1,5 @@
 #[macro_use]
+#[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 extern crate log;
 extern crate qapi_spec as spec;
 extern crate serde_json;
