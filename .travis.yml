@@ -29,21 +29,27 @@ script:
 - cargo test
 - cargo build
 - cargo build --examples
-- cd $TRAVIS_BUILD_DIR/codegen
-- cargo test
-- cargo build
 - cd $TRAVIS_BUILD_DIR/parser
-- cargo test
-- cargo build
-- cd $TRAVIS_BUILD_DIR/qga
-- cargo test
-- cargo build
-- cd $TRAVIS_BUILD_DIR/qmp
-- cargo test
-- cargo build
+- CARGO_FEATURES= cargo test
+- CARGO_FEATURES= cargo build
 - cd $TRAVIS_BUILD_DIR/spec
-- cargo test
-- cargo build
+- CARGO_FEATURES= cargo test
+- CARGO_FEATURES= cargo build
+- cd $TRAVIS_BUILD_DIR/codegen
+- CARGO_FEATURES= cargo test
+- CARGO_FEATURES= cargo build
+- |
+  if [[ $CARGO_FEATURES = *qga* ]]; then
+    cd $TRAVIS_BUILD_DIR/qga
+    CARGO_FEATURES= cargo test
+    CARGO_FEATURES= cargo build
+  fi
+- |
+  if [[ $CARGO_FEATURES = *qmp* ]]; then
+    cd $TRAVIS_BUILD_DIR/qmp
+    CARGO_FEATURES= cargo test
+    CARGO_FEATURES= cargo build
+  fi
 deploy:
   provider: script
   script: 'true'
@@ -53,11 +59,11 @@ deploy:
     condition: "$TRAVIS_RUST_VERSION = stable && $CARGO_FEATURES = 'qga qmp'"
 before_deploy:
 - cd $TRAVIS_BUILD_DIR
-- cargo doc -p qapi-codegen
 - cargo doc -p qapi-parser
+- cargo doc -p qapi-spec
+- cargo doc -p qapi-codegen
 - cargo doc -p qapi-qga
 - cargo doc -p qapi-qmp
-- cargo doc -p qapi-spec
 - cargo doc
 - cd $TRAVIS_BUILD_DIR/spec
 - cargo package
