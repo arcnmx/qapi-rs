@@ -1,5 +1,4 @@
-#[macro_use]
-extern crate log;
+extern crate env_logger;
 extern crate qapi;
 
 use std::os::unix::net::UnixStream;
