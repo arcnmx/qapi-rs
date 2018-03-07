@@ -27,9 +27,7 @@ script:
 - cd $TRAVIS_BUILD_DIR
 - cargo test
 - cargo build
-- |
-  [[ $CARGO_FEATURES != *qga* ]] || cargo build --example guest_info
-  [[ $CARGO_FEATURES != *qmp* ]] || cargo build --example qmp_query
+- cargo build --examples
 - cd $TRAVIS_BUILD_DIR/codegen
 - cargo test
 - cargo build
