@@ -301,6 +301,17 @@ pub enum Event {{")?;
         }
         writeln!(self.out, "}}")?;
 
+        writeln!(self.out, "
+impl Event {{
+    pub fn timestamp(&self) -> ::qapi::Timestamp {{
+        match *self {{")?;
+        for event in &self.events {
+            writeln!(self.out, "Event::{} {{ timestamp, .. }} => timestamp,", event_identifier(&event.id))?;
+        }
+        writeln!(self.out, "
+        }}
+    }}
+}}")?;
         Ok(())
     }
 }

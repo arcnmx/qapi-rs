@@ -163,7 +163,7 @@ impl From<Error> for io::Error {
     }
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Copy, Clone, Serialize, Deserialize)]
 pub struct Timestamp {
     seconds: u64,
     microseconds: u64,
