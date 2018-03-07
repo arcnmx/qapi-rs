@@ -16,6 +16,7 @@ matrix:
   - rust: nightly
 env:
   matrix:
+  - CARGO_FEATURES=
   - CARGO_FEATURES=qmp
   - CARGO_FEATURES=qga
   - CARGO_FEATURES="qga qmp"
