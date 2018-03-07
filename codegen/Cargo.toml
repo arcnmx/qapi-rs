@@ -1,0 +1,6 @@
+[package]
+name = "qapi-codegen"
+version = "0.0.1"
+
+[dependencies]
+qapi-parser = { version = "^0.0.1", path = "../parser" }
