@@ -133,9 +133,9 @@ mod qmp_impl {
         event_queue: Vec<Event>,
     }
 
-    impl<'a, S: 'a> Qmp<Stream<BufReader<&'a S>, &'a S>> where &'a S: Read + Write {
-        pub fn from_stream(s: &'a S) -> Self {
-            Self::new(Stream::new(BufReader::new(s), s))
+    impl<S: Read + Write + Clone> Qmp<Stream<BufReader<S>, S>> {
+        pub fn from_stream(s: S) -> Self {
+            Self::new(Stream::new(BufReader::new(s.clone()), s))
         }
     }
 
@@ -221,9 +221,9 @@ mod qga_impl {
         inner: Qapi<S>,
     }
 
-    impl<'a, S: 'a> Qga<Stream<BufReader<&'a S>, &'a S>> where &'a S: Read + Write {
-        pub fn from_stream(s: &'a S) -> Self {
-            Self::new(Stream::new(BufReader::new(s), s))
+    impl<S: Read + Write + Clone> Qga<Stream<BufReader<S>, S>> {
+        pub fn from_stream(s: S) -> Self {
+            Self::new(Stream::new(BufReader::new(s.clone()), s))
         }
     }
 
