@@ -13,7 +13,8 @@ and [Guest Agent](https://qemu.weilnetz.de/doc/qemu-ga-ref.html) APIs.
 ### Examples
 
 Short examples are available for both [QMP](examples/qmp_query.rs) and [Guest
-Agent](examples/guest_info.rs).
+Agent](examples/guest_info.rs). Async/nonblocking examples using tokio [are also
+available](tokio/examples/).
 
 [travis-badge]: https://img.shields.io/travis/arcnmx/qapi-rs/master.svg?style=flat-square
 [travis]: https://travis-ci.org/arcnmx/qapi-rs
