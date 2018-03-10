@@ -115,6 +115,15 @@ pub enum Response<C> {
     },
 }
 
+impl<C> Response<C> {
+    pub fn result(self) -> Result<C, Error> {
+        match self {
+            Response::Ok { return_ } => Ok(return_),
+            Response::Err(e) => Err(e),
+        }
+    }
+}
+
 pub trait Command: Serialize {
     type Ok: DeserializeOwned;
 
@@ -169,8 +178,7 @@ pub struct Timestamp {
     microseconds: u64,
 }
 
-/// Encode commands for QAPI execution using `#[serde(serialize_with = "serde_command")]`
-pub mod serde_command {
+mod serde_command {
     use serde::{Serialize, Serializer};
     use Command;
 
@@ -187,3 +195,18 @@ pub mod serde_command {
         }.serialize(serializer)
     }
 }
+
+mod serde_command_ref {
+    use serde::Serializer;
+    use {serde_command, Command};
+
+    pub fn serialize<C: Command, S: Serializer>(data: &&C, serializer: S) -> Result<S::Ok, S::Error> {
+        serde_command::serialize(*data, serializer)
+    }
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct CommandSerializer<C: Command>(#[serde(with = "serde_command")] pub C);
+
+#[derive(Debug, Clone, Serialize)]
+pub struct CommandSerializerRef<'a, C: Command + 'a>(#[serde(with = "serde_command_ref")] pub &'a C);

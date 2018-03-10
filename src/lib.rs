@@ -16,7 +16,7 @@ pub use spec::{Any, Empty, Command, Event, Error, Timestamp};
 #[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 mod qapi {
     use serde_json;
-    use serde::Deserialize;
+    use serde::{Serialize, Deserialize};
     use std::io::{self, BufRead, Write};
     use {spec, Command};
 
@@ -52,7 +52,7 @@ mod qapi {
         pub fn write_command<C: Command>(&mut self, command: &C) -> io::Result<()> {
             {
                 let mut ser = serde_json::Serializer::new(&mut self.stream);
-                spec::serde_command::serialize(command, &mut ser)?;
+                spec::CommandSerializerRef(command).serialize(&mut ser)?;
 
                 trace!("-> execute {}: {}", C::NAME, serde_json::to_string_pretty(command).unwrap());
             }

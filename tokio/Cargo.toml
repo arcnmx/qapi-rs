@@ -1,0 +1,35 @@
+[package]
+name = "tokio-qapi"
+version = "0.0.1"
+authors = ["arcnmx"]
+
+description = "QEMU QMP and Guest Agent API tokio adapter"
+keywords = ["qemu", "qmp", "qapi", "tokio", "async"]
+
+documentation = "http://arcnmx.github.io/qapi-rs/tokio_qapi"
+repository = "https://github.com/arcnmx/qapi-rs"
+readme = "../README.md"
+license = "MIT"
+
+[badges]
+travis-ci = { repository = "arcnmx/qapi-rs" }
+maintenance = { status = "passively-maintained" }
+
+[dependencies]
+qapi = { version = "^0.0.1", path = "../" }
+qapi-spec = { version = "^0.0.1", path = "../spec" }
+serde_json = "^1.0.9"
+serde = "^1.0.27"
+tokio-io = "^0.1.5"
+futures = "^0.1.18"
+bytes = "^0.4.6"
+log = "^0.4.1"
+
+[dev-dependencies]
+tokio-uds = "^0.1.7"
+tokio-core = "^0.1.12"
+env_logger = "^0.5.4"
+
+[features]
+qmp = ["qapi/qmp"]
+qga = ["qapi/qga"]
