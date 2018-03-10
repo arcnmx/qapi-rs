@@ -250,12 +250,14 @@ pub enum {} {{
 
     fn process_unions(&mut self) -> io::Result<()> {
         for u in &self.unions {
+            let discrim = if let Some(ref tag) = u.discriminator { tag } else { "type" };
             write!(self.out, "
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = \"{}\")]
 pub enum {} {{
-", if let Some(ref tag) = u.discriminator { tag } else { "type" }, type_identifier(&u.id))?;
+", discrim, type_identifier(&u.id))?;
 
+            let mut discrim_ty = None;
             for variant in &u.data.fields {
                 assert!(!variant.optional);
                 assert!(!variant.ty.is_array);
@@ -264,12 +266,20 @@ pub enum {} {{
                 writeln!(self.out, "\t#[serde(rename = \"{}\")]\n\t{} {{\n\t\t// base", variant.name, type_identifier(&variant.name))?;
                 match u.base {
                     spec::DataOrType::Data(ref data) => for base in &data.fields {
-                        writeln!(self.out, "\t\t{},", valuety(base, false, &u.id))?;
+                        if base.name == discrim {
+                            discrim_ty = Some(base.ty.clone());
+                        } else {
+                            writeln!(self.out, "\t\t{},", valuety(base, false, &u.id))?;
+                        }
                     },
                     spec::DataOrType::Type(ref ty) => {
                         let ty = self.types.get(&ty.name).ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}", ty.name)))?;
                         for base in &ty.data.fields {
-                            writeln!(self.out, "\t\t{},", valuety(base, false, &u.id))?;
+                            if base.name == discrim {
+                                discrim_ty = Some(base.ty.clone());
+                            } else {
+                                writeln!(self.out, "\t\t{},", valuety(base, false, &u.id))?;
+                            }
                         }
                     },
                 }
@@ -282,6 +292,22 @@ pub enum {} {{
                 writeln!(self.out, "\t}},")?;
             }
             writeln!(self.out, "}}")?;
+
+            if let Some(discrim_ty) = discrim_ty {
+                write!(self.out, "
+impl {} {{
+    pub fn {}(&self) -> {} {{
+        match *self {{
+", type_identifier(&u.id), identifier(&discrim), type_identifier(&discrim_ty.name))?;
+                for variant in &u.data.fields {
+                    writeln!(self.out, "
+            {}::{} {{ .. }} => {}::{},", type_identifier(&u.id), type_identifier(&variant.name), type_identifier(&discrim_ty.name), type_identifier(&variant.name))?;
+                }
+                writeln!(self.out, "
+        }}
+    }}
+}}")?;
+            }
         }
 
         Ok(())
