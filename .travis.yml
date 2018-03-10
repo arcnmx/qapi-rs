@@ -1,8 +1,8 @@
 language: rust
 rust:
 - stable
-- beta
-- nightly
+#- beta
+#- nightly
 sudo: false
 os:
 - linux
@@ -10,10 +10,10 @@ cache:
   directories:
   - "$HOME/.cargo"
   - target
-matrix:
-  fast_finish: true
-  allow_failures:
-  - rust: nightly
+#matrix:
+#  fast_finish: true
+#  allow_failures:
+#  - rust: nightly
 env:
   matrix:
   - CARGO_FEATURES=
