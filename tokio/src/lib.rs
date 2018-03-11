@@ -178,6 +178,7 @@ struct QapiStreamInner<S> {
     #[cfg(feature = "qapi-qmp")]
     greeting: Option<Box<[u8]>>,
     fused: bool,
+    fused_events: bool,
     #[cfg(feature = "qapi-qmp")]
     task_events: Option<Task>,
     task_response: Option<Task>,
@@ -193,6 +194,7 @@ impl<S> QapiStreamInner<S> {
             #[cfg(feature = "qapi-qmp")]
             greeting: Default::default(),
             fused: false,
+            fused_events: false,
             #[cfg(feature = "qapi-qmp")]
             task_events: None,
             task_response: None,
@@ -203,6 +205,10 @@ impl<S> QapiStreamInner<S> {
 impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> QapiStreamInner<S> {
     #[cfg(feature = "qapi-qmp")]
     fn push_event(&mut self, e: &[u8]) {
+        if self.fused_events {
+            return
+        }
+
         if let Some(ref task) = self.task_events {
             self.events.push(e.to_owned().into_boxed_slice());
 
@@ -275,7 +281,7 @@ impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> QapiStreamI
                 debug!("Decoded event {:?}", v);
                 Ok(Async::Ready(Some(v)))
             },
-            None => if self.fused {
+            None => if self.fused || self.fused_events {
                 Ok(Async::Ready(None))
             } else {
                 Ok(Async::NotReady)
@@ -303,7 +309,8 @@ pub struct QapiStream<S> {
 
 impl<S> QapiStream<S> {
     pub fn new(stream: S) -> Self {
-        let inner = QapiStreamInner::new(stream);
+        let mut inner = QapiStreamInner::new(stream);
+        inner.fused_events = true;
         // TODO: why bother with a lock here, make it generic instead
         let (inner, _) = BiLock::new(inner);
 
