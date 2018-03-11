@@ -7,7 +7,7 @@ extern crate serde_derive;
 
 include!(concat!(env!("OUT_DIR"), "/qga.rs"));
 
-use std::{io, str};
+use std::{io, str, fmt, error};
 
 impl GuestExecStatus {
     pub fn result(self) -> Result<Self, Self> {
@@ -21,30 +21,44 @@ impl GuestExecStatus {
             Ok(self)
         }
     }
-}
 
-impl From<GuestExecStatus> for io::Error {
-    fn from(s: GuestExecStatus) -> Self {
-        let (err0, err1) = if let Some(Ok(data)) = s.err_data.as_ref().map(|s| str::from_utf8(s)) {
+    fn message(&self) -> String {
+        let (err0, err1) = if let Some(Ok(data)) = self.err_data.as_ref().map(|s| str::from_utf8(s)) {
             (": ", data)
         } else {
             ("", "")
         };
 
-        let sig = if let Some(signal) = s.signal {
+        let sig = if let Some(signal) = self.signal {
             format!(" (terminated by signal {})", signal)
         } else {
             Default::default()
         };
 
-        let msg = if let Some(code) = s.exitcode {
-            format!("process exited with code {}{}{}{}", code, sig, err0, err1)
-        } else if s.exited {
-            format!("process exited{}{}{}", sig, err0, err1)
+        if let Some(code) = self.exitcode {
+            format!("guest process exited with code {}{}{}{}", code, sig, err0, err1)
+        } else if self.exited {
+            format!("guest process exited{}{}{}", sig, err0, err1)
         } else {
-            panic!("a running process is not an error")
-        };
+            format!("guest process is still running")
+        }
+    }
+}
 
-        io::Error::new(io::ErrorKind::Other, msg)
+impl fmt::Display for GuestExecStatus {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.message())
+    }
+}
+
+impl error::Error for GuestExecStatus {
+    fn description(&self) -> &str {
+        "guest process exit status"
+    }
+}
+
+impl From<GuestExecStatus> for io::Error {
+    fn from(s: GuestExecStatus) -> Self {
+        io::Error::new(io::ErrorKind::Other, s.to_string())
     }
 }
