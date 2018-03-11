@@ -32,7 +32,7 @@ pub struct QapiFuture<C: Command, S> {
 }
 
 impl<C: Command, S> QapiFuture<C, S> {
-    fn new(stream: S, command: C) -> Self {
+    pub fn new(stream: S, command: C) -> Self {
         QapiFuture {
             state: QapiState::Queue {
                 inner: stream,
@@ -101,10 +101,10 @@ impl<C, S> QapiState<C, S> {
     }
 }
 
-impl<I, C, S, E> Future for QapiFuture<C, S>
+impl<C, S, E> Future for QapiFuture<C, S>
     where
-        I: AsRef<[u8]>,
-        S: Sink<SinkItem=Box<[u8]>, SinkError=E> + Stream<Item=I, Error=E>,
+        S: Sink<SinkItem=Box<[u8]>, SinkError=E> + Stream<Error=E>,
+        S::Item: AsRef<[u8]>,
         C: Command,
         io::Error: From<E>,
 {
@@ -153,15 +153,6 @@ impl<I, C, S, E> Future for QapiFuture<C, S>
     }
 }
 
-pub fn execute<
-    C: Command,
-    E: From<io::Error>,
-    I: AsRef<[u8]>,
-    S: Sink<SinkItem=Box<[u8]>, SinkError=E> + Stream<Item=I, Error=E>,
->(c: C, s: S) -> QapiFuture<C, S> {
-    QapiFuture::new(s, c)
-}
-
 struct QapiStreamInner<S> {
     stream: S,
     #[cfg(feature = "qapi-qmp")]
@@ -194,7 +185,11 @@ impl<S> QapiStreamInner<S> {
     }
 }
 
-impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> QapiStreamInner<S> {
+impl<S> QapiStreamInner<S> where
+    S: Stream,
+    S::Item: AsRef<[u8]>,
+    S::Error: From<io::Error>,
+{
     #[cfg(feature = "qapi-qmp")]
     fn push_event(&mut self, e: &[u8]) {
         if self.fused_events {
@@ -222,7 +217,7 @@ impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> QapiStreamI
     #[cfg(not(feature = "qapi-qmp"))]
     fn push_greeting(&mut self, _: &[u8]) { }
 
-    fn poll(&mut self) -> Poll<(), E> {
+    fn poll(&mut self) -> Poll<(), S::Error> {
         match try_ready!(self.stream.poll()) {
             Some(v) => {
                 let v = v.as_ref();
@@ -250,7 +245,7 @@ impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> QapiStreamI
     }
 
     #[cfg(feature = "qapi-qmp")]
-    fn greeting(&mut self) -> Poll<Option<qmp::QapiCapabilities>, E> {
+    fn greeting(&mut self) -> Poll<Option<qmp::QapiCapabilities>, S::Error> {
         match self.greeting.take() {
             Some(g) => {
                 serde_json::from_slice(&g)
@@ -266,7 +261,7 @@ impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> QapiStreamI
     }
 
     #[cfg(feature = "qapi-qmp")]
-    fn event(&mut self) -> Poll<Option<qmp::Event>, E> {
+    fn event(&mut self) -> Poll<Option<qmp::Event>, S::Error> {
         match self.events.pop() {
             Some(v) => {
                 let v = serde_json::from_slice(v.as_ref()).map_err(io::Error::from)?;
@@ -281,7 +276,7 @@ impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> QapiStreamI
         }
     }
 
-    fn response(&mut self) -> Poll<Option<BytesMut>, E> {
+    fn response(&mut self) -> Poll<Option<BytesMut>, S::Error> {
         match self.response.take() {
             Some(v) => {
                 Ok(Async::Ready(Some(v)))
@@ -310,6 +305,10 @@ impl<S> QapiStream<S> {
             inner: inner,
         }
     }
+
+    pub fn execute<C: Command>(self, command: C) -> QapiFuture<C, Self> {
+        QapiFuture::new(self, command)
+    }
 }
 
 #[cfg(feature = "qapi-qmp")]
@@ -334,9 +333,13 @@ impl<S> QapiEventStream<S> {
 }
 
 #[cfg(feature = "qapi-qmp")]
-impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> Stream for QapiEventStream<S> {
+impl<S> Stream for QapiEventStream<S> where
+    S: Stream,
+    S::Item: AsRef<[u8]>,
+    S::Error: From<io::Error>,
+{
     type Item = qmp::Event;
-    type Error = E;
+    type Error = S::Error;
 
     fn poll(&mut self) -> Poll<Option<Self::Item>, Self::Error> {
         let mut inner = try_ready!(Ok::<_, Self::Error>(self.inner.poll_lock()));
@@ -353,9 +356,13 @@ impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> Stream for 
 }
 
 #[cfg(feature = "qapi-qmp")]
-impl<I: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=I, Error=E>> QapiStream<S> {
-    pub fn poll_greeting(&mut self) -> Poll<Option<qmp::QapiCapabilities>, E> {
-        let mut inner = try_ready!(Ok::<_, E>(self.inner.poll_lock()));
+impl<S> QapiStream<S> where
+    S: Stream,
+    S::Item: AsRef<[u8]>,
+    S::Error: From<io::Error>,
+{
+    pub fn poll_greeting(&mut self) -> Poll<Option<qmp::QapiCapabilities>, S::Error> {
+        let mut inner = try_ready!(Ok::<_, S::Error>(self.inner.poll_lock()));
         inner.task_response = Some(task::current());
         let _ = inner.poll()?;
         match inner.greeting() {
@@ -368,9 +375,13 @@ impl<I: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=I, Error=E>> QapiStream<
     }
 }
 
-impl<I: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=I, Error=E>> Stream for QapiStream<S> {
+impl<S> Stream for QapiStream<S> where
+    S: Stream,
+    S::Item: AsRef<[u8]>,
+    S::Error: From<io::Error>,
+{
     type Item = BytesMut;
-    type Error = E;
+    type Error = S::Error;
 
     fn poll(&mut self) -> Poll<Option<Self::Item>, Self::Error> {
         trace!("QapiStream::poll()");
@@ -387,9 +398,12 @@ impl<I: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=I, Error=E>> Stream for 
     }
 }
 
-impl<E: From<io::Error>, S: Sink<SinkItem=Box<[u8]>, SinkError=E>> Sink for QapiStream<S> {
+impl<S> Sink for QapiStream<S> where
+    S: Sink<SinkItem = Box<[u8]>>,
+    S::SinkError: From<io::Error>,
+{
     type SinkItem = Box<[u8]>;
-    type SinkError = E;
+    type SinkError = S::SinkError;
 
     fn start_send(&mut self, item: Self::SinkItem) -> StartSend<Self::SinkItem, Self::SinkError> {
         trace!("QapiStream::start_send()");
@@ -464,13 +478,14 @@ enum QmpHandshakeState<S> {
 }
 
 #[cfg(feature = "qapi-qmp")]
-impl<I, E: From<io::Error>, S> Future for QmpHandshake<S> where
-    I: AsRef<[u8]>,
-    S: Stream<Item=I, Error=E> + Sink<SinkItem=Box<[u8]>, SinkError=E>,
-    io::Error: From<E>,
+impl<S, E> Future for QmpHandshake<S> where
+    S: Stream<Error=E> + Sink<SinkItem=Box<[u8]>, SinkError=E>,
+    S::Item: AsRef<[u8]>,
+    S::Error: From<io::Error>,
+    io::Error: From<S::Error>,
 {
     type Item = (qmp::QMP, QapiStream<S>);
-    type Error = E;
+    type Error = S::Error;
 
     fn poll(&mut self) -> Poll<Self::Item, Self::Error> {
         let g = match self.state {
@@ -531,13 +546,14 @@ impl<S> QgaHandshake<S> {
 }
 
 #[cfg(feature = "qapi-qga")]
-impl<I, E: From<io::Error>, S> Future for QgaHandshake<S> where
-    I: AsRef<[u8]>,
-    S: Stream<Item=I, Error=E> + Sink<SinkItem=Box<[u8]>, SinkError=E>,
-    io::Error: From<E>,
+impl<S, E> Future for QgaHandshake<S> where
+    S: Stream<Error=E> + Sink<SinkItem=Box<[u8]>, SinkError=E>,
+    S::Item: AsRef<[u8]>,
+    S::Error: From<io::Error>,
+    io::Error: From<S::Error>,
 {
     type Item = QapiStream<S>;
-    type Error = E;
+    type Error = S::Error;
 
     fn poll(&mut self) -> Poll<Self::Item, Self::Error> {
         let (r, stream) = try_ready!(self.future.poll());

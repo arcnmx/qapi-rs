@@ -21,7 +21,7 @@ mod main {
         let stream = tokio_qapi::stream(stream);
         let (caps, stream) = core.run(tokio_qapi::qmp_handshake(stream)).expect("failed to handshake");
         println!("{:#?}", caps);
-        let status = tokio_qapi::execute(qmp::query_status { }, stream);
+        let status = stream.execute(qmp::query_status { });
         let (status, _stream) = core.run(status).expect("failed to complete future");
         let status = status.expect("failed to require status");
         println!("VCPU status: {:#?}", status);
