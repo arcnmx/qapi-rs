@@ -16,11 +16,8 @@ pub extern crate qapi_qga as qga;
 
 pub use spec::{Any, Empty, Command, Event, Error, Timestamp};
 
-use std::marker::PhantomData;
 use std::mem::replace;
 use std::{io, str};
-use serde::de::DeserializeOwned;
-use serde::Serialize;
 use tokio_io::codec::{Framed, FramedParts};
 use futures::{Future, Poll, StartSend, Async, AsyncSink, Sink, Stream};
 use futures::sync::BiLock;
@@ -30,19 +27,17 @@ use bytes::buf::FromBuf;
 
 mod codec;
 
-pub struct QapiFuture<C, R, S> {
-    state: QapiState<C, S>,
-    _marker: PhantomData<fn(C) -> R>,
+pub struct QapiFuture<C: Command, S> {
+    state: QapiState<spec::CommandSerializer<C>, S>,
 }
 
-impl<C: spec::Command, S> QapiFuture<spec::CommandSerializer<C>, spec::Response<C::Ok>, S> {
+impl<C: Command, S> QapiFuture<C, S> {
     fn new(stream: S, command: C) -> Self {
         QapiFuture {
             state: QapiState::Queue {
                 inner: stream,
                 value: spec::CommandSerializer(command),
             },
-            _marker: Default::default(),
         }
     }
 }
@@ -106,14 +101,13 @@ impl<C, S> QapiState<C, S> {
     }
 }
 
-impl<C, R, S, E> Future for QapiFuture<C, spec::Response<R>, S>
+impl<C, S, E> Future for QapiFuture<C, S>
     where
         S: Sink<SinkItem=Box<[u8]>, SinkError=E> + Stream<Item=BytesMut, Error=E>,
-        C: Serialize,
-        R: DeserializeOwned,
+        C: Command,
         io::Error: From<E>,
 {
-    type Item = (Result<R, spec::Error>, S);
+    type Item = (Result<C::Ok, Error>, S);
     type Error = io::Error;
 
     fn poll(&mut self) -> Poll<Self::Item, Self::Error> {
@@ -148,7 +142,7 @@ impl<C, R, S, E> Future for QapiFuture<C, spec::Response<R>, S>
                 trace!("QapiFuture::poll got poll result: {:?}", poll);
                 match poll {
                     Some(t) => {
-                        let t: spec::Response<R> = serde_json::from_slice(&t)?;
+                        let t: spec::Response<C::Ok> = serde_json::from_slice(&t)?;
                         Ok(Async::Ready((t.result(), self.state.take_inner().unwrap())))
                     },
                     None => Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response, got eof")),
@@ -162,11 +156,7 @@ pub fn execute<
     C: Command,
     E: From<io::Error>,
     S: Sink<SinkItem=Box<[u8]>, SinkError=E> + Stream<Item=BytesMut, Error=E>,
->(c: C, s: S) -> QapiFuture<
-    spec::CommandSerializer<C>,
-    spec::Response<C::Ok>,
-    S
-> {
+>(c: C, s: S) -> QapiFuture<C, S> {
     QapiFuture::new(s, c)
 }
 
@@ -467,11 +457,7 @@ enum QmpHandshakeState<S> {
     },
     Future {
         greeting: Option<qmp::QMP>,
-        future: QapiFuture<
-            spec::CommandSerializer<qmp::qmp_capabilities>,
-            spec::Response<spec::Empty>,
-            QapiStream<S>,
-        >,
+        future: QapiFuture<qmp::qmp_capabilities, QapiStream<S>>,
     },
 }
 
@@ -528,11 +514,7 @@ pub fn qga_handshake<S>(stream: QapiStream<S>) -> QgaHandshake<S> {
 #[cfg(feature = "qapi-qga")]
 pub struct QgaHandshake<S> {
     expected: isize,
-    future: QapiFuture<
-        spec::CommandSerializer<qga::guest_sync>,
-        spec::Response<isize>,
-        QapiStream<S>,
-    >,
+    future: QapiFuture<qga::guest_sync, QapiStream<S>>,
 }
 
 #[cfg(feature = "qapi-qga")]
