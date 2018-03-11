@@ -6,14 +6,15 @@ extern crate futures;
 #[macro_use]
 extern crate log;
 extern crate bytes;
-extern crate qapi;
 extern crate qapi_spec as spec;
 
-#[cfg(feature = "qmp")]
-pub use qapi::qmp;
+#[cfg(feature = "qapi-qmp")]
+pub extern crate qapi_qmp as qmp;
 
-#[cfg(feature = "qga")]
-pub use qapi::qga;
+#[cfg(feature = "qapi-qga")]
+pub extern crate qapi_qga as qga;
+
+pub use spec::{Any, Empty, Command, Event, Error, Timestamp};
 
 use std::marker::PhantomData;
 use std::mem::replace;
@@ -158,7 +159,7 @@ impl<C, R, S, E> Future for QapiFuture<C, spec::Response<R>, S>
 }
 
 pub fn execute<
-    C: qapi::Command,
+    C: Command,
     E: From<io::Error>,
     S: Sink<SinkItem=Box<[u8]>, SinkError=E> + Stream<Item=BytesMut, Error=E>,
 >(c: C, s: S) -> QapiFuture<
@@ -171,13 +172,13 @@ pub fn execute<
 
 struct QapiStreamInner<S> {
     stream: S,
-    #[cfg(feature = "qmp")]
+    #[cfg(feature = "qapi-qmp")]
     events: Vec<Box<[u8]>>,
     response: Option<BytesMut>,
-    #[cfg(feature = "qmp")]
+    #[cfg(feature = "qapi-qmp")]
     greeting: Option<Box<[u8]>>,
     fused: bool,
-    #[cfg(feature = "qmp")]
+    #[cfg(feature = "qapi-qmp")]
     task_events: Option<Task>,
     task_response: Option<Task>,
 }
@@ -186,13 +187,13 @@ impl<S> QapiStreamInner<S> {
     fn new(s: S) -> Self {
         QapiStreamInner {
             stream: s,
-            #[cfg(feature = "qmp")]
+            #[cfg(feature = "qapi-qmp")]
             events: Default::default(),
             response: Default::default(),
-            #[cfg(feature = "qmp")]
+            #[cfg(feature = "qapi-qmp")]
             greeting: Default::default(),
             fused: false,
-            #[cfg(feature = "qmp")]
+            #[cfg(feature = "qapi-qmp")]
             task_events: None,
             task_response: None,
         }
@@ -200,7 +201,7 @@ impl<S> QapiStreamInner<S> {
 }
 
 impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> QapiStreamInner<S> {
-    #[cfg(feature = "qmp")]
+    #[cfg(feature = "qapi-qmp")]
     fn push_event(&mut self, e: &[u8]) {
         if let Some(ref task) = self.task_events {
             self.events.push(e.to_owned().into_boxed_slice());
@@ -209,7 +210,7 @@ impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> QapiStreamI
         }
     }
 
-    #[cfg(feature = "qmp")]
+    #[cfg(feature = "qapi-qmp")]
     fn push_greeting(&mut self, g: &[u8]) {
         self.greeting = Some(g.to_owned().into_boxed_slice());
         if let Some(ref task) = self.task_response {
@@ -217,10 +218,10 @@ impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> QapiStreamI
         }
     }
 
-    #[cfg(not(feature = "qmp"))]
+    #[cfg(not(feature = "qapi-qmp"))]
     fn push_event(&mut self, _: &[u8]) { }
 
-    #[cfg(not(feature = "qmp"))]
+    #[cfg(not(feature = "qapi-qmp"))]
     fn push_greeting(&mut self, _: &[u8]) { }
 
     fn poll(&mut self) -> Poll<(), E> {
@@ -250,8 +251,8 @@ impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> QapiStreamI
         }
     }
 
-    #[cfg(feature = "qmp")]
-    fn greeting(&mut self) -> Poll<Option<qapi::qmp::QapiCapabilities>, E> {
+    #[cfg(feature = "qapi-qmp")]
+    fn greeting(&mut self) -> Poll<Option<qmp::QapiCapabilities>, E> {
         match self.greeting.take() {
             Some(g) => {
                 serde_json::from_slice(&g)
@@ -266,8 +267,8 @@ impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> QapiStreamI
         }
     }
 
-    #[cfg(feature = "qmp")]
-    fn event(&mut self) -> Poll<Option<qapi::qmp::Event>, E> {
+    #[cfg(feature = "qapi-qmp")]
+    fn event(&mut self) -> Poll<Option<qmp::Event>, E> {
         match self.events.pop() {
             Some(v) => {
                 let v = serde_json::from_slice(v.as_ref()).map_err(io::Error::from)?;
@@ -312,12 +313,12 @@ impl<S> QapiStream<S> {
     }
 }
 
-#[cfg(feature = "qmp")]
+#[cfg(feature = "qapi-qmp")]
 pub struct QapiEventStream<S> {
     inner: BiLock<QapiStreamInner<S>>,
 }
 
-#[cfg(feature = "qmp")]
+#[cfg(feature = "qapi-qmp")]
 impl<S> QapiEventStream<S> {
     pub fn new(stream: S) -> (QapiStream<S>, QapiEventStream<S>) {
         let inner = QapiStreamInner::new(stream);
@@ -333,9 +334,9 @@ impl<S> QapiEventStream<S> {
     }
 }
 
-#[cfg(feature = "qmp")]
+#[cfg(feature = "qapi-qmp")]
 impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> Stream for QapiEventStream<S> {
-    type Item = qapi::qmp::Event;
+    type Item = qmp::Event;
     type Error = E;
 
     fn poll(&mut self) -> Poll<Option<Self::Item>, Self::Error> {
@@ -352,9 +353,9 @@ impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> Stream for 
     }
 }
 
-#[cfg(feature = "qmp")]
+#[cfg(feature = "qapi-qmp")]
 impl<E: From<io::Error>, S: Stream<Item=BytesMut, Error=E>> QapiStream<S> {
-    pub fn poll_greeting(&mut self) -> Poll<Option<qapi::qmp::QapiCapabilities>, E> {
+    pub fn poll_greeting(&mut self) -> Poll<Option<qmp::QapiCapabilities>, E> {
         let mut inner = try_ready!(Ok::<_, E>(self.inner.poll_lock()));
         inner.task_response = Some(task::current());
         let _ = inner.poll()?;
@@ -421,7 +422,7 @@ pub fn data_stream<S>(stream: S) -> QapiDataStream<S> {
     )
 }
 
-#[cfg(feature = "qmp")]
+#[cfg(feature = "qapi-qmp")]
 pub fn event_stream<S>(stream: S) -> (QapiStream<QapiDataStream<S>>, QapiEventStream<QapiDataStream<S>>) {
     QapiEventStream::new(data_stream(stream))
 }
@@ -430,17 +431,17 @@ pub fn stream<S>(stream: S) -> QapiStream<QapiDataStream<S>> {
     QapiStream::new(data_stream(stream))
 }
 
-#[cfg(feature = "qmp")]
+#[cfg(feature = "qapi-qmp")]
 pub fn qmp_handshake<S>(stream: QapiStream<S>) -> QmpHandshake<S> {
     QmpHandshake::new(stream)
 }
 
-#[cfg(feature = "qmp")]
+#[cfg(feature = "qapi-qmp")]
 pub struct QmpHandshake<S> {
     state: QmpHandshakeState<S>,
 }
 
-#[cfg(feature = "qmp")]
+#[cfg(feature = "qapi-qmp")]
 impl<S> QmpHandshake<S> {
     pub fn new(stream: QapiStream<S>) -> Self {
         QmpHandshake {
@@ -451,28 +452,28 @@ impl<S> QmpHandshake<S> {
     }
 }
 
-#[cfg(feature = "qmp")]
+#[cfg(feature = "qapi-qmp")]
 enum QmpHandshakeState<S> {
     None,
     Greeting {
         stream: QapiStream<S>,
     },
     Future {
-        greeting: Option<qapi::qmp::QMP>,
+        greeting: Option<qmp::QMP>,
         future: QapiFuture<
-            spec::CommandSerializer<qapi::qmp::qmp_capabilities>,
+            spec::CommandSerializer<qmp::qmp_capabilities>,
             spec::Response<spec::Empty>,
             QapiStream<S>,
         >,
     },
 }
 
-#[cfg(feature = "qmp")]
+#[cfg(feature = "qapi-qmp")]
 impl<E: From<io::Error>, S> Future for QmpHandshake<S> where
     S : Stream<Item=BytesMut, Error=E> + Sink<SinkItem=Box<[u8]>, SinkError=E>,
     io::Error: From<E>,
 {
-    type Item = (qapi::qmp::QMP, QapiStream<S>);
+    type Item = (qmp::QMP, QapiStream<S>);
     type Error = E;
 
     fn poll(&mut self) -> Poll<Self::Item, Self::Error> {
@@ -504,40 +505,40 @@ impl<E: From<io::Error>, S> Future for QmpHandshake<S> where
 
         self.state = QmpHandshakeState::Future {
             greeting: Some(g.QMP),
-            future: QapiFuture::new(stream, qapi::qmp::qmp_capabilities { }),
+            future: QapiFuture::new(stream, qmp::qmp_capabilities { }),
         };
 
         self.poll()
     }
 }
 
-#[cfg(feature = "qga")]
+#[cfg(feature = "qapi-qga")]
 pub fn qga_handshake<S>(stream: QapiStream<S>) -> QgaHandshake<S> {
     let sync = &stream as *const _ as usize as _;
     QgaHandshake::new(stream, sync)
 }
 
-#[cfg(feature = "qga")]
+#[cfg(feature = "qapi-qga")]
 pub struct QgaHandshake<S> {
     expected: isize,
     future: QapiFuture<
-        spec::CommandSerializer<qapi::qga::guest_sync>,
+        spec::CommandSerializer<qga::guest_sync>,
         spec::Response<isize>,
         QapiStream<S>,
     >,
 }
 
-#[cfg(feature = "qga")]
+#[cfg(feature = "qapi-qga")]
 impl<S> QgaHandshake<S> {
     pub fn new(stream: QapiStream<S>, sync_value: isize) -> Self {
         QgaHandshake {
             expected: sync_value,
-            future: QapiFuture::new(stream, qapi::qga::guest_sync { id: sync_value }),
+            future: QapiFuture::new(stream, qga::guest_sync { id: sync_value }),
         }
     }
 }
 
-#[cfg(feature = "qga")]
+#[cfg(feature = "qapi-qga")]
 impl<E: From<io::Error>, S> Future for QgaHandshake<S> where
     S : Stream<Item=BytesMut, Error=E> + Sink<SinkItem=Box<[u8]>, SinkError=E>,
     io::Error: From<E>,

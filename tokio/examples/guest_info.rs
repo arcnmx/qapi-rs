@@ -2,7 +2,6 @@ extern crate tokio_qapi;
 extern crate tokio_uds;
 extern crate tokio_core;
 extern crate futures;
-extern crate qapi;
 extern crate env_logger;
 
 #[cfg(feature = "qga")]

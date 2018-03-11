@@ -16,7 +16,8 @@ travis-ci = { repository = "arcnmx/qapi-rs" }
 maintenance = { status = "passively-maintained" }
 
 [dependencies]
-qapi = { version = "^0.0.1", path = "../" }
+qapi-qga = { version = "^0.0.1", path = "../qga", optional = true }
+qapi-qmp = { version = "^0.0.1", path = "../qmp", optional = true }
 qapi-spec = { version = "^0.0.1", path = "../spec" }
 serde_json = "^1.0.9"
 serde = "^1.0.27"
@@ -31,5 +32,5 @@ tokio-core = "^0.1.12"
 env_logger = "^0.5.4"
 
 [features]
-qmp = ["qapi/qmp"]
-qga = ["qapi/qga"]
+qga = ["qapi-qga"]
+qmp = ["qapi-qmp"]

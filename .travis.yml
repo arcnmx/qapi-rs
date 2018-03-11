@@ -29,6 +29,9 @@ script:
 - cargo test
 - cargo build
 - cargo build --examples
+- cd $TRAVIS_BUILD_DIR/tokio
+- cargo test
+- cargo build
 - cd $TRAVIS_BUILD_DIR/parser
 - CARGO_FEATURES= cargo test
 - CARGO_FEATURES= cargo build
@@ -38,9 +41,6 @@ script:
 - cd $TRAVIS_BUILD_DIR/codegen
 - CARGO_FEATURES= cargo test
 - CARGO_FEATURES= cargo build
-- cd $TRAVIS_BUILD_DIR/tokio
-- cargo test
-- cargo build
 - |
   if [[ $CARGO_FEATURES = *qga* ]]; then
     cd $TRAVIS_BUILD_DIR/qga
@@ -67,8 +67,8 @@ before_deploy:
 - cargo doc -p qapi-codegen
 - cargo doc -p qapi-qga
 - cargo doc -p qapi-qmp
-- cargo doc
 - cargo doc -p tokio-qapi
+- cargo doc
 - cd $TRAVIS_BUILD_DIR/spec
 - cargo package
 - cd $TRAVIS_BUILD_DIR/parser
@@ -89,9 +89,9 @@ after_deploy:
 - cd $TRAVIS_BUILD_DIR/qmp
 - cargo package
 - cargo publish
-- cd $TRAVIS_BUILD_DIR
+- cd $TRAVIS_BUILD_DIR/tokio
 - cargo package
 - cargo publish
-- cd $TRAVIS_BUILD_DIR/tokio
+- cd $TRAVIS_BUILD_DIR
 - cargo package
 - cargo publish
