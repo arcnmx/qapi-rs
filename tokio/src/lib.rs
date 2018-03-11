@@ -148,8 +148,8 @@ impl<C, R, S, E> Future for QapiFuture<C, spec::Response<R>, S>
                 trace!("QapiFuture::poll got poll result: {:?}", poll);
                 match poll {
                     Some(t) => {
-                        let t = serde_json::from_slice(&t)?;
-                        Ok(Async::Ready((t, self.state.take_inner().unwrap())))
+                        let t: spec::Response<R> = serde_json::from_slice(&t)?;
+                        Ok(Async::Ready((t.result(), self.state.take_inner().unwrap())))
                     },
                     None => Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response, got eof")),
                 }
