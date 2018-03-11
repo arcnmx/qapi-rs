@@ -27,8 +27,8 @@ use bytes::buf::FromBuf;
 
 mod codec;
 
-pub struct QapiFuture<C: Command, S> {
-    state: QapiState<spec::CommandSerializer<C>, S>,
+pub struct QapiFuture<C, S> {
+    state: QapiState<C, S>,
 }
 
 impl<C: Command, S> QapiFuture<C, S> {
@@ -36,7 +36,7 @@ impl<C: Command, S> QapiFuture<C, S> {
         QapiFuture {
             state: QapiState::Queue {
                 inner: stream,
-                value: spec::CommandSerializer(command),
+                value: command,
             },
         }
     }
@@ -115,11 +115,10 @@ impl<C, S, E> Future for QapiFuture<C, S>
         trace!("QapiFuture::poll()");
         match self.state.take_value() {
             Some(v) => {
-                let mut encoded = serde_json::to_vec(&v)?;
-                encoded.push(b'\n');
+                let encoded = encode_command(&v)?;
                 debug!("Encoded command {}", str::from_utf8(&encoded).unwrap_or("utf8 decoding failed"));
                 // TODO: queue the vec instead of the value?
-                match self.state.inner_mut().unwrap().start_send(encoded.into_boxed_slice()) {
+                match self.state.inner_mut().unwrap().start_send(encoded) {
                     Ok(AsyncSink::Ready) => self.poll(),
                     Ok(AsyncSink::NotReady(..)) => {
                         trace!("Failed to start_send, try later");
@@ -566,4 +565,10 @@ impl<S, E> Future for QgaHandshake<S> where
             },
         }
     }
+}
+
+pub fn encode_command<C: Command>(c: &C) -> io::Result<Box<[u8]>> {
+    let mut encoded = serde_json::to_vec(&spec::CommandSerializerRef(c))?;
+    encoded.push(b'\n');
+    Ok(encoded.into_boxed_slice())
 }
