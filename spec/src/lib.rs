@@ -4,7 +4,7 @@ extern crate serde_derive;
 extern crate serde_json;
 extern crate base64 as b64;
 
-use std::io;
+use std::{io, error, fmt};
 use serde::de::DeserializeOwned;
 use serde::Serialize;
 
@@ -164,6 +164,18 @@ impl From<ErrorClass> for io::ErrorKind {
 pub struct Error {
     pub class: ErrorClass,
     pub desc: String,
+}
+
+impl error::Error for Error {
+    fn description(&self) -> &str {
+        &self.desc
+    }
+}
+
+impl fmt::Display for Error {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        fmt::Display::fmt(&self.desc, f)
+    }
 }
 
 impl From<Error> for io::Error {
