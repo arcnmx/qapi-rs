@@ -10,8 +10,7 @@ mod main {
     use std::env::args;
     use tokio_uds::UnixStream;
     use tokio_core::reactor::Core;
-    use qapi::qga;
-    use tokio_qapi;
+    use tokio_qapi::{self, qga};
 
     pub fn main() {
         ::env_logger::init();

@@ -2,7 +2,6 @@ extern crate tokio_qapi;
 extern crate tokio_uds;
 extern crate tokio_core;
 extern crate futures;
-extern crate qapi;
 extern crate env_logger;
 
 #[cfg(feature = "qmp")]
@@ -10,8 +9,7 @@ mod main {
     use std::env::args;
     use tokio_uds::UnixStream;
     use tokio_core::reactor::Core;
-    use qapi::qmp;
-    use tokio_qapi;
+    use tokio_qapi::{self, qmp};
 
     pub fn main() {
         ::env_logger::init();

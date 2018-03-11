@@ -9,6 +9,12 @@ extern crate bytes;
 extern crate qapi;
 extern crate qapi_spec as spec;
 
+#[cfg(feature = "qmp")]
+pub use qapi::qmp;
+
+#[cfg(feature = "qga")]
+pub use qapi::qga;
+
 use std::marker::PhantomData;
 use std::mem::replace;
 use std::{io, str};
