@@ -101,9 +101,10 @@ impl<C, S> QapiState<C, S> {
     }
 }
 
-impl<C, S, E> Future for QapiFuture<C, S>
+impl<I, C, S, E> Future for QapiFuture<C, S>
     where
-        S: Sink<SinkItem=Box<[u8]>, SinkError=E> + Stream<Item=BytesMut, Error=E>,
+        I: AsRef<[u8]>,
+        S: Sink<SinkItem=Box<[u8]>, SinkError=E> + Stream<Item=I, Error=E>,
         C: Command,
         io::Error: From<E>,
 {
@@ -139,9 +140,9 @@ impl<C, S, E> Future for QapiFuture<C, S>
                     panic!("future polled after returning value")
                 };
 
-                trace!("QapiFuture::poll got poll result: {:?}", poll);
                 match poll {
                     Some(t) => {
+                        let t = t.as_ref();
                         let t: spec::Response<C::Ok> = serde_json::from_slice(&t)?;
                         Ok(Async::Ready((t.result(), self.state.take_inner().unwrap())))
                     },
@@ -155,7 +156,8 @@ impl<C, S, E> Future for QapiFuture<C, S>
 pub fn execute<
     C: Command,
     E: From<io::Error>,
-    S: Sink<SinkItem=Box<[u8]>, SinkError=E> + Stream<Item=BytesMut, Error=E>,
+    I: AsRef<[u8]>,
+    S: Sink<SinkItem=Box<[u8]>, SinkError=E> + Stream<Item=I, Error=E>,
 >(c: C, s: S) -> QapiFuture<C, S> {
     QapiFuture::new(s, c)
 }
@@ -351,7 +353,7 @@ impl<R: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=R, Error=E>> Stream for 
 }
 
 #[cfg(feature = "qapi-qmp")]
-impl<E: From<io::Error>, S: Stream<Item=BytesMut, Error=E>> QapiStream<S> {
+impl<I: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=I, Error=E>> QapiStream<S> {
     pub fn poll_greeting(&mut self) -> Poll<Option<qmp::QapiCapabilities>, E> {
         let mut inner = try_ready!(Ok::<_, E>(self.inner.poll_lock()));
         inner.task_response = Some(task::current());
@@ -366,7 +368,7 @@ impl<E: From<io::Error>, S: Stream<Item=BytesMut, Error=E>> QapiStream<S> {
     }
 }
 
-impl<E: From<io::Error>, S: Stream<Item=BytesMut, Error=E>> Stream for QapiStream<S> {
+impl<I: AsRef<[u8]>, E: From<io::Error>, S: Stream<Item=I, Error=E>> Stream for QapiStream<S> {
     type Item = BytesMut;
     type Error = E;
 
@@ -462,8 +464,9 @@ enum QmpHandshakeState<S> {
 }
 
 #[cfg(feature = "qapi-qmp")]
-impl<E: From<io::Error>, S> Future for QmpHandshake<S> where
-    S : Stream<Item=BytesMut, Error=E> + Sink<SinkItem=Box<[u8]>, SinkError=E>,
+impl<I, E: From<io::Error>, S> Future for QmpHandshake<S> where
+    I: AsRef<[u8]>,
+    S: Stream<Item=I, Error=E> + Sink<SinkItem=Box<[u8]>, SinkError=E>,
     io::Error: From<E>,
 {
     type Item = (qmp::QMP, QapiStream<S>);
@@ -528,8 +531,9 @@ impl<S> QgaHandshake<S> {
 }
 
 #[cfg(feature = "qapi-qga")]
-impl<E: From<io::Error>, S> Future for QgaHandshake<S> where
-    S : Stream<Item=BytesMut, Error=E> + Sink<SinkItem=Box<[u8]>, SinkError=E>,
+impl<I, E: From<io::Error>, S> Future for QgaHandshake<S> where
+    I: AsRef<[u8]>,
+    S: Stream<Item=I, Error=E> + Sink<SinkItem=Box<[u8]>, SinkError=E>,
     io::Error: From<E>,
 {
     type Item = QapiStream<S>;
