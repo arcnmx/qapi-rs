@@ -67,7 +67,8 @@ before_deploy:
 - cargo doc -p qapi-codegen
 - cargo doc -p qapi-qga
 - cargo doc -p qapi-qmp
-- cargo doc -p tokio-qapi
+- cargo doc
+- cd $TRAVIS_BUILD_DIR/tokio
 - cargo doc
 - cd $TRAVIS_BUILD_DIR/spec
 - cargo package
