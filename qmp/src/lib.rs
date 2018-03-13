@@ -21,7 +21,7 @@ pub struct QapiCapabilities {
 }
 
 impl device_add {
-    pub fn new(driver: string::String, id: Option<string::String>, bus: Option<string::String>, props: qapi::Dictionary) -> Self {
+    pub fn new<P: IntoIterator<Item=(string::String, qapi::Any)>>(driver: string::String, id: Option<string::String>, bus: Option<string::String>, props: P) -> Self {
         let mut dict = qapi::Dictionary::default();
         dict.insert("driver".into(), qapi::Any::String(driver));
         if let Some(id) = id {
@@ -30,7 +30,7 @@ impl device_add {
         if let Some(bus) = bus {
             dict.insert("bus".into(), qapi::Any::String(bus));
         }
-        dict.extend(props.into_iter());
+        dict.extend(props);
 
         device_add(dict)
     }
