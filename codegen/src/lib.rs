@@ -96,6 +96,8 @@ fn valuety(value: &spec::Value, pubvis: bool, super_name: &str) -> String {
         ("", format!("Box<{}>", ty))
     } else if dict {
         ("", "::qapi::Dictionary".into())
+    } else if super_name == "guest-shutdown" && value.name == "mode" {
+        ("", "GuestShutdownMode".into())
     } else {
         ("", ty)
     };

@@ -9,6 +9,14 @@ include!(concat!(env!("OUT_DIR"), "/qga.rs"));
 
 use std::{io, str, fmt, error};
 
+#[derive(Copy, Clone, Debug, Deserialize, Serialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum GuestShutdownMode {
+    Halt,
+    Powerdown,
+    Reboot,
+}
+
 impl GuestExecStatus {
     pub fn result(self) -> Result<Self, Self> {
         if self.exited {
