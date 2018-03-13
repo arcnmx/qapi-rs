@@ -11,7 +11,7 @@ pub extern crate qapi_qmp as qmp;
 #[cfg(feature = "qapi-qga")]
 pub extern crate qapi_qga as qga;
 
-pub use spec::{Any, Empty, Command, Event, Error, Timestamp};
+pub use spec::{Any, Dictionary, Empty, Command, Event, Error, Timestamp};
 
 #[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 mod qapi {

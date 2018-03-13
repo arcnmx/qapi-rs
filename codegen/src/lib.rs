@@ -77,6 +77,11 @@ fn valuety(value: &spec::Value, pubvis: bool, super_name: &str) -> String {
         // "ringbuf-write", "ringbuf-read" can't be done because weird enums
     );
 
+    let dict = value.ty.name == "any" && (
+        (super_name == "object-add" && value.name == "props") ||
+        (super_name == "CpuModelInfo" && value.name == "props")
+    );
+
     // TODO: handle optional Vec<>s specially?
 
     let ty = typename(&value.ty);
@@ -89,6 +94,8 @@ fn valuety(value: &spec::Value, pubvis: bool, super_name: &str) -> String {
         }
     } else if boxed {
         ("", format!("Box<{}>", ty))
+    } else if dict {
+        ("", "::qapi::Dictionary".into())
     } else {
         ("", ty)
     };
@@ -143,11 +150,15 @@ impl<W: Write> Context<W> {
 pub struct {}", type_identifier(&v.id))?;
                         match v.data {
                             spec::DataOrType::Data(ref data) => {
-                                writeln!(self.out, " {{")?;
-                                for data in &data.fields {
-                                    writeln!(self.out, "\t{},", valuety(&data, true, &v.id))?;
+                                if v.id == "device_add" || v.id == "netdev_add" {
+                                    writeln!(self.out, "(pub ::qapi::Dictionary);")?;
+                                } else {
+                                    writeln!(self.out, " {{")?;
+                                    for data in &data.fields {
+                                        writeln!(self.out, "\t{},", valuety(&data, true, &v.id))?;
+                                    }
+                                    writeln!(self.out, "}}")?;
                                 }
-                                writeln!(self.out, "}}")?;
                             },
                             spec::DataOrType::Type(ref ty) => {
                                 writeln!(self.out, "(pub {});", type_identifier(&ty.name))?;

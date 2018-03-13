@@ -9,6 +9,7 @@ use serde::de::DeserializeOwned;
 use serde::Serialize;
 
 pub use serde_json::Value as Any;
+pub type Dictionary = serde_json::Map<String, Any>;
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
 pub struct Empty { }
