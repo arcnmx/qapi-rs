@@ -1,6 +1,6 @@
 [package]
 name = "qapi"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["arcnmx"]
 
 description = "QEMU QMP and Guest Agent API"
