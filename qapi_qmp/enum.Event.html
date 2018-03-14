@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Event` enum in crate `qapi_qmp`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Event">
+
+    <title>qapi_qmp::Event - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc enum">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Enum Event</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#variants">Variants</a><div class="sidebar-links"><a href="#variant.BALLOON_CHANGE">BALLOON_CHANGE</a><a href="#variant.DEVICE_DELETED">DEVICE_DELETED</a><a href="#variant.DUMP_COMPLETED">DUMP_COMPLETED</a><a href="#variant.MEM_UNPLUG_ERROR">MEM_UNPLUG_ERROR</a><a href="#variant.ACPI_DEVICE_OST">ACPI_DEVICE_OST</a><a href="#variant.RTC_CHANGE">RTC_CHANGE</a><a href="#variant.SHUTDOWN">SHUTDOWN</a><a href="#variant.POWERDOWN">POWERDOWN</a><a href="#variant.RESET">RESET</a><a href="#variant.STOP">STOP</a><a href="#variant.RESUME">RESUME</a><a href="#variant.SUSPEND">SUSPEND</a><a href="#variant.SUSPEND_DISK">SUSPEND_DISK</a><a href="#variant.WAKEUP">WAKEUP</a><a href="#variant.WATCHDOG">WATCHDOG</a><a href="#variant.GUEST_PANICKED">GUEST_PANICKED</a><a href="#variant.DEVICE_TRAY_MOVED">DEVICE_TRAY_MOVED</a><a href="#variant.QUORUM_FAILURE">QUORUM_FAILURE</a><a href="#variant.QUORUM_REPORT_BAD">QUORUM_REPORT_BAD</a><a href="#variant.BLOCK_IMAGE_CORRUPTED">BLOCK_IMAGE_CORRUPTED</a><a href="#variant.BLOCK_IO_ERROR">BLOCK_IO_ERROR</a><a href="#variant.BLOCK_JOB_COMPLETED">BLOCK_JOB_COMPLETED</a><a href="#variant.BLOCK_JOB_CANCELLED">BLOCK_JOB_CANCELLED</a><a href="#variant.BLOCK_JOB_ERROR">BLOCK_JOB_ERROR</a><a href="#variant.BLOCK_JOB_READY">BLOCK_JOB_READY</a><a href="#variant.BLOCK_WRITE_THRESHOLD">BLOCK_WRITE_THRESHOLD</a><a href="#variant.VSERPORT_CHANGE">VSERPORT_CHANGE</a><a href="#variant.NIC_RX_FILTER_CHANGED">NIC_RX_FILTER_CHANGED</a><a href="#variant.SPICE_CONNECTED">SPICE_CONNECTED</a><a href="#variant.SPICE_INITIALIZED">SPICE_INITIALIZED</a><a href="#variant.SPICE_DISCONNECTED">SPICE_DISCONNECTED</a><a href="#variant.SPICE_MIGRATE_COMPLETED">SPICE_MIGRATE_COMPLETED</a><a href="#variant.VNC_CONNECTED">VNC_CONNECTED</a><a href="#variant.VNC_INITIALIZED">VNC_INITIALIZED</a><a href="#variant.VNC_DISCONNECTED">VNC_DISCONNECTED</a><a href="#variant.MIGRATION">MIGRATION</a><a href="#variant.MIGRATION_PASS">MIGRATION_PASS</a></div><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.timestamp">timestamp</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'Event', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Enum <a href='index.html'>qapi_qmp</a>::<wbr><a class="enum" href=''>Event</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#7965-8114' title='goto source code'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum Event {
+    BALLOON_CHANGE {
+        data: <a class="struct" href="../qapi_qmp/struct.BALLOON_CHANGE.html" title="struct qapi_qmp::BALLOON_CHANGE">BALLOON_CHANGE</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    DEVICE_DELETED {
+        data: <a class="struct" href="../qapi_qmp/struct.DEVICE_DELETED.html" title="struct qapi_qmp::DEVICE_DELETED">DEVICE_DELETED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    DUMP_COMPLETED {
+        data: <a class="struct" href="../qapi_qmp/struct.DUMP_COMPLETED.html" title="struct qapi_qmp::DUMP_COMPLETED">DUMP_COMPLETED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    MEM_UNPLUG_ERROR {
+        data: <a class="struct" href="../qapi_qmp/struct.MEM_UNPLUG_ERROR.html" title="struct qapi_qmp::MEM_UNPLUG_ERROR">MEM_UNPLUG_ERROR</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    ACPI_DEVICE_OST {
+        data: <a class="struct" href="../qapi_qmp/struct.ACPI_DEVICE_OST.html" title="struct qapi_qmp::ACPI_DEVICE_OST">ACPI_DEVICE_OST</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    RTC_CHANGE {
+        data: <a class="struct" href="../qapi_qmp/struct.RTC_CHANGE.html" title="struct qapi_qmp::RTC_CHANGE">RTC_CHANGE</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    SHUTDOWN {
+        data: <a class="struct" href="../qapi_qmp/struct.SHUTDOWN.html" title="struct qapi_qmp::SHUTDOWN">SHUTDOWN</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    POWERDOWN {
+        data: <a class="struct" href="../qapi_qmp/struct.POWERDOWN.html" title="struct qapi_qmp::POWERDOWN">POWERDOWN</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    RESET {
+        data: <a class="struct" href="../qapi_qmp/struct.RESET.html" title="struct qapi_qmp::RESET">RESET</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    STOP {
+        data: <a class="struct" href="../qapi_qmp/struct.STOP.html" title="struct qapi_qmp::STOP">STOP</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    RESUME {
+        data: <a class="struct" href="../qapi_qmp/struct.RESUME.html" title="struct qapi_qmp::RESUME">RESUME</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    SUSPEND {
+        data: <a class="struct" href="../qapi_qmp/struct.SUSPEND.html" title="struct qapi_qmp::SUSPEND">SUSPEND</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    SUSPEND_DISK {
+        data: <a class="struct" href="../qapi_qmp/struct.SUSPEND_DISK.html" title="struct qapi_qmp::SUSPEND_DISK">SUSPEND_DISK</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    WAKEUP {
+        data: <a class="struct" href="../qapi_qmp/struct.WAKEUP.html" title="struct qapi_qmp::WAKEUP">WAKEUP</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    WATCHDOG {
+        data: <a class="struct" href="../qapi_qmp/struct.WATCHDOG.html" title="struct qapi_qmp::WATCHDOG">WATCHDOG</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    GUEST_PANICKED {
+        data: <a class="struct" href="../qapi_qmp/struct.GUEST_PANICKED.html" title="struct qapi_qmp::GUEST_PANICKED">GUEST_PANICKED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    DEVICE_TRAY_MOVED {
+        data: <a class="struct" href="../qapi_qmp/struct.DEVICE_TRAY_MOVED.html" title="struct qapi_qmp::DEVICE_TRAY_MOVED">DEVICE_TRAY_MOVED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    QUORUM_FAILURE {
+        data: <a class="struct" href="../qapi_qmp/struct.QUORUM_FAILURE.html" title="struct qapi_qmp::QUORUM_FAILURE">QUORUM_FAILURE</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    QUORUM_REPORT_BAD {
+        data: <a class="struct" href="../qapi_qmp/struct.QUORUM_REPORT_BAD.html" title="struct qapi_qmp::QUORUM_REPORT_BAD">QUORUM_REPORT_BAD</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    BLOCK_IMAGE_CORRUPTED {
+        data: <a class="struct" href="../qapi_qmp/struct.BLOCK_IMAGE_CORRUPTED.html" title="struct qapi_qmp::BLOCK_IMAGE_CORRUPTED">BLOCK_IMAGE_CORRUPTED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    BLOCK_IO_ERROR {
+        data: <a class="struct" href="../qapi_qmp/struct.BLOCK_IO_ERROR.html" title="struct qapi_qmp::BLOCK_IO_ERROR">BLOCK_IO_ERROR</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    BLOCK_JOB_COMPLETED {
+        data: <a class="struct" href="../qapi_qmp/struct.BLOCK_JOB_COMPLETED.html" title="struct qapi_qmp::BLOCK_JOB_COMPLETED">BLOCK_JOB_COMPLETED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    BLOCK_JOB_CANCELLED {
+        data: <a class="struct" href="../qapi_qmp/struct.BLOCK_JOB_CANCELLED.html" title="struct qapi_qmp::BLOCK_JOB_CANCELLED">BLOCK_JOB_CANCELLED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    BLOCK_JOB_ERROR {
+        data: <a class="struct" href="../qapi_qmp/struct.BLOCK_JOB_ERROR.html" title="struct qapi_qmp::BLOCK_JOB_ERROR">BLOCK_JOB_ERROR</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    BLOCK_JOB_READY {
+        data: <a class="struct" href="../qapi_qmp/struct.BLOCK_JOB_READY.html" title="struct qapi_qmp::BLOCK_JOB_READY">BLOCK_JOB_READY</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    BLOCK_WRITE_THRESHOLD {
+        data: <a class="struct" href="../qapi_qmp/struct.BLOCK_WRITE_THRESHOLD.html" title="struct qapi_qmp::BLOCK_WRITE_THRESHOLD">BLOCK_WRITE_THRESHOLD</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    VSERPORT_CHANGE {
+        data: <a class="struct" href="../qapi_qmp/struct.VSERPORT_CHANGE.html" title="struct qapi_qmp::VSERPORT_CHANGE">VSERPORT_CHANGE</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    NIC_RX_FILTER_CHANGED {
+        data: <a class="struct" href="../qapi_qmp/struct.NIC_RX_FILTER_CHANGED.html" title="struct qapi_qmp::NIC_RX_FILTER_CHANGED">NIC_RX_FILTER_CHANGED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    SPICE_CONNECTED {
+        data: <a class="struct" href="../qapi_qmp/struct.SPICE_CONNECTED.html" title="struct qapi_qmp::SPICE_CONNECTED">SPICE_CONNECTED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    SPICE_INITIALIZED {
+        data: <a class="struct" href="../qapi_qmp/struct.SPICE_INITIALIZED.html" title="struct qapi_qmp::SPICE_INITIALIZED">SPICE_INITIALIZED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    SPICE_DISCONNECTED {
+        data: <a class="struct" href="../qapi_qmp/struct.SPICE_DISCONNECTED.html" title="struct qapi_qmp::SPICE_DISCONNECTED">SPICE_DISCONNECTED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    SPICE_MIGRATE_COMPLETED {
+        data: <a class="struct" href="../qapi_qmp/struct.SPICE_MIGRATE_COMPLETED.html" title="struct qapi_qmp::SPICE_MIGRATE_COMPLETED">SPICE_MIGRATE_COMPLETED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    VNC_CONNECTED {
+        data: <a class="struct" href="../qapi_qmp/struct.VNC_CONNECTED.html" title="struct qapi_qmp::VNC_CONNECTED">VNC_CONNECTED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    VNC_INITIALIZED {
+        data: <a class="struct" href="../qapi_qmp/struct.VNC_INITIALIZED.html" title="struct qapi_qmp::VNC_INITIALIZED">VNC_INITIALIZED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    VNC_DISCONNECTED {
+        data: <a class="struct" href="../qapi_qmp/struct.VNC_DISCONNECTED.html" title="struct qapi_qmp::VNC_DISCONNECTED">VNC_DISCONNECTED</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    MIGRATION {
+        data: <a class="struct" href="../qapi_qmp/struct.MIGRATION.html" title="struct qapi_qmp::MIGRATION">MIGRATION</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+    MIGRATION_PASS {
+        data: <a class="struct" href="../qapi_qmp/struct.MIGRATION_PASS.html" title="struct qapi_qmp::MIGRATION_PASS">MIGRATION_PASS</a>,
+        timestamp: <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a>,
+    },
+}</pre><h2 id='variants' class='variants small-section-header'>
+                   Variants<a href='#variants' class='anchor'></a></h2>
+<span id="variant.BALLOON_CHANGE" class="variant small-section-header"><a href="#variant.BALLOON_CHANGE" class="anchor field"></a><span id='BALLOON_CHANGE.v' class='invisible'><code>BALLOON_CHANGE</code></span></span><span class='docblock autohide sub-variant' id='variant.BALLOON_CHANGE.fields'><h3 class='fields'>Fields of <code>BALLOON_CHANGE</code></h3>
+
+                           <table><tr><td id='variant.BALLOON_CHANGE.field.data'><span id='BALLOON_CHANGE.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.BALLOON_CHANGE.html" title="struct qapi_qmp::BALLOON_CHANGE">BALLOON_CHANGE</a></code></span></td><td></td></tr><tr><td id='variant.BALLOON_CHANGE.field.timestamp'><span id='BALLOON_CHANGE.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.DEVICE_DELETED" class="variant small-section-header"><a href="#variant.DEVICE_DELETED" class="anchor field"></a><span id='DEVICE_DELETED.v' class='invisible'><code>DEVICE_DELETED</code></span></span><span class='docblock autohide sub-variant' id='variant.DEVICE_DELETED.fields'><h3 class='fields'>Fields of <code>DEVICE_DELETED</code></h3>
+
+                           <table><tr><td id='variant.DEVICE_DELETED.field.data'><span id='DEVICE_DELETED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.DEVICE_DELETED.html" title="struct qapi_qmp::DEVICE_DELETED">DEVICE_DELETED</a></code></span></td><td></td></tr><tr><td id='variant.DEVICE_DELETED.field.timestamp'><span id='DEVICE_DELETED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.DUMP_COMPLETED" class="variant small-section-header"><a href="#variant.DUMP_COMPLETED" class="anchor field"></a><span id='DUMP_COMPLETED.v' class='invisible'><code>DUMP_COMPLETED</code></span></span><span class='docblock autohide sub-variant' id='variant.DUMP_COMPLETED.fields'><h3 class='fields'>Fields of <code>DUMP_COMPLETED</code></h3>
+
+                           <table><tr><td id='variant.DUMP_COMPLETED.field.data'><span id='DUMP_COMPLETED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.DUMP_COMPLETED.html" title="struct qapi_qmp::DUMP_COMPLETED">DUMP_COMPLETED</a></code></span></td><td></td></tr><tr><td id='variant.DUMP_COMPLETED.field.timestamp'><span id='DUMP_COMPLETED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.MEM_UNPLUG_ERROR" class="variant small-section-header"><a href="#variant.MEM_UNPLUG_ERROR" class="anchor field"></a><span id='MEM_UNPLUG_ERROR.v' class='invisible'><code>MEM_UNPLUG_ERROR</code></span></span><span class='docblock autohide sub-variant' id='variant.MEM_UNPLUG_ERROR.fields'><h3 class='fields'>Fields of <code>MEM_UNPLUG_ERROR</code></h3>
+
+                           <table><tr><td id='variant.MEM_UNPLUG_ERROR.field.data'><span id='MEM_UNPLUG_ERROR.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.MEM_UNPLUG_ERROR.html" title="struct qapi_qmp::MEM_UNPLUG_ERROR">MEM_UNPLUG_ERROR</a></code></span></td><td></td></tr><tr><td id='variant.MEM_UNPLUG_ERROR.field.timestamp'><span id='MEM_UNPLUG_ERROR.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.ACPI_DEVICE_OST" class="variant small-section-header"><a href="#variant.ACPI_DEVICE_OST" class="anchor field"></a><span id='ACPI_DEVICE_OST.v' class='invisible'><code>ACPI_DEVICE_OST</code></span></span><span class='docblock autohide sub-variant' id='variant.ACPI_DEVICE_OST.fields'><h3 class='fields'>Fields of <code>ACPI_DEVICE_OST</code></h3>
+
+                           <table><tr><td id='variant.ACPI_DEVICE_OST.field.data'><span id='ACPI_DEVICE_OST.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ACPI_DEVICE_OST.html" title="struct qapi_qmp::ACPI_DEVICE_OST">ACPI_DEVICE_OST</a></code></span></td><td></td></tr><tr><td id='variant.ACPI_DEVICE_OST.field.timestamp'><span id='ACPI_DEVICE_OST.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.RTC_CHANGE" class="variant small-section-header"><a href="#variant.RTC_CHANGE" class="anchor field"></a><span id='RTC_CHANGE.v' class='invisible'><code>RTC_CHANGE</code></span></span><span class='docblock autohide sub-variant' id='variant.RTC_CHANGE.fields'><h3 class='fields'>Fields of <code>RTC_CHANGE</code></h3>
+
+                           <table><tr><td id='variant.RTC_CHANGE.field.data'><span id='RTC_CHANGE.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.RTC_CHANGE.html" title="struct qapi_qmp::RTC_CHANGE">RTC_CHANGE</a></code></span></td><td></td></tr><tr><td id='variant.RTC_CHANGE.field.timestamp'><span id='RTC_CHANGE.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.SHUTDOWN" class="variant small-section-header"><a href="#variant.SHUTDOWN" class="anchor field"></a><span id='SHUTDOWN.v' class='invisible'><code>SHUTDOWN</code></span></span><span class='docblock autohide sub-variant' id='variant.SHUTDOWN.fields'><h3 class='fields'>Fields of <code>SHUTDOWN</code></h3>
+
+                           <table><tr><td id='variant.SHUTDOWN.field.data'><span id='SHUTDOWN.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.SHUTDOWN.html" title="struct qapi_qmp::SHUTDOWN">SHUTDOWN</a></code></span></td><td></td></tr><tr><td id='variant.SHUTDOWN.field.timestamp'><span id='SHUTDOWN.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.POWERDOWN" class="variant small-section-header"><a href="#variant.POWERDOWN" class="anchor field"></a><span id='POWERDOWN.v' class='invisible'><code>POWERDOWN</code></span></span><span class='docblock autohide sub-variant' id='variant.POWERDOWN.fields'><h3 class='fields'>Fields of <code>POWERDOWN</code></h3>
+
+                           <table><tr><td id='variant.POWERDOWN.field.data'><span id='POWERDOWN.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.POWERDOWN.html" title="struct qapi_qmp::POWERDOWN">POWERDOWN</a></code></span></td><td></td></tr><tr><td id='variant.POWERDOWN.field.timestamp'><span id='POWERDOWN.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.RESET" class="variant small-section-header"><a href="#variant.RESET" class="anchor field"></a><span id='RESET.v' class='invisible'><code>RESET</code></span></span><span class='docblock autohide sub-variant' id='variant.RESET.fields'><h3 class='fields'>Fields of <code>RESET</code></h3>
+
+                           <table><tr><td id='variant.RESET.field.data'><span id='RESET.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.RESET.html" title="struct qapi_qmp::RESET">RESET</a></code></span></td><td></td></tr><tr><td id='variant.RESET.field.timestamp'><span id='RESET.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.STOP" class="variant small-section-header"><a href="#variant.STOP" class="anchor field"></a><span id='STOP.v' class='invisible'><code>STOP</code></span></span><span class='docblock autohide sub-variant' id='variant.STOP.fields'><h3 class='fields'>Fields of <code>STOP</code></h3>
+
+                           <table><tr><td id='variant.STOP.field.data'><span id='STOP.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.STOP.html" title="struct qapi_qmp::STOP">STOP</a></code></span></td><td></td></tr><tr><td id='variant.STOP.field.timestamp'><span id='STOP.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.RESUME" class="variant small-section-header"><a href="#variant.RESUME" class="anchor field"></a><span id='RESUME.v' class='invisible'><code>RESUME</code></span></span><span class='docblock autohide sub-variant' id='variant.RESUME.fields'><h3 class='fields'>Fields of <code>RESUME</code></h3>
+
+                           <table><tr><td id='variant.RESUME.field.data'><span id='RESUME.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.RESUME.html" title="struct qapi_qmp::RESUME">RESUME</a></code></span></td><td></td></tr><tr><td id='variant.RESUME.field.timestamp'><span id='RESUME.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.SUSPEND" class="variant small-section-header"><a href="#variant.SUSPEND" class="anchor field"></a><span id='SUSPEND.v' class='invisible'><code>SUSPEND</code></span></span><span class='docblock autohide sub-variant' id='variant.SUSPEND.fields'><h3 class='fields'>Fields of <code>SUSPEND</code></h3>
+
+                           <table><tr><td id='variant.SUSPEND.field.data'><span id='SUSPEND.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.SUSPEND.html" title="struct qapi_qmp::SUSPEND">SUSPEND</a></code></span></td><td></td></tr><tr><td id='variant.SUSPEND.field.timestamp'><span id='SUSPEND.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.SUSPEND_DISK" class="variant small-section-header"><a href="#variant.SUSPEND_DISK" class="anchor field"></a><span id='SUSPEND_DISK.v' class='invisible'><code>SUSPEND_DISK</code></span></span><span class='docblock autohide sub-variant' id='variant.SUSPEND_DISK.fields'><h3 class='fields'>Fields of <code>SUSPEND_DISK</code></h3>
+
+                           <table><tr><td id='variant.SUSPEND_DISK.field.data'><span id='SUSPEND_DISK.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.SUSPEND_DISK.html" title="struct qapi_qmp::SUSPEND_DISK">SUSPEND_DISK</a></code></span></td><td></td></tr><tr><td id='variant.SUSPEND_DISK.field.timestamp'><span id='SUSPEND_DISK.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.WAKEUP" class="variant small-section-header"><a href="#variant.WAKEUP" class="anchor field"></a><span id='WAKEUP.v' class='invisible'><code>WAKEUP</code></span></span><span class='docblock autohide sub-variant' id='variant.WAKEUP.fields'><h3 class='fields'>Fields of <code>WAKEUP</code></h3>
+
+                           <table><tr><td id='variant.WAKEUP.field.data'><span id='WAKEUP.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.WAKEUP.html" title="struct qapi_qmp::WAKEUP">WAKEUP</a></code></span></td><td></td></tr><tr><td id='variant.WAKEUP.field.timestamp'><span id='WAKEUP.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.WATCHDOG" class="variant small-section-header"><a href="#variant.WATCHDOG" class="anchor field"></a><span id='WATCHDOG.v' class='invisible'><code>WATCHDOG</code></span></span><span class='docblock autohide sub-variant' id='variant.WATCHDOG.fields'><h3 class='fields'>Fields of <code>WATCHDOG</code></h3>
+
+                           <table><tr><td id='variant.WATCHDOG.field.data'><span id='WATCHDOG.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.WATCHDOG.html" title="struct qapi_qmp::WATCHDOG">WATCHDOG</a></code></span></td><td></td></tr><tr><td id='variant.WATCHDOG.field.timestamp'><span id='WATCHDOG.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.GUEST_PANICKED" class="variant small-section-header"><a href="#variant.GUEST_PANICKED" class="anchor field"></a><span id='GUEST_PANICKED.v' class='invisible'><code>GUEST_PANICKED</code></span></span><span class='docblock autohide sub-variant' id='variant.GUEST_PANICKED.fields'><h3 class='fields'>Fields of <code>GUEST_PANICKED</code></h3>
+
+                           <table><tr><td id='variant.GUEST_PANICKED.field.data'><span id='GUEST_PANICKED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.GUEST_PANICKED.html" title="struct qapi_qmp::GUEST_PANICKED">GUEST_PANICKED</a></code></span></td><td></td></tr><tr><td id='variant.GUEST_PANICKED.field.timestamp'><span id='GUEST_PANICKED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.DEVICE_TRAY_MOVED" class="variant small-section-header"><a href="#variant.DEVICE_TRAY_MOVED" class="anchor field"></a><span id='DEVICE_TRAY_MOVED.v' class='invisible'><code>DEVICE_TRAY_MOVED</code></span></span><span class='docblock autohide sub-variant' id='variant.DEVICE_TRAY_MOVED.fields'><h3 class='fields'>Fields of <code>DEVICE_TRAY_MOVED</code></h3>
+
+                           <table><tr><td id='variant.DEVICE_TRAY_MOVED.field.data'><span id='DEVICE_TRAY_MOVED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.DEVICE_TRAY_MOVED.html" title="struct qapi_qmp::DEVICE_TRAY_MOVED">DEVICE_TRAY_MOVED</a></code></span></td><td></td></tr><tr><td id='variant.DEVICE_TRAY_MOVED.field.timestamp'><span id='DEVICE_TRAY_MOVED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.QUORUM_FAILURE" class="variant small-section-header"><a href="#variant.QUORUM_FAILURE" class="anchor field"></a><span id='QUORUM_FAILURE.v' class='invisible'><code>QUORUM_FAILURE</code></span></span><span class='docblock autohide sub-variant' id='variant.QUORUM_FAILURE.fields'><h3 class='fields'>Fields of <code>QUORUM_FAILURE</code></h3>
+
+                           <table><tr><td id='variant.QUORUM_FAILURE.field.data'><span id='QUORUM_FAILURE.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.QUORUM_FAILURE.html" title="struct qapi_qmp::QUORUM_FAILURE">QUORUM_FAILURE</a></code></span></td><td></td></tr><tr><td id='variant.QUORUM_FAILURE.field.timestamp'><span id='QUORUM_FAILURE.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.QUORUM_REPORT_BAD" class="variant small-section-header"><a href="#variant.QUORUM_REPORT_BAD" class="anchor field"></a><span id='QUORUM_REPORT_BAD.v' class='invisible'><code>QUORUM_REPORT_BAD</code></span></span><span class='docblock autohide sub-variant' id='variant.QUORUM_REPORT_BAD.fields'><h3 class='fields'>Fields of <code>QUORUM_REPORT_BAD</code></h3>
+
+                           <table><tr><td id='variant.QUORUM_REPORT_BAD.field.data'><span id='QUORUM_REPORT_BAD.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.QUORUM_REPORT_BAD.html" title="struct qapi_qmp::QUORUM_REPORT_BAD">QUORUM_REPORT_BAD</a></code></span></td><td></td></tr><tr><td id='variant.QUORUM_REPORT_BAD.field.timestamp'><span id='QUORUM_REPORT_BAD.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.BLOCK_IMAGE_CORRUPTED" class="variant small-section-header"><a href="#variant.BLOCK_IMAGE_CORRUPTED" class="anchor field"></a><span id='BLOCK_IMAGE_CORRUPTED.v' class='invisible'><code>BLOCK_IMAGE_CORRUPTED</code></span></span><span class='docblock autohide sub-variant' id='variant.BLOCK_IMAGE_CORRUPTED.fields'><h3 class='fields'>Fields of <code>BLOCK_IMAGE_CORRUPTED</code></h3>
+
+                           <table><tr><td id='variant.BLOCK_IMAGE_CORRUPTED.field.data'><span id='BLOCK_IMAGE_CORRUPTED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.BLOCK_IMAGE_CORRUPTED.html" title="struct qapi_qmp::BLOCK_IMAGE_CORRUPTED">BLOCK_IMAGE_CORRUPTED</a></code></span></td><td></td></tr><tr><td id='variant.BLOCK_IMAGE_CORRUPTED.field.timestamp'><span id='BLOCK_IMAGE_CORRUPTED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.BLOCK_IO_ERROR" class="variant small-section-header"><a href="#variant.BLOCK_IO_ERROR" class="anchor field"></a><span id='BLOCK_IO_ERROR.v' class='invisible'><code>BLOCK_IO_ERROR</code></span></span><span class='docblock autohide sub-variant' id='variant.BLOCK_IO_ERROR.fields'><h3 class='fields'>Fields of <code>BLOCK_IO_ERROR</code></h3>
+
+                           <table><tr><td id='variant.BLOCK_IO_ERROR.field.data'><span id='BLOCK_IO_ERROR.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.BLOCK_IO_ERROR.html" title="struct qapi_qmp::BLOCK_IO_ERROR">BLOCK_IO_ERROR</a></code></span></td><td></td></tr><tr><td id='variant.BLOCK_IO_ERROR.field.timestamp'><span id='BLOCK_IO_ERROR.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.BLOCK_JOB_COMPLETED" class="variant small-section-header"><a href="#variant.BLOCK_JOB_COMPLETED" class="anchor field"></a><span id='BLOCK_JOB_COMPLETED.v' class='invisible'><code>BLOCK_JOB_COMPLETED</code></span></span><span class='docblock autohide sub-variant' id='variant.BLOCK_JOB_COMPLETED.fields'><h3 class='fields'>Fields of <code>BLOCK_JOB_COMPLETED</code></h3>
+
+                           <table><tr><td id='variant.BLOCK_JOB_COMPLETED.field.data'><span id='BLOCK_JOB_COMPLETED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.BLOCK_JOB_COMPLETED.html" title="struct qapi_qmp::BLOCK_JOB_COMPLETED">BLOCK_JOB_COMPLETED</a></code></span></td><td></td></tr><tr><td id='variant.BLOCK_JOB_COMPLETED.field.timestamp'><span id='BLOCK_JOB_COMPLETED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.BLOCK_JOB_CANCELLED" class="variant small-section-header"><a href="#variant.BLOCK_JOB_CANCELLED" class="anchor field"></a><span id='BLOCK_JOB_CANCELLED.v' class='invisible'><code>BLOCK_JOB_CANCELLED</code></span></span><span class='docblock autohide sub-variant' id='variant.BLOCK_JOB_CANCELLED.fields'><h3 class='fields'>Fields of <code>BLOCK_JOB_CANCELLED</code></h3>
+
+                           <table><tr><td id='variant.BLOCK_JOB_CANCELLED.field.data'><span id='BLOCK_JOB_CANCELLED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.BLOCK_JOB_CANCELLED.html" title="struct qapi_qmp::BLOCK_JOB_CANCELLED">BLOCK_JOB_CANCELLED</a></code></span></td><td></td></tr><tr><td id='variant.BLOCK_JOB_CANCELLED.field.timestamp'><span id='BLOCK_JOB_CANCELLED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.BLOCK_JOB_ERROR" class="variant small-section-header"><a href="#variant.BLOCK_JOB_ERROR" class="anchor field"></a><span id='BLOCK_JOB_ERROR.v' class='invisible'><code>BLOCK_JOB_ERROR</code></span></span><span class='docblock autohide sub-variant' id='variant.BLOCK_JOB_ERROR.fields'><h3 class='fields'>Fields of <code>BLOCK_JOB_ERROR</code></h3>
+
+                           <table><tr><td id='variant.BLOCK_JOB_ERROR.field.data'><span id='BLOCK_JOB_ERROR.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.BLOCK_JOB_ERROR.html" title="struct qapi_qmp::BLOCK_JOB_ERROR">BLOCK_JOB_ERROR</a></code></span></td><td></td></tr><tr><td id='variant.BLOCK_JOB_ERROR.field.timestamp'><span id='BLOCK_JOB_ERROR.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.BLOCK_JOB_READY" class="variant small-section-header"><a href="#variant.BLOCK_JOB_READY" class="anchor field"></a><span id='BLOCK_JOB_READY.v' class='invisible'><code>BLOCK_JOB_READY</code></span></span><span class='docblock autohide sub-variant' id='variant.BLOCK_JOB_READY.fields'><h3 class='fields'>Fields of <code>BLOCK_JOB_READY</code></h3>
+
+                           <table><tr><td id='variant.BLOCK_JOB_READY.field.data'><span id='BLOCK_JOB_READY.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.BLOCK_JOB_READY.html" title="struct qapi_qmp::BLOCK_JOB_READY">BLOCK_JOB_READY</a></code></span></td><td></td></tr><tr><td id='variant.BLOCK_JOB_READY.field.timestamp'><span id='BLOCK_JOB_READY.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.BLOCK_WRITE_THRESHOLD" class="variant small-section-header"><a href="#variant.BLOCK_WRITE_THRESHOLD" class="anchor field"></a><span id='BLOCK_WRITE_THRESHOLD.v' class='invisible'><code>BLOCK_WRITE_THRESHOLD</code></span></span><span class='docblock autohide sub-variant' id='variant.BLOCK_WRITE_THRESHOLD.fields'><h3 class='fields'>Fields of <code>BLOCK_WRITE_THRESHOLD</code></h3>
+
+                           <table><tr><td id='variant.BLOCK_WRITE_THRESHOLD.field.data'><span id='BLOCK_WRITE_THRESHOLD.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.BLOCK_WRITE_THRESHOLD.html" title="struct qapi_qmp::BLOCK_WRITE_THRESHOLD">BLOCK_WRITE_THRESHOLD</a></code></span></td><td></td></tr><tr><td id='variant.BLOCK_WRITE_THRESHOLD.field.timestamp'><span id='BLOCK_WRITE_THRESHOLD.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.VSERPORT_CHANGE" class="variant small-section-header"><a href="#variant.VSERPORT_CHANGE" class="anchor field"></a><span id='VSERPORT_CHANGE.v' class='invisible'><code>VSERPORT_CHANGE</code></span></span><span class='docblock autohide sub-variant' id='variant.VSERPORT_CHANGE.fields'><h3 class='fields'>Fields of <code>VSERPORT_CHANGE</code></h3>
+
+                           <table><tr><td id='variant.VSERPORT_CHANGE.field.data'><span id='VSERPORT_CHANGE.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.VSERPORT_CHANGE.html" title="struct qapi_qmp::VSERPORT_CHANGE">VSERPORT_CHANGE</a></code></span></td><td></td></tr><tr><td id='variant.VSERPORT_CHANGE.field.timestamp'><span id='VSERPORT_CHANGE.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.NIC_RX_FILTER_CHANGED" class="variant small-section-header"><a href="#variant.NIC_RX_FILTER_CHANGED" class="anchor field"></a><span id='NIC_RX_FILTER_CHANGED.v' class='invisible'><code>NIC_RX_FILTER_CHANGED</code></span></span><span class='docblock autohide sub-variant' id='variant.NIC_RX_FILTER_CHANGED.fields'><h3 class='fields'>Fields of <code>NIC_RX_FILTER_CHANGED</code></h3>
+
+                           <table><tr><td id='variant.NIC_RX_FILTER_CHANGED.field.data'><span id='NIC_RX_FILTER_CHANGED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.NIC_RX_FILTER_CHANGED.html" title="struct qapi_qmp::NIC_RX_FILTER_CHANGED">NIC_RX_FILTER_CHANGED</a></code></span></td><td></td></tr><tr><td id='variant.NIC_RX_FILTER_CHANGED.field.timestamp'><span id='NIC_RX_FILTER_CHANGED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.SPICE_CONNECTED" class="variant small-section-header"><a href="#variant.SPICE_CONNECTED" class="anchor field"></a><span id='SPICE_CONNECTED.v' class='invisible'><code>SPICE_CONNECTED</code></span></span><span class='docblock autohide sub-variant' id='variant.SPICE_CONNECTED.fields'><h3 class='fields'>Fields of <code>SPICE_CONNECTED</code></h3>
+
+                           <table><tr><td id='variant.SPICE_CONNECTED.field.data'><span id='SPICE_CONNECTED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.SPICE_CONNECTED.html" title="struct qapi_qmp::SPICE_CONNECTED">SPICE_CONNECTED</a></code></span></td><td></td></tr><tr><td id='variant.SPICE_CONNECTED.field.timestamp'><span id='SPICE_CONNECTED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.SPICE_INITIALIZED" class="variant small-section-header"><a href="#variant.SPICE_INITIALIZED" class="anchor field"></a><span id='SPICE_INITIALIZED.v' class='invisible'><code>SPICE_INITIALIZED</code></span></span><span class='docblock autohide sub-variant' id='variant.SPICE_INITIALIZED.fields'><h3 class='fields'>Fields of <code>SPICE_INITIALIZED</code></h3>
+
+                           <table><tr><td id='variant.SPICE_INITIALIZED.field.data'><span id='SPICE_INITIALIZED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.SPICE_INITIALIZED.html" title="struct qapi_qmp::SPICE_INITIALIZED">SPICE_INITIALIZED</a></code></span></td><td></td></tr><tr><td id='variant.SPICE_INITIALIZED.field.timestamp'><span id='SPICE_INITIALIZED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.SPICE_DISCONNECTED" class="variant small-section-header"><a href="#variant.SPICE_DISCONNECTED" class="anchor field"></a><span id='SPICE_DISCONNECTED.v' class='invisible'><code>SPICE_DISCONNECTED</code></span></span><span class='docblock autohide sub-variant' id='variant.SPICE_DISCONNECTED.fields'><h3 class='fields'>Fields of <code>SPICE_DISCONNECTED</code></h3>
+
+                           <table><tr><td id='variant.SPICE_DISCONNECTED.field.data'><span id='SPICE_DISCONNECTED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.SPICE_DISCONNECTED.html" title="struct qapi_qmp::SPICE_DISCONNECTED">SPICE_DISCONNECTED</a></code></span></td><td></td></tr><tr><td id='variant.SPICE_DISCONNECTED.field.timestamp'><span id='SPICE_DISCONNECTED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.SPICE_MIGRATE_COMPLETED" class="variant small-section-header"><a href="#variant.SPICE_MIGRATE_COMPLETED" class="anchor field"></a><span id='SPICE_MIGRATE_COMPLETED.v' class='invisible'><code>SPICE_MIGRATE_COMPLETED</code></span></span><span class='docblock autohide sub-variant' id='variant.SPICE_MIGRATE_COMPLETED.fields'><h3 class='fields'>Fields of <code>SPICE_MIGRATE_COMPLETED</code></h3>
+
+                           <table><tr><td id='variant.SPICE_MIGRATE_COMPLETED.field.data'><span id='SPICE_MIGRATE_COMPLETED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.SPICE_MIGRATE_COMPLETED.html" title="struct qapi_qmp::SPICE_MIGRATE_COMPLETED">SPICE_MIGRATE_COMPLETED</a></code></span></td><td></td></tr><tr><td id='variant.SPICE_MIGRATE_COMPLETED.field.timestamp'><span id='SPICE_MIGRATE_COMPLETED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.VNC_CONNECTED" class="variant small-section-header"><a href="#variant.VNC_CONNECTED" class="anchor field"></a><span id='VNC_CONNECTED.v' class='invisible'><code>VNC_CONNECTED</code></span></span><span class='docblock autohide sub-variant' id='variant.VNC_CONNECTED.fields'><h3 class='fields'>Fields of <code>VNC_CONNECTED</code></h3>
+
+                           <table><tr><td id='variant.VNC_CONNECTED.field.data'><span id='VNC_CONNECTED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.VNC_CONNECTED.html" title="struct qapi_qmp::VNC_CONNECTED">VNC_CONNECTED</a></code></span></td><td></td></tr><tr><td id='variant.VNC_CONNECTED.field.timestamp'><span id='VNC_CONNECTED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.VNC_INITIALIZED" class="variant small-section-header"><a href="#variant.VNC_INITIALIZED" class="anchor field"></a><span id='VNC_INITIALIZED.v' class='invisible'><code>VNC_INITIALIZED</code></span></span><span class='docblock autohide sub-variant' id='variant.VNC_INITIALIZED.fields'><h3 class='fields'>Fields of <code>VNC_INITIALIZED</code></h3>
+
+                           <table><tr><td id='variant.VNC_INITIALIZED.field.data'><span id='VNC_INITIALIZED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.VNC_INITIALIZED.html" title="struct qapi_qmp::VNC_INITIALIZED">VNC_INITIALIZED</a></code></span></td><td></td></tr><tr><td id='variant.VNC_INITIALIZED.field.timestamp'><span id='VNC_INITIALIZED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.VNC_DISCONNECTED" class="variant small-section-header"><a href="#variant.VNC_DISCONNECTED" class="anchor field"></a><span id='VNC_DISCONNECTED.v' class='invisible'><code>VNC_DISCONNECTED</code></span></span><span class='docblock autohide sub-variant' id='variant.VNC_DISCONNECTED.fields'><h3 class='fields'>Fields of <code>VNC_DISCONNECTED</code></h3>
+
+                           <table><tr><td id='variant.VNC_DISCONNECTED.field.data'><span id='VNC_DISCONNECTED.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.VNC_DISCONNECTED.html" title="struct qapi_qmp::VNC_DISCONNECTED">VNC_DISCONNECTED</a></code></span></td><td></td></tr><tr><td id='variant.VNC_DISCONNECTED.field.timestamp'><span id='VNC_DISCONNECTED.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.MIGRATION" class="variant small-section-header"><a href="#variant.MIGRATION" class="anchor field"></a><span id='MIGRATION.v' class='invisible'><code>MIGRATION</code></span></span><span class='docblock autohide sub-variant' id='variant.MIGRATION.fields'><h3 class='fields'>Fields of <code>MIGRATION</code></h3>
+
+                           <table><tr><td id='variant.MIGRATION.field.data'><span id='MIGRATION.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.MIGRATION.html" title="struct qapi_qmp::MIGRATION">MIGRATION</a></code></span></td><td></td></tr><tr><td id='variant.MIGRATION.field.timestamp'><span id='MIGRATION.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span><span id="variant.MIGRATION_PASS" class="variant small-section-header"><a href="#variant.MIGRATION_PASS" class="anchor field"></a><span id='MIGRATION_PASS.v' class='invisible'><code>MIGRATION_PASS</code></span></span><span class='docblock autohide sub-variant' id='variant.MIGRATION_PASS.fields'><h3 class='fields'>Fields of <code>MIGRATION_PASS</code></h3>
+
+                           <table><tr><td id='variant.MIGRATION_PASS.field.data'><span id='MIGRATION_PASS.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.MIGRATION_PASS.html" title="struct qapi_qmp::MIGRATION_PASS">MIGRATION_PASS</a></code></span></td><td></td></tr><tr><td id='variant.MIGRATION_PASS.field.timestamp'><span id='MIGRATION_PASS.v.timestamp.v' class='invisible'><code>timestamp:&nbsp;<a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span></td><td></td></tr></table></span>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><code>impl <a class="enum" href="../qapi_qmp/enum.Event.html" title="enum qapi_qmp::Event">Event</a></code><a href='#impl' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#8116-8159' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.timestamp' class="method"><span id='timestamp.v' class='invisible'><code>pub fn <a href='#method.timestamp' class='fnname'>timestamp</a>(&amp;self) -&gt; <a class="struct" href="../qapi_spec/struct.Timestamp.html" title="struct qapi_spec::Timestamp">Timestamp</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#8117-8158' title='goto source code'>[src]</a></span></h4>
+</div>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-Debug' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="enum" href="../qapi_qmp/enum.Event.html" title="enum qapi_qmp::Event">Event</a></code><a href='#impl-Debug' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#7963' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#7963' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
+</div></div><h3 id='impl-Clone' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="enum" href="../qapi_qmp/enum.Event.html" title="enum qapi_qmp::Event">Event</a></code><a href='#impl-Clone' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#7963' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="enum" href="../qapi_qmp/enum.Event.html" title="enum qapi_qmp::Event">Event</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#7963' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/clone.rs.html#112-114' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>↑</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>↓</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "qapi_qmp";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

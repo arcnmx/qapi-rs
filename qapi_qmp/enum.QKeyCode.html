@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `QKeyCode` enum in crate `qapi_qmp`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, QKeyCode">
+
+    <title>qapi_qmp::QKeyCode - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc enum">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Enum QKeyCode</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#variants">Variants</a><div class="sidebar-links"><a href="#variant.unmapped">unmapped</a><a href="#variant.shift">shift</a><a href="#variant.shift_r">shift_r</a><a href="#variant.alt">alt</a><a href="#variant.alt_r">alt_r</a><a href="#variant.ctrl">ctrl</a><a href="#variant.ctrl_r">ctrl_r</a><a href="#variant.menu">menu</a><a href="#variant.esc">esc</a><a href="#variant._1">_1</a><a href="#variant._2">_2</a><a href="#variant._3">_3</a><a href="#variant._4">_4</a><a href="#variant._5">_5</a><a href="#variant._6">_6</a><a href="#variant._7">_7</a><a href="#variant._8">_8</a><a href="#variant._9">_9</a><a href="#variant._0">_0</a><a href="#variant.minus">minus</a><a href="#variant.equal">equal</a><a href="#variant.backspace">backspace</a><a href="#variant.tab">tab</a><a href="#variant.q">q</a><a href="#variant.w">w</a><a href="#variant.e">e</a><a href="#variant.r">r</a><a href="#variant.t">t</a><a href="#variant.y">y</a><a href="#variant.u">u</a><a href="#variant.i">i</a><a href="#variant.o">o</a><a href="#variant.p">p</a><a href="#variant.bracket_left">bracket_left</a><a href="#variant.bracket_right">bracket_right</a><a href="#variant.ret">ret</a><a href="#variant.a">a</a><a href="#variant.s">s</a><a href="#variant.d">d</a><a href="#variant.f">f</a><a href="#variant.g">g</a><a href="#variant.h">h</a><a href="#variant.j">j</a><a href="#variant.k">k</a><a href="#variant.l">l</a><a href="#variant.semicolon">semicolon</a><a href="#variant.apostrophe">apostrophe</a><a href="#variant.grave_accent">grave_accent</a><a href="#variant.backslash">backslash</a><a href="#variant.z">z</a><a href="#variant.x">x</a><a href="#variant.c">c</a><a href="#variant.v">v</a><a href="#variant.b">b</a><a href="#variant.n">n</a><a href="#variant.m">m</a><a href="#variant.comma">comma</a><a href="#variant.dot">dot</a><a href="#variant.slash">slash</a><a href="#variant.asterisk">asterisk</a><a href="#variant.spc">spc</a><a href="#variant.caps_lock">caps_lock</a><a href="#variant.f1">f1</a><a href="#variant.f2">f2</a><a href="#variant.f3">f3</a><a href="#variant.f4">f4</a><a href="#variant.f5">f5</a><a href="#variant.f6">f6</a><a href="#variant.f7">f7</a><a href="#variant.f8">f8</a><a href="#variant.f9">f9</a><a href="#variant.f10">f10</a><a href="#variant.num_lock">num_lock</a><a href="#variant.scroll_lock">scroll_lock</a><a href="#variant.kp_divide">kp_divide</a><a href="#variant.kp_multiply">kp_multiply</a><a href="#variant.kp_subtract">kp_subtract</a><a href="#variant.kp_add">kp_add</a><a href="#variant.kp_enter">kp_enter</a><a href="#variant.kp_decimal">kp_decimal</a><a href="#variant.sysrq">sysrq</a><a href="#variant.kp_0">kp_0</a><a href="#variant.kp_1">kp_1</a><a href="#variant.kp_2">kp_2</a><a href="#variant.kp_3">kp_3</a><a href="#variant.kp_4">kp_4</a><a href="#variant.kp_5">kp_5</a><a href="#variant.kp_6">kp_6</a><a href="#variant.kp_7">kp_7</a><a href="#variant.kp_8">kp_8</a><a href="#variant.kp_9">kp_9</a><a href="#variant.less">less</a><a href="#variant.f11">f11</a><a href="#variant.f12">f12</a><a href="#variant.print">print</a><a href="#variant.home">home</a><a href="#variant.pgup">pgup</a><a href="#variant.pgdn">pgdn</a><a href="#variant.end">end</a><a href="#variant.left">left</a><a href="#variant.up">up</a><a href="#variant.down">down</a><a href="#variant.right">right</a><a href="#variant.insert">insert</a><a href="#variant.delete">delete</a><a href="#variant.stop">stop</a><a href="#variant.again">again</a><a href="#variant.props">props</a><a href="#variant.undo">undo</a><a href="#variant.front">front</a><a href="#variant.copy">copy</a><a href="#variant.open">open</a><a href="#variant.paste">paste</a><a href="#variant.find">find</a><a href="#variant.cut">cut</a><a href="#variant.lf">lf</a><a href="#variant.help">help</a><a href="#variant.meta_l">meta_l</a><a href="#variant.meta_r">meta_r</a><a href="#variant.compose">compose</a><a href="#variant.pause">pause</a><a href="#variant.ro">ro</a><a href="#variant.hiragana">hiragana</a><a href="#variant.henkan">henkan</a><a href="#variant.yen">yen</a><a href="#variant.kp_comma">kp_comma</a><a href="#variant.kp_equals">kp_equals</a><a href="#variant.power">power</a><a href="#variant.sleep">sleep</a><a href="#variant.wake">wake</a><a href="#variant.audionext">audionext</a><a href="#variant.audioprev">audioprev</a><a href="#variant.audiostop">audiostop</a><a href="#variant.audioplay">audioplay</a><a href="#variant.audiomute">audiomute</a><a href="#variant.volumeup">volumeup</a><a href="#variant.volumedown">volumedown</a><a href="#variant.mediaselect">mediaselect</a><a href="#variant.mail">mail</a><a href="#variant.calculator">calculator</a><a href="#variant.computer">computer</a><a href="#variant.ac_home">ac_home</a><a href="#variant.ac_back">ac_back</a><a href="#variant.ac_forward">ac_forward</a><a href="#variant.ac_refresh">ac_refresh</a><a href="#variant.ac_bookmarks">ac_bookmarks</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'QKeyCode', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Enum <a href='index.html'>qapi_qmp</a>::<wbr><a class="enum" href=''>QKeyCode</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#5021-5168' title='goto source code'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum QKeyCode {
+    unmapped,
+    shift,
+    shift_r,
+    alt,
+    alt_r,
+    ctrl,
+    ctrl_r,
+    menu,
+    esc,
+    _1,
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _0,
+    minus,
+    equal,
+    backspace,
+    tab,
+    q,
+    w,
+    e,
+    r,
+    t,
+    y,
+    u,
+    i,
+    o,
+    p,
+    bracket_left,
+    bracket_right,
+    ret,
+    a,
+    s,
+    d,
+    f,
+    g,
+    h,
+    j,
+    k,
+    l,
+    semicolon,
+    apostrophe,
+    grave_accent,
+    backslash,
+    z,
+    x,
+    c,
+    v,
+    b,
+    n,
+    m,
+    comma,
+    dot,
+    slash,
+    asterisk,
+    spc,
+    caps_lock,
+    f1,
+    f2,
+    f3,
+    f4,
+    f5,
+    f6,
+    f7,
+    f8,
+    f9,
+    f10,
+    num_lock,
+    scroll_lock,
+    kp_divide,
+    kp_multiply,
+    kp_subtract,
+    kp_add,
+    kp_enter,
+    kp_decimal,
+    sysrq,
+    kp_0,
+    kp_1,
+    kp_2,
+    kp_3,
+    kp_4,
+    kp_5,
+    kp_6,
+    kp_7,
+    kp_8,
+    kp_9,
+    less,
+    f11,
+    f12,
+    print,
+    home,
+    pgup,
+    pgdn,
+    end,
+    left,
+    up,
+    down,
+    right,
+    insert,
+    delete,
+    stop,
+    again,
+    props,
+    undo,
+    front,
+    copy,
+    open,
+    paste,
+    find,
+    cut,
+    lf,
+    help,
+    meta_l,
+    meta_r,
+    compose,
+    pause,
+    ro,
+    hiragana,
+    henkan,
+    yen,
+    kp_comma,
+    kp_equals,
+    power,
+    sleep,
+    wake,
+    audionext,
+    audioprev,
+    audiostop,
+    audioplay,
+    audiomute,
+    volumeup,
+    volumedown,
+    mediaselect,
+    mail,
+    calculator,
+    computer,
+    ac_home,
+    ac_back,
+    ac_forward,
+    ac_refresh,
+    ac_bookmarks,
+}</pre><h2 id='variants' class='variants small-section-header'>
+                   Variants<a href='#variants' class='anchor'></a></h2>
+<span id="variant.unmapped" class="variant small-section-header"><a href="#variant.unmapped" class="anchor field"></a><span id='unmapped.v' class='invisible'><code>unmapped</code></span></span><span id="variant.shift" class="variant small-section-header"><a href="#variant.shift" class="anchor field"></a><span id='shift.v' class='invisible'><code>shift</code></span></span><span id="variant.shift_r" class="variant small-section-header"><a href="#variant.shift_r" class="anchor field"></a><span id='shift_r.v' class='invisible'><code>shift_r</code></span></span><span id="variant.alt" class="variant small-section-header"><a href="#variant.alt" class="anchor field"></a><span id='alt.v' class='invisible'><code>alt</code></span></span><span id="variant.alt_r" class="variant small-section-header"><a href="#variant.alt_r" class="anchor field"></a><span id='alt_r.v' class='invisible'><code>alt_r</code></span></span><span id="variant.ctrl" class="variant small-section-header"><a href="#variant.ctrl" class="anchor field"></a><span id='ctrl.v' class='invisible'><code>ctrl</code></span></span><span id="variant.ctrl_r" class="variant small-section-header"><a href="#variant.ctrl_r" class="anchor field"></a><span id='ctrl_r.v' class='invisible'><code>ctrl_r</code></span></span><span id="variant.menu" class="variant small-section-header"><a href="#variant.menu" class="anchor field"></a><span id='menu.v' class='invisible'><code>menu</code></span></span><span id="variant.esc" class="variant small-section-header"><a href="#variant.esc" class="anchor field"></a><span id='esc.v' class='invisible'><code>esc</code></span></span><span id="variant._1" class="variant small-section-header"><a href="#variant._1" class="anchor field"></a><span id='_1.v' class='invisible'><code>_1</code></span></span><span id="variant._2" class="variant small-section-header"><a href="#variant._2" class="anchor field"></a><span id='_2.v' class='invisible'><code>_2</code></span></span><span id="variant._3" class="variant small-section-header"><a href="#variant._3" class="anchor field"></a><span id='_3.v' class='invisible'><code>_3</code></span></span><span id="variant._4" class="variant small-section-header"><a href="#variant._4" class="anchor field"></a><span id='_4.v' class='invisible'><code>_4</code></span></span><span id="variant._5" class="variant small-section-header"><a href="#variant._5" class="anchor field"></a><span id='_5.v' class='invisible'><code>_5</code></span></span><span id="variant._6" class="variant small-section-header"><a href="#variant._6" class="anchor field"></a><span id='_6.v' class='invisible'><code>_6</code></span></span><span id="variant._7" class="variant small-section-header"><a href="#variant._7" class="anchor field"></a><span id='_7.v' class='invisible'><code>_7</code></span></span><span id="variant._8" class="variant small-section-header"><a href="#variant._8" class="anchor field"></a><span id='_8.v' class='invisible'><code>_8</code></span></span><span id="variant._9" class="variant small-section-header"><a href="#variant._9" class="anchor field"></a><span id='_9.v' class='invisible'><code>_9</code></span></span><span id="variant._0" class="variant small-section-header"><a href="#variant._0" class="anchor field"></a><span id='_0.v' class='invisible'><code>_0</code></span></span><span id="variant.minus" class="variant small-section-header"><a href="#variant.minus" class="anchor field"></a><span id='minus.v' class='invisible'><code>minus</code></span></span><span id="variant.equal" class="variant small-section-header"><a href="#variant.equal" class="anchor field"></a><span id='equal.v' class='invisible'><code>equal</code></span></span><span id="variant.backspace" class="variant small-section-header"><a href="#variant.backspace" class="anchor field"></a><span id='backspace.v' class='invisible'><code>backspace</code></span></span><span id="variant.tab" class="variant small-section-header"><a href="#variant.tab" class="anchor field"></a><span id='tab.v' class='invisible'><code>tab</code></span></span><span id="variant.q" class="variant small-section-header"><a href="#variant.q" class="anchor field"></a><span id='q.v' class='invisible'><code>q</code></span></span><span id="variant.w" class="variant small-section-header"><a href="#variant.w" class="anchor field"></a><span id='w.v' class='invisible'><code>w</code></span></span><span id="variant.e" class="variant small-section-header"><a href="#variant.e" class="anchor field"></a><span id='e.v' class='invisible'><code>e</code></span></span><span id="variant.r" class="variant small-section-header"><a href="#variant.r" class="anchor field"></a><span id='r.v' class='invisible'><code>r</code></span></span><span id="variant.t" class="variant small-section-header"><a href="#variant.t" class="anchor field"></a><span id='t.v' class='invisible'><code>t</code></span></span><span id="variant.y" class="variant small-section-header"><a href="#variant.y" class="anchor field"></a><span id='y.v' class='invisible'><code>y</code></span></span><span id="variant.u" class="variant small-section-header"><a href="#variant.u" class="anchor field"></a><span id='u.v' class='invisible'><code>u</code></span></span><span id="variant.i" class="variant small-section-header"><a href="#variant.i" class="anchor field"></a><span id='i.v' class='invisible'><code>i</code></span></span><span id="variant.o" class="variant small-section-header"><a href="#variant.o" class="anchor field"></a><span id='o.v' class='invisible'><code>o</code></span></span><span id="variant.p" class="variant small-section-header"><a href="#variant.p" class="anchor field"></a><span id='p.v' class='invisible'><code>p</code></span></span><span id="variant.bracket_left" class="variant small-section-header"><a href="#variant.bracket_left" class="anchor field"></a><span id='bracket_left.v' class='invisible'><code>bracket_left</code></span></span><span id="variant.bracket_right" class="variant small-section-header"><a href="#variant.bracket_right" class="anchor field"></a><span id='bracket_right.v' class='invisible'><code>bracket_right</code></span></span><span id="variant.ret" class="variant small-section-header"><a href="#variant.ret" class="anchor field"></a><span id='ret.v' class='invisible'><code>ret</code></span></span><span id="variant.a" class="variant small-section-header"><a href="#variant.a" class="anchor field"></a><span id='a.v' class='invisible'><code>a</code></span></span><span id="variant.s" class="variant small-section-header"><a href="#variant.s" class="anchor field"></a><span id='s.v' class='invisible'><code>s</code></span></span><span id="variant.d" class="variant small-section-header"><a href="#variant.d" class="anchor field"></a><span id='d.v' class='invisible'><code>d</code></span></span><span id="variant.f" class="variant small-section-header"><a href="#variant.f" class="anchor field"></a><span id='f.v' class='invisible'><code>f</code></span></span><span id="variant.g" class="variant small-section-header"><a href="#variant.g" class="anchor field"></a><span id='g.v' class='invisible'><code>g</code></span></span><span id="variant.h" class="variant small-section-header"><a href="#variant.h" class="anchor field"></a><span id='h.v' class='invisible'><code>h</code></span></span><span id="variant.j" class="variant small-section-header"><a href="#variant.j" class="anchor field"></a><span id='j.v' class='invisible'><code>j</code></span></span><span id="variant.k" class="variant small-section-header"><a href="#variant.k" class="anchor field"></a><span id='k.v' class='invisible'><code>k</code></span></span><span id="variant.l" class="variant small-section-header"><a href="#variant.l" class="anchor field"></a><span id='l.v' class='invisible'><code>l</code></span></span><span id="variant.semicolon" class="variant small-section-header"><a href="#variant.semicolon" class="anchor field"></a><span id='semicolon.v' class='invisible'><code>semicolon</code></span></span><span id="variant.apostrophe" class="variant small-section-header"><a href="#variant.apostrophe" class="anchor field"></a><span id='apostrophe.v' class='invisible'><code>apostrophe</code></span></span><span id="variant.grave_accent" class="variant small-section-header"><a href="#variant.grave_accent" class="anchor field"></a><span id='grave_accent.v' class='invisible'><code>grave_accent</code></span></span><span id="variant.backslash" class="variant small-section-header"><a href="#variant.backslash" class="anchor field"></a><span id='backslash.v' class='invisible'><code>backslash</code></span></span><span id="variant.z" class="variant small-section-header"><a href="#variant.z" class="anchor field"></a><span id='z.v' class='invisible'><code>z</code></span></span><span id="variant.x" class="variant small-section-header"><a href="#variant.x" class="anchor field"></a><span id='x.v' class='invisible'><code>x</code></span></span><span id="variant.c" class="variant small-section-header"><a href="#variant.c" class="anchor field"></a><span id='c.v' class='invisible'><code>c</code></span></span><span id="variant.v" class="variant small-section-header"><a href="#variant.v" class="anchor field"></a><span id='v.v' class='invisible'><code>v</code></span></span><span id="variant.b" class="variant small-section-header"><a href="#variant.b" class="anchor field"></a><span id='b.v' class='invisible'><code>b</code></span></span><span id="variant.n" class="variant small-section-header"><a href="#variant.n" class="anchor field"></a><span id='n.v' class='invisible'><code>n</code></span></span><span id="variant.m" class="variant small-section-header"><a href="#variant.m" class="anchor field"></a><span id='m.v' class='invisible'><code>m</code></span></span><span id="variant.comma" class="variant small-section-header"><a href="#variant.comma" class="anchor field"></a><span id='comma.v' class='invisible'><code>comma</code></span></span><span id="variant.dot" class="variant small-section-header"><a href="#variant.dot" class="anchor field"></a><span id='dot.v' class='invisible'><code>dot</code></span></span><span id="variant.slash" class="variant small-section-header"><a href="#variant.slash" class="anchor field"></a><span id='slash.v' class='invisible'><code>slash</code></span></span><span id="variant.asterisk" class="variant small-section-header"><a href="#variant.asterisk" class="anchor field"></a><span id='asterisk.v' class='invisible'><code>asterisk</code></span></span><span id="variant.spc" class="variant small-section-header"><a href="#variant.spc" class="anchor field"></a><span id='spc.v' class='invisible'><code>spc</code></span></span><span id="variant.caps_lock" class="variant small-section-header"><a href="#variant.caps_lock" class="anchor field"></a><span id='caps_lock.v' class='invisible'><code>caps_lock</code></span></span><span id="variant.f1" class="variant small-section-header"><a href="#variant.f1" class="anchor field"></a><span id='f1.v' class='invisible'><code>f1</code></span></span><span id="variant.f2" class="variant small-section-header"><a href="#variant.f2" class="anchor field"></a><span id='f2.v' class='invisible'><code>f2</code></span></span><span id="variant.f3" class="variant small-section-header"><a href="#variant.f3" class="anchor field"></a><span id='f3.v' class='invisible'><code>f3</code></span></span><span id="variant.f4" class="variant small-section-header"><a href="#variant.f4" class="anchor field"></a><span id='f4.v' class='invisible'><code>f4</code></span></span><span id="variant.f5" class="variant small-section-header"><a href="#variant.f5" class="anchor field"></a><span id='f5.v' class='invisible'><code>f5</code></span></span><span id="variant.f6" class="variant small-section-header"><a href="#variant.f6" class="anchor field"></a><span id='f6.v' class='invisible'><code>f6</code></span></span><span id="variant.f7" class="variant small-section-header"><a href="#variant.f7" class="anchor field"></a><span id='f7.v' class='invisible'><code>f7</code></span></span><span id="variant.f8" class="variant small-section-header"><a href="#variant.f8" class="anchor field"></a><span id='f8.v' class='invisible'><code>f8</code></span></span><span id="variant.f9" class="variant small-section-header"><a href="#variant.f9" class="anchor field"></a><span id='f9.v' class='invisible'><code>f9</code></span></span><span id="variant.f10" class="variant small-section-header"><a href="#variant.f10" class="anchor field"></a><span id='f10.v' class='invisible'><code>f10</code></span></span><span id="variant.num_lock" class="variant small-section-header"><a href="#variant.num_lock" class="anchor field"></a><span id='num_lock.v' class='invisible'><code>num_lock</code></span></span><span id="variant.scroll_lock" class="variant small-section-header"><a href="#variant.scroll_lock" class="anchor field"></a><span id='scroll_lock.v' class='invisible'><code>scroll_lock</code></span></span><span id="variant.kp_divide" class="variant small-section-header"><a href="#variant.kp_divide" class="anchor field"></a><span id='kp_divide.v' class='invisible'><code>kp_divide</code></span></span><span id="variant.kp_multiply" class="variant small-section-header"><a href="#variant.kp_multiply" class="anchor field"></a><span id='kp_multiply.v' class='invisible'><code>kp_multiply</code></span></span><span id="variant.kp_subtract" class="variant small-section-header"><a href="#variant.kp_subtract" class="anchor field"></a><span id='kp_subtract.v' class='invisible'><code>kp_subtract</code></span></span><span id="variant.kp_add" class="variant small-section-header"><a href="#variant.kp_add" class="anchor field"></a><span id='kp_add.v' class='invisible'><code>kp_add</code></span></span><span id="variant.kp_enter" class="variant small-section-header"><a href="#variant.kp_enter" class="anchor field"></a><span id='kp_enter.v' class='invisible'><code>kp_enter</code></span></span><span id="variant.kp_decimal" class="variant small-section-header"><a href="#variant.kp_decimal" class="anchor field"></a><span id='kp_decimal.v' class='invisible'><code>kp_decimal</code></span></span><span id="variant.sysrq" class="variant small-section-header"><a href="#variant.sysrq" class="anchor field"></a><span id='sysrq.v' class='invisible'><code>sysrq</code></span></span><span id="variant.kp_0" class="variant small-section-header"><a href="#variant.kp_0" class="anchor field"></a><span id='kp_0.v' class='invisible'><code>kp_0</code></span></span><span id="variant.kp_1" class="variant small-section-header"><a href="#variant.kp_1" class="anchor field"></a><span id='kp_1.v' class='invisible'><code>kp_1</code></span></span><span id="variant.kp_2" class="variant small-section-header"><a href="#variant.kp_2" class="anchor field"></a><span id='kp_2.v' class='invisible'><code>kp_2</code></span></span><span id="variant.kp_3" class="variant small-section-header"><a href="#variant.kp_3" class="anchor field"></a><span id='kp_3.v' class='invisible'><code>kp_3</code></span></span><span id="variant.kp_4" class="variant small-section-header"><a href="#variant.kp_4" class="anchor field"></a><span id='kp_4.v' class='invisible'><code>kp_4</code></span></span><span id="variant.kp_5" class="variant small-section-header"><a href="#variant.kp_5" class="anchor field"></a><span id='kp_5.v' class='invisible'><code>kp_5</code></span></span><span id="variant.kp_6" class="variant small-section-header"><a href="#variant.kp_6" class="anchor field"></a><span id='kp_6.v' class='invisible'><code>kp_6</code></span></span><span id="variant.kp_7" class="variant small-section-header"><a href="#variant.kp_7" class="anchor field"></a><span id='kp_7.v' class='invisible'><code>kp_7</code></span></span><span id="variant.kp_8" class="variant small-section-header"><a href="#variant.kp_8" class="anchor field"></a><span id='kp_8.v' class='invisible'><code>kp_8</code></span></span><span id="variant.kp_9" class="variant small-section-header"><a href="#variant.kp_9" class="anchor field"></a><span id='kp_9.v' class='invisible'><code>kp_9</code></span></span><span id="variant.less" class="variant small-section-header"><a href="#variant.less" class="anchor field"></a><span id='less.v' class='invisible'><code>less</code></span></span><span id="variant.f11" class="variant small-section-header"><a href="#variant.f11" class="anchor field"></a><span id='f11.v' class='invisible'><code>f11</code></span></span><span id="variant.f12" class="variant small-section-header"><a href="#variant.f12" class="anchor field"></a><span id='f12.v' class='invisible'><code>f12</code></span></span><span id="variant.print" class="variant small-section-header"><a href="#variant.print" class="anchor field"></a><span id='print.v' class='invisible'><code>print</code></span></span><span id="variant.home" class="variant small-section-header"><a href="#variant.home" class="anchor field"></a><span id='home.v' class='invisible'><code>home</code></span></span><span id="variant.pgup" class="variant small-section-header"><a href="#variant.pgup" class="anchor field"></a><span id='pgup.v' class='invisible'><code>pgup</code></span></span><span id="variant.pgdn" class="variant small-section-header"><a href="#variant.pgdn" class="anchor field"></a><span id='pgdn.v' class='invisible'><code>pgdn</code></span></span><span id="variant.end" class="variant small-section-header"><a href="#variant.end" class="anchor field"></a><span id='end.v' class='invisible'><code>end</code></span></span><span id="variant.left" class="variant small-section-header"><a href="#variant.left" class="anchor field"></a><span id='left.v' class='invisible'><code>left</code></span></span><span id="variant.up" class="variant small-section-header"><a href="#variant.up" class="anchor field"></a><span id='up.v' class='invisible'><code>up</code></span></span><span id="variant.down" class="variant small-section-header"><a href="#variant.down" class="anchor field"></a><span id='down.v' class='invisible'><code>down</code></span></span><span id="variant.right" class="variant small-section-header"><a href="#variant.right" class="anchor field"></a><span id='right.v' class='invisible'><code>right</code></span></span><span id="variant.insert" class="variant small-section-header"><a href="#variant.insert" class="anchor field"></a><span id='insert.v' class='invisible'><code>insert</code></span></span><span id="variant.delete" class="variant small-section-header"><a href="#variant.delete" class="anchor field"></a><span id='delete.v' class='invisible'><code>delete</code></span></span><span id="variant.stop" class="variant small-section-header"><a href="#variant.stop" class="anchor field"></a><span id='stop.v' class='invisible'><code>stop</code></span></span><span id="variant.again" class="variant small-section-header"><a href="#variant.again" class="anchor field"></a><span id='again.v' class='invisible'><code>again</code></span></span><span id="variant.props" class="variant small-section-header"><a href="#variant.props" class="anchor field"></a><span id='props.v' class='invisible'><code>props</code></span></span><span id="variant.undo" class="variant small-section-header"><a href="#variant.undo" class="anchor field"></a><span id='undo.v' class='invisible'><code>undo</code></span></span><span id="variant.front" class="variant small-section-header"><a href="#variant.front" class="anchor field"></a><span id='front.v' class='invisible'><code>front</code></span></span><span id="variant.copy" class="variant small-section-header"><a href="#variant.copy" class="anchor field"></a><span id='copy.v' class='invisible'><code>copy</code></span></span><span id="variant.open" class="variant small-section-header"><a href="#variant.open" class="anchor field"></a><span id='open.v' class='invisible'><code>open</code></span></span><span id="variant.paste" class="variant small-section-header"><a href="#variant.paste" class="anchor field"></a><span id='paste.v' class='invisible'><code>paste</code></span></span><span id="variant.find" class="variant small-section-header"><a href="#variant.find" class="anchor field"></a><span id='find.v' class='invisible'><code>find</code></span></span><span id="variant.cut" class="variant small-section-header"><a href="#variant.cut" class="anchor field"></a><span id='cut.v' class='invisible'><code>cut</code></span></span><span id="variant.lf" class="variant small-section-header"><a href="#variant.lf" class="anchor field"></a><span id='lf.v' class='invisible'><code>lf</code></span></span><span id="variant.help" class="variant small-section-header"><a href="#variant.help" class="anchor field"></a><span id='help.v' class='invisible'><code>help</code></span></span><span id="variant.meta_l" class="variant small-section-header"><a href="#variant.meta_l" class="anchor field"></a><span id='meta_l.v' class='invisible'><code>meta_l</code></span></span><span id="variant.meta_r" class="variant small-section-header"><a href="#variant.meta_r" class="anchor field"></a><span id='meta_r.v' class='invisible'><code>meta_r</code></span></span><span id="variant.compose" class="variant small-section-header"><a href="#variant.compose" class="anchor field"></a><span id='compose.v' class='invisible'><code>compose</code></span></span><span id="variant.pause" class="variant small-section-header"><a href="#variant.pause" class="anchor field"></a><span id='pause.v' class='invisible'><code>pause</code></span></span><span id="variant.ro" class="variant small-section-header"><a href="#variant.ro" class="anchor field"></a><span id='ro.v' class='invisible'><code>ro</code></span></span><span id="variant.hiragana" class="variant small-section-header"><a href="#variant.hiragana" class="anchor field"></a><span id='hiragana.v' class='invisible'><code>hiragana</code></span></span><span id="variant.henkan" class="variant small-section-header"><a href="#variant.henkan" class="anchor field"></a><span id='henkan.v' class='invisible'><code>henkan</code></span></span><span id="variant.yen" class="variant small-section-header"><a href="#variant.yen" class="anchor field"></a><span id='yen.v' class='invisible'><code>yen</code></span></span><span id="variant.kp_comma" class="variant small-section-header"><a href="#variant.kp_comma" class="anchor field"></a><span id='kp_comma.v' class='invisible'><code>kp_comma</code></span></span><span id="variant.kp_equals" class="variant small-section-header"><a href="#variant.kp_equals" class="anchor field"></a><span id='kp_equals.v' class='invisible'><code>kp_equals</code></span></span><span id="variant.power" class="variant small-section-header"><a href="#variant.power" class="anchor field"></a><span id='power.v' class='invisible'><code>power</code></span></span><span id="variant.sleep" class="variant small-section-header"><a href="#variant.sleep" class="anchor field"></a><span id='sleep.v' class='invisible'><code>sleep</code></span></span><span id="variant.wake" class="variant small-section-header"><a href="#variant.wake" class="anchor field"></a><span id='wake.v' class='invisible'><code>wake</code></span></span><span id="variant.audionext" class="variant small-section-header"><a href="#variant.audionext" class="anchor field"></a><span id='audionext.v' class='invisible'><code>audionext</code></span></span><span id="variant.audioprev" class="variant small-section-header"><a href="#variant.audioprev" class="anchor field"></a><span id='audioprev.v' class='invisible'><code>audioprev</code></span></span><span id="variant.audiostop" class="variant small-section-header"><a href="#variant.audiostop" class="anchor field"></a><span id='audiostop.v' class='invisible'><code>audiostop</code></span></span><span id="variant.audioplay" class="variant small-section-header"><a href="#variant.audioplay" class="anchor field"></a><span id='audioplay.v' class='invisible'><code>audioplay</code></span></span><span id="variant.audiomute" class="variant small-section-header"><a href="#variant.audiomute" class="anchor field"></a><span id='audiomute.v' class='invisible'><code>audiomute</code></span></span><span id="variant.volumeup" class="variant small-section-header"><a href="#variant.volumeup" class="anchor field"></a><span id='volumeup.v' class='invisible'><code>volumeup</code></span></span><span id="variant.volumedown" class="variant small-section-header"><a href="#variant.volumedown" class="anchor field"></a><span id='volumedown.v' class='invisible'><code>volumedown</code></span></span><span id="variant.mediaselect" class="variant small-section-header"><a href="#variant.mediaselect" class="anchor field"></a><span id='mediaselect.v' class='invisible'><code>mediaselect</code></span></span><span id="variant.mail" class="variant small-section-header"><a href="#variant.mail" class="anchor field"></a><span id='mail.v' class='invisible'><code>mail</code></span></span><span id="variant.calculator" class="variant small-section-header"><a href="#variant.calculator" class="anchor field"></a><span id='calculator.v' class='invisible'><code>calculator</code></span></span><span id="variant.computer" class="variant small-section-header"><a href="#variant.computer" class="anchor field"></a><span id='computer.v' class='invisible'><code>computer</code></span></span><span id="variant.ac_home" class="variant small-section-header"><a href="#variant.ac_home" class="anchor field"></a><span id='ac_home.v' class='invisible'><code>ac_home</code></span></span><span id="variant.ac_back" class="variant small-section-header"><a href="#variant.ac_back" class="anchor field"></a><span id='ac_back.v' class='invisible'><code>ac_back</code></span></span><span id="variant.ac_forward" class="variant small-section-header"><a href="#variant.ac_forward" class="anchor field"></a><span id='ac_forward.v' class='invisible'><code>ac_forward</code></span></span><span id="variant.ac_refresh" class="variant small-section-header"><a href="#variant.ac_refresh" class="anchor field"></a><span id='ac_refresh.v' class='invisible'><code>ac_refresh</code></span></span><span id="variant.ac_bookmarks" class="variant small-section-header"><a href="#variant.ac_bookmarks" class="anchor field"></a><span id='ac_bookmarks.v' class='invisible'><code>ac_bookmarks</code></span></span>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-Debug' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="enum" href="../qapi_qmp/enum.QKeyCode.html" title="enum qapi_qmp::QKeyCode">QKeyCode</a></code><a href='#impl-Debug' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#5020' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#5020' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
+</div></div><h3 id='impl-Clone' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="enum" href="../qapi_qmp/enum.QKeyCode.html" title="enum qapi_qmp::QKeyCode">QKeyCode</a></code><a href='#impl-Clone' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#5020' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="enum" href="../qapi_qmp/enum.QKeyCode.html" title="enum qapi_qmp::QKeyCode">QKeyCode</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#5020' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/clone.rs.html#112-114' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>↑</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>↓</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "qapi_qmp";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

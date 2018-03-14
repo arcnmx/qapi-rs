@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `BlkdebugEvent` enum in crate `qapi_qmp`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, BlkdebugEvent">
+
+    <title>qapi_qmp::BlkdebugEvent - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc enum">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Enum BlkdebugEvent</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#variants">Variants</a><div class="sidebar-links"><a href="#variant.l1_update">l1_update</a><a href="#variant.l1_grow_alloc_table">l1_grow_alloc_table</a><a href="#variant.l1_grow_write_table">l1_grow_write_table</a><a href="#variant.l1_grow_activate_table">l1_grow_activate_table</a><a href="#variant.l2_load">l2_load</a><a href="#variant.l2_update">l2_update</a><a href="#variant.l2_update_compressed">l2_update_compressed</a><a href="#variant.l2_alloc_cow_read">l2_alloc_cow_read</a><a href="#variant.l2_alloc_write">l2_alloc_write</a><a href="#variant.read_aio">read_aio</a><a href="#variant.read_backing_aio">read_backing_aio</a><a href="#variant.read_compressed">read_compressed</a><a href="#variant.write_aio">write_aio</a><a href="#variant.write_compressed">write_compressed</a><a href="#variant.vmstate_load">vmstate_load</a><a href="#variant.vmstate_save">vmstate_save</a><a href="#variant.cow_read">cow_read</a><a href="#variant.cow_write">cow_write</a><a href="#variant.reftable_load">reftable_load</a><a href="#variant.reftable_grow">reftable_grow</a><a href="#variant.reftable_update">reftable_update</a><a href="#variant.refblock_load">refblock_load</a><a href="#variant.refblock_update">refblock_update</a><a href="#variant.refblock_update_part">refblock_update_part</a><a href="#variant.refblock_alloc">refblock_alloc</a><a href="#variant.refblock_alloc_hookup">refblock_alloc_hookup</a><a href="#variant.refblock_alloc_write">refblock_alloc_write</a><a href="#variant.refblock_alloc_write_blocks">refblock_alloc_write_blocks</a><a href="#variant.refblock_alloc_write_table">refblock_alloc_write_table</a><a href="#variant.refblock_alloc_switch_table">refblock_alloc_switch_table</a><a href="#variant.cluster_alloc">cluster_alloc</a><a href="#variant.cluster_alloc_bytes">cluster_alloc_bytes</a><a href="#variant.cluster_free">cluster_free</a><a href="#variant.flush_to_os">flush_to_os</a><a href="#variant.flush_to_disk">flush_to_disk</a><a href="#variant.pwritev_rmw_head">pwritev_rmw_head</a><a href="#variant.pwritev_rmw_after_head">pwritev_rmw_after_head</a><a href="#variant.pwritev_rmw_tail">pwritev_rmw_tail</a><a href="#variant.pwritev_rmw_after_tail">pwritev_rmw_after_tail</a><a href="#variant.pwritev">pwritev</a><a href="#variant.pwritev_zero">pwritev_zero</a><a href="#variant.pwritev_done">pwritev_done</a><a href="#variant.empty_image_prepare">empty_image_prepare</a><a href="#variant.l1_shrink_write_table">l1_shrink_write_table</a><a href="#variant.l1_shrink_free_l2_clusters">l1_shrink_free_l2_clusters</a><a href="#variant.cor_write">cor_write</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'BlkdebugEvent', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Enum <a href='index.html'>qapi_qmp</a>::<wbr><a class="enum" href=''>BlkdebugEvent</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#3168-3215' title='goto source code'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum BlkdebugEvent {
+    l1_update,
+    l1_grow_alloc_table,
+    l1_grow_write_table,
+    l1_grow_activate_table,
+    l2_load,
+    l2_update,
+    l2_update_compressed,
+    l2_alloc_cow_read,
+    l2_alloc_write,
+    read_aio,
+    read_backing_aio,
+    read_compressed,
+    write_aio,
+    write_compressed,
+    vmstate_load,
+    vmstate_save,
+    cow_read,
+    cow_write,
+    reftable_load,
+    reftable_grow,
+    reftable_update,
+    refblock_load,
+    refblock_update,
+    refblock_update_part,
+    refblock_alloc,
+    refblock_alloc_hookup,
+    refblock_alloc_write,
+    refblock_alloc_write_blocks,
+    refblock_alloc_write_table,
+    refblock_alloc_switch_table,
+    cluster_alloc,
+    cluster_alloc_bytes,
+    cluster_free,
+    flush_to_os,
+    flush_to_disk,
+    pwritev_rmw_head,
+    pwritev_rmw_after_head,
+    pwritev_rmw_tail,
+    pwritev_rmw_after_tail,
+    pwritev,
+    pwritev_zero,
+    pwritev_done,
+    empty_image_prepare,
+    l1_shrink_write_table,
+    l1_shrink_free_l2_clusters,
+    cor_write,
+}</pre><h2 id='variants' class='variants small-section-header'>
+                   Variants<a href='#variants' class='anchor'></a></h2>
+<span id="variant.l1_update" class="variant small-section-header"><a href="#variant.l1_update" class="anchor field"></a><span id='l1_update.v' class='invisible'><code>l1_update</code></span></span><span id="variant.l1_grow_alloc_table" class="variant small-section-header"><a href="#variant.l1_grow_alloc_table" class="anchor field"></a><span id='l1_grow_alloc_table.v' class='invisible'><code>l1_grow_alloc_table</code></span></span><span id="variant.l1_grow_write_table" class="variant small-section-header"><a href="#variant.l1_grow_write_table" class="anchor field"></a><span id='l1_grow_write_table.v' class='invisible'><code>l1_grow_write_table</code></span></span><span id="variant.l1_grow_activate_table" class="variant small-section-header"><a href="#variant.l1_grow_activate_table" class="anchor field"></a><span id='l1_grow_activate_table.v' class='invisible'><code>l1_grow_activate_table</code></span></span><span id="variant.l2_load" class="variant small-section-header"><a href="#variant.l2_load" class="anchor field"></a><span id='l2_load.v' class='invisible'><code>l2_load</code></span></span><span id="variant.l2_update" class="variant small-section-header"><a href="#variant.l2_update" class="anchor field"></a><span id='l2_update.v' class='invisible'><code>l2_update</code></span></span><span id="variant.l2_update_compressed" class="variant small-section-header"><a href="#variant.l2_update_compressed" class="anchor field"></a><span id='l2_update_compressed.v' class='invisible'><code>l2_update_compressed</code></span></span><span id="variant.l2_alloc_cow_read" class="variant small-section-header"><a href="#variant.l2_alloc_cow_read" class="anchor field"></a><span id='l2_alloc_cow_read.v' class='invisible'><code>l2_alloc_cow_read</code></span></span><span id="variant.l2_alloc_write" class="variant small-section-header"><a href="#variant.l2_alloc_write" class="anchor field"></a><span id='l2_alloc_write.v' class='invisible'><code>l2_alloc_write</code></span></span><span id="variant.read_aio" class="variant small-section-header"><a href="#variant.read_aio" class="anchor field"></a><span id='read_aio.v' class='invisible'><code>read_aio</code></span></span><span id="variant.read_backing_aio" class="variant small-section-header"><a href="#variant.read_backing_aio" class="anchor field"></a><span id='read_backing_aio.v' class='invisible'><code>read_backing_aio</code></span></span><span id="variant.read_compressed" class="variant small-section-header"><a href="#variant.read_compressed" class="anchor field"></a><span id='read_compressed.v' class='invisible'><code>read_compressed</code></span></span><span id="variant.write_aio" class="variant small-section-header"><a href="#variant.write_aio" class="anchor field"></a><span id='write_aio.v' class='invisible'><code>write_aio</code></span></span><span id="variant.write_compressed" class="variant small-section-header"><a href="#variant.write_compressed" class="anchor field"></a><span id='write_compressed.v' class='invisible'><code>write_compressed</code></span></span><span id="variant.vmstate_load" class="variant small-section-header"><a href="#variant.vmstate_load" class="anchor field"></a><span id='vmstate_load.v' class='invisible'><code>vmstate_load</code></span></span><span id="variant.vmstate_save" class="variant small-section-header"><a href="#variant.vmstate_save" class="anchor field"></a><span id='vmstate_save.v' class='invisible'><code>vmstate_save</code></span></span><span id="variant.cow_read" class="variant small-section-header"><a href="#variant.cow_read" class="anchor field"></a><span id='cow_read.v' class='invisible'><code>cow_read</code></span></span><span id="variant.cow_write" class="variant small-section-header"><a href="#variant.cow_write" class="anchor field"></a><span id='cow_write.v' class='invisible'><code>cow_write</code></span></span><span id="variant.reftable_load" class="variant small-section-header"><a href="#variant.reftable_load" class="anchor field"></a><span id='reftable_load.v' class='invisible'><code>reftable_load</code></span></span><span id="variant.reftable_grow" class="variant small-section-header"><a href="#variant.reftable_grow" class="anchor field"></a><span id='reftable_grow.v' class='invisible'><code>reftable_grow</code></span></span><span id="variant.reftable_update" class="variant small-section-header"><a href="#variant.reftable_update" class="anchor field"></a><span id='reftable_update.v' class='invisible'><code>reftable_update</code></span></span><span id="variant.refblock_load" class="variant small-section-header"><a href="#variant.refblock_load" class="anchor field"></a><span id='refblock_load.v' class='invisible'><code>refblock_load</code></span></span><span id="variant.refblock_update" class="variant small-section-header"><a href="#variant.refblock_update" class="anchor field"></a><span id='refblock_update.v' class='invisible'><code>refblock_update</code></span></span><span id="variant.refblock_update_part" class="variant small-section-header"><a href="#variant.refblock_update_part" class="anchor field"></a><span id='refblock_update_part.v' class='invisible'><code>refblock_update_part</code></span></span><span id="variant.refblock_alloc" class="variant small-section-header"><a href="#variant.refblock_alloc" class="anchor field"></a><span id='refblock_alloc.v' class='invisible'><code>refblock_alloc</code></span></span><span id="variant.refblock_alloc_hookup" class="variant small-section-header"><a href="#variant.refblock_alloc_hookup" class="anchor field"></a><span id='refblock_alloc_hookup.v' class='invisible'><code>refblock_alloc_hookup</code></span></span><span id="variant.refblock_alloc_write" class="variant small-section-header"><a href="#variant.refblock_alloc_write" class="anchor field"></a><span id='refblock_alloc_write.v' class='invisible'><code>refblock_alloc_write</code></span></span><span id="variant.refblock_alloc_write_blocks" class="variant small-section-header"><a href="#variant.refblock_alloc_write_blocks" class="anchor field"></a><span id='refblock_alloc_write_blocks.v' class='invisible'><code>refblock_alloc_write_blocks</code></span></span><span id="variant.refblock_alloc_write_table" class="variant small-section-header"><a href="#variant.refblock_alloc_write_table" class="anchor field"></a><span id='refblock_alloc_write_table.v' class='invisible'><code>refblock_alloc_write_table</code></span></span><span id="variant.refblock_alloc_switch_table" class="variant small-section-header"><a href="#variant.refblock_alloc_switch_table" class="anchor field"></a><span id='refblock_alloc_switch_table.v' class='invisible'><code>refblock_alloc_switch_table</code></span></span><span id="variant.cluster_alloc" class="variant small-section-header"><a href="#variant.cluster_alloc" class="anchor field"></a><span id='cluster_alloc.v' class='invisible'><code>cluster_alloc</code></span></span><span id="variant.cluster_alloc_bytes" class="variant small-section-header"><a href="#variant.cluster_alloc_bytes" class="anchor field"></a><span id='cluster_alloc_bytes.v' class='invisible'><code>cluster_alloc_bytes</code></span></span><span id="variant.cluster_free" class="variant small-section-header"><a href="#variant.cluster_free" class="anchor field"></a><span id='cluster_free.v' class='invisible'><code>cluster_free</code></span></span><span id="variant.flush_to_os" class="variant small-section-header"><a href="#variant.flush_to_os" class="anchor field"></a><span id='flush_to_os.v' class='invisible'><code>flush_to_os</code></span></span><span id="variant.flush_to_disk" class="variant small-section-header"><a href="#variant.flush_to_disk" class="anchor field"></a><span id='flush_to_disk.v' class='invisible'><code>flush_to_disk</code></span></span><span id="variant.pwritev_rmw_head" class="variant small-section-header"><a href="#variant.pwritev_rmw_head" class="anchor field"></a><span id='pwritev_rmw_head.v' class='invisible'><code>pwritev_rmw_head</code></span></span><span id="variant.pwritev_rmw_after_head" class="variant small-section-header"><a href="#variant.pwritev_rmw_after_head" class="anchor field"></a><span id='pwritev_rmw_after_head.v' class='invisible'><code>pwritev_rmw_after_head</code></span></span><span id="variant.pwritev_rmw_tail" class="variant small-section-header"><a href="#variant.pwritev_rmw_tail" class="anchor field"></a><span id='pwritev_rmw_tail.v' class='invisible'><code>pwritev_rmw_tail</code></span></span><span id="variant.pwritev_rmw_after_tail" class="variant small-section-header"><a href="#variant.pwritev_rmw_after_tail" class="anchor field"></a><span id='pwritev_rmw_after_tail.v' class='invisible'><code>pwritev_rmw_after_tail</code></span></span><span id="variant.pwritev" class="variant small-section-header"><a href="#variant.pwritev" class="anchor field"></a><span id='pwritev.v' class='invisible'><code>pwritev</code></span></span><span id="variant.pwritev_zero" class="variant small-section-header"><a href="#variant.pwritev_zero" class="anchor field"></a><span id='pwritev_zero.v' class='invisible'><code>pwritev_zero</code></span></span><span id="variant.pwritev_done" class="variant small-section-header"><a href="#variant.pwritev_done" class="anchor field"></a><span id='pwritev_done.v' class='invisible'><code>pwritev_done</code></span></span><span id="variant.empty_image_prepare" class="variant small-section-header"><a href="#variant.empty_image_prepare" class="anchor field"></a><span id='empty_image_prepare.v' class='invisible'><code>empty_image_prepare</code></span></span><span id="variant.l1_shrink_write_table" class="variant small-section-header"><a href="#variant.l1_shrink_write_table" class="anchor field"></a><span id='l1_shrink_write_table.v' class='invisible'><code>l1_shrink_write_table</code></span></span><span id="variant.l1_shrink_free_l2_clusters" class="variant small-section-header"><a href="#variant.l1_shrink_free_l2_clusters" class="anchor field"></a><span id='l1_shrink_free_l2_clusters.v' class='invisible'><code>l1_shrink_free_l2_clusters</code></span></span><span id="variant.cor_write" class="variant small-section-header"><a href="#variant.cor_write" class="anchor field"></a><span id='cor_write.v' class='invisible'><code>cor_write</code></span></span>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-Debug' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="enum" href="../qapi_qmp/enum.BlkdebugEvent.html" title="enum qapi_qmp::BlkdebugEvent">BlkdebugEvent</a></code><a href='#impl-Debug' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#3167' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#3167' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
+</div></div><h3 id='impl-Clone' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="enum" href="../qapi_qmp/enum.BlkdebugEvent.html" title="enum qapi_qmp::BlkdebugEvent">BlkdebugEvent</a></code><a href='#impl-Clone' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#3167' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="enum" href="../qapi_qmp/enum.BlkdebugEvent.html" title="enum qapi_qmp::BlkdebugEvent">BlkdebugEvent</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#3167' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/clone.rs.html#112-114' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>↑</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>↓</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "qapi_qmp";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

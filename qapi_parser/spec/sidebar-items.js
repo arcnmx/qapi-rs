@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DataOrType",""],["Spec",""]],"struct":[["Alternate",""],["CombinedUnion",""],["Command",""],["Data",""],["Enum",""],["Event",""],["Include",""],["PragmaDocRequired",""],["PragmaWhitelist",""],["Struct",""],["Type",""],["Union",""],["Value",""]]});

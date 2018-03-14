@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Any","Represents any valid JSON value."],["ErrorClass",""],["Response",""],["ResponseEvent",""]],"struct":[["CommandSerializer",""],["CommandSerializerRef",""],["Empty",""],["Error",""],["Timestamp",""]],"trait":[["Command",""],["Event",""]],"type":[["Dictionary",""]]});

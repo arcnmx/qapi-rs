@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Any","Represents any valid JSON value."]],"struct":[["Empty",""],["Error",""],["Qga",""],["Qmp",""],["Stream",""],["Timestamp",""]],"trait":[["Command",""],["Event",""]],"type":[["Dictionary",""]]});
