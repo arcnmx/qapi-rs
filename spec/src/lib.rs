@@ -135,7 +135,7 @@ pub trait Event: DeserializeOwned {
     const NAME: &'static str;
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 pub enum ErrorClass {
     /// this is used for errors that don’t require a specific error class. This should be the default case for most errors
     GenericError,
