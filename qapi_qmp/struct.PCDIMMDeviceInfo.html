@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct PCDIMMDeviceInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.hotpluggable">hotpluggable</a><a href="#structfield.node">node</a><a href="#structfield.hotplugged">hotplugged</a><a href="#structfield.slot">slot</a><a href="#structfield.addr">addr</a><a href="#structfield.id">id</a><a href="#structfield.size">size</a><a href="#structfield.memdev">memdev</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'PCDIMMDeviceInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct PCDIMMDeviceInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.hotpluggable">hotpluggable</a><a href="#structfield.node">node</a><a href="#structfield.slot">slot</a><a href="#structfield.addr">addr</a><a href="#structfield.size">size</a><a href="#structfield.memdev">memdev</a><a href="#structfield.hotplugged">hotplugged</a><a href="#structfield.id">id</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'PCDIMMDeviceInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -53,12 +53,12 @@
 <pre class='rust struct'>pub struct PCDIMMDeviceInfo {
     pub hotpluggable: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     pub node: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub hotplugged: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     pub slot: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub addr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub memdev: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+    pub hotplugged: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
                        Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.hotpluggable" class="structfield small-section-header">
                            <a href="#structfield.hotpluggable" class="anchor field"></a>
@@ -68,10 +68,6 @@
                            <a href="#structfield.node" class="anchor field"></a>
                            <span id="node.v" class='invisible'>
                            <code>node: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.hotplugged" class="structfield small-section-header">
-                           <a href="#structfield.hotplugged" class="anchor field"></a>
-                           <span id="hotplugged.v" class='invisible'>
-                           <code>hotplugged: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
                            </span></span><span id="structfield.slot" class="structfield small-section-header">
                            <a href="#structfield.slot" class="anchor field"></a>
                            <span id="slot.v" class='invisible'>
@@ -80,10 +76,6 @@
                            <a href="#structfield.addr" class="anchor field"></a>
                            <span id="addr.v" class='invisible'>
                            <code>addr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.id" class="structfield small-section-header">
-                           <a href="#structfield.id" class="anchor field"></a>
-                           <span id="id.v" class='invisible'>
-                           <code>id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span><span id="structfield.size" class="structfield small-section-header">
                            <a href="#structfield.size" class="anchor field"></a>
                            <span id="size.v" class='invisible'>
@@ -92,6 +84,14 @@
                            <a href="#structfield.memdev" class="anchor field"></a>
                            <span id="memdev.v" class='invisible'>
                            <code>memdev: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
+                           </span></span><span id="structfield.hotplugged" class="structfield small-section-header">
+                           <a href="#structfield.hotplugged" class="anchor field"></a>
+                           <span id="hotplugged.v" class='invisible'>
+                           <code>hotplugged: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><span id="structfield.id" class="structfield small-section-header">
+                           <a href="#structfield.id" class="anchor field"></a>
+                           <span id="id.v" class='invisible'>
+                           <code>id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

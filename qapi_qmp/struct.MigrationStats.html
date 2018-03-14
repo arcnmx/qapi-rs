@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct MigrationStats</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.normal">normal</a><a href="#structfield.normal_bytes">normal_bytes</a><a href="#structfield.page_size">page_size</a><a href="#structfield.total">total</a><a href="#structfield.mbps">mbps</a><a href="#structfield.transferred">transferred</a><a href="#structfield.postcopy_requests">postcopy_requests</a><a href="#structfield.remaining">remaining</a><a href="#structfield.duplicate">duplicate</a><a href="#structfield.skipped">skipped</a><a href="#structfield.dirty_pages_rate">dirty_pages_rate</a><a href="#structfield.dirty_sync_count">dirty_sync_count</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'MigrationStats', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct MigrationStats</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.page_size">page_size</a><a href="#structfield.duplicate">duplicate</a><a href="#structfield.remaining">remaining</a><a href="#structfield.dirty_pages_rate">dirty_pages_rate</a><a href="#structfield.normal">normal</a><a href="#structfield.skipped">skipped</a><a href="#structfield.total">total</a><a href="#structfield.transferred">transferred</a><a href="#structfield.mbps">mbps</a><a href="#structfield.postcopy_requests">postcopy_requests</a><a href="#structfield.normal_bytes">normal_bytes</a><a href="#structfield.dirty_sync_count">dirty_sync_count</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'MigrationStats', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,63 +51,63 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#5264-5289' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct MigrationStats {
-    pub normal: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub normal_bytes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub page_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub total: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub mbps: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
-    pub transferred: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub postcopy_requests: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub remaining: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub duplicate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub skipped: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub remaining: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub dirty_pages_rate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub normal: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub skipped: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub total: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub transferred: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub mbps: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    pub postcopy_requests: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub normal_bytes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub dirty_sync_count: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.normal" class="structfield small-section-header">
-                           <a href="#structfield.normal" class="anchor field"></a>
-                           <span id="normal.v" class='invisible'>
-                           <code>normal: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.normal_bytes" class="structfield small-section-header">
-                           <a href="#structfield.normal_bytes" class="anchor field"></a>
-                           <span id="normal_bytes.v" class='invisible'>
-                           <code>normal_bytes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.page_size" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.page_size" class="structfield small-section-header">
                            <a href="#structfield.page_size" class="anchor field"></a>
                            <span id="page_size.v" class='invisible'>
                            <code>page_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.total" class="structfield small-section-header">
-                           <a href="#structfield.total" class="anchor field"></a>
-                           <span id="total.v" class='invisible'>
-                           <code>total: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.mbps" class="structfield small-section-header">
-                           <a href="#structfield.mbps" class="anchor field"></a>
-                           <span id="mbps.v" class='invisible'>
-                           <code>mbps: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a></code>
-                           </span></span><span id="structfield.transferred" class="structfield small-section-header">
-                           <a href="#structfield.transferred" class="anchor field"></a>
-                           <span id="transferred.v" class='invisible'>
-                           <code>transferred: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.postcopy_requests" class="structfield small-section-header">
-                           <a href="#structfield.postcopy_requests" class="anchor field"></a>
-                           <span id="postcopy_requests.v" class='invisible'>
-                           <code>postcopy_requests: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.remaining" class="structfield small-section-header">
-                           <a href="#structfield.remaining" class="anchor field"></a>
-                           <span id="remaining.v" class='invisible'>
-                           <code>remaining: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span><span id="structfield.duplicate" class="structfield small-section-header">
                            <a href="#structfield.duplicate" class="anchor field"></a>
                            <span id="duplicate.v" class='invisible'>
                            <code>duplicate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.skipped" class="structfield small-section-header">
-                           <a href="#structfield.skipped" class="anchor field"></a>
-                           <span id="skipped.v" class='invisible'>
-                           <code>skipped: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.remaining" class="structfield small-section-header">
+                           <a href="#structfield.remaining" class="anchor field"></a>
+                           <span id="remaining.v" class='invisible'>
+                           <code>remaining: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span><span id="structfield.dirty_pages_rate" class="structfield small-section-header">
                            <a href="#structfield.dirty_pages_rate" class="anchor field"></a>
                            <span id="dirty_pages_rate.v" class='invisible'>
                            <code>dirty_pages_rate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.normal" class="structfield small-section-header">
+                           <a href="#structfield.normal" class="anchor field"></a>
+                           <span id="normal.v" class='invisible'>
+                           <code>normal: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.skipped" class="structfield small-section-header">
+                           <a href="#structfield.skipped" class="anchor field"></a>
+                           <span id="skipped.v" class='invisible'>
+                           <code>skipped: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.total" class="structfield small-section-header">
+                           <a href="#structfield.total" class="anchor field"></a>
+                           <span id="total.v" class='invisible'>
+                           <code>total: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.transferred" class="structfield small-section-header">
+                           <a href="#structfield.transferred" class="anchor field"></a>
+                           <span id="transferred.v" class='invisible'>
+                           <code>transferred: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.mbps" class="structfield small-section-header">
+                           <a href="#structfield.mbps" class="anchor field"></a>
+                           <span id="mbps.v" class='invisible'>
+                           <code>mbps: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a></code>
+                           </span></span><span id="structfield.postcopy_requests" class="structfield small-section-header">
+                           <a href="#structfield.postcopy_requests" class="anchor field"></a>
+                           <span id="postcopy_requests.v" class='invisible'>
+                           <code>postcopy_requests: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.normal_bytes" class="structfield small-section-header">
+                           <a href="#structfield.normal_bytes" class="anchor field"></a>
+                           <span id="normal_bytes.v" class='invisible'>
+                           <code>normal_bytes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span><span id="structfield.dirty_sync_count" class="structfield small-section-header">
                            <a href="#structfield.dirty_sync_count" class="anchor field"></a>
                            <span id="dirty_sync_count.v" class='invisible'>

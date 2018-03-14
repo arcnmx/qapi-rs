@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Enum ChardevBackend</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#variants">Variants</a><div class="sidebar-links"><a href="#variant.udp">udp</a><a href="#variant.socket">socket</a><a href="#variant.stdio">stdio</a><a href="#variant.vc">vc</a><a href="#variant.console">console</a><a href="#variant.null">null</a><a href="#variant.spicevmc">spicevmc</a><a href="#variant.spiceport">spiceport</a><a href="#variant.memory">memory</a><a href="#variant.file">file</a><a href="#variant.wctablet">wctablet</a><a href="#variant.msmouse">msmouse</a><a href="#variant.pipe">pipe</a><a href="#variant.parallel">parallel</a><a href="#variant.testdev">testdev</a><a href="#variant.ringbuf">ringbuf</a><a href="#variant.mux">mux</a><a href="#variant.serial">serial</a><a href="#variant.braille">braille</a><a href="#variant.pty">pty</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'ChardevBackend', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Enum ChardevBackend</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#variants">Variants</a><div class="sidebar-links"><a href="#variant.file">file</a><a href="#variant.msmouse">msmouse</a><a href="#variant.wctablet">wctablet</a><a href="#variant.pipe">pipe</a><a href="#variant.null">null</a><a href="#variant.pty">pty</a><a href="#variant.braille">braille</a><a href="#variant.socket">socket</a><a href="#variant.spiceport">spiceport</a><a href="#variant.spicevmc">spicevmc</a><a href="#variant.ringbuf">ringbuf</a><a href="#variant.console">console</a><a href="#variant.memory">memory</a><a href="#variant.stdio">stdio</a><a href="#variant.parallel">parallel</a><a href="#variant.serial">serial</a><a href="#variant.testdev">testdev</a><a href="#variant.vc">vc</a><a href="#variant.udp">udp</a><a href="#variant.mux">mux</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'ChardevBackend', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,109 +51,109 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#3964-4005' title='goto source code'>[src]</a></span></h1>
 <pre class='rust enum'>pub enum ChardevBackend {
-    udp {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevUdp.html" title="struct qapi_qmp::ChardevUdp">ChardevUdp</a>,
-    },
-    socket {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevSocket.html" title="struct qapi_qmp::ChardevSocket">ChardevSocket</a>,
-    },
-    stdio {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevStdio.html" title="struct qapi_qmp::ChardevStdio">ChardevStdio</a>,
-    },
-    vc {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevVC.html" title="struct qapi_qmp::ChardevVC">ChardevVC</a>,
-    },
-    console {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a>,
-    },
-    null {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a>,
-    },
-    spicevmc {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevSpiceChannel.html" title="struct qapi_qmp::ChardevSpiceChannel">ChardevSpiceChannel</a>,
-    },
-    spiceport {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevSpicePort.html" title="struct qapi_qmp::ChardevSpicePort">ChardevSpicePort</a>,
-    },
-    memory {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevRingbuf.html" title="struct qapi_qmp::ChardevRingbuf">ChardevRingbuf</a>,
-    },
     file {
         data: <a class="struct" href="../qapi_qmp/struct.ChardevFile.html" title="struct qapi_qmp::ChardevFile">ChardevFile</a>,
     },
-    wctablet {
+    msmouse {
         data: <a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a>,
     },
-    msmouse {
+    wctablet {
         data: <a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a>,
     },
     pipe {
         data: <a class="struct" href="../qapi_qmp/struct.ChardevHostdev.html" title="struct qapi_qmp::ChardevHostdev">ChardevHostdev</a>,
     },
-    parallel {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevHostdev.html" title="struct qapi_qmp::ChardevHostdev">ChardevHostdev</a>,
-    },
-    testdev {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a>,
-    },
-    ringbuf {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevRingbuf.html" title="struct qapi_qmp::ChardevRingbuf">ChardevRingbuf</a>,
-    },
-    mux {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevMux.html" title="struct qapi_qmp::ChardevMux">ChardevMux</a>,
-    },
-    serial {
-        data: <a class="struct" href="../qapi_qmp/struct.ChardevHostdev.html" title="struct qapi_qmp::ChardevHostdev">ChardevHostdev</a>,
-    },
-    braille {
+    null {
         data: <a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a>,
     },
     pty {
         data: <a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a>,
     },
+    braille {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a>,
+    },
+    socket {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevSocket.html" title="struct qapi_qmp::ChardevSocket">ChardevSocket</a>,
+    },
+    spiceport {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevSpicePort.html" title="struct qapi_qmp::ChardevSpicePort">ChardevSpicePort</a>,
+    },
+    spicevmc {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevSpiceChannel.html" title="struct qapi_qmp::ChardevSpiceChannel">ChardevSpiceChannel</a>,
+    },
+    ringbuf {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevRingbuf.html" title="struct qapi_qmp::ChardevRingbuf">ChardevRingbuf</a>,
+    },
+    console {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a>,
+    },
+    memory {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevRingbuf.html" title="struct qapi_qmp::ChardevRingbuf">ChardevRingbuf</a>,
+    },
+    stdio {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevStdio.html" title="struct qapi_qmp::ChardevStdio">ChardevStdio</a>,
+    },
+    parallel {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevHostdev.html" title="struct qapi_qmp::ChardevHostdev">ChardevHostdev</a>,
+    },
+    serial {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevHostdev.html" title="struct qapi_qmp::ChardevHostdev">ChardevHostdev</a>,
+    },
+    testdev {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a>,
+    },
+    vc {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevVC.html" title="struct qapi_qmp::ChardevVC">ChardevVC</a>,
+    },
+    udp {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevUdp.html" title="struct qapi_qmp::ChardevUdp">ChardevUdp</a>,
+    },
+    mux {
+        data: <a class="struct" href="../qapi_qmp/struct.ChardevMux.html" title="struct qapi_qmp::ChardevMux">ChardevMux</a>,
+    },
 }</pre><h2 id='variants' class='variants small-section-header'>
                    Variants<a href='#variants' class='anchor'></a></h2>
-<span id="variant.udp" class="variant small-section-header"><a href="#variant.udp" class="anchor field"></a><span id='udp.v' class='invisible'><code>udp</code></span></span><span class='docblock autohide sub-variant' id='variant.udp.fields'><h3 class='fields'>Fields of <code>udp</code></h3>
+<span id="variant.file" class="variant small-section-header"><a href="#variant.file" class="anchor field"></a><span id='file.v' class='invisible'><code>file</code></span></span><span class='docblock autohide sub-variant' id='variant.file.fields'><h3 class='fields'>Fields of <code>file</code></h3>
 
-                           <table><tr><td id='variant.udp.field.data'><span id='udp.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevUdp.html" title="struct qapi_qmp::ChardevUdp">ChardevUdp</a></code></span></td><td></td></tr></table></span><span id="variant.socket" class="variant small-section-header"><a href="#variant.socket" class="anchor field"></a><span id='socket.v' class='invisible'><code>socket</code></span></span><span class='docblock autohide sub-variant' id='variant.socket.fields'><h3 class='fields'>Fields of <code>socket</code></h3>
+                           <table><tr><td id='variant.file.field.data'><span id='file.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevFile.html" title="struct qapi_qmp::ChardevFile">ChardevFile</a></code></span></td><td></td></tr></table></span><span id="variant.msmouse" class="variant small-section-header"><a href="#variant.msmouse" class="anchor field"></a><span id='msmouse.v' class='invisible'><code>msmouse</code></span></span><span class='docblock autohide sub-variant' id='variant.msmouse.fields'><h3 class='fields'>Fields of <code>msmouse</code></h3>
 
-                           <table><tr><td id='variant.socket.field.data'><span id='socket.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevSocket.html" title="struct qapi_qmp::ChardevSocket">ChardevSocket</a></code></span></td><td></td></tr></table></span><span id="variant.stdio" class="variant small-section-header"><a href="#variant.stdio" class="anchor field"></a><span id='stdio.v' class='invisible'><code>stdio</code></span></span><span class='docblock autohide sub-variant' id='variant.stdio.fields'><h3 class='fields'>Fields of <code>stdio</code></h3>
+                           <table><tr><td id='variant.msmouse.field.data'><span id='msmouse.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span><span id="variant.wctablet" class="variant small-section-header"><a href="#variant.wctablet" class="anchor field"></a><span id='wctablet.v' class='invisible'><code>wctablet</code></span></span><span class='docblock autohide sub-variant' id='variant.wctablet.fields'><h3 class='fields'>Fields of <code>wctablet</code></h3>
 
-                           <table><tr><td id='variant.stdio.field.data'><span id='stdio.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevStdio.html" title="struct qapi_qmp::ChardevStdio">ChardevStdio</a></code></span></td><td></td></tr></table></span><span id="variant.vc" class="variant small-section-header"><a href="#variant.vc" class="anchor field"></a><span id='vc.v' class='invisible'><code>vc</code></span></span><span class='docblock autohide sub-variant' id='variant.vc.fields'><h3 class='fields'>Fields of <code>vc</code></h3>
+                           <table><tr><td id='variant.wctablet.field.data'><span id='wctablet.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span><span id="variant.pipe" class="variant small-section-header"><a href="#variant.pipe" class="anchor field"></a><span id='pipe.v' class='invisible'><code>pipe</code></span></span><span class='docblock autohide sub-variant' id='variant.pipe.fields'><h3 class='fields'>Fields of <code>pipe</code></h3>
 
-                           <table><tr><td id='variant.vc.field.data'><span id='vc.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevVC.html" title="struct qapi_qmp::ChardevVC">ChardevVC</a></code></span></td><td></td></tr></table></span><span id="variant.console" class="variant small-section-header"><a href="#variant.console" class="anchor field"></a><span id='console.v' class='invisible'><code>console</code></span></span><span class='docblock autohide sub-variant' id='variant.console.fields'><h3 class='fields'>Fields of <code>console</code></h3>
+                           <table><tr><td id='variant.pipe.field.data'><span id='pipe.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevHostdev.html" title="struct qapi_qmp::ChardevHostdev">ChardevHostdev</a></code></span></td><td></td></tr></table></span><span id="variant.null" class="variant small-section-header"><a href="#variant.null" class="anchor field"></a><span id='null.v' class='invisible'><code>null</code></span></span><span class='docblock autohide sub-variant' id='variant.null.fields'><h3 class='fields'>Fields of <code>null</code></h3>
 
-                           <table><tr><td id='variant.console.field.data'><span id='console.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span><span id="variant.null" class="variant small-section-header"><a href="#variant.null" class="anchor field"></a><span id='null.v' class='invisible'><code>null</code></span></span><span class='docblock autohide sub-variant' id='variant.null.fields'><h3 class='fields'>Fields of <code>null</code></h3>
+                           <table><tr><td id='variant.null.field.data'><span id='null.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span><span id="variant.pty" class="variant small-section-header"><a href="#variant.pty" class="anchor field"></a><span id='pty.v' class='invisible'><code>pty</code></span></span><span class='docblock autohide sub-variant' id='variant.pty.fields'><h3 class='fields'>Fields of <code>pty</code></h3>
 
-                           <table><tr><td id='variant.null.field.data'><span id='null.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span><span id="variant.spicevmc" class="variant small-section-header"><a href="#variant.spicevmc" class="anchor field"></a><span id='spicevmc.v' class='invisible'><code>spicevmc</code></span></span><span class='docblock autohide sub-variant' id='variant.spicevmc.fields'><h3 class='fields'>Fields of <code>spicevmc</code></h3>
+                           <table><tr><td id='variant.pty.field.data'><span id='pty.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span><span id="variant.braille" class="variant small-section-header"><a href="#variant.braille" class="anchor field"></a><span id='braille.v' class='invisible'><code>braille</code></span></span><span class='docblock autohide sub-variant' id='variant.braille.fields'><h3 class='fields'>Fields of <code>braille</code></h3>
 
-                           <table><tr><td id='variant.spicevmc.field.data'><span id='spicevmc.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevSpiceChannel.html" title="struct qapi_qmp::ChardevSpiceChannel">ChardevSpiceChannel</a></code></span></td><td></td></tr></table></span><span id="variant.spiceport" class="variant small-section-header"><a href="#variant.spiceport" class="anchor field"></a><span id='spiceport.v' class='invisible'><code>spiceport</code></span></span><span class='docblock autohide sub-variant' id='variant.spiceport.fields'><h3 class='fields'>Fields of <code>spiceport</code></h3>
+                           <table><tr><td id='variant.braille.field.data'><span id='braille.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span><span id="variant.socket" class="variant small-section-header"><a href="#variant.socket" class="anchor field"></a><span id='socket.v' class='invisible'><code>socket</code></span></span><span class='docblock autohide sub-variant' id='variant.socket.fields'><h3 class='fields'>Fields of <code>socket</code></h3>
 
-                           <table><tr><td id='variant.spiceport.field.data'><span id='spiceport.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevSpicePort.html" title="struct qapi_qmp::ChardevSpicePort">ChardevSpicePort</a></code></span></td><td></td></tr></table></span><span id="variant.memory" class="variant small-section-header"><a href="#variant.memory" class="anchor field"></a><span id='memory.v' class='invisible'><code>memory</code></span></span><span class='docblock autohide sub-variant' id='variant.memory.fields'><h3 class='fields'>Fields of <code>memory</code></h3>
+                           <table><tr><td id='variant.socket.field.data'><span id='socket.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevSocket.html" title="struct qapi_qmp::ChardevSocket">ChardevSocket</a></code></span></td><td></td></tr></table></span><span id="variant.spiceport" class="variant small-section-header"><a href="#variant.spiceport" class="anchor field"></a><span id='spiceport.v' class='invisible'><code>spiceport</code></span></span><span class='docblock autohide sub-variant' id='variant.spiceport.fields'><h3 class='fields'>Fields of <code>spiceport</code></h3>
 
-                           <table><tr><td id='variant.memory.field.data'><span id='memory.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevRingbuf.html" title="struct qapi_qmp::ChardevRingbuf">ChardevRingbuf</a></code></span></td><td></td></tr></table></span><span id="variant.file" class="variant small-section-header"><a href="#variant.file" class="anchor field"></a><span id='file.v' class='invisible'><code>file</code></span></span><span class='docblock autohide sub-variant' id='variant.file.fields'><h3 class='fields'>Fields of <code>file</code></h3>
+                           <table><tr><td id='variant.spiceport.field.data'><span id='spiceport.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevSpicePort.html" title="struct qapi_qmp::ChardevSpicePort">ChardevSpicePort</a></code></span></td><td></td></tr></table></span><span id="variant.spicevmc" class="variant small-section-header"><a href="#variant.spicevmc" class="anchor field"></a><span id='spicevmc.v' class='invisible'><code>spicevmc</code></span></span><span class='docblock autohide sub-variant' id='variant.spicevmc.fields'><h3 class='fields'>Fields of <code>spicevmc</code></h3>
 
-                           <table><tr><td id='variant.file.field.data'><span id='file.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevFile.html" title="struct qapi_qmp::ChardevFile">ChardevFile</a></code></span></td><td></td></tr></table></span><span id="variant.wctablet" class="variant small-section-header"><a href="#variant.wctablet" class="anchor field"></a><span id='wctablet.v' class='invisible'><code>wctablet</code></span></span><span class='docblock autohide sub-variant' id='variant.wctablet.fields'><h3 class='fields'>Fields of <code>wctablet</code></h3>
+                           <table><tr><td id='variant.spicevmc.field.data'><span id='spicevmc.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevSpiceChannel.html" title="struct qapi_qmp::ChardevSpiceChannel">ChardevSpiceChannel</a></code></span></td><td></td></tr></table></span><span id="variant.ringbuf" class="variant small-section-header"><a href="#variant.ringbuf" class="anchor field"></a><span id='ringbuf.v' class='invisible'><code>ringbuf</code></span></span><span class='docblock autohide sub-variant' id='variant.ringbuf.fields'><h3 class='fields'>Fields of <code>ringbuf</code></h3>
 
-                           <table><tr><td id='variant.wctablet.field.data'><span id='wctablet.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span><span id="variant.msmouse" class="variant small-section-header"><a href="#variant.msmouse" class="anchor field"></a><span id='msmouse.v' class='invisible'><code>msmouse</code></span></span><span class='docblock autohide sub-variant' id='variant.msmouse.fields'><h3 class='fields'>Fields of <code>msmouse</code></h3>
+                           <table><tr><td id='variant.ringbuf.field.data'><span id='ringbuf.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevRingbuf.html" title="struct qapi_qmp::ChardevRingbuf">ChardevRingbuf</a></code></span></td><td></td></tr></table></span><span id="variant.console" class="variant small-section-header"><a href="#variant.console" class="anchor field"></a><span id='console.v' class='invisible'><code>console</code></span></span><span class='docblock autohide sub-variant' id='variant.console.fields'><h3 class='fields'>Fields of <code>console</code></h3>
 
-                           <table><tr><td id='variant.msmouse.field.data'><span id='msmouse.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span><span id="variant.pipe" class="variant small-section-header"><a href="#variant.pipe" class="anchor field"></a><span id='pipe.v' class='invisible'><code>pipe</code></span></span><span class='docblock autohide sub-variant' id='variant.pipe.fields'><h3 class='fields'>Fields of <code>pipe</code></h3>
+                           <table><tr><td id='variant.console.field.data'><span id='console.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span><span id="variant.memory" class="variant small-section-header"><a href="#variant.memory" class="anchor field"></a><span id='memory.v' class='invisible'><code>memory</code></span></span><span class='docblock autohide sub-variant' id='variant.memory.fields'><h3 class='fields'>Fields of <code>memory</code></h3>
 
-                           <table><tr><td id='variant.pipe.field.data'><span id='pipe.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevHostdev.html" title="struct qapi_qmp::ChardevHostdev">ChardevHostdev</a></code></span></td><td></td></tr></table></span><span id="variant.parallel" class="variant small-section-header"><a href="#variant.parallel" class="anchor field"></a><span id='parallel.v' class='invisible'><code>parallel</code></span></span><span class='docblock autohide sub-variant' id='variant.parallel.fields'><h3 class='fields'>Fields of <code>parallel</code></h3>
+                           <table><tr><td id='variant.memory.field.data'><span id='memory.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevRingbuf.html" title="struct qapi_qmp::ChardevRingbuf">ChardevRingbuf</a></code></span></td><td></td></tr></table></span><span id="variant.stdio" class="variant small-section-header"><a href="#variant.stdio" class="anchor field"></a><span id='stdio.v' class='invisible'><code>stdio</code></span></span><span class='docblock autohide sub-variant' id='variant.stdio.fields'><h3 class='fields'>Fields of <code>stdio</code></h3>
 
-                           <table><tr><td id='variant.parallel.field.data'><span id='parallel.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevHostdev.html" title="struct qapi_qmp::ChardevHostdev">ChardevHostdev</a></code></span></td><td></td></tr></table></span><span id="variant.testdev" class="variant small-section-header"><a href="#variant.testdev" class="anchor field"></a><span id='testdev.v' class='invisible'><code>testdev</code></span></span><span class='docblock autohide sub-variant' id='variant.testdev.fields'><h3 class='fields'>Fields of <code>testdev</code></h3>
+                           <table><tr><td id='variant.stdio.field.data'><span id='stdio.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevStdio.html" title="struct qapi_qmp::ChardevStdio">ChardevStdio</a></code></span></td><td></td></tr></table></span><span id="variant.parallel" class="variant small-section-header"><a href="#variant.parallel" class="anchor field"></a><span id='parallel.v' class='invisible'><code>parallel</code></span></span><span class='docblock autohide sub-variant' id='variant.parallel.fields'><h3 class='fields'>Fields of <code>parallel</code></h3>
 
-                           <table><tr><td id='variant.testdev.field.data'><span id='testdev.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span><span id="variant.ringbuf" class="variant small-section-header"><a href="#variant.ringbuf" class="anchor field"></a><span id='ringbuf.v' class='invisible'><code>ringbuf</code></span></span><span class='docblock autohide sub-variant' id='variant.ringbuf.fields'><h3 class='fields'>Fields of <code>ringbuf</code></h3>
+                           <table><tr><td id='variant.parallel.field.data'><span id='parallel.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevHostdev.html" title="struct qapi_qmp::ChardevHostdev">ChardevHostdev</a></code></span></td><td></td></tr></table></span><span id="variant.serial" class="variant small-section-header"><a href="#variant.serial" class="anchor field"></a><span id='serial.v' class='invisible'><code>serial</code></span></span><span class='docblock autohide sub-variant' id='variant.serial.fields'><h3 class='fields'>Fields of <code>serial</code></h3>
 
-                           <table><tr><td id='variant.ringbuf.field.data'><span id='ringbuf.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevRingbuf.html" title="struct qapi_qmp::ChardevRingbuf">ChardevRingbuf</a></code></span></td><td></td></tr></table></span><span id="variant.mux" class="variant small-section-header"><a href="#variant.mux" class="anchor field"></a><span id='mux.v' class='invisible'><code>mux</code></span></span><span class='docblock autohide sub-variant' id='variant.mux.fields'><h3 class='fields'>Fields of <code>mux</code></h3>
+                           <table><tr><td id='variant.serial.field.data'><span id='serial.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevHostdev.html" title="struct qapi_qmp::ChardevHostdev">ChardevHostdev</a></code></span></td><td></td></tr></table></span><span id="variant.testdev" class="variant small-section-header"><a href="#variant.testdev" class="anchor field"></a><span id='testdev.v' class='invisible'><code>testdev</code></span></span><span class='docblock autohide sub-variant' id='variant.testdev.fields'><h3 class='fields'>Fields of <code>testdev</code></h3>
 
-                           <table><tr><td id='variant.mux.field.data'><span id='mux.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevMux.html" title="struct qapi_qmp::ChardevMux">ChardevMux</a></code></span></td><td></td></tr></table></span><span id="variant.serial" class="variant small-section-header"><a href="#variant.serial" class="anchor field"></a><span id='serial.v' class='invisible'><code>serial</code></span></span><span class='docblock autohide sub-variant' id='variant.serial.fields'><h3 class='fields'>Fields of <code>serial</code></h3>
+                           <table><tr><td id='variant.testdev.field.data'><span id='testdev.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span><span id="variant.vc" class="variant small-section-header"><a href="#variant.vc" class="anchor field"></a><span id='vc.v' class='invisible'><code>vc</code></span></span><span class='docblock autohide sub-variant' id='variant.vc.fields'><h3 class='fields'>Fields of <code>vc</code></h3>
 
-                           <table><tr><td id='variant.serial.field.data'><span id='serial.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevHostdev.html" title="struct qapi_qmp::ChardevHostdev">ChardevHostdev</a></code></span></td><td></td></tr></table></span><span id="variant.braille" class="variant small-section-header"><a href="#variant.braille" class="anchor field"></a><span id='braille.v' class='invisible'><code>braille</code></span></span><span class='docblock autohide sub-variant' id='variant.braille.fields'><h3 class='fields'>Fields of <code>braille</code></h3>
+                           <table><tr><td id='variant.vc.field.data'><span id='vc.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevVC.html" title="struct qapi_qmp::ChardevVC">ChardevVC</a></code></span></td><td></td></tr></table></span><span id="variant.udp" class="variant small-section-header"><a href="#variant.udp" class="anchor field"></a><span id='udp.v' class='invisible'><code>udp</code></span></span><span class='docblock autohide sub-variant' id='variant.udp.fields'><h3 class='fields'>Fields of <code>udp</code></h3>
 
-                           <table><tr><td id='variant.braille.field.data'><span id='braille.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span><span id="variant.pty" class="variant small-section-header"><a href="#variant.pty" class="anchor field"></a><span id='pty.v' class='invisible'><code>pty</code></span></span><span class='docblock autohide sub-variant' id='variant.pty.fields'><h3 class='fields'>Fields of <code>pty</code></h3>
+                           <table><tr><td id='variant.udp.field.data'><span id='udp.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevUdp.html" title="struct qapi_qmp::ChardevUdp">ChardevUdp</a></code></span></td><td></td></tr></table></span><span id="variant.mux" class="variant small-section-header"><a href="#variant.mux" class="anchor field"></a><span id='mux.v' class='invisible'><code>mux</code></span></span><span class='docblock autohide sub-variant' id='variant.mux.fields'><h3 class='fields'>Fields of <code>mux</code></h3>
 
-                           <table><tr><td id='variant.pty.field.data'><span id='pty.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevCommon.html" title="struct qapi_qmp::ChardevCommon">ChardevCommon</a></code></span></td><td></td></tr></table></span>
+                           <table><tr><td id='variant.mux.field.data'><span id='mux.v.data.v' class='invisible'><code>data:&nbsp;<a class="struct" href="../qapi_qmp/struct.ChardevMux.html" title="struct qapi_qmp::ChardevMux">ChardevMux</a></code></span></td><td></td></tr></table></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>
             </h2>

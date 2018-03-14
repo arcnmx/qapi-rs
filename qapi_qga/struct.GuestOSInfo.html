@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct GuestOSInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.version_id">version_id</a><a href="#structfield.pretty_name">pretty_name</a><a href="#structfield.kernel_release">kernel_release</a><a href="#structfield.name">name</a><a href="#structfield.version">version</a><a href="#structfield.variant_id">variant_id</a><a href="#structfield.variant">variant</a><a href="#structfield.machine">machine</a><a href="#structfield.id">id</a><a href="#structfield.kernel_version">kernel_version</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qga</a></p><script>window.sidebarCurrent = {name: 'GuestOSInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct GuestOSInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.variant">variant</a><a href="#structfield.name">name</a><a href="#structfield.id">id</a><a href="#structfield.version">version</a><a href="#structfield.machine">machine</a><a href="#structfield.version_id">version_id</a><a href="#structfield.variant_id">variant_id</a><a href="#structfield.kernel_version">kernel_version</a><a href="#structfield.kernel_release">kernel_release</a><a href="#structfield.pretty_name">pretty_name</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qga</a></p><script>window.sidebarCurrent = {name: 'GuestOSInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,57 +51,57 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qga/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qga-9ee6285ff70fb3e3/out/qga.rs.html#684-705' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct GuestOSInfo {
-    pub version_id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub pretty_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub kernel_release: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub version: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub variant_id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub variant: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub machine: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub version: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub machine: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub version_id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub variant_id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub kernel_version: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub kernel_release: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub pretty_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.version_id" class="structfield small-section-header">
-                           <a href="#structfield.version_id" class="anchor field"></a>
-                           <span id="version_id.v" class='invisible'>
-                           <code>version_id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.pretty_name" class="structfield small-section-header">
-                           <a href="#structfield.pretty_name" class="anchor field"></a>
-                           <span id="pretty_name.v" class='invisible'>
-                           <code>pretty_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.kernel_release" class="structfield small-section-header">
-                           <a href="#structfield.kernel_release" class="anchor field"></a>
-                           <span id="kernel_release.v" class='invisible'>
-                           <code>kernel_release: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.variant" class="structfield small-section-header">
+                           <a href="#structfield.variant" class="anchor field"></a>
+                           <span id="variant.v" class='invisible'>
+                           <code>variant: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span><span id="structfield.name" class="structfield small-section-header">
                            <a href="#structfield.name" class="anchor field"></a>
                            <span id="name.v" class='invisible'>
                            <code>name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.version" class="structfield small-section-header">
-                           <a href="#structfield.version" class="anchor field"></a>
-                           <span id="version.v" class='invisible'>
-                           <code>version: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.variant_id" class="structfield small-section-header">
-                           <a href="#structfield.variant_id" class="anchor field"></a>
-                           <span id="variant_id.v" class='invisible'>
-                           <code>variant_id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.variant" class="structfield small-section-header">
-                           <a href="#structfield.variant" class="anchor field"></a>
-                           <span id="variant.v" class='invisible'>
-                           <code>variant: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.machine" class="structfield small-section-header">
-                           <a href="#structfield.machine" class="anchor field"></a>
-                           <span id="machine.v" class='invisible'>
-                           <code>machine: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span><span id="structfield.id" class="structfield small-section-header">
                            <a href="#structfield.id" class="anchor field"></a>
                            <span id="id.v" class='invisible'>
                            <code>id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.version" class="structfield small-section-header">
+                           <a href="#structfield.version" class="anchor field"></a>
+                           <span id="version.v" class='invisible'>
+                           <code>version: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.machine" class="structfield small-section-header">
+                           <a href="#structfield.machine" class="anchor field"></a>
+                           <span id="machine.v" class='invisible'>
+                           <code>machine: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.version_id" class="structfield small-section-header">
+                           <a href="#structfield.version_id" class="anchor field"></a>
+                           <span id="version_id.v" class='invisible'>
+                           <code>version_id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.variant_id" class="structfield small-section-header">
+                           <a href="#structfield.variant_id" class="anchor field"></a>
+                           <span id="variant_id.v" class='invisible'>
+                           <code>variant_id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span><span id="structfield.kernel_version" class="structfield small-section-header">
                            <a href="#structfield.kernel_version" class="anchor field"></a>
                            <span id="kernel_version.v" class='invisible'>
                            <code>kernel_version: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.kernel_release" class="structfield small-section-header">
+                           <a href="#structfield.kernel_release" class="anchor field"></a>
+                           <span id="kernel_release.v" class='invisible'>
+                           <code>kernel_release: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.pretty_name" class="structfield small-section-header">
+                           <a href="#structfield.pretty_name" class="anchor field"></a>
+                           <span id="pretty_name.v" class='invisible'>
+                           <code>pretty_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

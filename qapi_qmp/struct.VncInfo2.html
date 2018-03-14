@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct VncInfo2</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.auth">auth</a><a href="#structfield.display">display</a><a href="#structfield.id">id</a><a href="#structfield.vencrypt">vencrypt</a><a href="#structfield.clients">clients</a><a href="#structfield.server">server</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'VncInfo2', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct VncInfo2</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.id">id</a><a href="#structfield.display">display</a><a href="#structfield.clients">clients</a><a href="#structfield.auth">auth</a><a href="#structfield.vencrypt">vencrypt</a><a href="#structfield.server">server</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'VncInfo2', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,33 +51,33 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#4915-4928' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct VncInfo2 {
-    pub auth: <a class="enum" href="../qapi_qmp/enum.VncPrimaryAuth.html" title="enum qapi_qmp::VncPrimaryAuth">VncPrimaryAuth</a>,
-    pub display: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub id: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub vencrypt: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.VncVencryptSubAuth.html" title="enum qapi_qmp::VncVencryptSubAuth">VncVencryptSubAuth</a>&gt;,
+    pub display: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub clients: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.VncClientInfo.html" title="struct qapi_qmp::VncClientInfo">VncClientInfo</a>&gt;,
+    pub auth: <a class="enum" href="../qapi_qmp/enum.VncPrimaryAuth.html" title="enum qapi_qmp::VncPrimaryAuth">VncPrimaryAuth</a>,
+    pub vencrypt: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.VncVencryptSubAuth.html" title="enum qapi_qmp::VncVencryptSubAuth">VncVencryptSubAuth</a>&gt;,
     pub server: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.VncServerInfo2.html" title="struct qapi_qmp::VncServerInfo2">VncServerInfo2</a>&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.auth" class="structfield small-section-header">
-                           <a href="#structfield.auth" class="anchor field"></a>
-                           <span id="auth.v" class='invisible'>
-                           <code>auth: <a class="enum" href="../qapi_qmp/enum.VncPrimaryAuth.html" title="enum qapi_qmp::VncPrimaryAuth">VncPrimaryAuth</a></code>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.id" class="structfield small-section-header">
+                           <a href="#structfield.id" class="anchor field"></a>
+                           <span id="id.v" class='invisible'>
+                           <code>id: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
                            </span></span><span id="structfield.display" class="structfield small-section-header">
                            <a href="#structfield.display" class="anchor field"></a>
                            <span id="display.v" class='invisible'>
                            <code>display: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.id" class="structfield small-section-header">
-                           <a href="#structfield.id" class="anchor field"></a>
-                           <span id="id.v" class='invisible'>
-                           <code>id: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.vencrypt" class="structfield small-section-header">
-                           <a href="#structfield.vencrypt" class="anchor field"></a>
-                           <span id="vencrypt.v" class='invisible'>
-                           <code>vencrypt: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.VncVencryptSubAuth.html" title="enum qapi_qmp::VncVencryptSubAuth">VncVencryptSubAuth</a>&gt;</code>
                            </span></span><span id="structfield.clients" class="structfield small-section-header">
                            <a href="#structfield.clients" class="anchor field"></a>
                            <span id="clients.v" class='invisible'>
                            <code>clients: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.VncClientInfo.html" title="struct qapi_qmp::VncClientInfo">VncClientInfo</a>&gt;</code>
+                           </span></span><span id="structfield.auth" class="structfield small-section-header">
+                           <a href="#structfield.auth" class="anchor field"></a>
+                           <span id="auth.v" class='invisible'>
+                           <code>auth: <a class="enum" href="../qapi_qmp/enum.VncPrimaryAuth.html" title="enum qapi_qmp::VncPrimaryAuth">VncPrimaryAuth</a></code>
+                           </span></span><span id="structfield.vencrypt" class="structfield small-section-header">
+                           <a href="#structfield.vencrypt" class="anchor field"></a>
+                           <span id="vencrypt.v" class='invisible'>
+                           <code>vencrypt: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.VncVencryptSubAuth.html" title="enum qapi_qmp::VncVencryptSubAuth">VncVencryptSubAuth</a>&gt;</code>
                            </span></span><span id="structfield.server" class="structfield small-section-header">
                            <a href="#structfield.server" class="anchor field"></a>
                            <span id="server.v" class='invisible'>

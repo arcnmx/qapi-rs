@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct XBZRLECacheStats</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.cache_miss">cache_miss</a><a href="#structfield.cache_miss_rate">cache_miss_rate</a><a href="#structfield.cache_size">cache_size</a><a href="#structfield.bytes">bytes</a><a href="#structfield.overflow">overflow</a><a href="#structfield.pages">pages</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'XBZRLECacheStats', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct XBZRLECacheStats</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.cache_miss">cache_miss</a><a href="#structfield.pages">pages</a><a href="#structfield.cache_miss_rate">cache_miss_rate</a><a href="#structfield.overflow">overflow</a><a href="#structfield.cache_size">cache_size</a><a href="#structfield.bytes">bytes</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'XBZRLECacheStats', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -52,20 +52,28 @@
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#5292-5305' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct XBZRLECacheStats {
     pub cache_miss: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub pages: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub cache_miss_rate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    pub overflow: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub cache_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub bytes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub overflow: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub pages: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
 }</pre><h2 id='fields' class='fields small-section-header'>
                        Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.cache_miss" class="structfield small-section-header">
                            <a href="#structfield.cache_miss" class="anchor field"></a>
                            <span id="cache_miss.v" class='invisible'>
                            <code>cache_miss: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.pages" class="structfield small-section-header">
+                           <a href="#structfield.pages" class="anchor field"></a>
+                           <span id="pages.v" class='invisible'>
+                           <code>pages: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span><span id="structfield.cache_miss_rate" class="structfield small-section-header">
                            <a href="#structfield.cache_miss_rate" class="anchor field"></a>
                            <span id="cache_miss_rate.v" class='invisible'>
                            <code>cache_miss_rate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a></code>
+                           </span></span><span id="structfield.overflow" class="structfield small-section-header">
+                           <a href="#structfield.overflow" class="anchor field"></a>
+                           <span id="overflow.v" class='invisible'>
+                           <code>overflow: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span><span id="structfield.cache_size" class="structfield small-section-header">
                            <a href="#structfield.cache_size" class="anchor field"></a>
                            <span id="cache_size.v" class='invisible'>
@@ -74,14 +82,6 @@
                            <a href="#structfield.bytes" class="anchor field"></a>
                            <span id="bytes.v" class='invisible'>
                            <code>bytes: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.overflow" class="structfield small-section-header">
-                           <a href="#structfield.overflow" class="anchor field"></a>
-                           <span id="overflow.v" class='invisible'>
-                           <code>overflow: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.pages" class="structfield small-section-header">
-                           <a href="#structfield.pages" class="anchor field"></a>
-                           <span id="pages.v" class='invisible'>
-                           <code>pages: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

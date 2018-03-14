@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct PciDeviceInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.bus">bus</a><a href="#structfield.irq">irq</a><a href="#structfield.pci_bridge">pci_bridge</a><a href="#structfield.slot">slot</a><a href="#structfield.class_info">class_info</a><a href="#structfield.qdev_id">qdev_id</a><a href="#structfield.function">function</a><a href="#structfield.id">id</a><a href="#structfield.regions">regions</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'PciDeviceInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct PciDeviceInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.pci_bridge">pci_bridge</a><a href="#structfield.function">function</a><a href="#structfield.bus">bus</a><a href="#structfield.id">id</a><a href="#structfield.qdev_id">qdev_id</a><a href="#structfield.regions">regions</a><a href="#structfield.irq">irq</a><a href="#structfield.class_info">class_info</a><a href="#structfield.slot">slot</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'PciDeviceInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,52 +51,52 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#319-338' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct PciDeviceInfo {
-    pub bus: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub irq: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
     pub pci_bridge: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../qapi_qmp/struct.PciBridgeInfo.html" title="struct qapi_qmp::PciBridgeInfo">PciBridgeInfo</a>&gt;,
-    pub slot: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub class_info: <a class="struct" href="../qapi_qmp/struct.PciDeviceClass.html" title="struct qapi_qmp::PciDeviceClass">PciDeviceClass</a>,
-    pub qdev_id: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
     pub function: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub bus: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub id: <a class="struct" href="../qapi_qmp/struct.PciDeviceId.html" title="struct qapi_qmp::PciDeviceId">PciDeviceId</a>,
+    pub qdev_id: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
     pub regions: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.PciMemoryRegion.html" title="struct qapi_qmp::PciMemoryRegion">PciMemoryRegion</a>&gt;,
+    pub irq: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub class_info: <a class="struct" href="../qapi_qmp/struct.PciDeviceClass.html" title="struct qapi_qmp::PciDeviceClass">PciDeviceClass</a>,
+    pub slot: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.bus" class="structfield small-section-header">
-                           <a href="#structfield.bus" class="anchor field"></a>
-                           <span id="bus.v" class='invisible'>
-                           <code>bus: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.irq" class="structfield small-section-header">
-                           <a href="#structfield.irq" class="anchor field"></a>
-                           <span id="irq.v" class='invisible'>
-                           <code>irq: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.pci_bridge" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.pci_bridge" class="structfield small-section-header">
                            <a href="#structfield.pci_bridge" class="anchor field"></a>
                            <span id="pci_bridge.v" class='invisible'>
                            <code>pci_bridge: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../qapi_qmp/struct.PciBridgeInfo.html" title="struct qapi_qmp::PciBridgeInfo">PciBridgeInfo</a>&gt;</code>
-                           </span></span><span id="structfield.slot" class="structfield small-section-header">
-                           <a href="#structfield.slot" class="anchor field"></a>
-                           <span id="slot.v" class='invisible'>
-                           <code>slot: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.class_info" class="structfield small-section-header">
-                           <a href="#structfield.class_info" class="anchor field"></a>
-                           <span id="class_info.v" class='invisible'>
-                           <code>class_info: <a class="struct" href="../qapi_qmp/struct.PciDeviceClass.html" title="struct qapi_qmp::PciDeviceClass">PciDeviceClass</a></code>
-                           </span></span><span id="structfield.qdev_id" class="structfield small-section-header">
-                           <a href="#structfield.qdev_id" class="anchor field"></a>
-                           <span id="qdev_id.v" class='invisible'>
-                           <code>qdev_id: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
                            </span></span><span id="structfield.function" class="structfield small-section-header">
                            <a href="#structfield.function" class="anchor field"></a>
                            <span id="function.v" class='invisible'>
                            <code>function: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.bus" class="structfield small-section-header">
+                           <a href="#structfield.bus" class="anchor field"></a>
+                           <span id="bus.v" class='invisible'>
+                           <code>bus: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span><span id="structfield.id" class="structfield small-section-header">
                            <a href="#structfield.id" class="anchor field"></a>
                            <span id="id.v" class='invisible'>
                            <code>id: <a class="struct" href="../qapi_qmp/struct.PciDeviceId.html" title="struct qapi_qmp::PciDeviceId">PciDeviceId</a></code>
+                           </span></span><span id="structfield.qdev_id" class="structfield small-section-header">
+                           <a href="#structfield.qdev_id" class="anchor field"></a>
+                           <span id="qdev_id.v" class='invisible'>
+                           <code>qdev_id: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
                            </span></span><span id="structfield.regions" class="structfield small-section-header">
                            <a href="#structfield.regions" class="anchor field"></a>
                            <span id="regions.v" class='invisible'>
                            <code>regions: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.PciMemoryRegion.html" title="struct qapi_qmp::PciMemoryRegion">PciMemoryRegion</a>&gt;</code>
+                           </span></span><span id="structfield.irq" class="structfield small-section-header">
+                           <a href="#structfield.irq" class="anchor field"></a>
+                           <span id="irq.v" class='invisible'>
+                           <code>irq: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.class_info" class="structfield small-section-header">
+                           <a href="#structfield.class_info" class="anchor field"></a>
+                           <span id="class_info.v" class='invisible'>
+                           <code>class_info: <a class="struct" href="../qapi_qmp/struct.PciDeviceClass.html" title="struct qapi_qmp::PciDeviceClass">PciDeviceClass</a></code>
+                           </span></span><span id="structfield.slot" class="structfield small-section-header">
+                           <a href="#structfield.slot" class="anchor field"></a>
+                           <span id="slot.v" class='invisible'>
+                           <code>slot: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

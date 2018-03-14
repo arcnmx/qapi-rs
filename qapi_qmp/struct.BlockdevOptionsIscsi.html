@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct BlockdevOptionsIscsi</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.password_secret">password_secret</a><a href="#structfield.timeout">timeout</a><a href="#structfield.transport">transport</a><a href="#structfield.user">user</a><a href="#structfield.header_digest">header_digest</a><a href="#structfield.initiator_name">initiator_name</a><a href="#structfield.target">target</a><a href="#structfield.portal">portal</a><a href="#structfield.lun">lun</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'BlockdevOptionsIscsi', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct BlockdevOptionsIscsi</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.lun">lun</a><a href="#structfield.header_digest">header_digest</a><a href="#structfield.user">user</a><a href="#structfield.initiator_name">initiator_name</a><a href="#structfield.portal">portal</a><a href="#structfield.target">target</a><a href="#structfield.timeout">timeout</a><a href="#structfield.password_secret">password_secret</a><a href="#structfield.transport">transport</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'BlockdevOptionsIscsi', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,52 +51,52 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#3324-3343' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct BlockdevOptionsIscsi {
-    pub password_secret: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub timeout: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub transport: <a class="enum" href="../qapi_qmp/enum.IscsiTransport.html" title="enum qapi_qmp::IscsiTransport">IscsiTransport</a>,
-    pub user: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub header_digest: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.IscsiHeaderDigest.html" title="enum qapi_qmp::IscsiHeaderDigest">IscsiHeaderDigest</a>&gt;,
-    pub initiator_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub target: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub portal: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
     pub lun: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub header_digest: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.IscsiHeaderDigest.html" title="enum qapi_qmp::IscsiHeaderDigest">IscsiHeaderDigest</a>&gt;,
+    pub user: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub initiator_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub portal: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+    pub target: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+    pub timeout: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub password_secret: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub transport: <a class="enum" href="../qapi_qmp/enum.IscsiTransport.html" title="enum qapi_qmp::IscsiTransport">IscsiTransport</a>,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.password_secret" class="structfield small-section-header">
-                           <a href="#structfield.password_secret" class="anchor field"></a>
-                           <span id="password_secret.v" class='invisible'>
-                           <code>password_secret: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.timeout" class="structfield small-section-header">
-                           <a href="#structfield.timeout" class="anchor field"></a>
-                           <span id="timeout.v" class='invisible'>
-                           <code>timeout: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.transport" class="structfield small-section-header">
-                           <a href="#structfield.transport" class="anchor field"></a>
-                           <span id="transport.v" class='invisible'>
-                           <code>transport: <a class="enum" href="../qapi_qmp/enum.IscsiTransport.html" title="enum qapi_qmp::IscsiTransport">IscsiTransport</a></code>
-                           </span></span><span id="structfield.user" class="structfield small-section-header">
-                           <a href="#structfield.user" class="anchor field"></a>
-                           <span id="user.v" class='invisible'>
-                           <code>user: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.lun" class="structfield small-section-header">
+                           <a href="#structfield.lun" class="anchor field"></a>
+                           <span id="lun.v" class='invisible'>
+                           <code>lun: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
                            </span></span><span id="structfield.header_digest" class="structfield small-section-header">
                            <a href="#structfield.header_digest" class="anchor field"></a>
                            <span id="header_digest.v" class='invisible'>
                            <code>header_digest: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.IscsiHeaderDigest.html" title="enum qapi_qmp::IscsiHeaderDigest">IscsiHeaderDigest</a>&gt;</code>
+                           </span></span><span id="structfield.user" class="structfield small-section-header">
+                           <a href="#structfield.user" class="anchor field"></a>
+                           <span id="user.v" class='invisible'>
+                           <code>user: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span><span id="structfield.initiator_name" class="structfield small-section-header">
                            <a href="#structfield.initiator_name" class="anchor field"></a>
                            <span id="initiator_name.v" class='invisible'>
                            <code>initiator_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.target" class="structfield small-section-header">
-                           <a href="#structfield.target" class="anchor field"></a>
-                           <span id="target.v" class='invisible'>
-                           <code>target: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
                            </span></span><span id="structfield.portal" class="structfield small-section-header">
                            <a href="#structfield.portal" class="anchor field"></a>
                            <span id="portal.v" class='invisible'>
                            <code>portal: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.lun" class="structfield small-section-header">
-                           <a href="#structfield.lun" class="anchor field"></a>
-                           <span id="lun.v" class='invisible'>
-                           <code>lun: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.target" class="structfield small-section-header">
+                           <a href="#structfield.target" class="anchor field"></a>
+                           <span id="target.v" class='invisible'>
+                           <code>target: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
+                           </span></span><span id="structfield.timeout" class="structfield small-section-header">
+                           <a href="#structfield.timeout" class="anchor field"></a>
+                           <span id="timeout.v" class='invisible'>
+                           <code>timeout: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.password_secret" class="structfield small-section-header">
+                           <a href="#structfield.password_secret" class="anchor field"></a>
+                           <span id="password_secret.v" class='invisible'>
+                           <code>password_secret: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.transport" class="structfield small-section-header">
+                           <a href="#structfield.transport" class="anchor field"></a>
+                           <span id="transport.v" class='invisible'>
+                           <code>transport: <a class="enum" href="../qapi_qmp/enum.IscsiTransport.html" title="enum qapi_qmp::IscsiTransport">IscsiTransport</a></code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct PciBusInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.number">number</a><a href="#structfield.subordinate">subordinate</a><a href="#structfield.io_range">io_range</a><a href="#structfield.secondary">secondary</a><a href="#structfield.memory_range">memory_range</a><a href="#structfield.prefetchable_range">prefetchable_range</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'PciBusInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct PciBusInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.subordinate">subordinate</a><a href="#structfield.io_range">io_range</a><a href="#structfield.memory_range">memory_range</a><a href="#structfield.secondary">secondary</a><a href="#structfield.prefetchable_range">prefetchable_range</a><a href="#structfield.number">number</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'PciBusInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,18 +51,14 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#279-292' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct PciBusInfo {
-    pub number: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub subordinate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub io_range: <a class="struct" href="../qapi_qmp/struct.PciMemoryRange.html" title="struct qapi_qmp::PciMemoryRange">PciMemoryRange</a>,
-    pub secondary: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub memory_range: <a class="struct" href="../qapi_qmp/struct.PciMemoryRange.html" title="struct qapi_qmp::PciMemoryRange">PciMemoryRange</a>,
+    pub secondary: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub prefetchable_range: <a class="struct" href="../qapi_qmp/struct.PciMemoryRange.html" title="struct qapi_qmp::PciMemoryRange">PciMemoryRange</a>,
+    pub number: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.number" class="structfield small-section-header">
-                           <a href="#structfield.number" class="anchor field"></a>
-                           <span id="number.v" class='invisible'>
-                           <code>number: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.subordinate" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.subordinate" class="structfield small-section-header">
                            <a href="#structfield.subordinate" class="anchor field"></a>
                            <span id="subordinate.v" class='invisible'>
                            <code>subordinate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
@@ -70,18 +66,22 @@
                            <a href="#structfield.io_range" class="anchor field"></a>
                            <span id="io_range.v" class='invisible'>
                            <code>io_range: <a class="struct" href="../qapi_qmp/struct.PciMemoryRange.html" title="struct qapi_qmp::PciMemoryRange">PciMemoryRange</a></code>
-                           </span></span><span id="structfield.secondary" class="structfield small-section-header">
-                           <a href="#structfield.secondary" class="anchor field"></a>
-                           <span id="secondary.v" class='invisible'>
-                           <code>secondary: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span><span id="structfield.memory_range" class="structfield small-section-header">
                            <a href="#structfield.memory_range" class="anchor field"></a>
                            <span id="memory_range.v" class='invisible'>
                            <code>memory_range: <a class="struct" href="../qapi_qmp/struct.PciMemoryRange.html" title="struct qapi_qmp::PciMemoryRange">PciMemoryRange</a></code>
+                           </span></span><span id="structfield.secondary" class="structfield small-section-header">
+                           <a href="#structfield.secondary" class="anchor field"></a>
+                           <span id="secondary.v" class='invisible'>
+                           <code>secondary: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span><span id="structfield.prefetchable_range" class="structfield small-section-header">
                            <a href="#structfield.prefetchable_range" class="anchor field"></a>
                            <span id="prefetchable_range.v" class='invisible'>
                            <code>prefetchable_range: <a class="struct" href="../qapi_qmp/struct.PciMemoryRange.html" title="struct qapi_qmp::PciMemoryRange">PciMemoryRange</a></code>
+                           </span></span><span id="structfield.number" class="structfield small-section-header">
+                           <a href="#structfield.number" class="anchor field"></a>
+                           <span id="number.v" class='invisible'>
+                           <code>number: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

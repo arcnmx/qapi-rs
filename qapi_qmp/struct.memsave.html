@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct memsave</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.size">size</a><a href="#structfield.cpu_index">cpu_index</a><a href="#structfield.val">val</a><a href="#structfield.filename">filename</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a><a href="#impl-Command">Command</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'memsave', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct memsave</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.size">size</a><a href="#structfield.filename">filename</a><a href="#structfield.cpu_index">cpu_index</a><a href="#structfield.val">val</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a><a href="#impl-Command">Command</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'memsave', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -52,14 +52,18 @@
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#423-432' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct memsave {
     pub size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub filename: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
     pub cpu_index: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
     pub val: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub filename: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
 }</pre><h2 id='fields' class='fields small-section-header'>
                        Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.size" class="structfield small-section-header">
                            <a href="#structfield.size" class="anchor field"></a>
                            <span id="size.v" class='invisible'>
                            <code>size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.filename" class="structfield small-section-header">
+                           <a href="#structfield.filename" class="anchor field"></a>
+                           <span id="filename.v" class='invisible'>
+                           <code>filename: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
                            </span></span><span id="structfield.cpu_index" class="structfield small-section-header">
                            <a href="#structfield.cpu_index" class="anchor field"></a>
                            <span id="cpu_index.v" class='invisible'>
@@ -68,10 +72,6 @@
                            <a href="#structfield.val" class="anchor field"></a>
                            <span id="val.v" class='invisible'>
                            <code>val: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.filename" class="structfield small-section-header">
-                           <a href="#structfield.filename" class="anchor field"></a>
-                           <span id="filename.v" class='invisible'>
-                           <code>filename: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

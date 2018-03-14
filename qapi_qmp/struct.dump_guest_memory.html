@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct dump_guest_memory</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.length">length</a><a href="#structfield.format">format</a><a href="#structfield.paging">paging</a><a href="#structfield.protocol">protocol</a><a href="#structfield.detach">detach</a><a href="#structfield.begin">begin</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a><a href="#impl-Command">Command</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'dump_guest_memory', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct dump_guest_memory</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.format">format</a><a href="#structfield.paging">paging</a><a href="#structfield.begin">begin</a><a href="#structfield.protocol">protocol</a><a href="#structfield.length">length</a><a href="#structfield.detach">detach</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a><a href="#impl-Command">Command</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'dump_guest_memory', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,18 +51,14 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#678-691' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct dump_guest_memory {
-    pub length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
     pub format: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.DumpGuestMemoryFormat.html" title="enum qapi_qmp::DumpGuestMemoryFormat">DumpGuestMemoryFormat</a>&gt;,
     pub paging: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
-    pub protocol: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub detach: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
     pub begin: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub protocol: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+    pub length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub detach: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.length" class="structfield small-section-header">
-                           <a href="#structfield.length" class="anchor field"></a>
-                           <span id="length.v" class='invisible'>
-                           <code>length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.format" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.format" class="structfield small-section-header">
                            <a href="#structfield.format" class="anchor field"></a>
                            <span id="format.v" class='invisible'>
                            <code>format: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.DumpGuestMemoryFormat.html" title="enum qapi_qmp::DumpGuestMemoryFormat">DumpGuestMemoryFormat</a>&gt;</code>
@@ -70,18 +66,22 @@
                            <a href="#structfield.paging" class="anchor field"></a>
                            <span id="paging.v" class='invisible'>
                            <code>paging: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
-                           </span></span><span id="structfield.protocol" class="structfield small-section-header">
-                           <a href="#structfield.protocol" class="anchor field"></a>
-                           <span id="protocol.v" class='invisible'>
-                           <code>protocol: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.detach" class="structfield small-section-header">
-                           <a href="#structfield.detach" class="anchor field"></a>
-                           <span id="detach.v" class='invisible'>
-                           <code>detach: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
                            </span></span><span id="structfield.begin" class="structfield small-section-header">
                            <a href="#structfield.begin" class="anchor field"></a>
                            <span id="begin.v" class='invisible'>
                            <code>begin: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.protocol" class="structfield small-section-header">
+                           <a href="#structfield.protocol" class="anchor field"></a>
+                           <span id="protocol.v" class='invisible'>
+                           <code>protocol: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
+                           </span></span><span id="structfield.length" class="structfield small-section-header">
+                           <a href="#structfield.length" class="anchor field"></a>
+                           <span id="length.v" class='invisible'>
+                           <code>length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.detach" class="structfield small-section-header">
+                           <a href="#structfield.detach" class="anchor field"></a>
+                           <span id="detach.v" class='invisible'>
+                           <code>detach: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

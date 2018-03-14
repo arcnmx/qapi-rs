@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct change_backing_file</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.backing_file">backing_file</a><a href="#structfield.device">device</a><a href="#structfield.image_node_name">image_node_name</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a><a href="#impl-Command">Command</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'change_backing_file', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct change_backing_file</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.image_node_name">image_node_name</a><a href="#structfield.backing_file">backing_file</a><a href="#structfield.device">device</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a><a href="#impl-Command">Command</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'change_backing_file', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,11 +51,15 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#2569-2576' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct change_backing_file {
+    pub image_node_name: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
     pub backing_file: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
     pub device: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub image_node_name: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.backing_file" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.image_node_name" class="structfield small-section-header">
+                           <a href="#structfield.image_node_name" class="anchor field"></a>
+                           <span id="image_node_name.v" class='invisible'>
+                           <code>image_node_name: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
+                           </span></span><span id="structfield.backing_file" class="structfield small-section-header">
                            <a href="#structfield.backing_file" class="anchor field"></a>
                            <span id="backing_file.v" class='invisible'>
                            <code>backing_file: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
@@ -63,10 +67,6 @@
                            <a href="#structfield.device" class="anchor field"></a>
                            <span id="device.v" class='invisible'>
                            <code>device: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.image_node_name" class="structfield small-section-header">
-                           <a href="#structfield.image_node_name" class="anchor field"></a>
-                           <span id="image_node_name.v" class='invisible'>
-                           <code>image_node_name: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct MigrateSetParameters</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.x_multifd_channels">x_multifd_channels</a><a href="#structfield.compress_level">compress_level</a><a href="#structfield.compress_threads">compress_threads</a><a href="#structfield.max_bandwidth">max_bandwidth</a><a href="#structfield.tls_hostname">tls_hostname</a><a href="#structfield.downtime_limit">downtime_limit</a><a href="#structfield.xbzrle_cache_size">xbzrle_cache_size</a><a href="#structfield.cpu_throttle_initial">cpu_throttle_initial</a><a href="#structfield.x_multifd_page_count">x_multifd_page_count</a><a href="#structfield.x_checkpoint_delay">x_checkpoint_delay</a><a href="#structfield.decompress_threads">decompress_threads</a><a href="#structfield.cpu_throttle_increment">cpu_throttle_increment</a><a href="#structfield.tls_creds">tls_creds</a><a href="#structfield.block_incremental">block_incremental</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'MigrateSetParameters', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct MigrateSetParameters</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.x_multifd_channels">x_multifd_channels</a><a href="#structfield.block_incremental">block_incremental</a><a href="#structfield.x_multifd_page_count">x_multifd_page_count</a><a href="#structfield.cpu_throttle_initial">cpu_throttle_initial</a><a href="#structfield.cpu_throttle_increment">cpu_throttle_increment</a><a href="#structfield.downtime_limit">downtime_limit</a><a href="#structfield.x_checkpoint_delay">x_checkpoint_delay</a><a href="#structfield.tls_creds">tls_creds</a><a href="#structfield.xbzrle_cache_size">xbzrle_cache_size</a><a href="#structfield.decompress_threads">decompress_threads</a><a href="#structfield.max_bandwidth">max_bandwidth</a><a href="#structfield.tls_hostname">tls_hostname</a><a href="#structfield.compress_threads">compress_threads</a><a href="#structfield.compress_level">compress_level</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'MigrateSetParameters', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -52,32 +52,60 @@
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#5422-5451' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct MigrateSetParameters {
     pub x_multifd_channels: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub compress_level: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub compress_threads: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub block_incremental: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub x_multifd_page_count: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub cpu_throttle_initial: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub cpu_throttle_increment: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub downtime_limit: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub x_checkpoint_delay: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub tls_creds: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.StrOrNull.html" title="enum qapi_qmp::StrOrNull">StrOrNull</a>&gt;,
+    pub xbzrle_cache_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>&gt;,
+    pub decompress_threads: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
     pub max_bandwidth: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
     pub tls_hostname: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.StrOrNull.html" title="enum qapi_qmp::StrOrNull">StrOrNull</a>&gt;,
-    pub downtime_limit: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub xbzrle_cache_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>&gt;,
-    pub cpu_throttle_initial: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub x_multifd_page_count: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub x_checkpoint_delay: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub decompress_threads: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub cpu_throttle_increment: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub tls_creds: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.StrOrNull.html" title="enum qapi_qmp::StrOrNull">StrOrNull</a>&gt;,
-    pub block_incremental: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub compress_threads: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub compress_level: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
                        Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.x_multifd_channels" class="structfield small-section-header">
                            <a href="#structfield.x_multifd_channels" class="anchor field"></a>
                            <span id="x_multifd_channels.v" class='invisible'>
                            <code>x_multifd_channels: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.compress_level" class="structfield small-section-header">
-                           <a href="#structfield.compress_level" class="anchor field"></a>
-                           <span id="compress_level.v" class='invisible'>
-                           <code>compress_level: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.compress_threads" class="structfield small-section-header">
-                           <a href="#structfield.compress_threads" class="anchor field"></a>
-                           <span id="compress_threads.v" class='invisible'>
-                           <code>compress_threads: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.block_incremental" class="structfield small-section-header">
+                           <a href="#structfield.block_incremental" class="anchor field"></a>
+                           <span id="block_incremental.v" class='invisible'>
+                           <code>block_incremental: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.x_multifd_page_count" class="structfield small-section-header">
+                           <a href="#structfield.x_multifd_page_count" class="anchor field"></a>
+                           <span id="x_multifd_page_count.v" class='invisible'>
+                           <code>x_multifd_page_count: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.cpu_throttle_initial" class="structfield small-section-header">
+                           <a href="#structfield.cpu_throttle_initial" class="anchor field"></a>
+                           <span id="cpu_throttle_initial.v" class='invisible'>
+                           <code>cpu_throttle_initial: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.cpu_throttle_increment" class="structfield small-section-header">
+                           <a href="#structfield.cpu_throttle_increment" class="anchor field"></a>
+                           <span id="cpu_throttle_increment.v" class='invisible'>
+                           <code>cpu_throttle_increment: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.downtime_limit" class="structfield small-section-header">
+                           <a href="#structfield.downtime_limit" class="anchor field"></a>
+                           <span id="downtime_limit.v" class='invisible'>
+                           <code>downtime_limit: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.x_checkpoint_delay" class="structfield small-section-header">
+                           <a href="#structfield.x_checkpoint_delay" class="anchor field"></a>
+                           <span id="x_checkpoint_delay.v" class='invisible'>
+                           <code>x_checkpoint_delay: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.tls_creds" class="structfield small-section-header">
+                           <a href="#structfield.tls_creds" class="anchor field"></a>
+                           <span id="tls_creds.v" class='invisible'>
+                           <code>tls_creds: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.StrOrNull.html" title="enum qapi_qmp::StrOrNull">StrOrNull</a>&gt;</code>
+                           </span></span><span id="structfield.xbzrle_cache_size" class="structfield small-section-header">
+                           <a href="#structfield.xbzrle_cache_size" class="anchor field"></a>
+                           <span id="xbzrle_cache_size.v" class='invisible'>
+                           <code>xbzrle_cache_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>&gt;</code>
+                           </span></span><span id="structfield.decompress_threads" class="structfield small-section-header">
+                           <a href="#structfield.decompress_threads" class="anchor field"></a>
+                           <span id="decompress_threads.v" class='invisible'>
+                           <code>decompress_threads: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
                            </span></span><span id="structfield.max_bandwidth" class="structfield small-section-header">
                            <a href="#structfield.max_bandwidth" class="anchor field"></a>
                            <span id="max_bandwidth.v" class='invisible'>
@@ -86,42 +114,14 @@
                            <a href="#structfield.tls_hostname" class="anchor field"></a>
                            <span id="tls_hostname.v" class='invisible'>
                            <code>tls_hostname: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.StrOrNull.html" title="enum qapi_qmp::StrOrNull">StrOrNull</a>&gt;</code>
-                           </span></span><span id="structfield.downtime_limit" class="structfield small-section-header">
-                           <a href="#structfield.downtime_limit" class="anchor field"></a>
-                           <span id="downtime_limit.v" class='invisible'>
-                           <code>downtime_limit: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.xbzrle_cache_size" class="structfield small-section-header">
-                           <a href="#structfield.xbzrle_cache_size" class="anchor field"></a>
-                           <span id="xbzrle_cache_size.v" class='invisible'>
-                           <code>xbzrle_cache_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>&gt;</code>
-                           </span></span><span id="structfield.cpu_throttle_initial" class="structfield small-section-header">
-                           <a href="#structfield.cpu_throttle_initial" class="anchor field"></a>
-                           <span id="cpu_throttle_initial.v" class='invisible'>
-                           <code>cpu_throttle_initial: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.x_multifd_page_count" class="structfield small-section-header">
-                           <a href="#structfield.x_multifd_page_count" class="anchor field"></a>
-                           <span id="x_multifd_page_count.v" class='invisible'>
-                           <code>x_multifd_page_count: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.x_checkpoint_delay" class="structfield small-section-header">
-                           <a href="#structfield.x_checkpoint_delay" class="anchor field"></a>
-                           <span id="x_checkpoint_delay.v" class='invisible'>
-                           <code>x_checkpoint_delay: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.decompress_threads" class="structfield small-section-header">
-                           <a href="#structfield.decompress_threads" class="anchor field"></a>
-                           <span id="decompress_threads.v" class='invisible'>
-                           <code>decompress_threads: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.cpu_throttle_increment" class="structfield small-section-header">
-                           <a href="#structfield.cpu_throttle_increment" class="anchor field"></a>
-                           <span id="cpu_throttle_increment.v" class='invisible'>
-                           <code>cpu_throttle_increment: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.tls_creds" class="structfield small-section-header">
-                           <a href="#structfield.tls_creds" class="anchor field"></a>
-                           <span id="tls_creds.v" class='invisible'>
-                           <code>tls_creds: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.StrOrNull.html" title="enum qapi_qmp::StrOrNull">StrOrNull</a>&gt;</code>
-                           </span></span><span id="structfield.block_incremental" class="structfield small-section-header">
-                           <a href="#structfield.block_incremental" class="anchor field"></a>
-                           <span id="block_incremental.v" class='invisible'>
-                           <code>block_incremental: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.compress_threads" class="structfield small-section-header">
+                           <a href="#structfield.compress_threads" class="anchor field"></a>
+                           <span id="compress_threads.v" class='invisible'>
+                           <code>compress_threads: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.compress_level" class="structfield small-section-header">
+                           <a href="#structfield.compress_level" class="anchor field"></a>
+                           <span id="compress_level.v" class='invisible'>
+                           <code>compress_level: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

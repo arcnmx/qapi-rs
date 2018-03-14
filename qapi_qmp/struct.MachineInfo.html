@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct MachineInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.alias">alias</a><a href="#structfield.name">name</a><a href="#structfield.hotpluggable_cpus">hotpluggable_cpus</a><a href="#structfield.cpu_max">cpu_max</a><a href="#structfield.is_default">is_default</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'MachineInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct MachineInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.name">name</a><a href="#structfield.cpu_max">cpu_max</a><a href="#structfield.alias">alias</a><a href="#structfield.is_default">is_default</a><a href="#structfield.hotpluggable_cpus">hotpluggable_cpus</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'MachineInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,32 +51,32 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#820-831' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct MachineInfo {
-    pub alias: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub name: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub hotpluggable_cpus: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     pub cpu_max: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub alias: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub is_default: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub hotpluggable_cpus: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.alias" class="structfield small-section-header">
-                           <a href="#structfield.alias" class="anchor field"></a>
-                           <span id="alias.v" class='invisible'>
-                           <code>alias: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.name" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.name" class="structfield small-section-header">
                            <a href="#structfield.name" class="anchor field"></a>
                            <span id="name.v" class='invisible'>
                            <code>name: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.hotpluggable_cpus" class="structfield small-section-header">
-                           <a href="#structfield.hotpluggable_cpus" class="anchor field"></a>
-                           <span id="hotpluggable_cpus.v" class='invisible'>
-                           <code>hotpluggable_cpus: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
                            </span></span><span id="structfield.cpu_max" class="structfield small-section-header">
                            <a href="#structfield.cpu_max" class="anchor field"></a>
                            <span id="cpu_max.v" class='invisible'>
                            <code>cpu_max: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.alias" class="structfield small-section-header">
+                           <a href="#structfield.alias" class="anchor field"></a>
+                           <span id="alias.v" class='invisible'>
+                           <code>alias: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span><span id="structfield.is_default" class="structfield small-section-header">
                            <a href="#structfield.is_default" class="anchor field"></a>
                            <span id="is_default.v" class='invisible'>
                            <code>is_default: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.hotpluggable_cpus" class="structfield small-section-header">
+                           <a href="#structfield.hotpluggable_cpus" class="anchor field"></a>
+                           <span id="hotpluggable_cpus.v" class='invisible'>
+                           <code>hotpluggable_cpus: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

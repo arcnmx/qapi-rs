@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct add_client</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.skipauth">skipauth</a><a href="#structfield.tls">tls</a><a href="#structfield.protocol">protocol</a><a href="#structfield.fdname">fdname</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a><a href="#impl-Command">Command</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'add_client', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct add_client</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.fdname">fdname</a><a href="#structfield.protocol">protocol</a><a href="#structfield.skipauth">skipauth</a><a href="#structfield.tls">tls</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a><a href="#impl-Command">Command</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'add_client', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,12 +51,20 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#65-74' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct add_client {
+    pub fdname: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+    pub protocol: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
     pub skipauth: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
     pub tls: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub protocol: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub fdname: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.skipauth" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.fdname" class="structfield small-section-header">
+                           <a href="#structfield.fdname" class="anchor field"></a>
+                           <span id="fdname.v" class='invisible'>
+                           <code>fdname: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
+                           </span></span><span id="structfield.protocol" class="structfield small-section-header">
+                           <a href="#structfield.protocol" class="anchor field"></a>
+                           <span id="protocol.v" class='invisible'>
+                           <code>protocol: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
+                           </span></span><span id="structfield.skipauth" class="structfield small-section-header">
                            <a href="#structfield.skipauth" class="anchor field"></a>
                            <span id="skipauth.v" class='invisible'>
                            <code>skipauth: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
@@ -64,14 +72,6 @@
                            <a href="#structfield.tls" class="anchor field"></a>
                            <span id="tls.v" class='invisible'>
                            <code>tls: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.protocol" class="structfield small-section-header">
-                           <a href="#structfield.protocol" class="anchor field"></a>
-                           <span id="protocol.v" class='invisible'>
-                           <code>protocol: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.fdname" class="structfield small-section-header">
-                           <a href="#structfield.fdname" class="anchor field"></a>
-                           <span id="fdname.v" class='invisible'>
-                           <code>fdname: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>
