@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct HotpluggableCPU</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.type_">type_</a><a href="#structfield.props">props</a><a href="#structfield.qom_path">qom_path</a><a href="#structfield.vcpus_count">vcpus_count</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'HotpluggableCPU', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct HotpluggableCPU</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.vcpus_count">vcpus_count</a><a href="#structfield.type_">type_</a><a href="#structfield.qom_path">qom_path</a><a href="#structfield.props">props</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'HotpluggableCPU', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,27 +51,27 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#1369-1378' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct HotpluggableCPU {
-    pub type_: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub props: <a class="struct" href="../qapi_qmp/struct.CpuInstanceProperties.html" title="struct qapi_qmp::CpuInstanceProperties">CpuInstanceProperties</a>,
-    pub qom_path: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub vcpus_count: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub type_: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+    pub qom_path: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub props: <a class="struct" href="../qapi_qmp/struct.CpuInstanceProperties.html" title="struct qapi_qmp::CpuInstanceProperties">CpuInstanceProperties</a>,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.type_" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.vcpus_count" class="structfield small-section-header">
+                           <a href="#structfield.vcpus_count" class="anchor field"></a>
+                           <span id="vcpus_count.v" class='invisible'>
+                           <code>vcpus_count: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.type_" class="structfield small-section-header">
                            <a href="#structfield.type_" class="anchor field"></a>
                            <span id="type_.v" class='invisible'>
                            <code>type_: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.props" class="structfield small-section-header">
-                           <a href="#structfield.props" class="anchor field"></a>
-                           <span id="props.v" class='invisible'>
-                           <code>props: <a class="struct" href="../qapi_qmp/struct.CpuInstanceProperties.html" title="struct qapi_qmp::CpuInstanceProperties">CpuInstanceProperties</a></code>
                            </span></span><span id="structfield.qom_path" class="structfield small-section-header">
                            <a href="#structfield.qom_path" class="anchor field"></a>
                            <span id="qom_path.v" class='invisible'>
                            <code>qom_path: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.vcpus_count" class="structfield small-section-header">
-                           <a href="#structfield.vcpus_count" class="anchor field"></a>
-                           <span id="vcpus_count.v" class='invisible'>
-                           <code>vcpus_count: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.props" class="structfield small-section-header">
+                           <a href="#structfield.props" class="anchor field"></a>
+                           <span id="props.v" class='invisible'>
+                           <code>props: <a class="struct" href="../qapi_qmp/struct.CpuInstanceProperties.html" title="struct qapi_qmp::CpuInstanceProperties">CpuInstanceProperties</a></code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct NetdevL2TPv3Options</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.srcport">srcport</a><a href="#structfield.pincounter">pincounter</a><a href="#structfield.txcookie">txcookie</a><a href="#structfield.txsession">txsession</a><a href="#structfield.dst">dst</a><a href="#structfield.counter">counter</a><a href="#structfield.src">src</a><a href="#structfield.rxcookie">rxcookie</a><a href="#structfield.offset">offset</a><a href="#structfield.ipv6">ipv6</a><a href="#structfield.udp">udp</a><a href="#structfield.dstport">dstport</a><a href="#structfield.cookie64">cookie64</a><a href="#structfield.rxsession">rxsession</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'NetdevL2TPv3Options', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct NetdevL2TPv3Options</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.rxcookie">rxcookie</a><a href="#structfield.counter">counter</a><a href="#structfield.udp">udp</a><a href="#structfield.rxsession">rxsession</a><a href="#structfield.offset">offset</a><a href="#structfield.ipv6">ipv6</a><a href="#structfield.srcport">srcport</a><a href="#structfield.src">src</a><a href="#structfield.dst">dst</a><a href="#structfield.txsession">txsession</a><a href="#structfield.dstport">dstport</a><a href="#structfield.cookie64">cookie64</a><a href="#structfield.txcookie">txcookie</a><a href="#structfield.pincounter">pincounter</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'NetdevL2TPv3Options', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,53 +51,37 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#4225-4254' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct NetdevL2TPv3Options {
-    pub srcport: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub pincounter: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub txcookie: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>&gt;,
-    pub txsession: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
-    pub dst: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub counter: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub src: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
     pub rxcookie: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>&gt;,
+    pub counter: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub udp: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub rxsession: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;,
     pub offset: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;,
     pub ipv6: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub udp: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub srcport: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub src: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+    pub dst: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+    pub txsession: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
     pub dstport: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub cookie64: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub rxsession: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;,
+    pub txcookie: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>&gt;,
+    pub pincounter: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.srcport" class="structfield small-section-header">
-                           <a href="#structfield.srcport" class="anchor field"></a>
-                           <span id="srcport.v" class='invisible'>
-                           <code>srcport: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.pincounter" class="structfield small-section-header">
-                           <a href="#structfield.pincounter" class="anchor field"></a>
-                           <span id="pincounter.v" class='invisible'>
-                           <code>pincounter: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.txcookie" class="structfield small-section-header">
-                           <a href="#structfield.txcookie" class="anchor field"></a>
-                           <span id="txcookie.v" class='invisible'>
-                           <code>txcookie: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>&gt;</code>
-                           </span></span><span id="structfield.txsession" class="structfield small-section-header">
-                           <a href="#structfield.txsession" class="anchor field"></a>
-                           <span id="txsession.v" class='invisible'>
-                           <code>txsession: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code>
-                           </span></span><span id="structfield.dst" class="structfield small-section-header">
-                           <a href="#structfield.dst" class="anchor field"></a>
-                           <span id="dst.v" class='invisible'>
-                           <code>dst: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.rxcookie" class="structfield small-section-header">
+                           <a href="#structfield.rxcookie" class="anchor field"></a>
+                           <span id="rxcookie.v" class='invisible'>
+                           <code>rxcookie: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>&gt;</code>
                            </span></span><span id="structfield.counter" class="structfield small-section-header">
                            <a href="#structfield.counter" class="anchor field"></a>
                            <span id="counter.v" class='invisible'>
                            <code>counter: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.src" class="structfield small-section-header">
-                           <a href="#structfield.src" class="anchor field"></a>
-                           <span id="src.v" class='invisible'>
-                           <code>src: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.rxcookie" class="structfield small-section-header">
-                           <a href="#structfield.rxcookie" class="anchor field"></a>
-                           <span id="rxcookie.v" class='invisible'>
-                           <code>rxcookie: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>&gt;</code>
+                           </span></span><span id="structfield.udp" class="structfield small-section-header">
+                           <a href="#structfield.udp" class="anchor field"></a>
+                           <span id="udp.v" class='invisible'>
+                           <code>udp: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.rxsession" class="structfield small-section-header">
+                           <a href="#structfield.rxsession" class="anchor field"></a>
+                           <span id="rxsession.v" class='invisible'>
+                           <code>rxsession: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;</code>
                            </span></span><span id="structfield.offset" class="structfield small-section-header">
                            <a href="#structfield.offset" class="anchor field"></a>
                            <span id="offset.v" class='invisible'>
@@ -106,10 +90,22 @@
                            <a href="#structfield.ipv6" class="anchor field"></a>
                            <span id="ipv6.v" class='invisible'>
                            <code>ipv6: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.udp" class="structfield small-section-header">
-                           <a href="#structfield.udp" class="anchor field"></a>
-                           <span id="udp.v" class='invisible'>
-                           <code>udp: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.srcport" class="structfield small-section-header">
+                           <a href="#structfield.srcport" class="anchor field"></a>
+                           <span id="srcport.v" class='invisible'>
+                           <code>srcport: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.src" class="structfield small-section-header">
+                           <a href="#structfield.src" class="anchor field"></a>
+                           <span id="src.v" class='invisible'>
+                           <code>src: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
+                           </span></span><span id="structfield.dst" class="structfield small-section-header">
+                           <a href="#structfield.dst" class="anchor field"></a>
+                           <span id="dst.v" class='invisible'>
+                           <code>dst: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
+                           </span></span><span id="structfield.txsession" class="structfield small-section-header">
+                           <a href="#structfield.txsession" class="anchor field"></a>
+                           <span id="txsession.v" class='invisible'>
+                           <code>txsession: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code>
                            </span></span><span id="structfield.dstport" class="structfield small-section-header">
                            <a href="#structfield.dstport" class="anchor field"></a>
                            <span id="dstport.v" class='invisible'>
@@ -118,10 +114,14 @@
                            <a href="#structfield.cookie64" class="anchor field"></a>
                            <span id="cookie64.v" class='invisible'>
                            <code>cookie64: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.rxsession" class="structfield small-section-header">
-                           <a href="#structfield.rxsession" class="anchor field"></a>
-                           <span id="rxsession.v" class='invisible'>
-                           <code>rxsession: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;</code>
+                           </span></span><span id="structfield.txcookie" class="structfield small-section-header">
+                           <a href="#structfield.txcookie" class="anchor field"></a>
+                           <span id="txcookie.v" class='invisible'>
+                           <code>txcookie: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>&gt;</code>
+                           </span></span><span id="structfield.pincounter" class="structfield small-section-header">
+                           <a href="#structfield.pincounter" class="anchor field"></a>
+                           <span id="pincounter.v" class='invisible'>
+                           <code>pincounter: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

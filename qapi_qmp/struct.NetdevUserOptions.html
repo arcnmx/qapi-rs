@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct NetdevUserOptions</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.guestfwd">guestfwd</a><a href="#structfield.ipv6_dns">ipv6_dns</a><a href="#structfield.smb">smb</a><a href="#structfield.restrict">restrict</a><a href="#structfield.hostname">hostname</a><a href="#structfield.host">host</a><a href="#structfield.net">net</a><a href="#structfield.ipv6">ipv6</a><a href="#structfield.dns">dns</a><a href="#structfield.ipv6_prefixlen">ipv6_prefixlen</a><a href="#structfield.tftp">tftp</a><a href="#structfield.dnssearch">dnssearch</a><a href="#structfield.smbserver">smbserver</a><a href="#structfield.ipv6_prefix">ipv6_prefix</a><a href="#structfield.ipv6_host">ipv6_host</a><a href="#structfield.dhcpstart">dhcpstart</a><a href="#structfield.hostfwd">hostfwd</a><a href="#structfield.bootfile">bootfile</a><a href="#structfield.ipv4">ipv4</a><a href="#structfield.ip">ip</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'NetdevUserOptions', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct NetdevUserOptions</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.ipv6_prefixlen">ipv6_prefixlen</a><a href="#structfield.ipv4">ipv4</a><a href="#structfield.hostname">hostname</a><a href="#structfield.tftp">tftp</a><a href="#structfield.guestfwd">guestfwd</a><a href="#structfield.smbserver">smbserver</a><a href="#structfield.ipv6_host">ipv6_host</a><a href="#structfield.ipv6">ipv6</a><a href="#structfield.ipv6_dns">ipv6_dns</a><a href="#structfield.smb">smb</a><a href="#structfield.host">host</a><a href="#structfield.dhcpstart">dhcpstart</a><a href="#structfield.net">net</a><a href="#structfield.dns">dns</a><a href="#structfield.hostfwd">hostfwd</a><a href="#structfield.ipv6_prefix">ipv6_prefix</a><a href="#structfield.bootfile">bootfile</a><a href="#structfield.restrict">restrict</a><a href="#structfield.ip">ip</a><a href="#structfield.dnssearch">dnssearch</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'NetdevUserOptions', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,31 +51,59 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#4131-4172' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct NetdevUserOptions {
+    pub ipv6_prefixlen: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub ipv4: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub hostname: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub tftp: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub guestfwd: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.String.html" title="struct qapi_qmp::String">String</a>&gt;&gt;,
+    pub smbserver: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub ipv6_host: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub ipv6: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
     pub ipv6_dns: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub smb: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub restrict: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub hostname: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub host: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub net: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub ipv6: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub dns: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub ipv6_prefixlen: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub tftp: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub dnssearch: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.String.html" title="struct qapi_qmp::String">String</a>&gt;&gt;,
-    pub smbserver: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub ipv6_prefix: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub ipv6_host: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub dhcpstart: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub net: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub dns: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub hostfwd: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.String.html" title="struct qapi_qmp::String">String</a>&gt;&gt;,
+    pub ipv6_prefix: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub bootfile: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub ipv4: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub restrict: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
     pub ip: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub dnssearch: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.String.html" title="struct qapi_qmp::String">String</a>&gt;&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.guestfwd" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.ipv6_prefixlen" class="structfield small-section-header">
+                           <a href="#structfield.ipv6_prefixlen" class="anchor field"></a>
+                           <span id="ipv6_prefixlen.v" class='invisible'>
+                           <code>ipv6_prefixlen: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.ipv4" class="structfield small-section-header">
+                           <a href="#structfield.ipv4" class="anchor field"></a>
+                           <span id="ipv4.v" class='invisible'>
+                           <code>ipv4: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.hostname" class="structfield small-section-header">
+                           <a href="#structfield.hostname" class="anchor field"></a>
+                           <span id="hostname.v" class='invisible'>
+                           <code>hostname: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.tftp" class="structfield small-section-header">
+                           <a href="#structfield.tftp" class="anchor field"></a>
+                           <span id="tftp.v" class='invisible'>
+                           <code>tftp: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.guestfwd" class="structfield small-section-header">
                            <a href="#structfield.guestfwd" class="anchor field"></a>
                            <span id="guestfwd.v" class='invisible'>
                            <code>guestfwd: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.String.html" title="struct qapi_qmp::String">String</a>&gt;&gt;</code>
+                           </span></span><span id="structfield.smbserver" class="structfield small-section-header">
+                           <a href="#structfield.smbserver" class="anchor field"></a>
+                           <span id="smbserver.v" class='invisible'>
+                           <code>smbserver: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.ipv6_host" class="structfield small-section-header">
+                           <a href="#structfield.ipv6_host" class="anchor field"></a>
+                           <span id="ipv6_host.v" class='invisible'>
+                           <code>ipv6_host: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.ipv6" class="structfield small-section-header">
+                           <a href="#structfield.ipv6" class="anchor field"></a>
+                           <span id="ipv6.v" class='invisible'>
+                           <code>ipv6: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
                            </span></span><span id="structfield.ipv6_dns" class="structfield small-section-header">
                            <a href="#structfield.ipv6_dns" class="anchor field"></a>
                            <span id="ipv6_dns.v" class='invisible'>
@@ -84,74 +112,46 @@
                            <a href="#structfield.smb" class="anchor field"></a>
                            <span id="smb.v" class='invisible'>
                            <code>smb: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.restrict" class="structfield small-section-header">
-                           <a href="#structfield.restrict" class="anchor field"></a>
-                           <span id="restrict.v" class='invisible'>
-                           <code>restrict: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.hostname" class="structfield small-section-header">
-                           <a href="#structfield.hostname" class="anchor field"></a>
-                           <span id="hostname.v" class='invisible'>
-                           <code>hostname: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span><span id="structfield.host" class="structfield small-section-header">
                            <a href="#structfield.host" class="anchor field"></a>
                            <span id="host.v" class='invisible'>
                            <code>host: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.net" class="structfield small-section-header">
-                           <a href="#structfield.net" class="anchor field"></a>
-                           <span id="net.v" class='invisible'>
-                           <code>net: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.ipv6" class="structfield small-section-header">
-                           <a href="#structfield.ipv6" class="anchor field"></a>
-                           <span id="ipv6.v" class='invisible'>
-                           <code>ipv6: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.dns" class="structfield small-section-header">
-                           <a href="#structfield.dns" class="anchor field"></a>
-                           <span id="dns.v" class='invisible'>
-                           <code>dns: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.ipv6_prefixlen" class="structfield small-section-header">
-                           <a href="#structfield.ipv6_prefixlen" class="anchor field"></a>
-                           <span id="ipv6_prefixlen.v" class='invisible'>
-                           <code>ipv6_prefixlen: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.tftp" class="structfield small-section-header">
-                           <a href="#structfield.tftp" class="anchor field"></a>
-                           <span id="tftp.v" class='invisible'>
-                           <code>tftp: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.dnssearch" class="structfield small-section-header">
-                           <a href="#structfield.dnssearch" class="anchor field"></a>
-                           <span id="dnssearch.v" class='invisible'>
-                           <code>dnssearch: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.String.html" title="struct qapi_qmp::String">String</a>&gt;&gt;</code>
-                           </span></span><span id="structfield.smbserver" class="structfield small-section-header">
-                           <a href="#structfield.smbserver" class="anchor field"></a>
-                           <span id="smbserver.v" class='invisible'>
-                           <code>smbserver: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.ipv6_prefix" class="structfield small-section-header">
-                           <a href="#structfield.ipv6_prefix" class="anchor field"></a>
-                           <span id="ipv6_prefix.v" class='invisible'>
-                           <code>ipv6_prefix: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.ipv6_host" class="structfield small-section-header">
-                           <a href="#structfield.ipv6_host" class="anchor field"></a>
-                           <span id="ipv6_host.v" class='invisible'>
-                           <code>ipv6_host: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span><span id="structfield.dhcpstart" class="structfield small-section-header">
                            <a href="#structfield.dhcpstart" class="anchor field"></a>
                            <span id="dhcpstart.v" class='invisible'>
                            <code>dhcpstart: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.net" class="structfield small-section-header">
+                           <a href="#structfield.net" class="anchor field"></a>
+                           <span id="net.v" class='invisible'>
+                           <code>net: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.dns" class="structfield small-section-header">
+                           <a href="#structfield.dns" class="anchor field"></a>
+                           <span id="dns.v" class='invisible'>
+                           <code>dns: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span><span id="structfield.hostfwd" class="structfield small-section-header">
                            <a href="#structfield.hostfwd" class="anchor field"></a>
                            <span id="hostfwd.v" class='invisible'>
                            <code>hostfwd: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.String.html" title="struct qapi_qmp::String">String</a>&gt;&gt;</code>
+                           </span></span><span id="structfield.ipv6_prefix" class="structfield small-section-header">
+                           <a href="#structfield.ipv6_prefix" class="anchor field"></a>
+                           <span id="ipv6_prefix.v" class='invisible'>
+                           <code>ipv6_prefix: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span><span id="structfield.bootfile" class="structfield small-section-header">
                            <a href="#structfield.bootfile" class="anchor field"></a>
                            <span id="bootfile.v" class='invisible'>
                            <code>bootfile: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.ipv4" class="structfield small-section-header">
-                           <a href="#structfield.ipv4" class="anchor field"></a>
-                           <span id="ipv4.v" class='invisible'>
-                           <code>ipv4: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.restrict" class="structfield small-section-header">
+                           <a href="#structfield.restrict" class="anchor field"></a>
+                           <span id="restrict.v" class='invisible'>
+                           <code>restrict: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
                            </span></span><span id="structfield.ip" class="structfield small-section-header">
                            <a href="#structfield.ip" class="anchor field"></a>
                            <span id="ip.v" class='invisible'>
                            <code>ip: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.dnssearch" class="structfield small-section-header">
+                           <a href="#structfield.dnssearch" class="anchor field"></a>
+                           <span id="dnssearch.v" class='invisible'>
+                           <code>dnssearch: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.String.html" title="struct qapi_qmp::String">String</a>&gt;&gt;</code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct QCryptoBlockInfoLUKS</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.cipher_alg">cipher_alg</a><a href="#structfield.payload_offset">payload_offset</a><a href="#structfield.cipher_mode">cipher_mode</a><a href="#structfield.hash_alg">hash_alg</a><a href="#structfield.uuid">uuid</a><a href="#structfield.ivgen_alg">ivgen_alg</a><a href="#structfield.ivgen_hash_alg">ivgen_hash_alg</a><a href="#structfield.master_key_iters">master_key_iters</a><a href="#structfield.slots">slots</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'QCryptoBlockInfoLUKS', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct QCryptoBlockInfoLUKS</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.uuid">uuid</a><a href="#structfield.ivgen_hash_alg">ivgen_hash_alg</a><a href="#structfield.ivgen_alg">ivgen_alg</a><a href="#structfield.cipher_mode">cipher_mode</a><a href="#structfield.slots">slots</a><a href="#structfield.cipher_alg">cipher_alg</a><a href="#structfield.hash_alg">hash_alg</a><a href="#structfield.payload_offset">payload_offset</a><a href="#structfield.master_key_iters">master_key_iters</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'QCryptoBlockInfoLUKS', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,52 +51,52 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#1803-1822' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct QCryptoBlockInfoLUKS {
-    pub cipher_alg: <a class="enum" href="../qapi_qmp/enum.QCryptoCipherAlgorithm.html" title="enum qapi_qmp::QCryptoCipherAlgorithm">QCryptoCipherAlgorithm</a>,
-    pub payload_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub cipher_mode: <a class="enum" href="../qapi_qmp/enum.QCryptoCipherMode.html" title="enum qapi_qmp::QCryptoCipherMode">QCryptoCipherMode</a>,
-    pub hash_alg: <a class="enum" href="../qapi_qmp/enum.QCryptoHashAlgorithm.html" title="enum qapi_qmp::QCryptoHashAlgorithm">QCryptoHashAlgorithm</a>,
     pub uuid: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub ivgen_alg: <a class="enum" href="../qapi_qmp/enum.QCryptoIVGenAlgorithm.html" title="enum qapi_qmp::QCryptoIVGenAlgorithm">QCryptoIVGenAlgorithm</a>,
     pub ivgen_hash_alg: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.QCryptoHashAlgorithm.html" title="enum qapi_qmp::QCryptoHashAlgorithm">QCryptoHashAlgorithm</a>&gt;,
-    pub master_key_iters: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub ivgen_alg: <a class="enum" href="../qapi_qmp/enum.QCryptoIVGenAlgorithm.html" title="enum qapi_qmp::QCryptoIVGenAlgorithm">QCryptoIVGenAlgorithm</a>,
+    pub cipher_mode: <a class="enum" href="../qapi_qmp/enum.QCryptoCipherMode.html" title="enum qapi_qmp::QCryptoCipherMode">QCryptoCipherMode</a>,
     pub slots: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.QCryptoBlockInfoLUKSSlot.html" title="struct qapi_qmp::QCryptoBlockInfoLUKSSlot">QCryptoBlockInfoLUKSSlot</a>&gt;,
+    pub cipher_alg: <a class="enum" href="../qapi_qmp/enum.QCryptoCipherAlgorithm.html" title="enum qapi_qmp::QCryptoCipherAlgorithm">QCryptoCipherAlgorithm</a>,
+    pub hash_alg: <a class="enum" href="../qapi_qmp/enum.QCryptoHashAlgorithm.html" title="enum qapi_qmp::QCryptoHashAlgorithm">QCryptoHashAlgorithm</a>,
+    pub payload_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub master_key_iters: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.cipher_alg" class="structfield small-section-header">
-                           <a href="#structfield.cipher_alg" class="anchor field"></a>
-                           <span id="cipher_alg.v" class='invisible'>
-                           <code>cipher_alg: <a class="enum" href="../qapi_qmp/enum.QCryptoCipherAlgorithm.html" title="enum qapi_qmp::QCryptoCipherAlgorithm">QCryptoCipherAlgorithm</a></code>
-                           </span></span><span id="structfield.payload_offset" class="structfield small-section-header">
-                           <a href="#structfield.payload_offset" class="anchor field"></a>
-                           <span id="payload_offset.v" class='invisible'>
-                           <code>payload_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.cipher_mode" class="structfield small-section-header">
-                           <a href="#structfield.cipher_mode" class="anchor field"></a>
-                           <span id="cipher_mode.v" class='invisible'>
-                           <code>cipher_mode: <a class="enum" href="../qapi_qmp/enum.QCryptoCipherMode.html" title="enum qapi_qmp::QCryptoCipherMode">QCryptoCipherMode</a></code>
-                           </span></span><span id="structfield.hash_alg" class="structfield small-section-header">
-                           <a href="#structfield.hash_alg" class="anchor field"></a>
-                           <span id="hash_alg.v" class='invisible'>
-                           <code>hash_alg: <a class="enum" href="../qapi_qmp/enum.QCryptoHashAlgorithm.html" title="enum qapi_qmp::QCryptoHashAlgorithm">QCryptoHashAlgorithm</a></code>
-                           </span></span><span id="structfield.uuid" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.uuid" class="structfield small-section-header">
                            <a href="#structfield.uuid" class="anchor field"></a>
                            <span id="uuid.v" class='invisible'>
                            <code>uuid: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.ivgen_alg" class="structfield small-section-header">
-                           <a href="#structfield.ivgen_alg" class="anchor field"></a>
-                           <span id="ivgen_alg.v" class='invisible'>
-                           <code>ivgen_alg: <a class="enum" href="../qapi_qmp/enum.QCryptoIVGenAlgorithm.html" title="enum qapi_qmp::QCryptoIVGenAlgorithm">QCryptoIVGenAlgorithm</a></code>
                            </span></span><span id="structfield.ivgen_hash_alg" class="structfield small-section-header">
                            <a href="#structfield.ivgen_hash_alg" class="anchor field"></a>
                            <span id="ivgen_hash_alg.v" class='invisible'>
                            <code>ivgen_hash_alg: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.QCryptoHashAlgorithm.html" title="enum qapi_qmp::QCryptoHashAlgorithm">QCryptoHashAlgorithm</a>&gt;</code>
-                           </span></span><span id="structfield.master_key_iters" class="structfield small-section-header">
-                           <a href="#structfield.master_key_iters" class="anchor field"></a>
-                           <span id="master_key_iters.v" class='invisible'>
-                           <code>master_key_iters: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.ivgen_alg" class="structfield small-section-header">
+                           <a href="#structfield.ivgen_alg" class="anchor field"></a>
+                           <span id="ivgen_alg.v" class='invisible'>
+                           <code>ivgen_alg: <a class="enum" href="../qapi_qmp/enum.QCryptoIVGenAlgorithm.html" title="enum qapi_qmp::QCryptoIVGenAlgorithm">QCryptoIVGenAlgorithm</a></code>
+                           </span></span><span id="structfield.cipher_mode" class="structfield small-section-header">
+                           <a href="#structfield.cipher_mode" class="anchor field"></a>
+                           <span id="cipher_mode.v" class='invisible'>
+                           <code>cipher_mode: <a class="enum" href="../qapi_qmp/enum.QCryptoCipherMode.html" title="enum qapi_qmp::QCryptoCipherMode">QCryptoCipherMode</a></code>
                            </span></span><span id="structfield.slots" class="structfield small-section-header">
                            <a href="#structfield.slots" class="anchor field"></a>
                            <span id="slots.v" class='invisible'>
                            <code>slots: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.QCryptoBlockInfoLUKSSlot.html" title="struct qapi_qmp::QCryptoBlockInfoLUKSSlot">QCryptoBlockInfoLUKSSlot</a>&gt;</code>
+                           </span></span><span id="structfield.cipher_alg" class="structfield small-section-header">
+                           <a href="#structfield.cipher_alg" class="anchor field"></a>
+                           <span id="cipher_alg.v" class='invisible'>
+                           <code>cipher_alg: <a class="enum" href="../qapi_qmp/enum.QCryptoCipherAlgorithm.html" title="enum qapi_qmp::QCryptoCipherAlgorithm">QCryptoCipherAlgorithm</a></code>
+                           </span></span><span id="structfield.hash_alg" class="structfield small-section-header">
+                           <a href="#structfield.hash_alg" class="anchor field"></a>
+                           <span id="hash_alg.v" class='invisible'>
+                           <code>hash_alg: <a class="enum" href="../qapi_qmp/enum.QCryptoHashAlgorithm.html" title="enum qapi_qmp::QCryptoHashAlgorithm">QCryptoHashAlgorithm</a></code>
+                           </span></span><span id="structfield.payload_offset" class="structfield small-section-header">
+                           <a href="#structfield.payload_offset" class="anchor field"></a>
+                           <span id="payload_offset.v" class='invisible'>
+                           <code>payload_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.master_key_iters" class="structfield small-section-header">
+                           <a href="#structfield.master_key_iters" class="anchor field"></a>
+                           <span id="master_key_iters.v" class='invisible'>
+                           <code>master_key_iters: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

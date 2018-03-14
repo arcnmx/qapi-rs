@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct Qcow2OverlapCheckFlags</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.main_header">main_header</a><a href="#structfield.active_l1">active_l1</a><a href="#structfield.refcount_block">refcount_block</a><a href="#structfield.template">template</a><a href="#structfield.inactive_l2">inactive_l2</a><a href="#structfield.snapshot_table">snapshot_table</a><a href="#structfield.active_l2">active_l2</a><a href="#structfield.refcount_table">refcount_table</a><a href="#structfield.inactive_l1">inactive_l1</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'Qcow2OverlapCheckFlags', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct Qcow2OverlapCheckFlags</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.template">template</a><a href="#structfield.refcount_block">refcount_block</a><a href="#structfield.active_l2">active_l2</a><a href="#structfield.inactive_l1">inactive_l1</a><a href="#structfield.refcount_table">refcount_table</a><a href="#structfield.active_l1">active_l1</a><a href="#structfield.inactive_l2">inactive_l2</a><a href="#structfield.snapshot_table">snapshot_table</a><a href="#structfield.main_header">main_header</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'Qcow2OverlapCheckFlags', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,32 +51,40 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#3088-3107' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Qcow2OverlapCheckFlags {
-    pub main_header: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub active_l1: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub refcount_block: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
     pub template: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.Qcow2OverlapCheckMode.html" title="enum qapi_qmp::Qcow2OverlapCheckMode">Qcow2OverlapCheckMode</a>&gt;,
+    pub refcount_block: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub active_l2: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub inactive_l1: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub refcount_table: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub active_l1: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
     pub inactive_l2: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
     pub snapshot_table: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub active_l2: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub refcount_table: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub inactive_l1: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub main_header: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.main_header" class="structfield small-section-header">
-                           <a href="#structfield.main_header" class="anchor field"></a>
-                           <span id="main_header.v" class='invisible'>
-                           <code>main_header: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.active_l1" class="structfield small-section-header">
-                           <a href="#structfield.active_l1" class="anchor field"></a>
-                           <span id="active_l1.v" class='invisible'>
-                           <code>active_l1: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.template" class="structfield small-section-header">
+                           <a href="#structfield.template" class="anchor field"></a>
+                           <span id="template.v" class='invisible'>
+                           <code>template: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.Qcow2OverlapCheckMode.html" title="enum qapi_qmp::Qcow2OverlapCheckMode">Qcow2OverlapCheckMode</a>&gt;</code>
                            </span></span><span id="structfield.refcount_block" class="structfield small-section-header">
                            <a href="#structfield.refcount_block" class="anchor field"></a>
                            <span id="refcount_block.v" class='invisible'>
                            <code>refcount_block: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.template" class="structfield small-section-header">
-                           <a href="#structfield.template" class="anchor field"></a>
-                           <span id="template.v" class='invisible'>
-                           <code>template: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.Qcow2OverlapCheckMode.html" title="enum qapi_qmp::Qcow2OverlapCheckMode">Qcow2OverlapCheckMode</a>&gt;</code>
+                           </span></span><span id="structfield.active_l2" class="structfield small-section-header">
+                           <a href="#structfield.active_l2" class="anchor field"></a>
+                           <span id="active_l2.v" class='invisible'>
+                           <code>active_l2: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.inactive_l1" class="structfield small-section-header">
+                           <a href="#structfield.inactive_l1" class="anchor field"></a>
+                           <span id="inactive_l1.v" class='invisible'>
+                           <code>inactive_l1: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.refcount_table" class="structfield small-section-header">
+                           <a href="#structfield.refcount_table" class="anchor field"></a>
+                           <span id="refcount_table.v" class='invisible'>
+                           <code>refcount_table: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.active_l1" class="structfield small-section-header">
+                           <a href="#structfield.active_l1" class="anchor field"></a>
+                           <span id="active_l1.v" class='invisible'>
+                           <code>active_l1: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
                            </span></span><span id="structfield.inactive_l2" class="structfield small-section-header">
                            <a href="#structfield.inactive_l2" class="anchor field"></a>
                            <span id="inactive_l2.v" class='invisible'>
@@ -85,18 +93,10 @@
                            <a href="#structfield.snapshot_table" class="anchor field"></a>
                            <span id="snapshot_table.v" class='invisible'>
                            <code>snapshot_table: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.active_l2" class="structfield small-section-header">
-                           <a href="#structfield.active_l2" class="anchor field"></a>
-                           <span id="active_l2.v" class='invisible'>
-                           <code>active_l2: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.refcount_table" class="structfield small-section-header">
-                           <a href="#structfield.refcount_table" class="anchor field"></a>
-                           <span id="refcount_table.v" class='invisible'>
-                           <code>refcount_table: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.inactive_l1" class="structfield small-section-header">
-                           <a href="#structfield.inactive_l1" class="anchor field"></a>
-                           <span id="inactive_l1.v" class='invisible'>
-                           <code>inactive_l1: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.main_header" class="structfield small-section-header">
+                           <a href="#structfield.main_header" class="anchor field"></a>
+                           <span id="main_header.v" class='invisible'>
+                           <code>main_header: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

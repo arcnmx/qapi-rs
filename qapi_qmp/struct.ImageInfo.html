@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct ImageInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.snapshots">snapshots</a><a href="#structfield.filename">filename</a><a href="#structfield.format_specific">format_specific</a><a href="#structfield.full_backing_filename">full_backing_filename</a><a href="#structfield.backing_image">backing_image</a><a href="#structfield.encrypted">encrypted</a><a href="#structfield.cluster_size">cluster_size</a><a href="#structfield.backing_filename">backing_filename</a><a href="#structfield.compressed">compressed</a><a href="#structfield.virtual_size">virtual_size</a><a href="#structfield.format">format</a><a href="#structfield.backing_filename_format">backing_filename_format</a><a href="#structfield.dirty_flag">dirty_flag</a><a href="#structfield.actual_size">actual_size</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'ImageInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct ImageInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.filename">filename</a><a href="#structfield.format">format</a><a href="#structfield.backing_filename_format">backing_filename_format</a><a href="#structfield.encrypted">encrypted</a><a href="#structfield.dirty_flag">dirty_flag</a><a href="#structfield.compressed">compressed</a><a href="#structfield.format_specific">format_specific</a><a href="#structfield.full_backing_filename">full_backing_filename</a><a href="#structfield.actual_size">actual_size</a><a href="#structfield.virtual_size">virtual_size</a><a href="#structfield.backing_image">backing_image</a><a href="#structfield.cluster_size">cluster_size</a><a href="#structfield.backing_filename">backing_filename</a><a href="#structfield.snapshots">snapshots</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'ImageInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,61 +51,25 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#2048-2077' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ImageInfo {
-    pub snapshots: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.SnapshotInfo.html" title="struct qapi_qmp::SnapshotInfo">SnapshotInfo</a>&gt;&gt;,
     pub filename: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub format_specific: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.ImageInfoSpecific.html" title="enum qapi_qmp::ImageInfoSpecific">ImageInfoSpecific</a>&gt;,
-    pub full_backing_filename: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub backing_image: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="struct" href="../qapi_qmp/struct.ImageInfo.html" title="struct qapi_qmp::ImageInfo">ImageInfo</a>&gt;&gt;,
-    pub encrypted: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub cluster_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub backing_filename: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub compressed: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub virtual_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub format: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
     pub backing_filename_format: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub encrypted: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
     pub dirty_flag: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub compressed: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub format_specific: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.ImageInfoSpecific.html" title="enum qapi_qmp::ImageInfoSpecific">ImageInfoSpecific</a>&gt;,
+    pub full_backing_filename: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
     pub actual_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub virtual_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub backing_image: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="struct" href="../qapi_qmp/struct.ImageInfo.html" title="struct qapi_qmp::ImageInfo">ImageInfo</a>&gt;&gt;,
+    pub cluster_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub backing_filename: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub snapshots: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.SnapshotInfo.html" title="struct qapi_qmp::SnapshotInfo">SnapshotInfo</a>&gt;&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.snapshots" class="structfield small-section-header">
-                           <a href="#structfield.snapshots" class="anchor field"></a>
-                           <span id="snapshots.v" class='invisible'>
-                           <code>snapshots: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.SnapshotInfo.html" title="struct qapi_qmp::SnapshotInfo">SnapshotInfo</a>&gt;&gt;</code>
-                           </span></span><span id="structfield.filename" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.filename" class="structfield small-section-header">
                            <a href="#structfield.filename" class="anchor field"></a>
                            <span id="filename.v" class='invisible'>
                            <code>filename: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.format_specific" class="structfield small-section-header">
-                           <a href="#structfield.format_specific" class="anchor field"></a>
-                           <span id="format_specific.v" class='invisible'>
-                           <code>format_specific: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.ImageInfoSpecific.html" title="enum qapi_qmp::ImageInfoSpecific">ImageInfoSpecific</a>&gt;</code>
-                           </span></span><span id="structfield.full_backing_filename" class="structfield small-section-header">
-                           <a href="#structfield.full_backing_filename" class="anchor field"></a>
-                           <span id="full_backing_filename.v" class='invisible'>
-                           <code>full_backing_filename: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.backing_image" class="structfield small-section-header">
-                           <a href="#structfield.backing_image" class="anchor field"></a>
-                           <span id="backing_image.v" class='invisible'>
-                           <code>backing_image: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="struct" href="../qapi_qmp/struct.ImageInfo.html" title="struct qapi_qmp::ImageInfo">ImageInfo</a>&gt;&gt;</code>
-                           </span></span><span id="structfield.encrypted" class="structfield small-section-header">
-                           <a href="#structfield.encrypted" class="anchor field"></a>
-                           <span id="encrypted.v" class='invisible'>
-                           <code>encrypted: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.cluster_size" class="structfield small-section-header">
-                           <a href="#structfield.cluster_size" class="anchor field"></a>
-                           <span id="cluster_size.v" class='invisible'>
-                           <code>cluster_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.backing_filename" class="structfield small-section-header">
-                           <a href="#structfield.backing_filename" class="anchor field"></a>
-                           <span id="backing_filename.v" class='invisible'>
-                           <code>backing_filename: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.compressed" class="structfield small-section-header">
-                           <a href="#structfield.compressed" class="anchor field"></a>
-                           <span id="compressed.v" class='invisible'>
-                           <code>compressed: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.virtual_size" class="structfield small-section-header">
-                           <a href="#structfield.virtual_size" class="anchor field"></a>
-                           <span id="virtual_size.v" class='invisible'>
-                           <code>virtual_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span><span id="structfield.format" class="structfield small-section-header">
                            <a href="#structfield.format" class="anchor field"></a>
                            <span id="format.v" class='invisible'>
@@ -114,14 +78,50 @@
                            <a href="#structfield.backing_filename_format" class="anchor field"></a>
                            <span id="backing_filename_format.v" class='invisible'>
                            <code>backing_filename_format: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.encrypted" class="structfield small-section-header">
+                           <a href="#structfield.encrypted" class="anchor field"></a>
+                           <span id="encrypted.v" class='invisible'>
+                           <code>encrypted: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
                            </span></span><span id="structfield.dirty_flag" class="structfield small-section-header">
                            <a href="#structfield.dirty_flag" class="anchor field"></a>
                            <span id="dirty_flag.v" class='invisible'>
                            <code>dirty_flag: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.compressed" class="structfield small-section-header">
+                           <a href="#structfield.compressed" class="anchor field"></a>
+                           <span id="compressed.v" class='invisible'>
+                           <code>compressed: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.format_specific" class="structfield small-section-header">
+                           <a href="#structfield.format_specific" class="anchor field"></a>
+                           <span id="format_specific.v" class='invisible'>
+                           <code>format_specific: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.ImageInfoSpecific.html" title="enum qapi_qmp::ImageInfoSpecific">ImageInfoSpecific</a>&gt;</code>
+                           </span></span><span id="structfield.full_backing_filename" class="structfield small-section-header">
+                           <a href="#structfield.full_backing_filename" class="anchor field"></a>
+                           <span id="full_backing_filename.v" class='invisible'>
+                           <code>full_backing_filename: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span><span id="structfield.actual_size" class="structfield small-section-header">
                            <a href="#structfield.actual_size" class="anchor field"></a>
                            <span id="actual_size.v" class='invisible'>
                            <code>actual_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.virtual_size" class="structfield small-section-header">
+                           <a href="#structfield.virtual_size" class="anchor field"></a>
+                           <span id="virtual_size.v" class='invisible'>
+                           <code>virtual_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.backing_image" class="structfield small-section-header">
+                           <a href="#structfield.backing_image" class="anchor field"></a>
+                           <span id="backing_image.v" class='invisible'>
+                           <code>backing_image: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="struct" href="../qapi_qmp/struct.ImageInfo.html" title="struct qapi_qmp::ImageInfo">ImageInfo</a>&gt;&gt;</code>
+                           </span></span><span id="structfield.cluster_size" class="structfield small-section-header">
+                           <a href="#structfield.cluster_size" class="anchor field"></a>
+                           <span id="cluster_size.v" class='invisible'>
+                           <code>cluster_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.backing_filename" class="structfield small-section-header">
+                           <a href="#structfield.backing_filename" class="anchor field"></a>
+                           <span id="backing_filename.v" class='invisible'>
+                           <code>backing_filename: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.snapshots" class="structfield small-section-header">
+                           <a href="#structfield.snapshots" class="anchor field"></a>
+                           <span id="snapshots.v" class='invisible'>
+                           <code>snapshots: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.SnapshotInfo.html" title="struct qapi_qmp::SnapshotInfo">SnapshotInfo</a>&gt;&gt;</code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

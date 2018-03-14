@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct RxFilterInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.vlan_table">vlan_table</a><a href="#structfield.multicast_table">multicast_table</a><a href="#structfield.unicast_overflow">unicast_overflow</a><a href="#structfield.name">name</a><a href="#structfield.promiscuous">promiscuous</a><a href="#structfield.unicast_table">unicast_table</a><a href="#structfield.multicast_overflow">multicast_overflow</a><a href="#structfield.broadcast_allowed">broadcast_allowed</a><a href="#structfield.main_mac">main_mac</a><a href="#structfield.vlan">vlan</a><a href="#structfield.unicast">unicast</a><a href="#structfield.multicast">multicast</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'RxFilterInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct RxFilterInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.main_mac">main_mac</a><a href="#structfield.multicast_table">multicast_table</a><a href="#structfield.name">name</a><a href="#structfield.unicast_table">unicast_table</a><a href="#structfield.promiscuous">promiscuous</a><a href="#structfield.multicast">multicast</a><a href="#structfield.vlan">vlan</a><a href="#structfield.broadcast_allowed">broadcast_allowed</a><a href="#structfield.unicast_overflow">unicast_overflow</a><a href="#structfield.unicast">unicast</a><a href="#structfield.multicast_overflow">multicast_overflow</a><a href="#structfield.vlan_table">vlan_table</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'RxFilterInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,67 +51,67 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#4366-4391' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct RxFilterInfo {
-    pub vlan_table: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub multicast_table: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub unicast_overflow: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
-    pub name: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub promiscuous: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
-    pub unicast_table: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub multicast_overflow: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
-    pub broadcast_allowed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     pub main_mac: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub vlan: <a class="enum" href="../qapi_qmp/enum.RxState.html" title="enum qapi_qmp::RxState">RxState</a>,
-    pub unicast: <a class="enum" href="../qapi_qmp/enum.RxState.html" title="enum qapi_qmp::RxState">RxState</a>,
+    pub multicast_table: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub name: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+    pub unicast_table: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub promiscuous: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     pub multicast: <a class="enum" href="../qapi_qmp/enum.RxState.html" title="enum qapi_qmp::RxState">RxState</a>,
+    pub vlan: <a class="enum" href="../qapi_qmp/enum.RxState.html" title="enum qapi_qmp::RxState">RxState</a>,
+    pub broadcast_allowed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub unicast_overflow: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub unicast: <a class="enum" href="../qapi_qmp/enum.RxState.html" title="enum qapi_qmp::RxState">RxState</a>,
+    pub multicast_overflow: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub vlan_table: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.vlan_table" class="structfield small-section-header">
-                           <a href="#structfield.vlan_table" class="anchor field"></a>
-                           <span id="vlan_table.v" class='invisible'>
-                           <code>vlan_table: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.main_mac" class="structfield small-section-header">
+                           <a href="#structfield.main_mac" class="anchor field"></a>
+                           <span id="main_mac.v" class='invisible'>
+                           <code>main_mac: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
                            </span></span><span id="structfield.multicast_table" class="structfield small-section-header">
                            <a href="#structfield.multicast_table" class="anchor field"></a>
                            <span id="multicast_table.v" class='invisible'>
                            <code>multicast_table: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.unicast_overflow" class="structfield small-section-header">
-                           <a href="#structfield.unicast_overflow" class="anchor field"></a>
-                           <span id="unicast_overflow.v" class='invisible'>
-                           <code>unicast_overflow: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
                            </span></span><span id="structfield.name" class="structfield small-section-header">
                            <a href="#structfield.name" class="anchor field"></a>
                            <span id="name.v" class='invisible'>
                            <code>name: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.promiscuous" class="structfield small-section-header">
-                           <a href="#structfield.promiscuous" class="anchor field"></a>
-                           <span id="promiscuous.v" class='invisible'>
-                           <code>promiscuous: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
                            </span></span><span id="structfield.unicast_table" class="structfield small-section-header">
                            <a href="#structfield.unicast_table" class="anchor field"></a>
                            <span id="unicast_table.v" class='invisible'>
                            <code>unicast_table: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.multicast_overflow" class="structfield small-section-header">
-                           <a href="#structfield.multicast_overflow" class="anchor field"></a>
-                           <span id="multicast_overflow.v" class='invisible'>
-                           <code>multicast_overflow: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
-                           </span></span><span id="structfield.broadcast_allowed" class="structfield small-section-header">
-                           <a href="#structfield.broadcast_allowed" class="anchor field"></a>
-                           <span id="broadcast_allowed.v" class='invisible'>
-                           <code>broadcast_allowed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
-                           </span></span><span id="structfield.main_mac" class="structfield small-section-header">
-                           <a href="#structfield.main_mac" class="anchor field"></a>
-                           <span id="main_mac.v" class='invisible'>
-                           <code>main_mac: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.vlan" class="structfield small-section-header">
-                           <a href="#structfield.vlan" class="anchor field"></a>
-                           <span id="vlan.v" class='invisible'>
-                           <code>vlan: <a class="enum" href="../qapi_qmp/enum.RxState.html" title="enum qapi_qmp::RxState">RxState</a></code>
-                           </span></span><span id="structfield.unicast" class="structfield small-section-header">
-                           <a href="#structfield.unicast" class="anchor field"></a>
-                           <span id="unicast.v" class='invisible'>
-                           <code>unicast: <a class="enum" href="../qapi_qmp/enum.RxState.html" title="enum qapi_qmp::RxState">RxState</a></code>
+                           </span></span><span id="structfield.promiscuous" class="structfield small-section-header">
+                           <a href="#structfield.promiscuous" class="anchor field"></a>
+                           <span id="promiscuous.v" class='invisible'>
+                           <code>promiscuous: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
                            </span></span><span id="structfield.multicast" class="structfield small-section-header">
                            <a href="#structfield.multicast" class="anchor field"></a>
                            <span id="multicast.v" class='invisible'>
                            <code>multicast: <a class="enum" href="../qapi_qmp/enum.RxState.html" title="enum qapi_qmp::RxState">RxState</a></code>
+                           </span></span><span id="structfield.vlan" class="structfield small-section-header">
+                           <a href="#structfield.vlan" class="anchor field"></a>
+                           <span id="vlan.v" class='invisible'>
+                           <code>vlan: <a class="enum" href="../qapi_qmp/enum.RxState.html" title="enum qapi_qmp::RxState">RxState</a></code>
+                           </span></span><span id="structfield.broadcast_allowed" class="structfield small-section-header">
+                           <a href="#structfield.broadcast_allowed" class="anchor field"></a>
+                           <span id="broadcast_allowed.v" class='invisible'>
+                           <code>broadcast_allowed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><span id="structfield.unicast_overflow" class="structfield small-section-header">
+                           <a href="#structfield.unicast_overflow" class="anchor field"></a>
+                           <span id="unicast_overflow.v" class='invisible'>
+                           <code>unicast_overflow: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><span id="structfield.unicast" class="structfield small-section-header">
+                           <a href="#structfield.unicast" class="anchor field"></a>
+                           <span id="unicast.v" class='invisible'>
+                           <code>unicast: <a class="enum" href="../qapi_qmp/enum.RxState.html" title="enum qapi_qmp::RxState">RxState</a></code>
+                           </span></span><span id="structfield.multicast_overflow" class="structfield small-section-header">
+                           <a href="#structfield.multicast_overflow" class="anchor field"></a>
+                           <span id="multicast_overflow.v" class='invisible'>
+                           <code>multicast_overflow: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><span id="structfield.vlan_table" class="structfield small-section-header">
+                           <a href="#structfield.vlan_table" class="anchor field"></a>
+                           <span id="vlan_table.v" class='invisible'>
+                           <code>vlan_table: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

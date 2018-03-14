@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct BlockdevOptionsQuorum</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.vote_threshold">vote_threshold</a><a href="#structfield.read_pattern">read_pattern</a><a href="#structfield.children">children</a><a href="#structfield.blkverify">blkverify</a><a href="#structfield.rewrite_corrupted">rewrite_corrupted</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'BlockdevOptionsQuorum', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct BlockdevOptionsQuorum</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.children">children</a><a href="#structfield.blkverify">blkverify</a><a href="#structfield.read_pattern">read_pattern</a><a href="#structfield.vote_threshold">vote_threshold</a><a href="#structfield.rewrite_corrupted">rewrite_corrupted</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'BlockdevOptionsQuorum', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,21 +51,13 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#3282-3293' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct BlockdevOptionsQuorum {
-    pub vote_threshold: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub read_pattern: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.QuorumReadPattern.html" title="enum qapi_qmp::QuorumReadPattern">QuorumReadPattern</a>&gt;,
     pub children: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="enum" href="../qapi_qmp/enum.BlockdevRef.html" title="enum qapi_qmp::BlockdevRef">BlockdevRef</a>&gt;,
     pub blkverify: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub read_pattern: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.QuorumReadPattern.html" title="enum qapi_qmp::QuorumReadPattern">QuorumReadPattern</a>&gt;,
+    pub vote_threshold: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub rewrite_corrupted: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.vote_threshold" class="structfield small-section-header">
-                           <a href="#structfield.vote_threshold" class="anchor field"></a>
-                           <span id="vote_threshold.v" class='invisible'>
-                           <code>vote_threshold: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.read_pattern" class="structfield small-section-header">
-                           <a href="#structfield.read_pattern" class="anchor field"></a>
-                           <span id="read_pattern.v" class='invisible'>
-                           <code>read_pattern: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.QuorumReadPattern.html" title="enum qapi_qmp::QuorumReadPattern">QuorumReadPattern</a>&gt;</code>
-                           </span></span><span id="structfield.children" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.children" class="structfield small-section-header">
                            <a href="#structfield.children" class="anchor field"></a>
                            <span id="children.v" class='invisible'>
                            <code>children: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="enum" href="../qapi_qmp/enum.BlockdevRef.html" title="enum qapi_qmp::BlockdevRef">BlockdevRef</a>&gt;</code>
@@ -73,6 +65,14 @@
                            <a href="#structfield.blkverify" class="anchor field"></a>
                            <span id="blkverify.v" class='invisible'>
                            <code>blkverify: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.read_pattern" class="structfield small-section-header">
+                           <a href="#structfield.read_pattern" class="anchor field"></a>
+                           <span id="read_pattern.v" class='invisible'>
+                           <code>read_pattern: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.QuorumReadPattern.html" title="enum qapi_qmp::QuorumReadPattern">QuorumReadPattern</a>&gt;</code>
+                           </span></span><span id="structfield.vote_threshold" class="structfield small-section-header">
+                           <a href="#structfield.vote_threshold" class="anchor field"></a>
+                           <span id="vote_threshold.v" class='invisible'>
+                           <code>vote_threshold: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span><span id="structfield.rewrite_corrupted" class="structfield small-section-header">
                            <a href="#structfield.rewrite_corrupted" class="anchor field"></a>
                            <span id="rewrite_corrupted.v" class='invisible'>

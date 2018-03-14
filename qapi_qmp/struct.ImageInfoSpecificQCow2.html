@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct ImageInfoSpecificQCow2</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.refcount_bits">refcount_bits</a><a href="#structfield.compat">compat</a><a href="#structfield.lazy_refcounts">lazy_refcounts</a><a href="#structfield.corrupt">corrupt</a><a href="#structfield.encrypt">encrypt</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'ImageInfoSpecificQCow2', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct ImageInfoSpecificQCow2</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.corrupt">corrupt</a><a href="#structfield.lazy_refcounts">lazy_refcounts</a><a href="#structfield.refcount_bits">refcount_bits</a><a href="#structfield.compat">compat</a><a href="#structfield.encrypt">encrypt</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'ImageInfoSpecificQCow2', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,13 +51,21 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#2011-2022' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct ImageInfoSpecificQCow2 {
+    pub corrupt: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
+    pub lazy_refcounts: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
     pub refcount_bits: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub compat: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub lazy_refcounts: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
-    pub corrupt: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;,
     pub encrypt: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.ImageInfoSpecificQCow2Encryption.html" title="enum qapi_qmp::ImageInfoSpecificQCow2Encryption">ImageInfoSpecificQCow2Encryption</a>&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.refcount_bits" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.corrupt" class="structfield small-section-header">
+                           <a href="#structfield.corrupt" class="anchor field"></a>
+                           <span id="corrupt.v" class='invisible'>
+                           <code>corrupt: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.lazy_refcounts" class="structfield small-section-header">
+                           <a href="#structfield.lazy_refcounts" class="anchor field"></a>
+                           <span id="lazy_refcounts.v" class='invisible'>
+                           <code>lazy_refcounts: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
+                           </span></span><span id="structfield.refcount_bits" class="structfield small-section-header">
                            <a href="#structfield.refcount_bits" class="anchor field"></a>
                            <span id="refcount_bits.v" class='invisible'>
                            <code>refcount_bits: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
@@ -65,14 +73,6 @@
                            <a href="#structfield.compat" class="anchor field"></a>
                            <span id="compat.v" class='invisible'>
                            <code>compat: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.lazy_refcounts" class="structfield small-section-header">
-                           <a href="#structfield.lazy_refcounts" class="anchor field"></a>
-                           <span id="lazy_refcounts.v" class='invisible'>
-                           <code>lazy_refcounts: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
-                           </span></span><span id="structfield.corrupt" class="structfield small-section-header">
-                           <a href="#structfield.corrupt" class="anchor field"></a>
-                           <span id="corrupt.v" class='invisible'>
-                           <code>corrupt: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;</code>
                            </span></span><span id="structfield.encrypt" class="structfield small-section-header">
                            <a href="#structfield.encrypt" class="anchor field"></a>
                            <span id="encrypt.v" class='invisible'>

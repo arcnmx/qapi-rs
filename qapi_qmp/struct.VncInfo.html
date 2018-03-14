@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct VncInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.enabled">enabled</a><a href="#structfield.family">family</a><a href="#structfield.service">service</a><a href="#structfield.clients">clients</a><a href="#structfield.auth">auth</a><a href="#structfield.host">host</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'VncInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct VncInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.clients">clients</a><a href="#structfield.family">family</a><a href="#structfield.service">service</a><a href="#structfield.enabled">enabled</a><a href="#structfield.host">host</a><a href="#structfield.auth">auth</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'VncInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,17 +51,17 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#4865-4878' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct VncInfo {
-    pub enabled: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub clients: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.VncClientInfo.html" title="struct qapi_qmp::VncClientInfo">VncClientInfo</a>&gt;&gt;,
     pub family: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../qapi_qmp/enum.NetworkAddressFamily.html" title="enum qapi_qmp::NetworkAddressFamily">NetworkAddressFamily</a>&gt;,
     pub service: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub clients: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.VncClientInfo.html" title="struct qapi_qmp::VncClientInfo">VncClientInfo</a>&gt;&gt;,
-    pub auth: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub enabled: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     pub host: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub auth: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.enabled" class="structfield small-section-header">
-                           <a href="#structfield.enabled" class="anchor field"></a>
-                           <span id="enabled.v" class='invisible'>
-                           <code>enabled: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.clients" class="structfield small-section-header">
+                           <a href="#structfield.clients" class="anchor field"></a>
+                           <span id="clients.v" class='invisible'>
+                           <code>clients: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.VncClientInfo.html" title="struct qapi_qmp::VncClientInfo">VncClientInfo</a>&gt;&gt;</code>
                            </span></span><span id="structfield.family" class="structfield small-section-header">
                            <a href="#structfield.family" class="anchor field"></a>
                            <span id="family.v" class='invisible'>
@@ -70,18 +70,18 @@
                            <a href="#structfield.service" class="anchor field"></a>
                            <span id="service.v" class='invisible'>
                            <code>service: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.clients" class="structfield small-section-header">
-                           <a href="#structfield.clients" class="anchor field"></a>
-                           <span id="clients.v" class='invisible'>
-                           <code>clients: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.VncClientInfo.html" title="struct qapi_qmp::VncClientInfo">VncClientInfo</a>&gt;&gt;</code>
-                           </span></span><span id="structfield.auth" class="structfield small-section-header">
-                           <a href="#structfield.auth" class="anchor field"></a>
-                           <span id="auth.v" class='invisible'>
-                           <code>auth: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.enabled" class="structfield small-section-header">
+                           <a href="#structfield.enabled" class="anchor field"></a>
+                           <span id="enabled.v" class='invisible'>
+                           <code>enabled: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
                            </span></span><span id="structfield.host" class="structfield small-section-header">
                            <a href="#structfield.host" class="anchor field"></a>
                            <span id="host.v" class='invisible'>
                            <code>host: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.auth" class="structfield small-section-header">
+                           <a href="#structfield.auth" class="anchor field"></a>
+                           <span id="auth.v" class='invisible'>
+                           <code>auth: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>

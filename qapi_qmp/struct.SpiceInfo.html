@@ -30,7 +30,7 @@
     <nav class="sidebar">
         <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Struct SpiceInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.enabled">enabled</a><a href="#structfield.host">host</a><a href="#structfield.migrated">migrated</a><a href="#structfield.port">port</a><a href="#structfield.auth">auth</a><a href="#structfield.tls_port">tls_port</a><a href="#structfield.channels">channels</a><a href="#structfield.mouse_mode">mouse_mode</a><a href="#structfield.compiled_version">compiled_version</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'SpiceInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+        <p class='location'>Struct SpiceInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.port">port</a><a href="#structfield.enabled">enabled</a><a href="#structfield.migrated">migrated</a><a href="#structfield.mouse_mode">mouse_mode</a><a href="#structfield.compiled_version">compiled_version</a><a href="#structfield.tls_port">tls_port</a><a href="#structfield.auth">auth</a><a href="#structfield.channels">channels</a><a href="#structfield.host">host</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'SpiceInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -51,44 +51,28 @@
                    </a>
                </span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/f92a90695791992ff8a3e181fcb81782/debug/build/qapi-qmp-380daca7e78f4c26/out/qmp.rs.html#4763-4782' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct SpiceInfo {
-    pub enabled: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
-    pub host: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub migrated: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     pub port: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub auth: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub tls_port: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub channels: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.SpiceChannel.html" title="struct qapi_qmp::SpiceChannel">SpiceChannel</a>&gt;&gt;,
+    pub enabled: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub migrated: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     pub mouse_mode: <a class="enum" href="../qapi_qmp/enum.SpiceQueryMouseMode.html" title="enum qapi_qmp::SpiceQueryMouseMode">SpiceQueryMouseMode</a>,
     pub compiled_version: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub tls_port: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub auth: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub channels: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.SpiceChannel.html" title="struct qapi_qmp::SpiceChannel">SpiceChannel</a>&gt;&gt;,
+    pub host: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
 }</pre><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.enabled" class="structfield small-section-header">
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.port" class="structfield small-section-header">
+                           <a href="#structfield.port" class="anchor field"></a>
+                           <span id="port.v" class='invisible'>
+                           <code>port: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.enabled" class="structfield small-section-header">
                            <a href="#structfield.enabled" class="anchor field"></a>
                            <span id="enabled.v" class='invisible'>
                            <code>enabled: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
-                           </span></span><span id="structfield.host" class="structfield small-section-header">
-                           <a href="#structfield.host" class="anchor field"></a>
-                           <span id="host.v" class='invisible'>
-                           <code>host: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span><span id="structfield.migrated" class="structfield small-section-header">
                            <a href="#structfield.migrated" class="anchor field"></a>
                            <span id="migrated.v" class='invisible'>
                            <code>migrated: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
-                           </span></span><span id="structfield.port" class="structfield small-section-header">
-                           <a href="#structfield.port" class="anchor field"></a>
-                           <span id="port.v" class='invisible'>
-                           <code>port: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.auth" class="structfield small-section-header">
-                           <a href="#structfield.auth" class="anchor field"></a>
-                           <span id="auth.v" class='invisible'>
-                           <code>auth: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.tls_port" class="structfield small-section-header">
-                           <a href="#structfield.tls_port" class="anchor field"></a>
-                           <span id="tls_port.v" class='invisible'>
-                           <code>tls_port: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.channels" class="structfield small-section-header">
-                           <a href="#structfield.channels" class="anchor field"></a>
-                           <span id="channels.v" class='invisible'>
-                           <code>channels: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.SpiceChannel.html" title="struct qapi_qmp::SpiceChannel">SpiceChannel</a>&gt;&gt;</code>
                            </span></span><span id="structfield.mouse_mode" class="structfield small-section-header">
                            <a href="#structfield.mouse_mode" class="anchor field"></a>
                            <span id="mouse_mode.v" class='invisible'>
@@ -97,6 +81,22 @@
                            <a href="#structfield.compiled_version" class="anchor field"></a>
                            <span id="compiled_version.v" class='invisible'>
                            <code>compiled_version: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.tls_port" class="structfield small-section-header">
+                           <a href="#structfield.tls_port" class="anchor field"></a>
+                           <span id="tls_port.v" class='invisible'>
+                           <code>tls_port: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.auth" class="structfield small-section-header">
+                           <a href="#structfield.auth" class="anchor field"></a>
+                           <span id="auth.v" class='invisible'>
+                           <code>auth: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.channels" class="structfield small-section-header">
+                           <a href="#structfield.channels" class="anchor field"></a>
+                           <span id="channels.v" class='invisible'>
+                           <code>channels: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../qapi_qmp/struct.SpiceChannel.html" title="struct qapi_qmp::SpiceChannel">SpiceChannel</a>&gt;&gt;</code>
+                           </span></span><span id="structfield.host" class="structfield small-section-header">
+                           <a href="#structfield.host" class="anchor field"></a>
+                           <span id="host.v" class='invisible'>
+                           <code>host: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>
