@@ -14,7 +14,6 @@ impl Decoder for LineCodec {
         match buf.iter().position(|&b| b == b'\n') {
             Some(i) => {
                 let line = buf.split_to(i + 1);
-                debug!("Decoded line: {}", str::from_utf8(&line).unwrap_or("utf8 decode failed"));
                 Ok(Some(line))
             },
             None => Ok(None),
@@ -27,7 +26,6 @@ impl Decoder for LineCodec {
         } else {
             let amt = buf.len();
             let line = buf.split_to(amt);
-            debug!("Decoded line at EOF: {}", str::from_utf8(&line).unwrap_or("utf8 decode failed"));
             Ok(Some(line))
         }
     }
@@ -40,8 +38,6 @@ impl Encoder for LineCodec {
     fn encode(&mut self, item: Self::Item, into: &mut BytesMut) -> Result<(), Self::Error> {
         into.reserve(item.len());
         into.put(&item[..]);
-
-        debug!("Encoded line: {}", str::from_utf8(&item).unwrap_or("utf8 decode failed"));
 
         Ok(())
     }

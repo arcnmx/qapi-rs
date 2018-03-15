@@ -116,7 +116,7 @@ impl<C, S, E> Future for QapiFuture<C, S>
         match self.state.take_value() {
             Some(v) => {
                 let encoded = encode_command(&v)?;
-                debug!("Encoded command {}", str::from_utf8(&encoded).unwrap_or("utf8 decoding failed"));
+                debug!("-> {}", str::from_utf8(&encoded).unwrap_or("utf8 decoding failed"));
                 // TODO: queue the vec instead of the value?
                 match self.state.inner_mut().unwrap().start_send(encoded) {
                     Ok(AsyncSink::Ready) => self.poll(),
@@ -220,14 +220,12 @@ impl<S> QapiStreamInner<S> where
         match try_ready!(self.stream.poll()) {
             Some(v) => {
                 let v = v.as_ref();
+                debug!("<- {}", str::from_utf8(v).unwrap_or("utf8 decoding failed"));
                 if v.starts_with(b"{\"QMP\":") {
-                    debug!("Got greeting");
                     self.push_greeting(v);
                 } else if v.starts_with(b"{\"timestamp\":") || v.starts_with(b"{\"event\":") {
-                    debug!("Got event");
                     self.push_event(v);
                 } else {
-                    debug!("Got response");
                     self.response = Some(BytesMut::from_buf(v));
                     if let Some(ref task) = self.task_response {
                         task.notify()
@@ -264,7 +262,6 @@ impl<S> QapiStreamInner<S> where
         match self.events.pop() {
             Some(v) => {
                 let v = serde_json::from_slice(v.as_ref()).map_err(io::Error::from)?;
-                debug!("Decoded event {:?}", v);
                 Ok(Async::Ready(Some(v)))
             },
             None => if self.fused || self.fused_events {
