@@ -1,6 +1,6 @@
 extern crate tokio_qapi;
 extern crate tokio_uds;
-extern crate tokio_core;
+extern crate tokio;
 extern crate futures;
 extern crate env_logger;
 
@@ -8,7 +8,8 @@ extern crate env_logger;
 mod main {
     use std::env::args;
     use tokio_uds::UnixStream;
-    use tokio_core::reactor::Core;
+    use tokio::prelude::*;
+    use tokio::run;
     use tokio_qapi::{self, qga};
 
     pub fn main() {
@@ -16,14 +17,14 @@ mod main {
 
         let socket_addr = args().nth(1).expect("argument: QEMU Guest Agent socket path");
 
-        let mut core = Core::new().expect("failed to create core");
-        let stream = UnixStream::connect(socket_addr, &core.handle()).expect("failed to connect to socket");
+        let stream = UnixStream::connect(socket_addr).expect("failed to connect to socket");
         let stream = tokio_qapi::stream(stream);
-        let stream = core.run(tokio_qapi::qga_handshake(stream)).expect("failed to handshake");
-        let info = stream.execute(qga::guest_info { });
-        let (info, _stream) = core.run(info).expect("failed to complete future");
-        let info = info.expect("failed to get guest info");
-        println!("Guest Agent version: {}", info.version);
+        run(tokio_qapi::qga_handshake(stream)
+            .and_then(|stream| stream.execute(qga::guest_info { }))
+            .and_then(|(info, _stream)| info.map_err(From::from))
+            .map(|info| println!("Guest Agent version: {}", info.version))
+            .map_err(|e| panic!("Failed with {:?}", e))
+        );
     }
 }
 

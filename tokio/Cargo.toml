@@ -1,6 +1,6 @@
 [package]
 name = "tokio-qapi"
-version = "0.0.2"
+version = "0.1.0"
 authors = ["arcnmx"]
 
 description = "QEMU QMP and Guest Agent API tokio adapter"
@@ -27,8 +27,8 @@ bytes = "^0.4.6"
 log = "^0.4.1"
 
 [dev-dependencies]
-tokio-uds = "^0.1.7"
-tokio-core = "^0.1.12"
+tokio-uds = { version = "^0.2.0", git = "https://github.com/arcnmx/tokio-uds.git", branch = "upgrade_to_tokio" }
+tokio = "^0.1.5"
 env_logger = "^0.5.4"
 
 [features]

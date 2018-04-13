@@ -1,6 +1,6 @@
 extern crate tokio_qapi;
 extern crate tokio_uds;
-extern crate tokio_core;
+extern crate tokio;
 extern crate futures;
 extern crate env_logger;
 
@@ -8,7 +8,8 @@ extern crate env_logger;
 mod main {
     use std::env::args;
     use tokio_uds::UnixStream;
-    use tokio_core::reactor::Core;
+    use tokio::prelude::*;
+    use tokio::run;
     use tokio_qapi::{self, qmp};
 
     pub fn main() {
@@ -16,15 +17,17 @@ mod main {
 
         let socket_addr = args().nth(1).expect("argument: QMP socket path");
 
-        let mut core = Core::new().expect("failed to create core");
-        let stream = UnixStream::connect(socket_addr, &core.handle()).expect("failed to connect to socket");
+        let stream = UnixStream::connect(socket_addr).expect("failed to connect to socket");
         let stream = tokio_qapi::stream(stream);
-        let (caps, stream) = core.run(tokio_qapi::qmp_handshake(stream)).expect("failed to handshake");
-        println!("{:#?}", caps);
-        let status = stream.execute(qmp::query_status { });
-        let (status, _stream) = core.run(status).expect("failed to complete future");
-        let status = status.expect("failed to require status");
-        println!("VCPU status: {:#?}", status);
+
+        run(tokio_qapi::qmp_handshake(stream)
+            .and_then(|(caps, stream)| {
+                println!("{:#?}", caps);
+                stream.execute(qmp::query_status { })
+            }).and_then(|(status, _stream)| status.map_err(From::from))
+            .map(|status| println!("VCPU status: {:#?}", status))
+            .map_err(|e| panic!("Failed with {:?}", e))
+        );
     }
 }
 
