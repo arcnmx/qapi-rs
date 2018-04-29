@@ -409,7 +409,7 @@ mod test {
 
     #[test]
     fn parse_qapi() {
-        parse_schema(QemuFileRepo::new(concat!(env!("CARGO_MANIFEST_DIR"), "/../schema/")));
+        parse_schema(QemuFileRepo::new(concat!(env!("CARGO_MANIFEST_DIR"), "/../schema/qapi/")));
     }
 
     #[test]

@@ -1,6 +1,6 @@
 [package]
 name = "qapi-qmp"
-version = "0.0.1"
+version = "0.2.0"
 build = "build.rs"
 authors = ["arcnmx"]
 
@@ -17,9 +17,9 @@ travis-ci = { repository = "arcnmx/qapi-rs" }
 maintenance = { status = "passively-maintained" }
 
 [build-dependencies]
-qapi-codegen = { version = "^0.0.1", path = "../codegen" }
+qapi-codegen = { version = "^0.2.0", path = "../codegen" }
 
 [dependencies]
 serde = "^1.0.27"
 serde_derive = "^1.0.27"
-qapi-spec = { version = "^0.0.1", path = "../spec" }
+qapi-spec = { version = "^0.2.0", path = "../spec" }

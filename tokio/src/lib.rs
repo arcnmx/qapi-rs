@@ -512,7 +512,7 @@ impl<S, E> Future for QmpHandshake<S> where
 
         self.state = QmpHandshakeState::Future {
             greeting: Some(g.QMP),
-            future: QapiFuture::new(stream, qmp::qmp_capabilities { }),
+            future: QapiFuture::new(stream, qmp::qmp_capabilities { enable: None }),
         };
 
         self.poll()

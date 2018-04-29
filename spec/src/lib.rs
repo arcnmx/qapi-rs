@@ -66,11 +66,13 @@ pub mod base64_opt {
 
 mod error_serde {
     use serde::{Serialize, Serializer, Deserialize, Deserializer};
-    use Error;
+    use {Error, Any};
 
     #[derive(Deserialize)]
     struct QapiError {
         error: Error,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        id: Option<Any>,
     }
 
     #[derive(Serialize)]
@@ -100,6 +102,8 @@ pub enum ResponseEvent<C, E> {
     Ok {
         #[serde(rename = "return")]
         return_: C,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        id: Option<Any>,
     },
 }
 
@@ -193,18 +197,24 @@ pub struct Timestamp {
 
 mod serde_command {
     use serde::{Serialize, Serializer};
-    use Command;
+    use {Command, Any};
 
     #[derive(Serialize)]
     struct QapiCommand<'a, C: 'a> {
         execute: &'static str,
         arguments: &'a C,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        id: Option<Any>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        control: Option<Any>,
     }
 
     pub fn serialize<C: Command, S: Serializer>(data: &C, serializer: S) -> Result<S::Ok, S::Error> {
         QapiCommand {
             execute: C::NAME,
             arguments: data,
+            id: None,
+            control: None,
         }.serialize(serializer)
     }
 }

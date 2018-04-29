@@ -1,6 +1,6 @@
 [package]
 name = "qapi-parser"
-version = "0.0.1"
+version = "0.2.0"
 authors = ["arcnmx"]
 
 description = "QEMU QAPI JSON specification parser"

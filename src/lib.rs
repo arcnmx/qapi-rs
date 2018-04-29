@@ -175,7 +175,7 @@ mod qmp_impl {
             loop {
                 match self.inner.decode_line()? {
                     None => return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response")),
-                    Some(ResponseEvent::Ok { return_ }) => return Ok(Ok(return_)),
+                    Some(ResponseEvent::Ok { return_, .. }) => return Ok(Ok(return_)),
                     Some(ResponseEvent::Err(e)) => return Ok(Err(e)),
                     Some(ResponseEvent::Event(e)) => self.event_queue.push(e),
                 }
@@ -195,7 +195,7 @@ mod qmp_impl {
 
         pub fn handshake(&mut self) -> io::Result<QMP> {
             let caps = self.read_capabilities()?;
-            self.execute(&qmp_capabilities { })
+            self.execute(&qmp_capabilities { enable: None })
                 .and_then(|v| v.map_err(From::from))
                 .map(|_| caps)
         }

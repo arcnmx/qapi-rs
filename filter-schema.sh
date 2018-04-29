@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-cd ./schema/
+#cd ./schema/
 git filter-branch \
 	--prune-empty \
 	--tag-name-filter cat \
