@@ -27,7 +27,7 @@ bytes = "^0.4.6"
 log = "^0.4.1"
 
 [dev-dependencies]
-tokio-uds = { version = "^0.2.0", git = "https://github.com/arcnmx/tokio-uds.git", branch = "upgrade_to_tokio" }
+tokio-uds = { version = "^0.2.0", git = "https://github.com/tokio-rs/tokio-uds.git" }
 tokio = "^0.1.5"
 env_logger = "^0.5.4"
 

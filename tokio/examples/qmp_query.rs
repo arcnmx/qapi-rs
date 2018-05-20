@@ -17,10 +17,10 @@ mod main {
 
         let socket_addr = args().nth(1).expect("argument: QMP socket path");
 
-        let stream = UnixStream::connect(socket_addr).expect("failed to connect to socket");
-        let stream = tokio_qapi::stream(stream);
 
-        run(tokio_qapi::qmp_handshake(stream)
+        run(UnixStream::connect(socket_addr)
+            .map(|stream| tokio_qapi::stream(stream))
+            .and_then(|stream| tokio_qapi::qmp_handshake(stream))
             .and_then(|(caps, stream)| {
                 println!("{:#?}", caps);
                 stream.execute(qmp::query_status { })

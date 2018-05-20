@@ -17,9 +17,9 @@ mod main {
 
         let socket_addr = args().nth(1).expect("argument: QEMU Guest Agent socket path");
 
-        let stream = UnixStream::connect(socket_addr).expect("failed to connect to socket");
-        let stream = tokio_qapi::stream(stream);
-        run(tokio_qapi::qga_handshake(stream)
+        run(UnixStream::connect(socket_addr)
+            .map(|stream| tokio_qapi::stream(stream))
+            .and_then(|stream| tokio_qapi::qga_handshake(stream))
             .and_then(|stream| stream.execute(qga::guest_info { }))
             .and_then(|(info, _stream)| info.map_err(From::from))
             .map(|info| println!("Guest Agent version: {}", info.version))
