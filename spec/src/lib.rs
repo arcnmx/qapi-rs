@@ -94,8 +94,8 @@ mod error_serde {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ResponseEvent<C, E> {
+    #[serde(with = "error_serde")]
     Err(
-        #[serde(with = "error_serde")]
         Error
     ),
     Event(E),
@@ -110,8 +110,8 @@ pub enum ResponseEvent<C, E> {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum Response<C> {
+    #[serde(with = "error_serde")]
     Err(
-        #[serde(with = "error_serde")]
         Error
     ),
     Ok {
