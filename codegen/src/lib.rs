@@ -6,6 +6,7 @@ use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::fs::File;
 use std::io::{self, Write};
+use std::mem::replace;
 
 // kebab-case to PascalCase?
 fn type_identifier<S: AsRef<str>>(id: S) -> String {
@@ -123,6 +124,7 @@ struct Context<W> {
     events: Vec<spec::Event>,
     unions: Vec<spec::CombinedUnion>,
     types: HashMap<String, spec::Struct>,
+    struct_discriminators: HashMap<String, String>,
     out: W,
 }
 
@@ -134,6 +136,7 @@ impl<W: Write> Context<W> {
             events: Default::default(),
             unions: Default::default(),
             types: Default::default(),
+            struct_discriminators: Default::default(),
             out: out,
         }
     }
@@ -182,15 +185,6 @@ impl ::qapi::Command for {} {{
                 writeln!(self.out, "}}")?;
             },
             Spec::Struct(v) => {
-                write!(self.out, "
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct {} {{
-", type_identifier(&v.id))?;
-                for item in &v.data.fields {
-                    writeln!(self.out, "{},", valuety(item, true, &v.id))?;
-                }
-                writeln!(self.out, "}}")?;
-
                 self.types.insert(v.id.clone(), v);
             },
             Spec::Alternate(v) => {
@@ -261,6 +255,40 @@ pub enum {} {{
         Ok(())
     }
 
+    fn process_structs(&mut self) -> io::Result<()> {
+        for (id, discrim) in &self.struct_discriminators {
+            let ty = self.types.get_mut(id).ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}", id)))?;
+            let mut fields = replace(&mut ty.data.fields, Vec::new());
+            ty.data.fields = fields.into_iter().filter(|base| &base.name != discrim).collect();
+        }
+
+        for v in self.types.values() {
+            write!(self.out, "
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct {} {{
+", type_identifier(&v.id))?;
+            match v.base {
+                spec::DataOrType::Data(ref data) => for base in &data.fields {
+                    writeln!(self.out, "{},", valuety(base, true, &v.id))?;
+                },
+                spec::DataOrType::Type(ref ty) => {
+                    let base = spec::Value {
+                        name: "base".into(),
+                        ty: ty.clone(),
+                        optional: false,
+                    };
+                    writeln!(self.out, "#[serde(flatten)]\n{},", valuety(&base, true, &v.id))?;
+                },
+            }
+            for item in &v.data.fields {
+                writeln!(self.out, "{},", valuety(item, true, &v.id))?;
+            }
+            writeln!(self.out, "}}")?;
+        }
+
+        Ok(())
+    }
+
     fn process_unions(&mut self) -> io::Result<()> {
         for u in &self.unions {
             let discrim = if let Some(ref tag) = u.discriminator { tag } else { "type" };
@@ -274,35 +302,59 @@ pub enum {} {{
             for variant in &u.data.fields {
                 assert!(!variant.optional);
                 assert!(!variant.ty.is_array);
+                let is_newtype = u.base.is_empty();
 
                 println!("doing union {}", u.id);
-                writeln!(self.out, "\t#[serde(rename = \"{}\")]\n\t{} {{\n\t\t// base", variant.name, type_identifier(&variant.name))?;
+                write!(self.out, "\t#[serde(rename = \"{}\")]\n\t{}", variant.name, type_identifier(&variant.name))?;
+                writeln!(self.out, "{}", if is_newtype { "(" } else { " {" })?;
                 match u.base {
-                    spec::DataOrType::Data(ref data) => for base in &data.fields {
-                        if base.name == discrim {
-                            discrim_ty = Some(base.ty.clone());
-                        } else {
-                            writeln!(self.out, "\t\t{},", valuety(base, false, &u.id))?;
-                        }
-                    },
-                    spec::DataOrType::Type(ref ty) => {
-                        let ty = self.types.get(&ty.name).ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}", ty.name)))?;
-                        for base in &ty.data.fields {
+                    spec::DataOrType::Data(ref data) => {
+                        for base in &data.fields {
                             if base.name == discrim {
-                                discrim_ty = Some(base.ty.clone());
+                                if let Some(ref ty) = discrim_ty {
+                                    assert_eq!(ty, &base.ty);
+                                } else {
+                                    discrim_ty = Some(base.ty.clone());
+                                }
                             } else {
                                 writeln!(self.out, "\t\t{},", valuety(base, false, &u.id))?;
                             }
                         }
                     },
+                    spec::DataOrType::Type(ref ty) => {
+                        let base = spec::Value {
+                            name: "base".into(),
+                            ty: ty.clone(),
+                            optional: false,
+                        };
+                        writeln!(self.out, "\t\t#[serde(flatten)] {},", valuety(&base, false, &u.id))?;
+
+                        let ty = self.types.get_mut(&ty.name).ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}", ty.name)))?;
+                        for base in &ty.data.fields {
+                            if base.name == discrim {
+                                self.struct_discriminators.insert(ty.id.clone(), base.name.clone());
+
+                                if let Some(ref ty) = discrim_ty {
+                                    assert_eq!(ty, &base.ty);
+                                } else {
+                                    discrim_ty = Some(base.ty.clone());
+                                }
+                            }
+                        }
+                    },
                 }
 
-                let ty = self.types.get(&variant.ty.name).ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}", variant.ty.name)))?;
-                writeln!(self.out, "\t\t// variant fields")?;
-                for field in &ty.data.fields {
-                    writeln!(self.out, "\t\t{},", valuety(field, false, &u.id))?;
+                if is_newtype {
+                    write!(self.out, "{}", type_identifier(&variant.ty.name))?;
+                } else {
+                    let field = spec::Value {
+                        name: variant.name.clone(),
+                        ty: variant.ty.clone(),
+                        optional: false,
+                    };
+                    writeln!(self.out, "\t\t#[serde(flatten)] {},", valuety(&field, false, &u.id))?;
                 }
-                writeln!(self.out, "\t}},")?;
+                writeln!(self.out, "{}", if is_newtype { ")," } else { "\t}," })?;
             }
             writeln!(self.out, "}}")?;
 
@@ -320,6 +372,8 @@ impl {} {{
         }}
     }}
 }}")?;
+            } else {
+                panic!("missing discriminator type for {}", u.id);
             }
         }
 
@@ -384,6 +438,7 @@ pub fn codegen<S: AsRef<Path>, O: AsRef<Path>>(schema_path: S, out_path: O) -> i
         let mut context = Context::new(File::create(out_path)?);
         include(&mut context, &mut repo, "qapi-schema.json")?;
         context.process_unions()?;
+        context.process_structs()?;
         context.process_events()?;
         Ok(context.included)
     }

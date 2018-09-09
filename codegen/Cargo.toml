@@ -1,6 +1,6 @@
 [package]
 name = "qapi-codegen"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["arcnmx"]
 
 description = "QEMU QAPI codegen helper"
@@ -16,4 +16,4 @@ travis-ci = { repository = "arcnmx/qapi-rs" }
 maintenance = { status = "passively-maintained" }
 
 [dependencies]
-qapi-parser = { version = "^0.2.0", path = "../parser" }
+qapi-parser = { version = "^0.2.1", path = "../parser" }

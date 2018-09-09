@@ -69,7 +69,7 @@ pub mod spec {
         }
     }
 
-    #[derive(Clone)]
+    #[derive(Clone, PartialEq, Eq)]
     pub struct Type {
         pub name: String,
         pub is_array: bool,
@@ -155,6 +155,8 @@ pub mod spec {
         pub id: String,
         #[serde(default)]
         pub data: Data,
+        #[serde(default)]
+        pub base: DataOrType,
     }
 
     #[derive(Debug, Clone, Deserialize)]
@@ -206,6 +208,15 @@ pub mod spec {
     impl Default for DataOrType {
         fn default() -> Self {
             DataOrType::Data(Default::default())
+        }
+    }
+
+    impl DataOrType {
+        pub fn is_empty(&self) -> bool {
+            match self {
+                &DataOrType::Data(ref data) => data.fields.is_empty(),
+                &DataOrType::Type(..) => false,
+            }
         }
     }
 
