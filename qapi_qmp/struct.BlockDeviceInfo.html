@@ -1,171 +1,171 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `BlockDeviceInfo` struct in crate `qapi_qmp`."><meta name="keywords" content="rust, rustlang, rust-lang, BlockDeviceInfo"><title>qapi_qmp::BlockDeviceInfo - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script></head><body class="rustdoc struct"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Struct BlockDeviceInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.file">file</a><a href="#structfield.bps_rd_max_length">bps_rd_max_length</a><a href="#structfield.group">group</a><a href="#structfield.iops">iops</a><a href="#structfield.bps_rd">bps_rd</a><a href="#structfield.node_name">node_name</a><a href="#structfield.bps_max_length">bps_max_length</a><a href="#structfield.bps_rd_max">bps_rd_max</a><a href="#structfield.iops_wr_max">iops_wr_max</a><a href="#structfield.bps_wr_max">bps_wr_max</a><a href="#structfield.bps_wr_max_length">bps_wr_max_length</a><a href="#structfield.iops_wr_max_length">iops_wr_max_length</a><a href="#structfield.iops_rd_max">iops_rd_max</a><a href="#structfield.iops_size">iops_size</a><a href="#structfield.write_threshold">write_threshold</a><a href="#structfield.iops_rd_max_length">iops_rd_max_length</a><a href="#structfield.encrypted">encrypted</a><a href="#structfield.bps">bps</a><a href="#structfield.iops_max">iops_max</a><a href="#structfield.ro">ro</a><a href="#structfield.bps_wr">bps_wr</a><a href="#structfield.backing_file">backing_file</a><a href="#structfield.image">image</a><a href="#structfield.bps_max">bps_max</a><a href="#structfield.iops_wr">iops_wr</a><a href="#structfield.iops_max_length">iops_max_length</a><a href="#structfield.drv">drv</a><a href="#structfield.detect_zeroes">detect_zeroes</a><a href="#structfield.backing_file_depth">backing_file_depth</a><a href="#structfield.cache">cache</a><a href="#structfield.encryption_key_missing">encryption_key_missing</a><a href="#structfield.iops_rd">iops_rd</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-Send">Send</a><a href="#impl-Sync">Sync</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'BlockDeviceInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>qapi_qmp</a>::<wbr><a class="struct" href=''>BlockDeviceInfo</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/10a77d7f3040e627805ed17e2177ec08/debug/build/qapi-qmp-9c94786aae590ffb/out/qmp.rs.html#788-853' title='goto source code'>[src]</a></span></h1><div class="docblock type-decl"><pre class='rust struct'>pub struct BlockDeviceInfo {
-    pub file: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub bps_rd_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub group: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub iops: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub bps_rd: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub node_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub bps_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `BlockDeviceInfo` struct in crate `qapi_qmp`."><meta name="keywords" content="rust, rustlang, rust-lang, BlockDeviceInfo"><title>qapi_qmp::BlockDeviceInfo - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script></head><body class="rustdoc struct"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Struct BlockDeviceInfo</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.bps_rd_max">bps_rd_max</a><a href="#structfield.bps_max_length">bps_max_length</a><a href="#structfield.backing_file_depth">backing_file_depth</a><a href="#structfield.iops">iops</a><a href="#structfield.image">image</a><a href="#structfield.write_threshold">write_threshold</a><a href="#structfield.bps_max">bps_max</a><a href="#structfield.iops_max_length">iops_max_length</a><a href="#structfield.bps_rd_max_length">bps_rd_max_length</a><a href="#structfield.bps_rd">bps_rd</a><a href="#structfield.encryption_key_missing">encryption_key_missing</a><a href="#structfield.node_name">node_name</a><a href="#structfield.iops_wr">iops_wr</a><a href="#structfield.file">file</a><a href="#structfield.iops_wr_max_length">iops_wr_max_length</a><a href="#structfield.iops_rd">iops_rd</a><a href="#structfield.iops_max">iops_max</a><a href="#structfield.iops_rd_max">iops_rd_max</a><a href="#structfield.bps_wr">bps_wr</a><a href="#structfield.encrypted">encrypted</a><a href="#structfield.iops_wr_max">iops_wr_max</a><a href="#structfield.drv">drv</a><a href="#structfield.bps_wr_max">bps_wr_max</a><a href="#structfield.ro">ro</a><a href="#structfield.detect_zeroes">detect_zeroes</a><a href="#structfield.bps">bps</a><a href="#structfield.bps_wr_max_length">bps_wr_max_length</a><a href="#structfield.iops_size">iops_size</a><a href="#structfield.iops_rd_max_length">iops_rd_max_length</a><a href="#structfield.cache">cache</a><a href="#structfield.group">group</a><a href="#structfield.backing_file">backing_file</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-Send">Send</a><a href="#impl-Sync">Sync</a></div></div><p class='location'><a href='index.html'>qapi_qmp</a></p><script>window.sidebarCurrent = {name: 'BlockDeviceInfo', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>qapi_qmp</a>::<wbr><a class="struct" href=''>BlockDeviceInfo</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/b78fa938f5688be3435ae8a45e9e5d27/debug/build/qapi-qmp-17288bc6fa600b76/out/qmp.rs.html#6912-6977' title='goto source code'>[src]</a></span></h1><div class="docblock type-decl"><pre class='rust struct'>pub struct BlockDeviceInfo {
     pub bps_rd_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub iops_wr_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub bps_wr_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub bps_wr_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub iops_wr_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub iops_rd_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub iops_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub write_threshold: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub iops_rd_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub encrypted: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
-    pub bps: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub iops_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub ro: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
-    pub bps_wr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub backing_file: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
-    pub image: <a class="struct" href="../qapi_qmp/struct.ImageInfo.html" title="struct qapi_qmp::ImageInfo">ImageInfo</a>,
-    pub bps_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub iops_wr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub iops_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
-    pub drv: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
-    pub detect_zeroes: <a class="enum" href="../qapi_qmp/enum.BlockdevDetectZeroesOptions.html" title="enum qapi_qmp::BlockdevDetectZeroesOptions">BlockdevDetectZeroesOptions</a>,
+    pub bps_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
     pub backing_file_depth: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
-    pub cache: <a class="struct" href="../qapi_qmp/struct.BlockdevCacheInfo.html" title="struct qapi_qmp::BlockdevCacheInfo">BlockdevCacheInfo</a>,
+    pub iops: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub image: <a class="struct" href="../qapi_qmp/struct.ImageInfo.html" title="struct qapi_qmp::ImageInfo">ImageInfo</a>,
+    pub write_threshold: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub bps_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub iops_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub bps_rd_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub bps_rd: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
     pub encryption_key_missing: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub node_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub iops_wr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub file: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+    pub iops_wr_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
     pub iops_rd: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub iops_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub iops_rd_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub bps_wr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub encrypted: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub iops_wr_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub drv: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+    pub bps_wr_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub ro: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub detect_zeroes: <a class="enum" href="../qapi_qmp/enum.BlockdevDetectZeroesOptions.html" title="enum qapi_qmp::BlockdevDetectZeroesOptions">BlockdevDetectZeroesOptions</a>,
+    pub bps: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>,
+    pub bps_wr_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub iops_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub iops_rd_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;,
+    pub cache: <a class="struct" href="../qapi_qmp/struct.BlockdevCacheInfo.html" title="struct qapi_qmp::BlockdevCacheInfo">BlockdevCacheInfo</a>,
+    pub group: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    pub backing_file: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
 }</pre></div><h2 id='fields' class='fields small-section-header'>
-                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.file" class="structfield small-section-header">
-                           <a href="#structfield.file" class="anchor field"></a>
-                           <span id="file.v" class='invisible'>
-                           <code>file: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.bps_rd_max_length" class="structfield small-section-header">
-                           <a href="#structfield.bps_rd_max_length" class="anchor field"></a>
-                           <span id="bps_rd_max_length.v" class='invisible'>
-                           <code>bps_rd_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.group" class="structfield small-section-header">
-                           <a href="#structfield.group" class="anchor field"></a>
-                           <span id="group.v" class='invisible'>
-                           <code>group: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.iops" class="structfield small-section-header">
-                           <a href="#structfield.iops" class="anchor field"></a>
-                           <span id="iops.v" class='invisible'>
-                           <code>iops: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.bps_rd" class="structfield small-section-header">
-                           <a href="#structfield.bps_rd" class="anchor field"></a>
-                           <span id="bps_rd.v" class='invisible'>
-                           <code>bps_rd: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.node_name" class="structfield small-section-header">
-                           <a href="#structfield.node_name" class="anchor field"></a>
-                           <span id="node_name.v" class='invisible'>
-                           <code>node_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.bps_rd_max" class="structfield small-section-header">
+                           <a href="#structfield.bps_rd_max" class="anchor field"></a>
+                           <span id="bps_rd_max.v" class='invisible'>
+                           <code>bps_rd_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
                            </span></span><span id="structfield.bps_max_length" class="structfield small-section-header">
                            <a href="#structfield.bps_max_length" class="anchor field"></a>
                            <span id="bps_max_length.v" class='invisible'>
                            <code>bps_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.bps_rd_max" class="structfield small-section-header">
-                           <a href="#structfield.bps_rd_max" class="anchor field"></a>
-                           <span id="bps_rd_max.v" class='invisible'>
-                           <code>bps_rd_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.iops_wr_max" class="structfield small-section-header">
-                           <a href="#structfield.iops_wr_max" class="anchor field"></a>
-                           <span id="iops_wr_max.v" class='invisible'>
-                           <code>iops_wr_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.bps_wr_max" class="structfield small-section-header">
-                           <a href="#structfield.bps_wr_max" class="anchor field"></a>
-                           <span id="bps_wr_max.v" class='invisible'>
-                           <code>bps_wr_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.bps_wr_max_length" class="structfield small-section-header">
-                           <a href="#structfield.bps_wr_max_length" class="anchor field"></a>
-                           <span id="bps_wr_max_length.v" class='invisible'>
-                           <code>bps_wr_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.iops_wr_max_length" class="structfield small-section-header">
-                           <a href="#structfield.iops_wr_max_length" class="anchor field"></a>
-                           <span id="iops_wr_max_length.v" class='invisible'>
-                           <code>iops_wr_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.iops_rd_max" class="structfield small-section-header">
-                           <a href="#structfield.iops_rd_max" class="anchor field"></a>
-                           <span id="iops_rd_max.v" class='invisible'>
-                           <code>iops_rd_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.iops_size" class="structfield small-section-header">
-                           <a href="#structfield.iops_size" class="anchor field"></a>
-                           <span id="iops_size.v" class='invisible'>
-                           <code>iops_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.write_threshold" class="structfield small-section-header">
-                           <a href="#structfield.write_threshold" class="anchor field"></a>
-                           <span id="write_threshold.v" class='invisible'>
-                           <code>write_threshold: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.iops_rd_max_length" class="structfield small-section-header">
-                           <a href="#structfield.iops_rd_max_length" class="anchor field"></a>
-                           <span id="iops_rd_max_length.v" class='invisible'>
-                           <code>iops_rd_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.encrypted" class="structfield small-section-header">
-                           <a href="#structfield.encrypted" class="anchor field"></a>
-                           <span id="encrypted.v" class='invisible'>
-                           <code>encrypted: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
-                           </span></span><span id="structfield.bps" class="structfield small-section-header">
-                           <a href="#structfield.bps" class="anchor field"></a>
-                           <span id="bps.v" class='invisible'>
-                           <code>bps: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.iops_max" class="structfield small-section-header">
-                           <a href="#structfield.iops_max" class="anchor field"></a>
-                           <span id="iops_max.v" class='invisible'>
-                           <code>iops_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.ro" class="structfield small-section-header">
-                           <a href="#structfield.ro" class="anchor field"></a>
-                           <span id="ro.v" class='invisible'>
-                           <code>ro: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
-                           </span></span><span id="structfield.bps_wr" class="structfield small-section-header">
-                           <a href="#structfield.bps_wr" class="anchor field"></a>
-                           <span id="bps_wr.v" class='invisible'>
-                           <code>bps_wr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.backing_file" class="structfield small-section-header">
-                           <a href="#structfield.backing_file" class="anchor field"></a>
-                           <span id="backing_file.v" class='invisible'>
-                           <code>backing_file: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
-                           </span></span><span id="structfield.image" class="structfield small-section-header">
-                           <a href="#structfield.image" class="anchor field"></a>
-                           <span id="image.v" class='invisible'>
-                           <code>image: <a class="struct" href="../qapi_qmp/struct.ImageInfo.html" title="struct qapi_qmp::ImageInfo">ImageInfo</a></code>
-                           </span></span><span id="structfield.bps_max" class="structfield small-section-header">
-                           <a href="#structfield.bps_max" class="anchor field"></a>
-                           <span id="bps_max.v" class='invisible'>
-                           <code>bps_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.iops_wr" class="structfield small-section-header">
-                           <a href="#structfield.iops_wr" class="anchor field"></a>
-                           <span id="iops_wr.v" class='invisible'>
-                           <code>iops_wr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.iops_max_length" class="structfield small-section-header">
-                           <a href="#structfield.iops_max_length" class="anchor field"></a>
-                           <span id="iops_max_length.v" class='invisible'>
-                           <code>iops_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
-                           </span></span><span id="structfield.drv" class="structfield small-section-header">
-                           <a href="#structfield.drv" class="anchor field"></a>
-                           <span id="drv.v" class='invisible'>
-                           <code>drv: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
-                           </span></span><span id="structfield.detect_zeroes" class="structfield small-section-header">
-                           <a href="#structfield.detect_zeroes" class="anchor field"></a>
-                           <span id="detect_zeroes.v" class='invisible'>
-                           <code>detect_zeroes: <a class="enum" href="../qapi_qmp/enum.BlockdevDetectZeroesOptions.html" title="enum qapi_qmp::BlockdevDetectZeroesOptions">BlockdevDetectZeroesOptions</a></code>
                            </span></span><span id="structfield.backing_file_depth" class="structfield small-section-header">
                            <a href="#structfield.backing_file_depth" class="anchor field"></a>
                            <span id="backing_file_depth.v" class='invisible'>
                            <code>backing_file_depth: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
-                           </span></span><span id="structfield.cache" class="structfield small-section-header">
-                           <a href="#structfield.cache" class="anchor field"></a>
-                           <span id="cache.v" class='invisible'>
-                           <code>cache: <a class="struct" href="../qapi_qmp/struct.BlockdevCacheInfo.html" title="struct qapi_qmp::BlockdevCacheInfo">BlockdevCacheInfo</a></code>
+                           </span></span><span id="structfield.iops" class="structfield small-section-header">
+                           <a href="#structfield.iops" class="anchor field"></a>
+                           <span id="iops.v" class='invisible'>
+                           <code>iops: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.image" class="structfield small-section-header">
+                           <a href="#structfield.image" class="anchor field"></a>
+                           <span id="image.v" class='invisible'>
+                           <code>image: <a class="struct" href="../qapi_qmp/struct.ImageInfo.html" title="struct qapi_qmp::ImageInfo">ImageInfo</a></code>
+                           </span></span><span id="structfield.write_threshold" class="structfield small-section-header">
+                           <a href="#structfield.write_threshold" class="anchor field"></a>
+                           <span id="write_threshold.v" class='invisible'>
+                           <code>write_threshold: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.bps_max" class="structfield small-section-header">
+                           <a href="#structfield.bps_max" class="anchor field"></a>
+                           <span id="bps_max.v" class='invisible'>
+                           <code>bps_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.iops_max_length" class="structfield small-section-header">
+                           <a href="#structfield.iops_max_length" class="anchor field"></a>
+                           <span id="iops_max_length.v" class='invisible'>
+                           <code>iops_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.bps_rd_max_length" class="structfield small-section-header">
+                           <a href="#structfield.bps_rd_max_length" class="anchor field"></a>
+                           <span id="bps_rd_max_length.v" class='invisible'>
+                           <code>bps_rd_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.bps_rd" class="structfield small-section-header">
+                           <a href="#structfield.bps_rd" class="anchor field"></a>
+                           <span id="bps_rd.v" class='invisible'>
+                           <code>bps_rd: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
                            </span></span><span id="structfield.encryption_key_missing" class="structfield small-section-header">
                            <a href="#structfield.encryption_key_missing" class="anchor field"></a>
                            <span id="encryption_key_missing.v" class='invisible'>
                            <code>encryption_key_missing: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><span id="structfield.node_name" class="structfield small-section-header">
+                           <a href="#structfield.node_name" class="anchor field"></a>
+                           <span id="node_name.v" class='invisible'>
+                           <code>node_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.iops_wr" class="structfield small-section-header">
+                           <a href="#structfield.iops_wr" class="anchor field"></a>
+                           <span id="iops_wr.v" class='invisible'>
+                           <code>iops_wr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.file" class="structfield small-section-header">
+                           <a href="#structfield.file" class="anchor field"></a>
+                           <span id="file.v" class='invisible'>
+                           <code>file: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
+                           </span></span><span id="structfield.iops_wr_max_length" class="structfield small-section-header">
+                           <a href="#structfield.iops_wr_max_length" class="anchor field"></a>
+                           <span id="iops_wr_max_length.v" class='invisible'>
+                           <code>iops_wr_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
                            </span></span><span id="structfield.iops_rd" class="structfield small-section-header">
                            <a href="#structfield.iops_rd" class="anchor field"></a>
                            <span id="iops_rd.v" class='invisible'>
                            <code>iops_rd: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.iops_max" class="structfield small-section-header">
+                           <a href="#structfield.iops_max" class="anchor field"></a>
+                           <span id="iops_max.v" class='invisible'>
+                           <code>iops_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.iops_rd_max" class="structfield small-section-header">
+                           <a href="#structfield.iops_rd_max" class="anchor field"></a>
+                           <span id="iops_rd_max.v" class='invisible'>
+                           <code>iops_rd_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.bps_wr" class="structfield small-section-header">
+                           <a href="#structfield.bps_wr" class="anchor field"></a>
+                           <span id="bps_wr.v" class='invisible'>
+                           <code>bps_wr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.encrypted" class="structfield small-section-header">
+                           <a href="#structfield.encrypted" class="anchor field"></a>
+                           <span id="encrypted.v" class='invisible'>
+                           <code>encrypted: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><span id="structfield.iops_wr_max" class="structfield small-section-header">
+                           <a href="#structfield.iops_wr_max" class="anchor field"></a>
+                           <span id="iops_wr_max.v" class='invisible'>
+                           <code>iops_wr_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.drv" class="structfield small-section-header">
+                           <a href="#structfield.drv" class="anchor field"></a>
+                           <span id="drv.v" class='invisible'>
+                           <code>drv: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code>
+                           </span></span><span id="structfield.bps_wr_max" class="structfield small-section-header">
+                           <a href="#structfield.bps_wr_max" class="anchor field"></a>
+                           <span id="bps_wr_max.v" class='invisible'>
+                           <code>bps_wr_max: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.ro" class="structfield small-section-header">
+                           <a href="#structfield.ro" class="anchor field"></a>
+                           <span id="ro.v" class='invisible'>
+                           <code>ro: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><span id="structfield.detect_zeroes" class="structfield small-section-header">
+                           <a href="#structfield.detect_zeroes" class="anchor field"></a>
+                           <span id="detect_zeroes.v" class='invisible'>
+                           <code>detect_zeroes: <a class="enum" href="../qapi_qmp/enum.BlockdevDetectZeroesOptions.html" title="enum qapi_qmp::BlockdevDetectZeroesOptions">BlockdevDetectZeroesOptions</a></code>
+                           </span></span><span id="structfield.bps" class="structfield small-section-header">
+                           <a href="#structfield.bps" class="anchor field"></a>
+                           <span id="bps.v" class='invisible'>
+                           <code>bps: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code>
+                           </span></span><span id="structfield.bps_wr_max_length" class="structfield small-section-header">
+                           <a href="#structfield.bps_wr_max_length" class="anchor field"></a>
+                           <span id="bps_wr_max_length.v" class='invisible'>
+                           <code>bps_wr_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.iops_size" class="structfield small-section-header">
+                           <a href="#structfield.iops_size" class="anchor field"></a>
+                           <span id="iops_size.v" class='invisible'>
+                           <code>iops_size: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.iops_rd_max_length" class="structfield small-section-header">
+                           <a href="#structfield.iops_rd_max_length" class="anchor field"></a>
+                           <span id="iops_rd_max_length.v" class='invisible'>
+                           <code>iops_rd_max_length: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a>&gt;</code>
+                           </span></span><span id="structfield.cache" class="structfield small-section-header">
+                           <a href="#structfield.cache" class="anchor field"></a>
+                           <span id="cache.v" class='invisible'>
+                           <code>cache: <a class="struct" href="../qapi_qmp/struct.BlockdevCacheInfo.html" title="struct qapi_qmp::BlockdevCacheInfo">BlockdevCacheInfo</a></code>
+                           </span></span><span id="structfield.group" class="structfield small-section-header">
+                           <a href="#structfield.group" class="anchor field"></a>
+                           <span id="group.v" class='invisible'>
+                           <code>group: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
+                           </span></span><span id="structfield.backing_file" class="structfield small-section-header">
+                           <a href="#structfield.backing_file" class="anchor field"></a>
+                           <span id="backing_file.v" class='invisible'>
+                           <code>backing_file: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code>
                            </span></span>
                 <h2 id='implementations' class='small-section-header'>
                   Trait Implementations<a href='#implementations' class='anchor'></a>
                 </h2>
-                <div id='implementations-list'><h3 id='impl-Debug' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="../qapi_qmp/struct.BlockDeviceInfo.html" title="struct qapi_qmp::BlockDeviceInfo">BlockDeviceInfo</a></code><a href='#impl-Debug' class='anchor'></a></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/10a77d7f3040e627805ed17e2177ec08/debug/build/qapi-qmp-9c94786aae590ffb/out/qmp.rs.html#787' title='goto source code'>[src]</a></span></td></tr></tbody></table></h3><div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><table class='table-display'><tbody><tr><td><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/10a77d7f3040e627805ed17e2177ec08/debug/build/qapi-qmp-9c94786aae590ffb/out/qmp.rs.html#787' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
-</div></div><h3 id='impl-Clone' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="../qapi_qmp/struct.BlockDeviceInfo.html" title="struct qapi_qmp::BlockDeviceInfo">BlockDeviceInfo</a></code><a href='#impl-Clone' class='anchor'></a></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/10a77d7f3040e627805ed17e2177ec08/debug/build/qapi-qmp-9c94786aae590ffb/out/qmp.rs.html#787' title='goto source code'>[src]</a></span></td></tr></tbody></table></h3><div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><table class='table-display'><tbody><tr><td><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="struct" href="../qapi_qmp/struct.BlockDeviceInfo.html" title="struct qapi_qmp::BlockDeviceInfo">BlockDeviceInfo</a></code></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/10a77d7f3040e627805ed17e2177ec08/debug/build/qapi-qmp-9c94786aae590ffb/out/qmp.rs.html#787' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+                <div id='implementations-list'><h3 id='impl-Debug' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="../qapi_qmp/struct.BlockDeviceInfo.html" title="struct qapi_qmp::BlockDeviceInfo">BlockDeviceInfo</a></code><a href='#impl-Debug' class='anchor'></a></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/b78fa938f5688be3435ae8a45e9e5d27/debug/build/qapi-qmp-17288bc6fa600b76/out/qmp.rs.html#6911' title='goto source code'>[src]</a></span></td></tr></tbody></table></h3><div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><table class='table-display'><tbody><tr><td><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/b78fa938f5688be3435ae8a45e9e5d27/debug/build/qapi-qmp-17288bc6fa600b76/out/qmp.rs.html#6911' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
+</div></div><h3 id='impl-Clone' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="../qapi_qmp/struct.BlockDeviceInfo.html" title="struct qapi_qmp::BlockDeviceInfo">BlockDeviceInfo</a></code><a href='#impl-Clone' class='anchor'></a></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/b78fa938f5688be3435ae8a45e9e5d27/debug/build/qapi-qmp-17288bc6fa600b76/out/qmp.rs.html#6911' title='goto source code'>[src]</a></span></td></tr></tbody></table></h3><div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><table class='table-display'><tbody><tr><td><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="struct" href="../qapi_qmp/struct.BlockDeviceInfo.html" title="struct qapi_qmp::BlockDeviceInfo">BlockDeviceInfo</a></code></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/qapi_qmp/home/travis/build/arcnmx/qapi-rs/target/b78fa938f5688be3435ae8a45e9e5d27/debug/build/qapi-qmp-17288bc6fa600b76/out/qmp.rs.html#6911' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
 </div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><table class='table-display'><tbody><tr><td><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code></span></td><td><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/clone.rs.html#130-132' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
 </div></div></div>
                 <h2 id='synthetic-implementations' class='small-section-header'>
