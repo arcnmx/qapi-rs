@@ -21,8 +21,8 @@ serde_json = "^1.0.9"
 qapi-spec = { version = "^0.2.0", path = "spec" }
 
 log = { version = "^0.4.1", optional = true }
-qapi-qga = { version = "^0.2.0", path = "qga", optional = true }
-qapi-qmp = { version = "^0.2.0", path = "qmp", optional = true }
+qapi-qga = { version = "^0.3.0", path = "qga", optional = true }
+qapi-qmp = { version = "^0.3.0", path = "qmp", optional = true }
 
 [features]
 qga = ["qapi-qga", "log"]
