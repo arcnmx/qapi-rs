@@ -1,6 +1,6 @@
 [package]
 name = "tokio-qapi"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["arcnmx"]
 
 description = "QEMU QMP and Guest Agent API tokio adapter"
