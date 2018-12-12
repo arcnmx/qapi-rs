@@ -1,7 +1,7 @@
-extern crate qapi_parser as parser;
+#![doc(html_root_url = "http://docs.rs/qapi-codegen/0.3.0")]
 
-use parser::{Parser, QemuFileRepo, QemuRepo, spec};
-use parser::spec::Spec;
+use qapi_parser::{Parser, QemuFileRepo, QemuRepo, spec};
+use qapi_parser::spec::Spec;
 use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::fs::File;
@@ -32,7 +32,7 @@ fn event_identifier(id: &str) -> String {
 fn typename_s(ty: &str) -> String {
     match ty {
         "str" => "::std::string::String".into(),
-        "any" => "::qapi::Any".into(),
+        "any" => "::qapi_spec::Any".into(),
         "null" => "()".into(),
         "number" => "f64".into(),
         "int8" => "i8".into(),
@@ -89,14 +89,14 @@ fn valuety(value: &spec::Value, pubvis: bool, super_name: &str) -> String {
     let (attr, ty) = if base64 {
         let ty = "Vec<u8>".into();
         if value.optional {
-            (", with = \"qapi::base64_opt\"", ty)
+            (", with = \"::qapi_spec::base64_opt\"", ty)
         } else {
-            (", with = \"qapi::base64\"", ty)
+            (", with = \"::qapi_spec::base64\"", ty)
         }
     } else if boxed {
         ("", format!("Box<{}>", ty))
     } else if dict {
-        ("", "::qapi::Dictionary".into())
+        ("", "::qapi_spec::Dictionary".into())
     } else if super_name == "guest-shutdown" && value.name == "mode" {
         ("", "GuestShutdownMode".into())
     } else {
@@ -156,7 +156,7 @@ pub struct {}", type_identifier(&v.id))?;
                         match v.data {
                             spec::DataOrType::Data(ref data) => {
                                 if v.id == "device_add" || v.id == "netdev_add" {
-                                    writeln!(self.out, "(pub ::qapi::Dictionary);")?;
+                                    writeln!(self.out, "(pub ::qapi_spec::Dictionary);")?;
                                 } else {
                                     writeln!(self.out, " {{")?;
                                     for data in &data.fields {
@@ -173,14 +173,14 @@ pub struct {}", type_identifier(&v.id))?;
                 }
 
                 write!(self.out, "
-impl ::qapi::Command for {} {{
+impl ::qapi_spec::Command for {} {{
     const NAME: &'static str = \"{}\";
 
     type Ok = ", type_identifier(&v.id), v.id)?;
                 if let Some(ret) = v.returns {
                     writeln!(self.out, "{};", typename(&ret))
                 } else {
-                    writeln!(self.out, "::qapi::Empty;")
+                    writeln!(self.out, "::qapi_spec::Empty;")
                 }?;
                 writeln!(self.out, "}}")?;
             },
@@ -229,7 +229,7 @@ pub struct {} {{
                 }
                 writeln!(self.out, "}}")?;
                 writeln!(self.out, "
-impl ::qapi::Event for {} {{
+impl ::qapi_spec::Event for {} {{
     const NAME: &'static str = \"{}\";
 }}", event_identifier(&v.id), v.id)?;
                 self.events.push(v);
@@ -258,7 +258,7 @@ pub enum {} {{
     fn process_structs(&mut self) -> io::Result<()> {
         for (id, discrim) in &self.struct_discriminators {
             let ty = self.types.get_mut(id).ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}", id)))?;
-            let mut fields = replace(&mut ty.data.fields, Vec::new());
+            let fields = replace(&mut ty.data.fields, Vec::new());
             ty.data.fields = fields.into_iter().filter(|base| &base.name != discrim).collect();
         }
 
@@ -389,14 +389,14 @@ pub enum Event {{")?;
             let id = event_identifier(&event.id);
             writeln!(self.out, "\t#[serde(rename = \"{}\")] {} {{
         {} data: {},
-        timestamp: ::qapi::Timestamp,
+        timestamp: ::qapi_spec::Timestamp,
     }},", event.id, id, if event.data.is_empty() { "#[serde(default)] " } else { "" }, id)?;
         }
         writeln!(self.out, "}}")?;
 
         writeln!(self.out, "
 impl Event {{
-    pub fn timestamp(&self) -> ::qapi::Timestamp {{
+    pub fn timestamp(&self) -> ::qapi_spec::Timestamp {{
         match *self {{")?;
         for event in &self.events {
             writeln!(self.out, "Event::{} {{ timestamp, .. }} => timestamp,", event_identifier(&event.id))?;

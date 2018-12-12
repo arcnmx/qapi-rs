@@ -1,24 +1,28 @@
-#[macro_use]
-#[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
-extern crate log;
-extern crate qapi_spec as spec;
-extern crate serde_json;
-extern crate serde;
+#![doc(html_root_url = "http://docs.rs/qapi/0.4.0")]
 
 #[cfg(feature = "qapi-qmp")]
-pub extern crate qapi_qmp as qmp;
+pub use qapi_qmp as qmp;
 
 #[cfg(feature = "qapi-qga")]
-pub extern crate qapi_qga as qga;
+pub use qapi_qga as qga;
 
-pub use spec::{Any, Dictionary, Empty, Command, Event, Error, ErrorClass, Timestamp};
+pub use qapi_spec::{Any, Dictionary, Empty, Command, Event, Error, ErrorClass, Timestamp};
+
+pub use self::stream::Stream;
+
+#[cfg(feature = "qapi-qmp")]
+pub use self::qmp_impl::*;
+
+#[cfg(feature = "qapi-qga")]
+pub use self::qga_impl::*;
 
 #[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 mod qapi {
     use serde_json;
     use serde::{Serialize, Deserialize};
     use std::io::{self, BufRead, Write};
-    use {spec, Command};
+    use qapi_spec::{self, Command};
+    use log::trace;
 
     pub struct Qapi<S> {
         pub stream: S,
@@ -52,7 +56,7 @@ mod qapi {
         pub fn write_command<C: Command>(&mut self, command: &C) -> io::Result<()> {
             {
                 let mut ser = serde_json::Serializer::new(&mut self.stream);
-                spec::CommandSerializerRef(command).serialize(&mut ser)?;
+                qapi_spec::CommandSerializerRef(command).serialize(&mut ser)?;
 
                 trace!("-> execute {}: {}", C::NAME, serde_json::to_string_pretty(command).unwrap());
             }
@@ -117,16 +121,13 @@ mod stream {
     }
 }
 
-pub use stream::Stream;
-
 #[cfg(feature = "qapi-qmp")]
 mod qmp_impl {
     use std::io::{self, BufRead, Read, Write, BufReader};
     use std::vec::Drain;
-    use spec::{Error, ResponseEvent};
-    use qapi::Qapi;
-    use qmp::{QMP, QapiCapabilities, Event, qmp_capabilities, query_version};
-    use {Command, Stream};
+    use qapi_spec::{Error, ResponseEvent, Command};
+    use qapi_qmp::{QMP, QapiCapabilities, Event, qmp_capabilities, query_version};
+    use crate::{qapi::Qapi, Stream};
 
     pub struct Qmp<S> {
         inner: Qapi<S>,
@@ -212,10 +213,9 @@ mod qmp_impl {
 #[cfg(feature = "qapi-qga")]
 mod qga_impl {
     use std::io::{self, BufRead, Read, Write, BufReader};
-    use spec::{Error, Response};
-    use qapi::Qapi;
-    use qga::guest_sync;
-    use {Command, Stream};
+    use qapi_spec::{Error, Response, Command};
+    use qapi_qga::guest_sync;
+    use crate::{qapi::Qapi, Stream};
 
     pub struct Qga<S> {
         inner: Qapi<S>,
@@ -282,9 +282,3 @@ mod qga_impl {
         }
     }
 }
-
-#[cfg(feature = "qapi-qmp")]
-pub use qmp_impl::*;
-
-#[cfg(feature = "qapi-qga")]
-pub use qga_impl::*;

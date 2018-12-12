@@ -1,7 +1,8 @@
 [package]
 name = "tokio-qapi"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["arcnmx"]
+edition = "2018"
 
 description = "QEMU QMP and Guest Agent API tokio adapter"
 keywords = ["qemu", "qmp", "qapi", "tokio", "async"]
@@ -11,25 +12,29 @@ repository = "https://github.com/arcnmx/qapi-rs"
 readme = "../README.md"
 license = "MIT"
 
+[package.metadata.docs.rs]
+all-features = true
+
 [badges]
 travis-ci = { repository = "arcnmx/qapi-rs" }
 maintenance = { status = "passively-maintained" }
 
 [dependencies]
-qapi-qga = { version = "^0.3.0", path = "../qga", optional = true }
-qapi-qmp = { version = "^0.3.0", path = "../qmp", optional = true }
-qapi-spec = { version = "^0.2.0", path = "../spec" }
+qapi-qga = { version = "^0.4.0", path = "../qga", optional = true }
+qapi-qmp = { version = "^0.4.0", path = "../qmp", optional = true }
+qapi-spec = { version = "^0.2.2", path = "../spec" }
 serde_json = "^1.0.9"
 serde = "^1.0.27"
-tokio-io = "^0.1.5"
+tokio-io = "^0.1.10"
+tokio-codec = "^0.1.1"
 futures = "^0.1.18"
 bytes = "^0.4.6"
-log = "^0.4.1"
+log = "^0.4.6"
 
 [dev-dependencies]
 tokio-uds = "^0.2.0"
 tokio = "^0.1.5"
-env_logger = "^0.5.4"
+env_logger = "^0.6.0"
 
 [features]
 qga = ["qapi-qga"]

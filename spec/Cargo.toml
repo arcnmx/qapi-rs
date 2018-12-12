@@ -1,12 +1,13 @@
 [package]
 name = "qapi-spec"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["arcnmx"]
+edition = "2018"
 
 description = "QEMU QAPI common types"
 keywords = ["qemu", "qmp", "qga", "qapi"]
 
-documentation = "http://arcnmx.github.io/qapi-rs/qapi_spec"
+documentation = "https://docs.rs/qapi-spec/"
 repository = "https://github.com/arcnmx/qapi-rs"
 readme = "../README.md"
 license = "MIT"

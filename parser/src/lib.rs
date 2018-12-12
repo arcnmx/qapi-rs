@@ -1,12 +1,10 @@
-#[macro_use]
-extern crate serde_derive;
-extern crate serde_json;
-extern crate serde;
+#![doc(html_root_url = "http://docs.rs/qapi-parser/0.3.0")]
 
 pub mod spec {
     use std::collections::HashMap;
     use std::fmt;
     use serde::de::{Deserializer, Deserialize, Visitor, SeqAccess, Error};
+    use serde_derive::Deserialize;
 
     #[derive(Debug, Clone, Deserialize)]
     #[serde(untagged, rename_all = "lowercase")]
@@ -244,7 +242,7 @@ pub mod spec {
     }
 }
 
-pub use spec::Spec;
+pub use self::spec::Spec;
 
 use std::path::{Path, PathBuf};
 use std::ops::{Deref, DerefMut};

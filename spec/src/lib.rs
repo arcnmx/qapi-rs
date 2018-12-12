@@ -1,12 +1,9 @@
-extern crate serde;
-#[macro_use]
-extern crate serde_derive;
-extern crate serde_json;
-extern crate base64 as b64;
+#![doc(html_root_url = "http://docs.rs/qapi-spec/0.2.2")]
 
 use std::{io, error, fmt};
-use serde::de::DeserializeOwned;
 use serde::Serialize;
+use serde::de::DeserializeOwned;
+use serde_derive::{Deserialize, Serialize};
 
 pub use serde_json::Value as Any;
 pub type Dictionary = serde_json::Map<String, Any>;
@@ -18,17 +15,17 @@ pub struct Empty { }
 pub mod base64 {
     use serde::{Serialize, Serializer, Deserialize, Deserializer};
     use serde::de::{Error, Unexpected};
-    use b64::{self, DecodeError};
+    use base64::{self, DecodeError};
 
     pub fn serialize<S: Serializer>(data: &[u8], serializer: S) -> Result<S::Ok, S::Error> {
-        b64::encode(data).serialize(serializer)
+        base64::encode(data).serialize(serializer)
     }
 
     pub fn deserialize<'de, D: Deserializer<'de>>(deserializer: D) -> Result<Vec<u8>, D::Error> {
         // TODO: deserialize to borrowed &str
         let str = String::deserialize(deserializer)?;
 
-        b64::decode(&str)
+        base64::decode(&str)
             .map_err(|e| de_err(&str, e))
     }
 
@@ -47,7 +44,8 @@ pub mod base64 {
 #[doc(hidden)]
 pub mod base64_opt {
     use serde::{Serializer, Deserialize, Deserializer};
-    use {b64, base64};
+    use crate::base64;
+    use ::base64 as b64;
 
     pub fn serialize<S: Serializer>(data: &Option<Vec<u8>>, serializer: S) -> Result<S::Ok, S::Error> {
         base64::serialize(data.as_ref().expect("use skip_serializing_with"), serializer)
@@ -56,10 +54,10 @@ pub mod base64_opt {
     pub fn deserialize<'de, D: Deserializer<'de>>(deserializer: D) -> Result<Option<Vec<u8>>, D::Error> {
         // TODO: deserialize to borrowed &str
         let str = <Option<String>>::deserialize(deserializer)?;
-        if let Some(str) = str {
-            b64::decode(&str)
+        if let Some(ref str) = str {
+            b64::decode(str)
                 .map(Some)
-                .map_err(|e| base64::de_err(&str, e))
+                .map_err(|e| base64::de_err(str, e))
         } else {
             Ok(None)
         }
@@ -67,8 +65,9 @@ pub mod base64_opt {
 }
 
 mod error_serde {
+    use serde_derive::{Serialize, Deserialize};
     use serde::{Serialize, Serializer, Deserialize, Deserializer};
-    use {Error, Any};
+    use crate::{Error, Any};
 
     #[derive(Deserialize)]
     struct QapiError {
@@ -198,8 +197,9 @@ pub struct Timestamp {
 }
 
 mod serde_command {
+    use serde_derive::Serialize;
     use serde::{Serialize, Serializer};
-    use {Command, Any};
+    use crate::{Command, Any};
 
     #[derive(Serialize)]
     struct QapiCommand<'a, C: 'a> {
@@ -223,7 +223,7 @@ mod serde_command {
 
 mod serde_command_ref {
     use serde::Serializer;
-    use {serde_command, Command};
+    use crate::{serde_command, Command};
 
     pub fn serialize<C: Command, S: Serializer>(data: &&C, serializer: S) -> Result<S::Ok, S::Error> {
         serde_command::serialize(*data, serializer)

@@ -78,8 +78,6 @@ before_deploy:
 - cd $TRAVIS_BUILD_DIR/parser
 - cargo package
 after_deploy:
-- cd $TRAVIS_BUILD_DIR
-- cargo pages-publish
 - cd $TRAVIS_BUILD_DIR/spec
 - cargo publish
 - cd $TRAVIS_BUILD_DIR/parser

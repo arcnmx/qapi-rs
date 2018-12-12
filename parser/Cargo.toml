@@ -1,12 +1,13 @@
 [package]
 name = "qapi-parser"
-version = "0.2.1"
+version = "0.3.0" # keep in sync with html_root_url
 authors = ["arcnmx"]
+edition = "2018"
 
 description = "QEMU QAPI JSON specification parser"
 keywords = ["qemu", "qmp", "qga", "qapi"]
 
-documentation = "http://arcnmx.github.io/qapi-rs/qapi_parser"
+documentation = "https://docs.rs/qapi-parser/"
 repository = "https://github.com/arcnmx/qapi-rs"
 readme = "../README.md"
 license = "MIT"

@@ -1,29 +1,23 @@
-extern crate serde;
-extern crate serde_json;
-extern crate tokio_io;
-#[macro_use]
-extern crate futures;
-#[macro_use]
-extern crate log;
-extern crate bytes;
-extern crate qapi_spec as spec;
+#![doc(html_root_url = "http://docs.rs/tokio-qapi/0.4.0")]
 
 #[cfg(feature = "qapi-qmp")]
-pub extern crate qapi_qmp as qmp;
+pub use qapi_qmp as qmp;
 
 #[cfg(feature = "qapi-qga")]
-pub extern crate qapi_qga as qga;
+pub use qapi_qga as qga;
 
-pub use spec::{Any, Dictionary, Empty, Command, Event, Error, ErrorClass, Timestamp};
+pub use qapi_spec::{Any, Dictionary, Empty, Command, Event, Error, ErrorClass, Timestamp};
 
 use std::mem::replace;
 use std::{io, str};
-use tokio_io::codec::{Framed, FramedParts};
-use futures::{Future, Poll, StartSend, Async, AsyncSink, Sink, Stream};
+use tokio_codec::Framed;
+use tokio_io::{AsyncRead, AsyncWrite};
+use futures::{Future, Poll, StartSend, Async, AsyncSink, Sink, Stream, try_ready};
 use futures::sync::BiLock;
 use futures::task::{self, Task};
 use bytes::BytesMut;
 use bytes::buf::FromBuf;
+use log::{trace, debug};
 
 mod codec;
 
@@ -142,7 +136,7 @@ impl<C, S, E> Future for QapiFuture<C, S>
                 match poll {
                     Some(t) => {
                         let t = t.as_ref();
-                        let t: spec::Response<C::Ok> = serde_json::from_slice(&t)?;
+                        let t: qapi_spec::Response<C::Ok> = serde_json::from_slice(&t)?;
                         Ok(Async::Ready((t.result(), self.state.take_inner().unwrap())))
                     },
                     None => Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response, got eof")),
@@ -420,23 +414,16 @@ impl<S> Sink for QapiStream<S> where
 
 pub type QapiDataStream<S> = Framed<S, codec::LineCodec>;
 
-pub fn data_stream<S>(stream: S) -> QapiDataStream<S> {
-    Framed::from_parts(
-        FramedParts {
-            inner: stream,
-            readbuf: Default::default(),
-            writebuf: Default::default(),
-        },
-        codec::LineCodec,
-    )
+pub fn data_stream<S: AsyncRead + AsyncWrite>(stream: S) -> QapiDataStream<S> {
+    Framed::new(stream, codec::LineCodec)
 }
 
 #[cfg(feature = "qapi-qmp")]
-pub fn event_stream<S>(stream: S) -> (QapiStream<QapiDataStream<S>>, QapiEventStream<QapiDataStream<S>>) {
+pub fn event_stream<S: AsyncRead + AsyncWrite>(stream: S) -> (QapiStream<QapiDataStream<S>>, QapiEventStream<QapiDataStream<S>>) {
     QapiEventStream::new(data_stream(stream))
 }
 
-pub fn stream<S>(stream: S) -> QapiStream<QapiDataStream<S>> {
+pub fn stream<S: AsyncRead + AsyncWrite>(stream: S) -> QapiStream<QapiDataStream<S>> {
     QapiStream::new(data_stream(stream))
 }
 
@@ -565,7 +552,7 @@ impl<S, E> Future for QgaHandshake<S> where
 }
 
 pub fn encode_command<C: Command>(c: &C) -> io::Result<Box<[u8]>> {
-    let mut encoded = serde_json::to_vec(&spec::CommandSerializerRef(c))?;
+    let mut encoded = serde_json::to_vec(&qapi_spec::CommandSerializerRef(c))?;
     encoded.push(b'\n');
     Ok(encoded.into_boxed_slice())
 }

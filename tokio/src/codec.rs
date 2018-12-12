@@ -1,6 +1,7 @@
 use std::{io, str};
 use tokio_io::codec::{Encoder, Decoder};
 use bytes::{BytesMut, BufMut};
+use log::trace;
 
 #[derive(Default)]
 pub struct LineCodec;

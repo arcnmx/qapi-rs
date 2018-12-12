@@ -1,13 +1,10 @@
 #![allow(non_snake_case, non_camel_case_types)]
-
-extern crate qapi_spec as qapi;
-extern crate serde;
-#[macro_use]
-extern crate serde_derive;
+#![doc(html_root_url = "http://docs.rs/qapi-qga/0.4.0")]
 
 include!(concat!(env!("OUT_DIR"), "/qga.rs"));
 
 use std::{io, str, fmt, error};
+use serde_derive::{Deserialize, Serialize};
 
 #[derive(Copy, Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "kebab-case")]
