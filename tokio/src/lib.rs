@@ -1,4 +1,6 @@
 #![doc(html_root_url = "http://docs.rs/tokio-qapi/0.5.0")]
+#![feature(futures_api)]
+use qapi_spec as spec;
 
 #[cfg(feature = "qapi-qmp")]
 pub use qapi_qmp as qmp;
@@ -9,18 +11,55 @@ pub use qapi_qga as qga;
 pub use qapi_spec::{Any, Dictionary, Empty, Command, Event, Error, ErrorClass, Timestamp};
 
 use std::mem::replace;
-use std::{io, str};
-use tokio_codec::Framed;
+use std::{io, str, usize};
+use tokio_codec::{Framed, LinesCodec, Encoder, Decoder};
 use tokio_io::{AsyncRead, AsyncWrite};
-use futures::{Future, Poll, StartSend, Async, AsyncSink, Sink, Stream, try_ready};
-use futures::sync::BiLock;
-use futures::task::{self, Task};
+use futures::{Future, Poll, Sink, Stream, try_ready};
+//use futures::sync::BiLock;
+//use futures::task::{self, Task};
 use bytes::BytesMut;
 use bytes::buf::FromBuf;
 use log::{trace, debug};
 
-mod codec;
+pub struct QapiCodec {
+    lines: LinesCodec, // XXX: Item=String, maybe use a Vec<u8> after all
+}
 
+impl Encoder for QapiCodec {
+    type Item = ();
+    type Error = io::Error;
+
+    fn encode(&mut self, item: Self::Item, dst: &mut BytesMut) -> Result<(), Self::Error> {
+        unimplemented!()
+    }
+}
+
+impl Decoder for QapiCodec {
+    type Item = String;
+    type Error = io::Error;
+
+    fn decode(&mut self, src: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
+        self.lines.decode(src)
+    }
+
+    fn decode_eof(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
+        self.lines.decode_eof(buf)
+    }
+}
+
+pub struct QapiFrames<S> {
+    inner: Framed<S, LinesCodec>,
+}
+
+impl<S: AsyncRead + AsyncWrite> QapiFrames<S> {
+    pub fn new(stream: S) -> Self {
+        QapiFrames {
+            inner: Framed::new(stream, LinesCodec::new_with_max_length(usize::MAX)),
+        }
+    }
+}
+
+/*
 pub struct QapiFuture<C, S> {
     state: QapiState<C, S>,
 }
@@ -555,4 +594,4 @@ pub fn encode_command<C: Command>(c: &C) -> io::Result<Box<[u8]>> {
     let mut encoded = serde_json::to_vec(&qapi_spec::CommandSerializerRef(c))?;
     encoded.push(b'\n');
     Ok(encoded.into_boxed_slice())
-}
+}*/
