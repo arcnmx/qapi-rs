@@ -67,64 +67,76 @@ pub mod base64_opt {
 mod error_serde {
     use serde_derive::{Serialize, Deserialize};
     use serde::{Serialize, Serializer, Deserialize, Deserializer};
-    use crate::{Error, Any};
+    use crate::{Error, ErrorClass, Any};
+
+    #[derive(Deserialize)]
+    pub struct ErrorValue {
+        pub class: ErrorClass,
+        pub desc: String,
+    }
 
     #[derive(Deserialize)]
     struct QapiError {
-        error: Error,
+        error: ErrorValue,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         id: Option<Any>,
     }
 
     #[derive(Serialize)]
+    pub struct ErrorValueSer<'a> {
+        pub class: &'a ErrorClass,
+        pub desc: &'a str,
+    }
+
+    #[derive(Serialize)]
     struct QapiErrorSer<'a> {
-        error: &'a Error,
+        error: ErrorValueSer<'a>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        id: Option<&'a Any>,
     }
 
-    pub fn serialize<S: Serializer>(data: &Error, serializer: S) -> Result<S::Ok, S::Error> {
-        QapiErrorSer {
-            error: data,
-        }.serialize(serializer)
+    impl Serialize for Error {
+        fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+            QapiErrorSer {
+                error: ErrorValueSer {
+                    class: &self.class,
+                    desc: &self.desc[..],
+                },
+                id: self.id.as_ref(),
+            }.serialize(serializer)
+        }
     }
 
-    pub fn deserialize<'de, D: Deserializer<'de>>(deserializer: D) -> Result<Error, D::Error> {
-        QapiError::deserialize(deserializer).map(|e| e.error)
+    impl<'de> Deserialize<'de> for Error {
+        fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+            QapiError::deserialize(deserializer).map(|e| Error {
+                class: e.error.class,
+                desc: e.error.desc,
+                id: e.id,
+            })
+        }
     }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum ResponseEvent<C, E> {
-    #[serde(with = "error_serde")]
-    Err(
-        Error
-    ),
-    Event(E),
-    Ok {
-        #[serde(rename = "return")]
-        return_: C,
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        id: Option<Any>,
-    },
+pub struct ResponseValue<C> {
+    #[serde(rename = "return")]
+    return_: C,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    id: Option<Any>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum Response<C> {
-    #[serde(with = "error_serde")]
-    Err(
-        Error
-    ),
-    Ok {
-        #[serde(rename = "return")]
-        return_: C,
-    },
+    Err(Error),
+    Ok(ResponseValue<C>),
 }
 
 impl<C> Response<C> {
     pub fn result(self) -> Result<C, Error> {
         match self {
-            Response::Ok { return_ } => Ok(return_),
+            Response::Ok(ResponseValue { return_, .. }) => Ok(return_),
             Response::Err(e) => Err(e),
         }
     }
@@ -166,10 +178,11 @@ impl From<ErrorClass> for io::ErrorKind {
     }
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 pub struct Error {
     pub class: ErrorClass,
     pub desc: String,
+    pub id: Option<Any>,
 }
 
 impl error::Error for Error {

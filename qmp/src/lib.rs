@@ -6,10 +6,28 @@ use serde_derive::{Deserialize, Serialize};
 
 include!(concat!(env!("OUT_DIR"), "/qmp.rs"));
 
+pub type QmpMessageAny = QmpMessage<qapi_spec::Any>;
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum QmpMessage<C> {
+    Greeting(QapiCapabilities),
+    Event(Event),
+    Response(qapi_spec::Response<C>),
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct QMP {
     pub version: VersionInfo,
-    pub capabilities: Vec<()>, // what type is this..?
+    pub capabilities: Vec<QmpCapability>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum QmpCapability {
+    #[serde(rename = "oob")]
+    OutOfBand,
+    Unknown(qapi_spec::Any),
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

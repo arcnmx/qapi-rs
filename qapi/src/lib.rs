@@ -176,9 +176,9 @@ mod qmp_impl {
             loop {
                 match self.inner.decode_line()? {
                     None => return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response")),
-                    Some(ResponseEvent::Ok { return_, .. }) => return Ok(Ok(return_)),
-                    Some(ResponseEvent::Err(e)) => return Ok(Err(e)),
-                    Some(ResponseEvent::Event(e)) => self.event_queue.push(e),
+                    Some(QmpMessage::Greeting(..)) => return Err(io::Error::new(io::ErrorKind::InvalidData, "unexpected greeting")),
+                    Some(QmpMessage::Response(res)) => return Ok(res.result()),
+                    Some(QmpMessage::Event(e)) => self.event_queue.push(e),
                 }
             }
         }
