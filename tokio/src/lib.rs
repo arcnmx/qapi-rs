@@ -1,5 +1,6 @@
 #![doc(html_root_url = "http://docs.rs/tokio-qapi/0.4.0")]
-#![feature(futures_api)]
+#![feature(futures_api, async_await, await_macro)]
+
 use qapi_spec as spec;
 
 #[cfg(feature = "qapi-qmp")]
@@ -14,7 +15,7 @@ use std::mem::replace;
 use std::{io, str, usize};
 use tokio_codec::{Framed, LinesCodec, Encoder, Decoder};
 use tokio_io::{AsyncRead, AsyncWrite};
-use futures::{Future, Poll, Sink, Stream, try_ready};
+use futures::{Future, Poll, Sink, Stream, StreamExt, try_ready};
 //use futures::sync::BiLock;
 //use futures::task::{self, Task};
 use bytes::BytesMut;
@@ -34,12 +35,18 @@ impl Encoder for QapiCodec {
     }
 }
 
+#[cfg(feature = "qapi-qmp")]
 impl Decoder for QapiCodec {
-    type Item = String;
+    type Item = qapi_qmp::QmpMessage<Any>;
     type Error = io::Error;
 
     fn decode(&mut self, src: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
-        self.lines.decode(src)
+        if let Some(line) = self.lines.decode(src)? {
+            let line = serde_json::from_str::<qapi_qmp::QmpMessage<Any>>(&line)?;
+            Ok(Some(line))
+        } {
+            Ok(None)
+        }
     }
 
     fn decode_eof(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
@@ -47,10 +54,11 @@ impl Decoder for QapiCodec {
     }
 }
 
+// dunno what I'm doing but this shit should typecheck:
+// yeah um just wait for tokio to support futures-preview, the following should work eventually
 pub struct QapiFrames<S> {
     inner: Framed<S, LinesCodec>,
 }
-
 impl<S: AsyncRead + AsyncWrite> QapiFrames<S> {
     pub fn new(stream: S) -> Self {
         QapiFrames {
@@ -58,6 +66,20 @@ impl<S: AsyncRead + AsyncWrite> QapiFrames<S> {
         }
     }
 }
+fn assert_stream<F: Stream>(f: F) { unimplemented!() }
+fn testing_shit<S: AsyncRead + AsyncWrite, U: Decoder + Encoder>(s: S, u: U) {
+    let f = Framed::new(s, u);
+    assert_stream(f);
+}
+/*
+#[cfg(feature = "qapi-qmp")]
+pub async fn greeting<S: AsyncRead>(frames: QapiFrames<S>) -> Result<(qmp::QapiCapabilities, QapiFrames<S>), io::Error> {
+    match await!(frames.inner.next()) {
+        Some(qmp::QmpMessage::Greeting(greeting)) => Ok((greeting, frames)),
+        Some(e) => Err(io::Error::new(io::ErrorKind::InvalidData, format!("expected QMP greeting, got {:?}", e))),
+        None => Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected QMP greeting, got EOF")),
+    }
+}*/
 
 /*
 pub struct QapiFuture<C, S> {
