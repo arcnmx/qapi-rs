@@ -1,6 +1,3 @@
-extern crate qapi;
-extern crate env_logger;
-
 #[cfg(feature = "qga")]
 mod main {
     use std::os::unix::net::UnixStream;

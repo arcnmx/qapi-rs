@@ -1,6 +1,3 @@
-extern crate env_logger;
-extern crate qapi;
-
 #[cfg(feature = "qmp")]
 mod main {
     use std::thread::sleep;

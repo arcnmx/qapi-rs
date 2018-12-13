@@ -29,32 +29,25 @@ before_install:
 - curl -L https://github.com/arcnmx/ci/archive/0.2.tar.gz | tar -xzC $HOME && . $HOME/ci-0.2/src
 script:
 - cd $TRAVIS_BUILD_DIR
-- cargo test
-- cargo build
-- cargo build --examples
-- cd $TRAVIS_BUILD_DIR/tokio
-- cargo test
-- cargo build
-- cd $TRAVIS_BUILD_DIR/parser
-- CARGO_FEATURES= cargo test
-- CARGO_FEATURES= cargo build
-- cd $TRAVIS_BUILD_DIR/spec
-- CARGO_FEATURES= cargo test
-- CARGO_FEATURES= cargo build
-- cd $TRAVIS_BUILD_DIR/codegen
-- CARGO_FEATURES= cargo test
-- CARGO_FEATURES= cargo build
+- cargo test -p qapi
+- cargo build -p qapi
+- cargo test -p tokio-qapi
+- cargo build -p tokio-qapi
+- CARGO_FEATURES= cargo test -p qapi-parser
+- CARGO_FEATURES= cargo build -p qapi-parser
+- CARGO_FEATURES= cargo test -p qapi-spec
+- CARGO_FEATURES= cargo build -p qapi-spec
+- CARGO_FEATURES= cargo test -p qapi-codegen
+- CARGO_FEATURES= cargo build -p qapi-codegen
 - |
   if [[ $CARGO_FEATURES = *qga* ]]; then
-    cd $TRAVIS_BUILD_DIR/qga
-    CARGO_FEATURES= cargo test
-    CARGO_FEATURES= cargo build
+    CARGO_FEATURES= cargo test -p qapi-qga
+    CARGO_FEATURES= cargo build -p qapi-qga
   fi
 - |
   if [[ $CARGO_FEATURES = *qmp* ]]; then
-    cd $TRAVIS_BUILD_DIR/qmp
-    CARGO_FEATURES= cargo test
-    CARGO_FEATURES= cargo build
+    CARGO_FEATURES= cargo test -p qapi-qmp
+    CARGO_FEATURES= cargo build -p qapi-qmp
   fi
 deploy:
   provider: script
@@ -70,9 +63,8 @@ before_deploy:
 - cargo doc -p qapi-codegen
 - cargo doc -p qapi-qga
 - cargo doc -p qapi-qmp
-- cargo doc
-- cd $TRAVIS_BUILD_DIR/tokio
-- cargo doc
+- cargo doc -p qapi
+- cargo doc -p tokio-qapi
 - cd $TRAVIS_BUILD_DIR/spec
 - cargo package
 - cd $TRAVIS_BUILD_DIR/parser
@@ -83,17 +75,12 @@ after_deploy:
 - cd $TRAVIS_BUILD_DIR/parser
 - cargo publish
 - cd $TRAVIS_BUILD_DIR/codegen
-- cargo package
 - cargo publish
 - cd $TRAVIS_BUILD_DIR/qga
-- cargo package
 - cargo publish
 - cd $TRAVIS_BUILD_DIR/qmp
-- cargo package
 - cargo publish
 - cd $TRAVIS_BUILD_DIR/tokio
-- cargo package
 - cargo publish
-- cd $TRAVIS_BUILD_DIR
-- cargo package
+- cd $TRAVIS_BUILD_DIR/qapi
 - cargo publish

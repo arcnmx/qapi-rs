@@ -15,13 +15,13 @@ They can be enabled in your `Cargo.toml`:
 
 ```toml
 [dependencies]
-qapi = { version = "0.3.0", features = [ "qmp" ] }
+qapi = { version = "0.4.0", features = [ "qmp" ] }
 ```
 
 ### Examples
 
-Short examples are available for both [QMP](examples/qmp_query.rs) and [Guest
-Agent](examples/guest_info.rs). Async/nonblocking examples using tokio [are also
+Short examples are available for both [QMP](qapi/examples/qmp_query.rs) and [Guest
+Agent](qapi/examples/guest_info.rs). Async/nonblocking examples using tokio [are also
 available](tokio/examples/).
 
 [travis-badge]: https://img.shields.io/travis/arcnmx/qapi-rs/master.svg?style=flat-square

@@ -1,36 +1,11 @@
-[package]
-name = "qapi"
-version = "0.4.0" # keep in sync with html_root_url
-authors = ["arcnmx"]
-edition = "2018"
+[workspace]
 
-description = "QEMU QMP and Guest Agent API"
-keywords = ["qemu", "qmp", "qga", "qapi"]
-
-documentation = "https://docs.rs/qapi"
-repository = "https://github.com/arcnmx/qapi-rs"
-readme = "README.md"
-license = "MIT"
-
-[package.metadata.docs.rs]
-all-features = true
-
-[badges]
-travis-ci = { repository = "arcnmx/qapi-rs" }
-maintenance = { status = "passively-maintained" }
-
-[dependencies]
-serde = "^1.0.27"
-serde_json = "^1.0.9"
-qapi-spec = { version = "^0.2.0", path = "spec" }
-
-log = { version = "^0.4.6", optional = true }
-qapi-qga = { version = "^0.4.0", path = "qga", optional = true }
-qapi-qmp = { version = "^0.4.0", path = "qmp", optional = true }
-
-[features]
-qga = ["qapi-qga", "log"]
-qmp = ["qapi-qmp", "log"]
-
-[dev-dependencies]
-env_logger = "^0.6.0"
+members = [
+	"parser",
+	"codegen",
+	"spec",
+	"qmp",
+	"qga",
+	"qapi",
+	"tokio",
+]
