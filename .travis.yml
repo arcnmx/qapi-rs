@@ -28,24 +28,30 @@ env:
 before_install:
 - curl -L https://github.com/arcnmx/ci/archive/0.2.tar.gz | tar -xzC $HOME && . $HOME/ci-0.2/src
 script:
-- cd $TRAVIS_BUILD_DIR
+- cd $TRAVIS_BUILD_DIR/qapi
 - cargo test -p qapi
 - cargo build -p qapi
+- cd $TRAVIS_BUILD_DIR/tokio
 - cargo test -p tokio-qapi
 - cargo build -p tokio-qapi
+- cd $TRAVIS_BUILD_DIR/parser
 - CARGO_FEATURES= cargo test -p qapi-parser
 - CARGO_FEATURES= cargo build -p qapi-parser
+- cd $TRAVIS_BUILD_DIR/spec
 - CARGO_FEATURES= cargo test -p qapi-spec
 - CARGO_FEATURES= cargo build -p qapi-spec
+- cd $TRAVIS_BUILD_DIR/codegen
 - CARGO_FEATURES= cargo test -p qapi-codegen
 - CARGO_FEATURES= cargo build -p qapi-codegen
 - |
   if [[ $CARGO_FEATURES = *qga* ]]; then
+    cd $TRAVIS_BUILD_DIR/qga
     CARGO_FEATURES= cargo test -p qapi-qga
     CARGO_FEATURES= cargo build -p qapi-qga
   fi
 - |
   if [[ $CARGO_FEATURES = *qmp* ]]; then
+    cd $TRAVIS_BUILD_DIR/qmp
     CARGO_FEATURES= cargo test -p qapi-qmp
     CARGO_FEATURES= cargo build -p qapi-qmp
   fi
@@ -57,13 +63,14 @@ deploy:
     all_branches: true
     condition: "$TRAVIS_RUST_VERSION = stable && $CARGO_FEATURES = 'qga qmp'"
 before_deploy:
-- cd $TRAVIS_BUILD_DIR
+- cd $TRAVIS_BUILD_DIR/qapi
 - cargo doc -p qapi-parser
 - cargo doc -p qapi-spec
 - cargo doc -p qapi-codegen
 - cargo doc -p qapi-qga
 - cargo doc -p qapi-qmp
 - cargo doc -p qapi
+- cd $TRAVIS_BUILD_DIR/tokio
 - cargo doc -p tokio-qapi
 - cd $TRAVIS_BUILD_DIR/spec
 - cargo package
