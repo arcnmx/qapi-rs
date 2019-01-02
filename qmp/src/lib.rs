@@ -11,7 +11,6 @@ pub type QmpMessageAny = QmpMessage<qapi_spec::Any>;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum QmpMessage<C> {
-    Greeting(QapiCapabilities),
     Event(Event),
     Response(qapi_spec::Response<C>),
 }
@@ -33,6 +32,22 @@ pub enum QmpCapability {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct QapiCapabilities {
     pub QMP: QMP,
+}
+
+impl QapiCapabilities {
+    pub fn supports_oob(&self) -> bool {
+        self.QMP.capabilities.iter().any(|c| match c {
+            QmpCapability::OutOfBand => true,
+            _ => false,
+        })
+    }
+
+    pub fn capabilities(&self) -> Vec<QMPCapability> {
+        self.QMP.capabilities.iter().filter_map(|c| match c {
+            QmpCapability::OutOfBand => Some(QMPCapability::oob),
+            QmpCapability::Unknown(..) => None,
+        }).collect()
+    }
 }
 
 impl device_add {

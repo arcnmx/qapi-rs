@@ -175,8 +175,9 @@ pub struct {}", type_identifier(&v.id))?;
                 write!(self.out, "
 impl ::qapi_spec::Command for {} {{
     const NAME: &'static str = \"{}\";
+    const ALLOW_OOB: bool = {};
 
-    type Ok = ", type_identifier(&v.id), v.id)?;
+    type Ok = ", type_identifier(&v.id), v.id, v.allow_oob)?;
                 if let Some(ret) = v.returns {
                     writeln!(self.out, "{};", typename(&ret))
                 } else {
@@ -211,7 +212,7 @@ pub enum {} {{
             },
             Spec::Enum(v) => {
                 write!(self.out, "
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Copy, Clone, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum {} {{
 ", type_identifier(&v.id))?;
                 for item in &v.data {

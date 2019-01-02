@@ -9,3 +9,6 @@ members = [
 	"qapi",
 	"tokio",
 ]
+
+[patch.crates-io]
+tokio-async-await = { git = 'https://github.com/tokio-rs/tokio' }

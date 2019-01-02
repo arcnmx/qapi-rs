@@ -1,27 +1,31 @@
+#![feature(async_await, await_macro)]
+
 #[cfg(feature = "qmp")]
 mod main {
     use std::env::args;
-    use tokio_uds::UnixStream;
-    use tokio::prelude::*;
-    use tokio::run;
-    use tokio_qapi::{self, qmp};
+    use std::io;
+    use futures::compat::Future01CompatExt;
+    use futures::future::{FutureExt, TryFutureExt};
 
     pub fn main() {
         ::env_logger::init();
 
         let socket_addr = args().nth(1).expect("argument: QMP socket path");
 
+        // TODO: Switch to run_async and spawn_async, seems buggy currently
+        tokio::run(async {
+            let socket = await!(tokio_uds::UnixStream::connect(socket_addr).compat())?;
+            let (caps, stream, events) = await!(tokio_qapi::QapiStream::open_tokio(socket))?;
+            println!("{:#?}", caps);
 
-        run(UnixStream::connect(socket_addr)
-            .map(|stream| tokio_qapi::stream(stream))
-            .and_then(|stream| tokio_qapi::qmp_handshake(stream))
-            .and_then(|(caps, stream)| {
-                println!("{:#?}", caps);
-                stream.execute(qmp::query_status { })
-            }).and_then(|(status, _stream)| status.map_err(From::from))
-            .map(|status| println!("VCPU status: {:#?}", status))
-            .map_err(|e| panic!("Failed with {:?}", e))
-        );
+            tokio::spawn(events.spin().map(|r| Ok(r)).boxed().compat());
+
+            let mut stream = await!(stream)?;
+            let status = await!(stream.execute(tokio_qapi::qmp::query_status { }))?;
+            println!("VCPU status: {:#?}", status);
+
+            Ok(())
+        }.map_err(|err: io::Error| panic!("Failed with {:?}", err)).boxed().compat());
     }
 }
 

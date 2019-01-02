@@ -175,6 +175,8 @@ pub mod spec {
         pub returns: Option<Type>,
         #[serde(default, rename = "if")]
         pub conditional: Option<Conditional>,
+        #[serde(default)]
+        pub allow_oob: bool,
     }
 
     #[derive(Debug, Clone, Deserialize)]
