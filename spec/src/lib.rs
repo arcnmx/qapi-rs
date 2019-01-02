@@ -1,7 +1,7 @@
 #![doc(html_root_url = "http://docs.rs/qapi-spec/0.2.2")]
 
 use std::{io, error, fmt};
-use serde::Serialize;
+use serde::{Serialize, Serializer};
 use serde::de::DeserializeOwned;
 use serde_derive::{Deserialize, Serialize};
 
@@ -140,12 +140,20 @@ impl<C> Response<C> {
             Response::Err(e) => Err(e),
         }
     }
+
+    pub fn id(&self) -> Option<&Any> {
+        match self {
+            Response::Err(err) => err.id.as_ref(),
+            Response::Ok(value) => value.id.as_ref(),
+        }
+    }
 }
 
 pub trait Command: Serialize {
     type Ok: DeserializeOwned;
 
     const NAME: &'static str;
+    const ALLOW_OOB: bool;
 }
 
 pub trait Event: DeserializeOwned {
@@ -209,42 +217,47 @@ pub struct Timestamp {
     microseconds: u64,
 }
 
-mod serde_command {
-    use serde_derive::Serialize;
-    use serde::{Serialize, Serializer};
-    use crate::{Command, Any};
+#[derive(Debug, Clone)]
+pub struct CommandSerializerRef<'a, C: 'a, I> {
+    data: &'a C,
+    id: Option<I>,
+    control: Option<Any>,
+    oob: bool,
+}
 
-    #[derive(Serialize)]
-    struct QapiCommand<'a, C: 'a> {
-        execute: &'static str,
-        arguments: &'a C,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        id: Option<Any>,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        control: Option<Any>,
+impl<'a, C> CommandSerializerRef<'a, C, ()> {
+    pub fn new(data: &'a C, oob: bool) -> Self {
+        CommandSerializerRef { data, oob, id: None, control: None }
     }
+}
 
-    pub fn serialize<C: Command, S: Serializer>(data: &C, serializer: S) -> Result<S::Ok, S::Error> {
+impl<'a, C, I> CommandSerializerRef<'a, C, I> {
+    pub fn with_id(data: &'a C, id: I, oob: bool) -> Self {
+        CommandSerializerRef { data, oob, id: Some(id), control: None }
+    }
+}
+
+impl<C: Command, I: Serialize> Serialize for CommandSerializerRef<'_, C, I> {
+    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        #[derive(Serialize)]
+        struct QapiCommand<'a, C: 'a, I: 'a> {
+            #[serde(skip_serializing_if = "Option::is_none")]
+            execute: Option<&'static str>,
+            #[serde(rename = "exec-oob", skip_serializing_if = "Option::is_none")]
+            execute_oob: Option<&'static str>,
+            arguments: &'a C,
+            #[serde(skip_serializing_if = "Option::is_none")]
+            id: Option<&'a I>,
+            #[serde(skip_serializing_if = "Option::is_none")]
+            control: Option<&'a Any>,
+        }
+
         QapiCommand {
-            execute: C::NAME,
-            arguments: data,
-            id: None,
-            control: None,
+            execute: if self.oob { None } else { Some(C::NAME) },
+            execute_oob: if self.oob { Some(C::NAME) } else { None },
+            arguments: self.data,
+            id: self.id.as_ref(),
+            control: self.control.as_ref(),
         }.serialize(serializer)
     }
 }
-
-mod serde_command_ref {
-    use serde::Serializer;
-    use crate::{serde_command, Command};
-
-    pub fn serialize<C: Command, S: Serializer>(data: &&C, serializer: S) -> Result<S::Ok, S::Error> {
-        serde_command::serialize(*data, serializer)
-    }
-}
-
-#[derive(Debug, Clone, Serialize)]
-pub struct CommandSerializer<C: Command>(#[serde(with = "serde_command")] pub C);
-
-#[derive(Debug, Clone, Serialize)]
-pub struct CommandSerializerRef<'a, C: Command + 'a>(#[serde(with = "serde_command_ref")] pub &'a C);

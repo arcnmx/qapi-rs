@@ -1,24 +1,31 @@
+#![feature(async_await, await_macro)]
+
 #[cfg(feature = "qmp")]
 mod main {
     use std::env::args;
-    use tokio_uds::UnixStream;
-    use tokio::prelude::*;
-    use tokio::run;
-    use tokio_qapi;
+    use std::io;
+    use futures::compat::Future01CompatExt;
+    use futures::future::{FutureExt, TryFutureExt};
+    use futures::stream::StreamExt;
 
     pub fn main() {
         ::env_logger::init();
 
         let socket_addr = args().nth(1).expect("argument: QMP socket path");
 
-        run(UnixStream::connect(socket_addr)
-            .map(|stream| tokio_qapi::event_stream(stream))
-            .and_then(|(stream, events)| tokio_qapi::qmp_handshake(stream).map(|stream| (events, stream)))
-            .and_then(|(events, (caps, _stream))| {
-                println!("{:#?}", caps);
-                events.for_each(|e| Ok(println!("Got event {:#?}", e)))
-            }).map_err(|e| panic!("Failed with {:?}", e))
-        );
+        tokio::run(async {
+            let socket = await!(tokio_uds::UnixStream::connect(socket_addr).compat())?;
+            let (caps, stream, events) = await!(tokio_qapi::QapiStream::open_tokio(socket))?;
+            println!("{:#?}", caps);
+            let _stream = await!(stream)?;
+
+            let mut events = events.into_stream().boxed();
+            while let Some(event) = await!(events.next()) {
+                println!("Got event {:#?}", event?);
+            }
+
+            Ok(())
+        }.map_err(|err: io::Error| panic!("Failed with {:?}", err)).boxed().compat());
     }
 }
 

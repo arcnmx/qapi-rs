@@ -144,6 +144,8 @@ pub mod spec {
         pub data: DataOrType,
         #[serde(default)]
         pub returns: Option<Type>,
+        #[serde(default)]
+        pub allow_oob: bool,
     }
 
     #[derive(Debug, Clone, Deserialize)]
