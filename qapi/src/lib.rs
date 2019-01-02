@@ -125,8 +125,8 @@ mod stream {
 mod qmp_impl {
     use std::io::{self, BufRead, Read, Write, BufReader};
     use std::vec::Drain;
-    use qapi_spec::{Error, ResponseEvent, Command};
-    use qapi_qmp::{QMP, QapiCapabilities, Event, qmp_capabilities, query_version};
+    use qapi_spec::{Error, Command};
+    use qapi_qmp::{QMP, QapiCapabilities, QmpMessage, Event, qmp_capabilities, query_version};
     use crate::{qapi::Qapi, Stream};
 
     pub struct Qmp<S> {
@@ -250,10 +250,10 @@ mod qga_impl {
     impl<S: BufRead> Qga<S> {
         pub fn read_response<C: Command>(&mut self) -> io::Result<Result<C::Ok, Error>> {
             loop {
-                match self.inner.decode_line()? {
+                match self.inner.decode_line()?.map(|r: Response<_>| r.result()) {
                     None => return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response")),
-                    Some(Response::Ok { return_ }) => return Ok(Ok(return_)),
-                    Some(Response::Err(e)) => return Ok(Err(e)),
+                    Some(Ok(res)) => return Ok(Ok(res)),
+                    Some(Err(e)) => return Ok(Err(e)),
                 }
             }
         }
