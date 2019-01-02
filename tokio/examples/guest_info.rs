@@ -1,9 +1,3 @@
-extern crate tokio_qapi;
-extern crate tokio_uds;
-extern crate tokio;
-extern crate futures;
-extern crate env_logger;
-
 #[cfg(feature = "qga")]
 mod main {
     use std::env::args;
