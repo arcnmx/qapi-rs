@@ -1,24 +1,31 @@
+#![feature(async_await, await_macro)]
+
 #[cfg(feature = "qga")]
 mod main {
     use std::env::args;
-    use tokio_uds::UnixStream;
-    use tokio::prelude::*;
-    use tokio::run;
-    use tokio_qapi::{self, qga};
+    use std::io;
+    use futures::compat::Future01CompatExt;
+    use futures::future::{FutureExt, TryFutureExt, abortable};
 
     pub fn main() {
         ::env_logger::init();
 
         let socket_addr = args().nth(1).expect("argument: QEMU Guest Agent socket path");
 
-        run(UnixStream::connect(socket_addr)
-            .map(|stream| tokio_qapi::stream(stream))
-            .and_then(|stream| tokio_qapi::qga_handshake(stream))
-            .and_then(|stream| stream.execute(qga::guest_info { }))
-            .and_then(|(info, _stream)| info.map_err(From::from))
-            .map(|info| println!("Guest Agent version: {}", info.version))
-            .map_err(|e| panic!("Failed with {:?}", e))
-        );
+        tokio::run(async {
+            let socket = await!(tokio_uds::UnixStream::connect(socket_addr).compat())?;
+            let (stream, events) = await!(tokio_qapi::QapiStream::open_tokio_qga(socket))?;
+
+            let (events, abort) = abortable(events);
+            tokio::spawn(events.map_err(drop).boxed().compat());
+
+            let info = await!(stream.execute(tokio_qapi::qga::guest_info { }))??;
+            println!("Guest Agent version: {}", info.version);
+
+            abort.abort();
+
+            Ok(())
+        }.map_err(|err: io::Error| panic!("Failed with {:?}", err)).boxed().compat());
     }
 }
 
