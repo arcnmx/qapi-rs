@@ -15,9 +15,8 @@ mod main {
 
         tokio::run(async {
             let socket = await!(tokio_uds::UnixStream::connect(socket_addr).compat())?;
-            let (caps, stream, events) = await!(tokio_qapi::QapiStream::open_tokio(socket))?;
+            let (caps, _stream, events) = await!(tokio_qapi::QapiStream::open_tokio(socket))?;
             println!("{:#?}", caps);
-            let _stream = await!(stream)?;
 
             let mut events = events.into_stream().boxed();
             while let Some(event) = await!(events.next()) {
