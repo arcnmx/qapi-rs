@@ -56,7 +56,7 @@ mod qapi {
         pub fn write_command<C: Command>(&mut self, command: &C) -> io::Result<()> {
             {
                 let mut ser = serde_json::Serializer::new(&mut self.stream);
-                qapi_spec::CommandSerializerRef(command).serialize(&mut ser)?;
+                qapi_spec::CommandSerializerRef::new(command, false).serialize(&mut ser)?;
 
                 trace!("-> execute {}: {}", C::NAME, serde_json::to_string_pretty(command).unwrap());
             }
@@ -176,7 +176,6 @@ mod qmp_impl {
             loop {
                 match self.inner.decode_line()? {
                     None => return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response")),
-                    Some(QmpMessage::Greeting(..)) => return Err(io::Error::new(io::ErrorKind::InvalidData, "unexpected greeting")),
                     Some(QmpMessage::Response(res)) => return Ok(res.result()),
                     Some(QmpMessage::Event(e)) => self.event_queue.push(e),
                 }
