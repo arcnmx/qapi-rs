@@ -661,14 +661,14 @@ impl<W> QapiStream<W> {
 
 type QapiShared = Arc<Mutex<QapiCommandMap>>;
 
-#[cfg(feature = "qapi-qmp")]
+#[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 pub struct QapiEvents<R> {
     lines: QapiStreamLines<R>,
     pending: QapiShared,
     supports_oob: bool,
 }
 
-#[cfg(feature = "qapi-qmp")]
+#[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 impl<R> QapiEvents<R> {
     fn new(lines: QapiStreamLines<R>, supports_oob: bool) -> (Self, QapiShared) {
         let pending: QapiShared = Arc::new(Mutex::new(Default::default()));
@@ -681,16 +681,17 @@ impl<R> QapiEvents<R> {
     }
 }
 
-#[cfg(feature = "qapi-qmp")]
+#[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 enum QapiEventsMessage {
     Response {
         id: u64,
     },
+    #[cfg(feature = "qapi-qmp")]
     Event(qapi_qmp::Event),
     Eof,
 }
 
-#[cfg(feature = "qapi-qmp")]
+#[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 impl<R: AsyncRead> QapiEvents<R> {
     async fn process_response(self_supports_oob: bool, self_pending: &QapiShared, res: qapi_spec::Response<Any>) -> io::Result<u64> {
         let id = match (res.id().and_then(|id| id.as_u64()), self_supports_oob) {
@@ -712,19 +713,30 @@ impl<R: AsyncRead> QapiEvents<R> {
 
     async fn process_message(&mut self) -> io::Result<QapiEventsMessage> {
         let msg = match await!(self.lines.next()).invert()? {
+            #[cfg(feature = "qapi-qmp")]
             Some(line) => serde_json::from_str::<qapi_qmp::QmpMessage<Any>>(&line)?,
+            #[cfg(not(feature = "qapi-qmp"))]
+            Some(line) => serde_json::from_str::<qapi_spec::Response<Any>>(&line)?,
             None => return Ok(QapiEventsMessage::Eof),
         };
         match msg {
+            #[cfg(feature = "qapi-qmp")]
             qapi_qmp::QmpMessage::Event(event) => Ok(QapiEventsMessage::Event(event)),
             //calling self here makes this async fn !Send because Compat is !Sync and it will capture &Self
+            #[cfg(feature = "qapi-qmp")]
             qapi_qmp::QmpMessage::Response(res) => {
+                let id = await!(Self::process_response(self.supports_oob, &self.pending, res))?;
+                Ok(QapiEventsMessage::Response { id })
+            },
+            #[cfg(not(feature = "qapi-qmp"))]
+            res => {
                 let id = await!(Self::process_response(self.supports_oob, &self.pending, res))?;
                 Ok(QapiEventsMessage::Response { id })
             },
         }
     }
 
+    #[cfg(feature = "qapi-qmp")]
     pub async fn next_event(&mut self) -> io::Result<Option<qapi_qmp::Event>> {
         loop {
             match await!(self.process_message())? {
@@ -735,6 +747,22 @@ impl<R: AsyncRead> QapiEvents<R> {
         }
     }
 
+    #[cfg(feature = "qapi-qmp")]
+    async fn next_event_(&mut self) -> io::Result<Option<qapi_qmp::Event>> {
+        await!(self.next_event())
+    }
+
+    #[cfg(not(feature = "qapi-qmp"))]
+    async fn next_event_(&mut self) -> io::Result<Option<()>> {
+        loop {
+            match await!(self.process_message())? {
+                QapiEventsMessage::Response { .. } => break Ok(Some(())),
+                QapiEventsMessage::Eof => break Ok(None),
+            }
+        }
+    }
+
+    #[cfg(feature = "qapi-qmp")]
     pub fn into_stream(self) -> impl Stream<Item=io::Result<qapi_qmp::Event>> + FusedStream {
         unfold(self, async move |mut s| {
             await!(s.next_event()).invert().map(|r| (r, s))
@@ -742,7 +770,7 @@ impl<R: AsyncRead> QapiEvents<R> {
     }
 
     pub async fn spin(mut self) {
-        while let Some(res) = await!(self.next_event()).invert() {
+        while let Some(res) = await!(self.next_event_()).invert() {
             match res {
                 Ok(event) => trace!("QapiEvents::spin ignoring event: {:#?}", event),
                 Err(err) => trace!("QapiEvents::spin ignoring error: {:#?}", err),
@@ -851,6 +879,7 @@ impl<W: AsyncWrite + Unpin> QapiStream<W> {
             QapiEventsMessage::Response { id } => Ok(()),
             QapiEventsMessage::Eof =>
                 Err(io::Error::new(io::ErrorKind::UnexpectedEof, "unexpected EOF when syncing QMP connection")),
+            #[cfg(feature = "qapi-qmp")]
             QapiEventsMessage::Event(event) =>
                 Err(io::Error::new(io::ErrorKind::InvalidData, format!("unexpected QMP event: {:?}", event))),
         }));
@@ -860,7 +889,7 @@ impl<W: AsyncWrite + Unpin> QapiStream<W> {
 }
 
 
-#[cfg(feature = "qapi-qmp")]
+#[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 impl<W: AsyncWrite> QapiStream<W> {
     pub async fn execute<'a, C: Command + 'a>(self: &'a Self, command: C) -> io::Result<Result<C::Ok, qapi_spec::Error>> {
         await!(self.execute_(command, false))
