@@ -34,7 +34,7 @@ use log::{trace, debug};
 
 type QapiStreamLines<S> = Compat01As03<FramedRead<Compat<S>, LinesCodec>>;
 
-type QapiCommandMap = BTreeMap<u64, oneshot::Sender<Result<Any, qapi_spec::Error>>>;
+type QapiCommandMap = BTreeMap<u64, oneshot::Sender<Result<Any, spec::Error>>>;
 
 pub struct QapiStream<W> {
     pending: QapiShared,
@@ -86,13 +86,13 @@ enum QapiEventsMessage {
         id: u64,
     },
     #[cfg(feature = "qapi-qmp")]
-    Event(qapi_qmp::Event),
+    Event(qmp::Event),
     Eof,
 }
 
 #[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 impl<R: AsyncRead> QapiEvents<R> {
-    async fn process_response(self_supports_oob: bool, self_pending: &QapiShared, res: qapi_spec::Response<Any>) -> io::Result<u64> {
+    async fn process_response(self_supports_oob: bool, self_pending: &QapiShared, res: spec::Response<Any>) -> io::Result<u64> {
         let id = match (res.id().and_then(|id| id.as_u64()), self_supports_oob) {
             (Some(id), true) => id,
             (None, false) => Default::default(),
@@ -113,17 +113,17 @@ impl<R: AsyncRead> QapiEvents<R> {
     async fn process_message(&mut self) -> io::Result<QapiEventsMessage> {
         let msg = match await!(self.lines.next()).invert()? {
             #[cfg(feature = "qapi-qmp")]
-            Some(line) => serde_json::from_str::<qapi_qmp::QmpMessage<Any>>(&line)?,
+            Some(line) => serde_json::from_str::<qmp::QmpMessage<Any>>(&line)?,
             #[cfg(not(feature = "qapi-qmp"))]
-            Some(line) => serde_json::from_str::<qapi_spec::Response<Any>>(&line)?,
+            Some(line) => serde_json::from_str::<spec::Response<Any>>(&line)?,
             None => return Ok(QapiEventsMessage::Eof),
         };
         match msg {
             #[cfg(feature = "qapi-qmp")]
-            qapi_qmp::QmpMessage::Event(event) => Ok(QapiEventsMessage::Event(event)),
+            qmp::QmpMessage::Event(event) => Ok(QapiEventsMessage::Event(event)),
             //calling self here makes this async fn !Send because Compat is !Sync and it will capture &Self
             #[cfg(feature = "qapi-qmp")]
-            qapi_qmp::QmpMessage::Response(res) => {
+            qmp::QmpMessage::Response(res) => {
                 let id = await!(Self::process_response(self.supports_oob, &self.pending, res))?;
                 Ok(QapiEventsMessage::Response { id })
             },
@@ -136,7 +136,7 @@ impl<R: AsyncRead> QapiEvents<R> {
     }
 
     #[cfg(feature = "qapi-qmp")]
-    pub async fn next_event(&mut self) -> io::Result<Option<qapi_qmp::Event>> {
+    pub async fn next_event(&mut self) -> io::Result<Option<qmp::Event>> {
         loop {
             match await!(self.process_message())? {
                 QapiEventsMessage::Response { .. } => (),
@@ -147,7 +147,7 @@ impl<R: AsyncRead> QapiEvents<R> {
     }
 
     #[cfg(feature = "qapi-qmp")]
-    async fn next_event_(&mut self) -> io::Result<Option<qapi_qmp::Event>> {
+    async fn next_event_(&mut self) -> io::Result<Option<qmp::Event>> {
         await!(self.next_event())
     }
 
@@ -162,7 +162,7 @@ impl<R: AsyncRead> QapiEvents<R> {
     }
 
     #[cfg(feature = "qapi-qmp")]
-    pub fn into_stream(self) -> impl Stream<Item=io::Result<qapi_qmp::Event>> + FusedStream {
+    pub fn into_stream(self) -> impl Stream<Item=io::Result<qmp::Event>> + FusedStream {
         unfold(self, async move |mut s| {
             await!(s.next_event()).invert().map(|r| (r, s))
         })
@@ -290,30 +290,30 @@ impl<W: AsyncWrite + Unpin> QapiStream<W> {
 
 #[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 impl<W: AsyncWrite> QapiStream<W> {
-    pub async fn execute<'a, C: Command + 'a>(self: &'a Self, command: C) -> io::Result<Result<C::Ok, qapi_spec::Error>> {
+    pub async fn execute<'a, C: Command + 'a>(self: &'a Self, command: C) -> io::Result<Result<C::Ok, spec::Error>> {
         await!(self.execute_(command, false))
     }
 
-    pub async fn execute_oob<'a, C: Command + 'a>(self: &'a Self, command: C) -> io::Result<Result<C::Ok, qapi_spec::Error>> {
+    pub async fn execute_oob<'a, C: Command + 'a>(self: &'a Self, command: C) -> io::Result<Result<C::Ok, spec::Error>> {
         /* TODO: should we assert C::ALLOW_OOB here and/or at the type level?
          * If oob isn't supported should we fall back to serial execution or error?
          */
         await!(self.execute_(command, true))
     }
 
-    async fn execute_<'a, C: Command + 'a>(self: &'a Self, command: C, oob: bool) -> io::Result<Result<C::Ok, qapi_spec::Error>> {
+    async fn execute_<'a, C: Command + 'a>(self: &'a Self, command: C, oob: bool) -> io::Result<Result<C::Ok, spec::Error>> {
         let (id, mut write, mut encoded) = if self.supports_oob {
             let id = self.next_oob_id();
             (
                 Some(id),
                 await!(self.write_lock.lock()),
-                serde_json::to_vec(&qapi_spec::CommandSerializerRef::with_id(&command, id, oob))?,
+                serde_json::to_vec(&spec::CommandSerializerRef::with_id(&command, id, oob))?,
             )
         } else {
             (
                 None,
                 await!(self.write_lock.lock()),
-                serde_json::to_vec(&qapi_spec::CommandSerializerRef::new(&command, false))?,
+                serde_json::to_vec(&spec::CommandSerializerRef::new(&command, false))?,
             )
         };
 
