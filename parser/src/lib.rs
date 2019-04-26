@@ -3,7 +3,8 @@
 pub mod spec {
     use std::collections::HashMap;
     use std::fmt;
-    use serde::de::{Deserializer, Deserialize, Visitor, SeqAccess, Error};
+    use serde::de::{Deserializer, Deserialize, Visitor, SeqAccess, MapAccess, Error};
+    use serde::de::value::MapAccessDeserializer;
     use serde_derive::Deserialize;
 
     #[derive(Debug, Clone, Deserialize)]
@@ -71,14 +72,21 @@ pub mod spec {
     pub struct Type {
         pub name: String,
         pub is_array: bool,
+        pub conditional: Option<Conditional>,
     }
 
     impl fmt::Debug for Type {
         fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
             if self.is_array {
-                write!(fmt, "[{}]", self.name)
+                write!(fmt, "[{}]", self.name)?
             } else {
-                write!(fmt, "{}", self.name)
+                write!(fmt, "{}", self.name)?
+            }
+
+            if let Some(cond) = &self.conditional {
+                write!(fmt, " {}", cond)
+            } else {
+                Ok(())
             }
         }
     }
@@ -98,6 +106,23 @@ pub mod spec {
                     Ok(Type {
                         name: v.into(),
                         is_array: false,
+                        conditional: None,
+                    })
+                }
+
+                fn visit_map<A: MapAccess<'de>>(self, map: A) -> Result<Self::Value, A::Error> {
+                    #[derive(Debug, Clone, Deserialize)]
+                    struct ConditionalType {
+                        #[serde(rename = "type")]
+                        ty: Type,
+                        #[serde(rename = "if")]
+                        conditional: Conditional,
+                    }
+
+                    let ty = ConditionalType::deserialize(MapAccessDeserializer::new(map))?;
+                    Ok(Type {
+                        conditional: Some(ty.conditional),
+                        .. ty.ty
                     })
                 }
 
@@ -105,6 +130,7 @@ pub mod spec {
                     Ok(Type {
                         name: v,
                         is_array: false,
+                        conditional: None,
                     })
                 }
 
@@ -115,6 +141,7 @@ pub mod spec {
                             Ok(Type {
                                 name: v,
                                 is_array: true,
+                                conditional: None,
                             })
                         } else {
                             Err(A::Error::invalid_length(2, &"single array item"))
@@ -128,6 +155,8 @@ pub mod spec {
             d.deserialize_any(V)
         }
     }
+
+    pub type Conditional = String;
 
     #[derive(Debug, Clone, Deserialize)]
     #[serde(rename_all = "kebab-case")]
@@ -144,6 +173,8 @@ pub mod spec {
         pub data: DataOrType,
         #[serde(default)]
         pub returns: Option<Type>,
+        #[serde(default, rename = "if")]
+        pub conditional: Option<Conditional>,
     }
 
     #[derive(Debug, Clone, Deserialize)]
@@ -155,6 +186,8 @@ pub mod spec {
         pub data: Data,
         #[serde(default)]
         pub base: DataOrType,
+        #[serde(default, rename = "if")]
+        pub conditional: Option<Conditional>,
     }
 
     #[derive(Debug, Clone, Deserialize)]
@@ -164,6 +197,8 @@ pub mod spec {
         pub id: String,
         #[serde(default)]
         pub data: Data,
+        #[serde(default, rename = "if")]
+        pub conditional: Option<Conditional>,
     }
 
     #[derive(Debug, Clone, Deserialize)]
@@ -172,7 +207,9 @@ pub mod spec {
         #[serde(rename = "enum")]
         pub id: String,
         #[serde(default)]
-        pub data: Vec<String>,
+        pub data: Vec<SpecName>,
+        #[serde(default, rename = "if")]
+        pub conditional: Option<Conditional>,
     }
 
     #[derive(Debug, Clone, Deserialize)]
@@ -184,6 +221,8 @@ pub mod spec {
         #[serde(default)]
         pub discriminator: Option<String>,
         pub data: Data,
+        #[serde(default, rename = "if")]
+        pub conditional: Option<Conditional>,
     }
 
     #[derive(Debug, Clone, Deserialize)]
@@ -194,6 +233,8 @@ pub mod spec {
         #[serde(default)]
         pub discriminator: Option<String>,
         pub data: Data,
+        #[serde(default, rename = "if")]
+        pub conditional: Option<Conditional>,
     }
 
     #[derive(Debug, Clone, Deserialize)]
@@ -225,6 +266,8 @@ pub mod spec {
         pub id: String,
         #[serde(default)]
         pub data: Data,
+        #[serde(default, rename = "if")]
+        pub conditional: Option<Conditional>,
     }
 
     #[derive(Debug, Clone, Deserialize)]
@@ -239,6 +282,31 @@ pub mod spec {
     #[serde(rename_all = "kebab-case")]
     pub struct PragmaDocRequired {
         pub doc_required: bool,
+    }
+
+    #[derive(Debug, Clone, Deserialize)]
+    #[serde(untagged, rename_all = "kebab-case")]
+    pub enum SpecName {
+        Name(String),
+        Conditional {
+            name: String,
+            #[serde(rename = "if")]
+            conditional: Conditional,
+        },
+    }
+
+    impl fmt::Display for SpecName {
+        fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
+            fmt::Display::fmt(self.as_ref(), fmt)
+        }
+    }
+    impl AsRef<str> for SpecName {
+        fn as_ref(&self) -> &str {
+            match self {
+                SpecName::Name(name) => &name[..],
+                SpecName::Conditional { name, .. } => &name[..],
+            }
+        }
     }
 }
 
