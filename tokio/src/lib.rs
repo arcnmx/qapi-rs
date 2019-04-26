@@ -1,4 +1,4 @@
-#![doc(html_root_url = "http://docs.rs/tokio-qapi/0.4.0")]
+#![doc(html_root_url = "http://docs.rs/tokio-qapi/0.5.0")]
 
 #[cfg(feature = "qapi-qmp")]
 pub use qapi_qmp as qmp;

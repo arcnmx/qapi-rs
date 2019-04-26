@@ -1,5 +1,5 @@
 #![allow(non_snake_case, non_camel_case_types)]
-#![doc(html_root_url = "http://docs.rs/qapi-qmp/0.4.0")]
+#![doc(html_root_url = "http://docs.rs/qapi-qmp/0.5.0")]
 
 use std::string;
 use serde_derive::{Deserialize, Serialize};

@@ -1,6 +1,6 @@
 [package]
 name = "qapi"
-version = "0.4.1" # keep in sync with html_root_url
+version = "0.5.0" # keep in sync with html_root_url
 authors = ["arcnmx"]
 edition = "2018"
 
@@ -25,8 +25,8 @@ serde_json = "^1.0.9"
 qapi-spec = { version = "^0.2.0", path = "../spec" }
 
 log = { version = "^0.4.6", optional = true }
-qapi-qga = { version = "^0.4.0", path = "../qga", optional = true }
-qapi-qmp = { version = "^0.4.0", path = "../qmp", optional = true }
+qapi-qga = { version = "^0.5.0", path = "../qga", optional = true }
+qapi-qmp = { version = "^0.5.0", path = "../qmp", optional = true }
 
 [features]
 qga = ["qapi-qga", "log"]
