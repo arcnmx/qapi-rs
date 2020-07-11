@@ -25,17 +25,14 @@ qapi-qmp = { version = "^0.5.0", path = "../qmp", optional = true }
 qapi-spec = { version = "^0.2.2", path = "../spec" }
 serde_json = "^1.0.9"
 serde = "^1.0.27"
-tokio = "^0.1.13"
-tokio-codec = "^0.1.1"
-tokio-io = "^0.1.10"
-futures-preview = { version = "0.3.0-alpha.12", features = ["tokio-compat", "io-compat"] }
+tokio = { version = "^0.2.0", default-features = false, features = ["io-util", "uds", "rt-core"] }
+tokio-util = { version = "^0.3.1", features = ["codec"] }
+futures = { version = "^0.3.5" }
 result = "^1.0.0"
-bytes = "^0.4.6"
+bytes = "^0.5.0"
 log = "^0.4.6"
 
 [dev-dependencies]
-tokio-uds = "^0.2.4"
-tokio = "^0.1.13"
 env_logger = "^0.6.0"
 
 [features]
