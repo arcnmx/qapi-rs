@@ -1,12 +1,50 @@
 use std::{io, str};
-use tokio_io::codec::{Encoder, Decoder};
+use tokio_util::codec::{Encoder, Decoder, LinesCodec as Codec, LinesCodecError};
 use bytes::{BytesMut, BufMut};
 use log::trace;
 
 #[derive(Default)]
-pub struct LineCodec;
+pub struct LinesCodec(Codec);
 
-impl Decoder for LineCodec {
+fn map(err: LinesCodecError) -> io::Error {
+    match err {
+        LinesCodecError::Io(e) => e,
+        LinesCodecError::MaxLineLengthExceeded =>
+            io::Error::new(io::ErrorKind::InvalidInput, "max line length exceeded"),
+    }
+}
+
+impl LinesCodec {
+    pub fn new() -> Self {
+        Self(Codec::new())
+    }
+}
+
+impl Decoder for LinesCodec {
+    type Item = String;
+    type Error = io::Error;
+
+    fn decode(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
+        self.0.decode(buf)
+            .map_err(map)
+    }
+
+    fn decode_eof(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
+        self.0.decode_eof(buf)
+            .map_err(map)
+    }
+}
+
+impl<S: AsRef<str>> Encoder<S> for LinesCodec {
+    type Error = io::Error;
+
+    fn encode(&mut self, item: S, into: &mut BytesMut) -> Result<(), Self::Error> {
+        self.0.encode(item, into)
+            .map_err(map)
+    }
+}
+
+/*impl Decoder for LineCodec {
     type Item = BytesMut;
     type Error = io::Error;
 
@@ -42,7 +80,7 @@ impl Encoder for LineCodec {
 
         Ok(())
     }
-}
+}*/
 
 /* revisit...
 use std::marker::PhantomData;
