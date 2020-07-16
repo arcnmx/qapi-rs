@@ -12,6 +12,7 @@ pub use qapi_qga as qga;
 pub use qapi_spec::{Any, Dictionary, Empty, Command, Event, Error, ErrorClass, Timestamp};
 
 use std::collections::BTreeMap;
+use std::borrow::Borrow;
 use std::sync::{Arc, atomic::{AtomicUsize, Ordering}};
 use std::mem::replace;
 use std::{io, str, usize};
@@ -293,30 +294,30 @@ impl<W: AsyncWrite + Unpin> QapiStream<W> {
 
 #[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 impl<W: AsyncWrite + Unpin> QapiStream<W> {
-    pub async fn execute<'a, C: Command + 'a>(self: &'a Self, command: C) -> io::Result<Result<C::Ok, spec::Error>> {
-        self.execute_(command, false).await
+    pub async fn execute<'a, R: Borrow<C>, C: Command + 'a>(self: &'a Self, command: R) -> io::Result<Result<C::Ok, spec::Error>> {
+        self.execute_(command.borrow(), false).await
     }
 
-    pub async fn execute_oob<'a, C: Command + 'a>(self: &'a Self, command: C) -> io::Result<Result<C::Ok, spec::Error>> {
+    pub async fn execute_oob<'a, R: Borrow<C>, C: Command + 'a>(self: &'a Self, command: R) -> io::Result<Result<C::Ok, spec::Error>> {
         /* TODO: should we assert C::ALLOW_OOB here and/or at the type level?
          * If oob isn't supported should we fall back to serial execution or error?
          */
-        self.execute_(command, true).await
+        self.execute_(command.borrow(), true).await
     }
 
-    async fn execute_<'a, C: Command + 'a>(self: &'a Self, command: C, oob: bool) -> io::Result<Result<C::Ok, spec::Error>> {
+    async fn execute_<'a, C: Command + 'a>(self: &'a Self, command: &C, oob: bool) -> io::Result<Result<C::Ok, spec::Error>> {
         let (id, mut write, mut encoded) = if self.supports_oob {
             let id = self.next_oob_id();
             (
                 Some(id),
                 self.write_lock.lock().await,
-                serde_json::to_vec(&spec::CommandSerializerRef::with_id(&command, id, oob))?,
+                serde_json::to_vec(&spec::CommandSerializerRef::with_id(command, id, oob))?,
             )
         } else {
             (
                 None,
                 self.write_lock.lock().await,
-                serde_json::to_vec(&spec::CommandSerializerRef::new(&command, false))?,
+                serde_json::to_vec(&spec::CommandSerializerRef::new(command, false))?,
             )
         };
 
