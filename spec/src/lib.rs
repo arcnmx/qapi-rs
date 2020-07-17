@@ -1,6 +1,6 @@
 #![doc(html_root_url = "http://docs.rs/qapi-spec/0.2.2")]
 
-use std::{io, error, fmt};
+use std::{io, error, fmt, str};
 use serde::{Serialize, Serializer, Deserialize};
 use serde::de::DeserializeOwned;
 
@@ -156,6 +156,26 @@ pub trait Command: Serialize {
 
 pub trait Event: DeserializeOwned {
     const NAME: &'static str;
+}
+
+pub unsafe trait Enum: DeserializeOwned + str::FromStr + Copy + 'static {
+    fn discriminant(&self) -> usize;
+
+    fn name(&self) -> &'static str {
+        unsafe {
+            Self::NAMES.get_unchecked(self.discriminant())
+        }
+    }
+
+    fn from_name(s: &str) -> Option<Self> {
+        Self::NAMES.iter().zip(Self::VARIANTS)
+            .find(|&(&n, _)| n == s)
+            .map(|(_, &v)| v)
+    }
+
+    const COUNT: usize;
+    const VARIANTS: &'static [Self];
+    const NAMES: &'static [&'static str];
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
