@@ -4,7 +4,7 @@
 include!(concat!(env!("OUT_DIR"), "/qga.rs"));
 
 use std::{io, str, fmt, error};
-use serde_derive::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Copy, Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "kebab-case")]

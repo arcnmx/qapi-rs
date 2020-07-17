@@ -2,7 +2,7 @@
 #![doc(html_root_url = "http://docs.rs/qapi-qmp/0.4.0")]
 
 use std::string;
-use serde_derive::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize};
 
 include!(concat!(env!("OUT_DIR"), "/qmp.rs"));
 
