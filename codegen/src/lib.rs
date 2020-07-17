@@ -211,14 +211,43 @@ pub enum {} {{
                 writeln!(self.out, "}}")?;
             },
             Spec::Enum(v) => {
+                let type_id = type_identifier(&v.id);
                 write!(self.out, "
 #[derive(Debug, Copy, Clone, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum {} {{
-", type_identifier(&v.id))?;
+", type_id)?;
                 for item in &v.data {
                     writeln!(self.out, "\t#[serde(rename = \"{}\")] {},", item, type_identifier(item))?;
                 }
                 writeln!(self.out, "}}")?;
+                writeln!(self.out, "
+impl ::core::str::FromStr for {} {{
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {{
+        ::qapi_spec::Enum::from_name(s).ok_or(())
+    }}
+}}
+
+unsafe impl ::qapi_spec::Enum for {} {{
+    fn discriminant(&self) -> usize {{ *self as usize }}
+
+    const COUNT: usize = {};
+    const VARIANTS: &'static [Self] = &[
+", type_id, type_id, v.data.len())?;
+                for item in &v.data {
+                    writeln!(self.out, "{}::{},", type_id, type_identifier(item))?;
+                }
+                writeln!(self.out, "
+    ];
+    const NAMES: &'static [&'static str] = &[
+")?;
+                for item in &v.data {
+                    writeln!(self.out, "\"{}\",", item)?;
+                }
+                writeln!(self.out, "
+    ];
+}}")?;
             },
             Spec::Event(v) => {
                 write!(self.out, "
