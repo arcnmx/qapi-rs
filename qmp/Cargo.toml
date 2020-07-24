@@ -21,6 +21,5 @@ maintenance = { status = "passively-maintained" }
 qapi-codegen = { version = "^0.4.0", path = "../codegen" }
 
 [dependencies]
-serde = "^1.0.78"
-serde_derive = "^1.0.78"
+serde = { version = "^1.0.27", features = [ "derive" ] }
 qapi-spec = { version = "^0.2.0", path = "../spec" }

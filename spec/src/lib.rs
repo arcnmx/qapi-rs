@@ -1,9 +1,8 @@
 #![doc(html_root_url = "http://docs.rs/qapi-spec/0.2.2")]
 
 use std::{io, error, fmt};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use serde::de::DeserializeOwned;
-use serde_derive::{Deserialize, Serialize};
 
 pub use serde_json::Value as Any;
 pub type Dictionary = serde_json::Map<String, Any>;
@@ -65,7 +64,6 @@ pub mod base64_opt {
 }
 
 mod error_serde {
-    use serde_derive::{Serialize, Deserialize};
     use serde::{Serialize, Serializer, Deserialize, Deserializer};
     use crate::{Error, ErrorClass, Any};
 
@@ -210,7 +208,6 @@ pub struct Timestamp {
 }
 
 mod serde_command {
-    use serde_derive::Serialize;
     use serde::{Serialize, Serializer};
     use crate::{Command, Any};
 

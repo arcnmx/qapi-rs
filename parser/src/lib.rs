@@ -3,9 +3,9 @@
 pub mod spec {
     use std::collections::HashMap;
     use std::fmt;
-    use serde::de::{Deserializer, Deserialize, Visitor, SeqAccess, MapAccess, Error};
+    use serde::de::{Deserializer, Visitor, SeqAccess, MapAccess, Error};
     use serde::de::value::MapAccessDeserializer;
-    use serde_derive::Deserialize;
+    use serde::Deserialize;
 
     #[derive(Debug, Clone, Deserialize)]
     #[serde(untagged, rename_all = "lowercase")]
