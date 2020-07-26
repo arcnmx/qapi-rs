@@ -154,6 +154,20 @@ pub trait Command: Serialize {
     const ALLOW_OOB: bool;
 }
 
+impl<'a, C: Command> Command for &'a C {
+    type Ok = C::Ok;
+
+    const NAME: &'static str = C::NAME;
+    const ALLOW_OOB: bool = C::ALLOW_OOB;
+}
+
+impl<'a, C: Command> Command for &'a mut C {
+    type Ok = C::Ok;
+
+    const NAME: &'static str = C::NAME;
+    const ALLOW_OOB: bool = C::ALLOW_OOB;
+}
+
 pub trait Event: DeserializeOwned {
     const NAME: &'static str;
 }
