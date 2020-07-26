@@ -6,6 +6,8 @@ include!(concat!(env!("OUT_DIR"), "/qga.rs"));
 use std::{io, str, fmt, error};
 use serde::{Deserialize, Serialize};
 
+pub trait QgaCommand: qapi_spec::Command { }
+
 #[derive(Copy, Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum GuestShutdownMode {
