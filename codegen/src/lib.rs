@@ -125,11 +125,12 @@ struct Context<W> {
     unions: Vec<spec::CombinedUnion>,
     types: HashMap<String, spec::Struct>,
     struct_discriminators: HashMap<String, String>,
+    command_trait: String,
     out: W,
 }
 
 impl<W: Write> Context<W> {
-    fn new(out: W) -> Self {
+    fn new(out: W, command_trait: String) -> Self {
         Context {
             includes: Default::default(),
             included: Default::default(),
@@ -137,7 +138,8 @@ impl<W: Write> Context<W> {
             unions: Default::default(),
             types: Default::default(),
             struct_discriminators: Default::default(),
-            out: out,
+            command_trait,
+            out,
         }
     }
 
@@ -147,12 +149,13 @@ impl<W: Write> Context<W> {
                 self.includes.push(include.include);
             },
             Spec::Command(v) => {
+                let type_id = type_identifier(&v.id);
                 match v.data {
-                    spec::DataOrType::Type(ref ty) if type_identifier(&ty.name) == type_identifier(&v.id) => (),
+                    spec::DataOrType::Type(ref ty) if type_identifier(&ty.name) == type_id => (),
                     _ => {
                         write!(self.out, "
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct {}", type_identifier(&v.id))?;
+pub struct {}", type_id)?;
                         match v.data {
                             spec::DataOrType::Data(ref data) => {
                                 if v.id == "device_add" || v.id == "netdev_add" {
@@ -173,11 +176,12 @@ pub struct {}", type_identifier(&v.id))?;
                 }
 
                 write!(self.out, "
+impl crate::{} for {} {{ }}
 impl ::qapi_spec::Command for {} {{
     const NAME: &'static str = \"{}\";
     const ALLOW_OOB: bool = {};
 
-    type Ok = ", type_identifier(&v.id), v.id, v.allow_oob)?;
+    type Ok = ", self.command_trait, type_id, type_id, v.id, v.allow_oob)?;
                 if let Some(ret) = v.returns {
                     writeln!(self.out, "{};", typename(&ret))
                 } else {
@@ -462,10 +466,10 @@ fn include<W: Write>(context: &mut Context<W>, repo: &mut QemuFileRepo, path: &s
     Ok(())
 }
 
-pub fn codegen<S: AsRef<Path>, O: AsRef<Path>>(schema_path: S, out_path: O) -> io::Result<HashSet<PathBuf>> {
+pub fn codegen<S: AsRef<Path>, O: AsRef<Path>>(schema_path: S, out_path: O, command_trait: String) -> io::Result<HashSet<PathBuf>> {
     let mut repo = QemuFileRepo::new(schema_path.as_ref());
     {
-        let mut context = Context::new(File::create(out_path)?);
+        let mut context = Context::new(File::create(out_path)?, command_trait);
         include(&mut context, &mut repo, "qapi-schema.json")?;
         context.process_unions()?;
         context.process_structs()?;
