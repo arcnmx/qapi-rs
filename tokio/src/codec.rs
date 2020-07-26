@@ -1,172 +1,82 @@
 use std::{io, str};
+use std::marker::PhantomData;
 use tokio_util::codec::{Encoder, Decoder, LinesCodec as Codec, LinesCodecError};
 use bytes::{BytesMut, BufMut};
+use serde::{de::DeserializeOwned, Serialize};
 use log::trace;
 
-#[derive(Default)]
-pub struct LinesCodec(Codec);
-
-fn map(err: LinesCodecError) -> io::Error {
-    match err {
-        LinesCodecError::Io(e) => e,
-        LinesCodecError::MaxLineLengthExceeded =>
-            io::Error::new(io::ErrorKind::InvalidInput, "max line length exceeded"),
-    }
+pub struct JsonLinesCodec<D> {
+    next_index: usize,
+    _decoder: PhantomData<fn() -> D>,
 }
 
-impl LinesCodec {
+impl<D> JsonLinesCodec<D> {
     pub fn new() -> Self {
-        Self(Codec::new())
+        Self {
+            next_index: 0,
+            _decoder: PhantomData,
+        }
     }
 }
 
-impl Decoder for LinesCodec {
-    type Item = String;
+impl<D: DeserializeOwned> Decoder for JsonLinesCodec<D> {
+    type Item = D;
     type Error = io::Error;
 
     fn decode(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
-        self.0.decode(buf)
-            .map_err(map)
-    }
+        // TODO: memchr
+        let offset = buf[self.next_index..]
+            .iter()
+            .position(|b| *b == b'\n');
 
-    fn decode_eof(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
-        self.0.decode_eof(buf)
-            .map_err(map)
-    }
-}
-
-impl<S: AsRef<str>> Encoder<S> for LinesCodec {
-    type Error = io::Error;
-
-    fn encode(&mut self, item: S, into: &mut BytesMut) -> Result<(), Self::Error> {
-        self.0.encode(item, into)
-            .map_err(map)
-    }
-}
-
-/*impl Decoder for LineCodec {
-    type Item = BytesMut;
-    type Error = io::Error;
-
-    fn decode(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
-        trace!("LineCodec::decode(): {}", str::from_utf8(buf).unwrap_or("utf8 decode failed"));
-        match buf.iter().position(|&b| b == b'\n') {
-            Some(i) => {
-                let line = buf.split_to(i + 1);
-                Ok(Some(line))
+        match offset {
+            Some(offset) => {
+                let index = offset + self.next_index;
+                self.next_index = 0;
+                let line = buf.split_to(index + 1);
+                serde_json::from_slice(&line)
+                    .map_err(From::from)
+                    .map(Some)
             },
-            None => Ok(None),
+            None => {
+                self.next_index = buf.len();
+                Ok(None)
+            },
         }
     }
 
     fn decode_eof(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
-        if buf.len() == 0 {
+        if buf.is_empty() {
             Ok(None)
         } else {
-            let amt = buf.len();
-            let line = buf.split_to(amt);
-            Ok(Some(line))
+            serde_json::from_slice(buf)
+                .map_err(From::from)
+                .map(Some)
         }
     }
 }
 
-impl Encoder for LineCodec {
-    type Item = Box<[u8]>;
-    type Error = io::Error;
-
-    fn encode(&mut self, item: Self::Item, into: &mut BytesMut) -> Result<(), Self::Error> {
-        into.reserve(item.len());
-        into.put(&item[..]);
-
-        Ok(())
-    }
-}*/
-
-/* revisit...
-use std::marker::PhantomData;
-use serde::de::DeserializeOwned;
-use serde::Serialize;
-use serde_json;
-pub struct JsonCodec<C> {
-    _marker: PhantomData<fn(C) -> C>,
-    lines: LineCodec,
+struct BytesWriter<'a> {
+    bytes: &'a mut BytesMut,
 }
 
-impl<C> Default for JsonCodec<C> {
-    fn default() -> Self {
-        JsonCodec {
-            _marker: Default::default(),
-            lines: Default::default(),
-        }
-    }
-}
-
-impl<C: DeserializeOwned> Decoder for JsonCodec<C> {
-    type Item = C;
-    type Error = io::Error;
-
-    fn decode(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
-        self.lines.decode(buf).and_then(|line| match line {
-            Some(line) => serde_json::from_slice(&line).map_err(io::Error::from).map(Some),
-            None => Ok(None),
-        })
+impl<'a> io::Write for BytesWriter<'a> {
+    fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
+        self.bytes.put(buf);
+        Ok(buf.len())
     }
 
-    fn decode_eof(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
-        self.lines.decode_eof(buf).and_then(|line| match line {
-            Some(line) => serde_json::from_slice(&line).map_err(io::Error::from).map(Some),
-            None => Ok(None),
-        })
-    }
-}
-
-impl<C: Serialize> Encoder for JsonCodec<C> {
-    type Item = C;
-    type Error = io::Error;
-
-    fn encode(&mut self, item: Self::Item, into: &mut BytesMut) -> Result<(), Self::Error> {
-        serde_json::to_writer(into.writer(), &item)?;
-
-        into.reserve(1);
-        into.put_u8(b'\n');
-
+    fn flush(&mut self) -> io::Result<()> {
         Ok(())
     }
 }
 
-pub struct Codec<D, E> {
-    decoder: D,
-    encoder: E,
-}
+impl<T, S: Serialize> Encoder<S> for JsonLinesCodec<T> {
+    type Error = io::Error;
 
-impl<D, E> Codec<D, E> {
-    pub fn new(decoder: D, encoder: E) -> Self {
-        Codec {
-            decoder: decoder,
-            encoder: encoder,
-        }
+    fn encode(&mut self, item: S, bytes: &mut BytesMut) -> Result<(), Self::Error> {
+        serde_json::to_writer(BytesWriter { bytes }, &item)?;
+        bytes.put_u8(b'\n');
+        Ok(())
     }
 }
-
-impl<D, E: Encoder> Encoder for Codec<D, E> {
-    type Item = E::Item;
-    type Error = E::Error;
-
-    fn encode(&mut self, item: Self::Item, into: &mut BytesMut) -> Result<(), Self::Error> {
-        self.encoder.encode(item, into)
-    }
-}
-
-impl<D: Decoder, E> Decoder for Codec<D, E> {
-    type Item = D::Item;
-    type Error = D::Error;
-
-    fn decode(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
-        self.decoder.decode(buf)
-    }
-
-    fn decode_eof(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
-        self.decoder.decode_eof(buf)
-    }
-}
-*/

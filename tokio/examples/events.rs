@@ -15,10 +15,11 @@ mod main {
 
         rt.block_on(async {
             let socket = tokio::net::UnixStream::connect(socket_addr).await?;
-            let (caps, _stream, events) = tokio_qapi::QapiStream::open_tokio(socket).await?;
-            println!("{:#?}", caps);
+            let stream = tokio_qapi::QmpStream::open(socket).await?;
+            println!("{:#?}", stream.capabilities);
+            let stream = stream.negotiate().await?;
+            let (_, mut events) = stream.into_parts();
 
-            let mut events = events.into_stream().boxed();
             while let Some(event) = events.next().await {
                 println!("Got event {:#?}", event?);
             }

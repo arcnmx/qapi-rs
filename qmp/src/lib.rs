@@ -1,7 +1,8 @@
 #![allow(non_snake_case, non_camel_case_types)]
 #![doc(html_root_url = "http://docs.rs/qapi-qmp/0.5.0")]
 
-use std::string;
+use std::{io, string};
+use std::convert::TryFrom;
 use serde::{Deserialize, Serialize};
 
 include!(concat!(env!("OUT_DIR"), "/qmp.rs"));
@@ -15,6 +16,18 @@ pub trait QmpCommand: qapi_spec::Command { }
 pub enum QmpMessage<C> {
     Event(Event),
     Response(qapi_spec::Response<C>),
+}
+
+impl<C> TryFrom<QmpMessage<C>> for qapi_spec::Response<C> {
+    type Error = io::Error;
+
+    fn try_from(m: QmpMessage<C>) -> Result<Self, Self::Error> {
+        match m {
+            QmpMessage::Response(res) => Ok(res),
+            QmpMessage::Event(..) =>
+                Err(io::Error::new(io::ErrorKind::InvalidData, "QMP event where a response was expected")),
+        }
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -44,11 +57,11 @@ impl QapiCapabilities {
         })
     }
 
-    pub fn capabilities(&self) -> Vec<QMPCapability> {
+    pub fn capabilities<'a>(&'a self) -> impl Iterator<Item=QMPCapability> + 'a {
         self.QMP.capabilities.iter().filter_map(|c| match c {
             QmpCapability::OutOfBand => Some(QMPCapability::oob),
             QmpCapability::Unknown(..) => None,
-        }).collect()
+        })
     }
 }
 
