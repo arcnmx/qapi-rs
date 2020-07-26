@@ -1,7 +1,8 @@
 #![doc(html_root_url = "http://docs.rs/qapi-spec/0.2.2")]
 
 use std::{io, error, fmt, str};
-use serde::{Serialize, Serializer, Deserialize};
+use std::marker::PhantomData;
+use serde::{Serialize, Serializer, Deserialize, Deserializer};
 use serde::de::DeserializeOwned;
 
 pub use serde_json::Value as Any;
@@ -9,6 +10,22 @@ pub type Dictionary = serde_json::Map<String, Any>;
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
 pub struct Empty { }
+
+pub enum Never { }
+
+impl Serialize for Never {
+    fn serialize<S: Serializer>(&self, _: S) -> Result<S::Ok, S::Error> {
+        match *self { }
+    }
+}
+
+impl<'de> Deserialize<'de> for Never {
+    fn deserialize<D: Deserializer<'de>>(_: D) -> Result<Self, D::Error> {
+        use serde::de::Error;
+
+        Err(D::Error::custom("Cannot instantiate Never type"))
+    }
+}
 
 #[doc(hidden)]
 pub mod base64 {
@@ -147,7 +164,7 @@ impl<C> Response<C> {
     }
 }
 
-pub trait Command: Serialize {
+pub trait Command: Serialize + Sync + Send {
     type Ok: DeserializeOwned;
 
     const NAME: &'static str;
@@ -225,6 +242,71 @@ pub struct Error {
     pub id: Option<Any>,
 }
 
+pub type CommandResult<C> = Result<<C as Command>::Ok, Error>;
+
+fn serialize_command_name<C: Command, S: Serializer>(_: &PhantomData<&'static str>, s: S) -> Result<S::Ok, S::Error> {
+    C::NAME.serialize(s)
+}
+
+#[derive(Serialize)]
+pub struct Execute<C, I = Never> {
+    #[serde(serialize_with = "serialize_command_name::<C, _>", bound = "C: Command")]
+    pub execute: PhantomData<&'static str>,
+    pub arguments: C,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<I>,
+}
+
+#[derive(Serialize)]
+pub struct ExecuteOob<C, I = Any> {
+    #[serde(rename = "exec-oob", serialize_with = "serialize_command_name::<C, _>", bound = "C: Command")]
+    pub execute_oob: PhantomData<&'static str>,
+    pub arguments: C,
+    pub id: I,
+}
+
+impl<C: Command, I> Execute<C, I> {
+    pub fn new(arguments: C, id: Option<I>) -> Self {
+        Self {
+            execute: PhantomData,
+            arguments,
+            id,
+        }
+    }
+
+    pub fn with_command(arguments: C) -> Self {
+        Self {
+            execute: PhantomData,
+            arguments,
+            id: None,
+        }
+    }
+
+    pub fn with_id(arguments: C, id: I) -> Self {
+        Self {
+            execute: PhantomData,
+            arguments,
+            id: Some(id),
+        }
+    }
+}
+
+impl<C: Command, I> From<C> for Execute<C, I> {
+    fn from(command: C) -> Self {
+        Self::with_command(command)
+    }
+}
+
+impl<C: Command, I> ExecuteOob<C, I> {
+    pub fn new(arguments: C, id: I) -> Self {
+        Self {
+            execute_oob: PhantomData,
+            arguments,
+            id,
+        }
+    }
+}
+
 impl error::Error for Error {
     fn description(&self) -> &str {
         &self.desc
@@ -247,49 +329,4 @@ impl From<Error> for io::Error {
 pub struct Timestamp {
     seconds: u64,
     microseconds: u64,
-}
-
-#[derive(Debug, Clone)]
-pub struct CommandSerializerRef<'a, C: 'a, I> {
-    data: &'a C,
-    id: Option<I>,
-    control: Option<Any>,
-    oob: bool,
-}
-
-impl<'a, C> CommandSerializerRef<'a, C, ()> {
-    pub fn new(data: &'a C, oob: bool) -> Self {
-        CommandSerializerRef { data, oob, id: None, control: None }
-    }
-}
-
-impl<'a, C, I> CommandSerializerRef<'a, C, I> {
-    pub fn with_id(data: &'a C, id: I, oob: bool) -> Self {
-        CommandSerializerRef { data, oob, id: Some(id), control: None }
-    }
-}
-
-impl<C: Command, I: Serialize> Serialize for CommandSerializerRef<'_, C, I> {
-    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
-        #[derive(Serialize)]
-        struct QapiCommand<'a, C: 'a, I: 'a> {
-            #[serde(skip_serializing_if = "Option::is_none")]
-            execute: Option<&'static str>,
-            #[serde(rename = "exec-oob", skip_serializing_if = "Option::is_none")]
-            execute_oob: Option<&'static str>,
-            arguments: &'a C,
-            #[serde(skip_serializing_if = "Option::is_none")]
-            id: Option<&'a I>,
-            #[serde(skip_serializing_if = "Option::is_none")]
-            control: Option<&'a Any>,
-        }
-
-        QapiCommand {
-            execute: if self.oob { None } else { Some(C::NAME) },
-            execute_oob: if self.oob { Some(C::NAME) } else { None },
-            arguments: self.data,
-            id: self.id.as_ref(),
-            control: self.control.as_ref(),
-        }.serialize(serializer)
-    }
 }

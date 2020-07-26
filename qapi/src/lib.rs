@@ -21,19 +21,19 @@ mod qapi {
     use serde_json;
     use serde::{Serialize, Deserialize};
     use std::io::{self, BufRead, Write};
-    use qapi_spec::{self, Command};
+    use qapi_spec::{self, Command, Execute};
     use log::trace;
 
     pub struct Qapi<S> {
         pub stream: S,
-        pub buffer: String,
+        pub buffer: Vec<u8>,
     }
 
     impl<S> Qapi<S> {
         pub fn new(s: S) -> Self {
             Qapi {
                 stream: s,
-                buffer: String::new(),
+                buffer: Default::default(),
             }
         }
     }
@@ -41,29 +41,36 @@ mod qapi {
     impl<S: BufRead> Qapi<S> {
         pub fn decode_line<'de, D: Deserialize<'de>>(&'de mut self) -> io::Result<Option<D>> {
             self.buffer.clear();
-            let line = self.stream.read_line(&mut self.buffer)?;
-            trace!("<- {}", self.buffer);
+            let line = self.stream.read_until(b'\n', &mut self.buffer)?;
+            let line = &self.buffer[..line];
+            trace!("<- {}", String::from_utf8_lossy(line));
 
-            if line == 0 {
+            if line.is_empty() {
                 Ok(None)
             } else {
-                serde_json::from_str(&self.buffer).map(Some).map_err(From::from)
+                serde_json::from_slice(line).map(Some).map_err(From::from)
             }
         }
     }
 
     impl<S: Write> Qapi<S> {
-        pub fn write_command<C: Command>(&mut self, command: &C) -> io::Result<()> {
+        pub fn encode_line<C: Serialize>(&mut self, command: &C) -> io::Result<()> {
             {
                 let mut ser = serde_json::Serializer::new(&mut self.stream);
-                qapi_spec::CommandSerializerRef::new(command, false).serialize(&mut ser)?;
-
-                trace!("-> execute {}: {}", C::NAME, serde_json::to_string_pretty(command).unwrap());
+                command.serialize(&mut ser)?;
             }
 
             self.stream.write(&[b'\n'])?;
 
             self.stream.flush()
+        }
+
+        pub fn write_command<C: Command>(&mut self, command: &C) -> io::Result<()> {
+            self.encode_line(&Execute::<&C>::from(command))?;
+
+            trace!("-> execute {}: {}", C::NAME, serde_json::to_string_pretty(command).unwrap());
+
+            Ok(())
         }
     }
 }
@@ -79,8 +86,8 @@ mod stream {
     impl<R, W> Stream<R, W> {
         pub fn new(r: R, w: W) -> Self {
             Stream {
-                r: r,
-                w: w,
+                r,
+                w,
             }
         }
 
