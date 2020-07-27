@@ -6,7 +6,7 @@ pub use qapi_qmp as qmp;
 #[cfg(feature = "qapi-qga")]
 pub use qapi_qga as qga;
 
-pub use qapi_spec::{Any, Dictionary, Empty, Command, Event, Error, ErrorClass, Timestamp};
+pub use qapi_spec::{Any, Dictionary, Empty, Never, Execute, ExecuteOob, Command, CommandResult, Event, Enum, Error, ErrorClass, Timestamp};
 
 pub use self::stream::Stream;
 
@@ -16,12 +16,64 @@ pub use self::qmp_impl::*;
 #[cfg(feature = "qapi-qga")]
 pub use self::qga_impl::*;
 
+use std::{error, fmt, io};
+
+#[cfg(feature = "async")]
+pub mod futures;
+
+#[derive(Debug)]
+pub enum ExecuteError {
+    Qapi(Error),
+    Io(io::Error),
+}
+
+pub type ExecuteResult<C> = Result<<C as Command>::Ok, ExecuteError>;
+
+impl fmt::Display for ExecuteError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            ExecuteError::Qapi(e) => fmt::Display::fmt(e, f),
+            ExecuteError::Io(e) => fmt::Display::fmt(e, f),
+        }
+    }
+}
+
+impl error::Error for ExecuteError {
+    fn source(&self) -> Option<&(dyn error::Error + 'static)> {
+        match self {
+            ExecuteError::Qapi(e) => Some(e),
+            ExecuteError::Io(e) => Some(e),
+        }
+    }
+}
+
+impl From<io::Error> for ExecuteError {
+    fn from(e: io::Error) -> Self {
+        ExecuteError::Io(e)
+    }
+}
+
+impl From<Error> for ExecuteError {
+    fn from(e: Error) -> Self {
+        ExecuteError::Qapi(e)
+    }
+}
+
+impl From<ExecuteError> for io::Error {
+    fn from(e: ExecuteError) -> Self {
+        match e {
+            ExecuteError::Qapi(e) => e.into(),
+            ExecuteError::Io(e) => e,
+        }
+    }
+}
+
 #[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 mod qapi {
     use serde_json;
     use serde::{Serialize, Deserialize};
     use std::io::{self, BufRead, Write};
-    use qapi_spec::{self, Command, Execute};
+    use crate::{Command, Execute};
     use log::trace;
 
     pub struct Qapi<S> {
@@ -132,9 +184,8 @@ mod stream {
 mod qmp_impl {
     use std::io::{self, BufRead, Read, Write, BufReader};
     use std::vec::Drain;
-    use qapi_spec::{Error, Command};
     use qapi_qmp::{QMP, QapiCapabilities, QmpMessage, Event, qmp_capabilities, query_version};
-    use crate::{qapi::Qapi, Stream};
+    use crate::{qapi::Qapi, Stream, ExecuteResult, ExecuteError, Command};
 
     pub struct Qmp<S> {
         inner: Qapi<S>,
@@ -179,11 +230,11 @@ mod qmp_impl {
             )
         }
 
-        pub fn read_response<C: Command>(&mut self) -> io::Result<Result<C::Ok, Error>> {
+        pub fn read_response<C: Command>(&mut self) -> ExecuteResult<C> {
             loop {
                 match self.inner.decode_line()? {
-                    None => return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response")),
-                    Some(QmpMessage::Response(res)) => return Ok(res.result()),
+                    None => return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response").into()),
+                    Some(QmpMessage::Response(res)) => return res.result().map_err(From::from),
                     Some(QmpMessage::Event(e)) => self.event_queue.push(e),
                 }
             }
@@ -195,22 +246,21 @@ mod qmp_impl {
             self.inner.write_command(command)
         }
 
-        pub fn execute<C: Command>(&mut self, command: &C) -> io::Result<Result<C::Ok, Error>> {
+        pub fn execute<C: Command>(&mut self, command: &C) -> ExecuteResult<C> {
             self.write_command(command)?;
             self.read_response::<C>()
         }
 
-        pub fn handshake(&mut self) -> io::Result<QMP> {
+        pub fn handshake(&mut self) -> Result<QMP, ExecuteError> {
             let caps = self.read_capabilities()?;
             self.execute(&qmp_capabilities { enable: None })
-                .and_then(|v| v.map_err(From::from))
                 .map(|_| caps)
         }
 
         /// Can be used to poll the socket for pending events
         pub fn nop(&mut self) -> io::Result<()> {
             self.execute(&query_version { })
-                .and_then(|v| v.map_err(From::from))
+                .map_err(From::from)
                 .map(drop)
         }
     }
@@ -219,9 +269,9 @@ mod qmp_impl {
 #[cfg(feature = "qapi-qga")]
 mod qga_impl {
     use std::io::{self, BufRead, Read, Write, BufReader};
-    use qapi_spec::{Error, Response, Command};
     use qapi_qga::guest_sync;
-    use crate::{qapi::Qapi, Stream};
+    use qapi_spec::Response;
+    use crate::{qapi::Qapi, Stream, Command, ExecuteResult, ExecuteError};
 
     pub struct Qga<S> {
         inner: Qapi<S>,
@@ -254,12 +304,12 @@ mod qga_impl {
     }
 
     impl<S: BufRead> Qga<S> {
-        pub fn read_response<C: Command>(&mut self) -> io::Result<Result<C::Ok, Error>> {
+        pub fn read_response<C: Command>(&mut self) -> ExecuteResult<C> {
             loop {
                 match self.inner.decode_line()?.map(|r: Response<_>| r.result()) {
-                    None => return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response")),
-                    Some(Ok(res)) => return Ok(Ok(res)),
-                    Some(Err(e)) => return Ok(Err(e)),
+                    None => return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response").into()),
+                    Some(Ok(res)) => return Ok(res),
+                    Some(Err(e)) => return Err(e.into()),
                 }
             }
         }
@@ -270,19 +320,19 @@ mod qga_impl {
             self.inner.write_command(command)
         }
 
-        pub fn execute<C: Command>(&mut self, command: &C) -> io::Result<Result<C::Ok, Error>> {
+        pub fn execute<C: Command>(&mut self, command: &C) -> ExecuteResult<C> {
             self.write_command(command)?;
             self.read_response::<C>()
         }
 
-        pub fn handshake(&mut self) -> io::Result<()> {
+        pub fn guest_sync(&mut self, id: isize) -> Result<(), ExecuteError> {
             let sync = guest_sync {
-                id: self as *mut _ as usize as _, // TODO: need better source of random id than a pointer...
+                id,
             };
 
-            match self.execute(&sync)? {
+            match self.execute(&sync) {
                 Ok(r) if r == sync.id => Ok(()),
-                Ok(..) => Err(io::Error::new(io::ErrorKind::InvalidData, "guest-sync handshake failed")),
+                Ok(..) => Err(io::Error::new(io::ErrorKind::InvalidData, "guest-sync handshake failed").into()),
                 Err(e) => Err(e.into()),
             }
         }
