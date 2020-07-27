@@ -47,7 +47,9 @@ impl<R, W> QapiStream<R, W> {
     }
 
     #[cfg(feature = "async-tokio-spawn")]
-    pub fn spawn_tokio(self) -> (QapiService<W>, ::tokio::task::JoinHandle<()>) where QapiEvents<R>: Future<Output=io::Result<()>> + Send + 'static {
+    pub fn spawn_tokio(self) -> (QapiService<W>, ::tokio::task::JoinHandle<()>) where
+        QapiEvents<R>: Future<Output=io::Result<()>> + Send + 'static,
+    {
         let handle = self.events.spawn_tokio();
         (self.service, handle)
     }
@@ -276,18 +278,24 @@ pub struct QapiEvents<S> {
 }
 
 impl<S> QapiEvents<S> {
+    pub fn release(&self) -> Result<(), ()> {
+        let commands = self.shared.commands.lock().unwrap();
+        if commands.abandoned {
+            info!("QAPI service abandoned before spawning");
+            drop(commands);
+            drop(self);
+            Err(())
+        } else {
+            self.shared.abandoned.store(true, Ordering::Relaxed);
+            Ok(())
+        }
+    }
+
     pub async fn into_future(self) -> () where
         Self: Future<Output=io::Result<()>>,
     {
-        {
-            let commands = self.shared.commands.lock().unwrap();
-            if commands.abandoned {
-                info!("QAPI service abandoned before spawning");
-                drop(commands);
-                drop(self);
-                return
-            }
-            self.shared.abandoned.store(true, Ordering::Relaxed);
+        if self.release().is_err() {
+            return
         }
 
         match self.await {
