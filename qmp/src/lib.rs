@@ -10,6 +10,8 @@ include!(concat!(env!("OUT_DIR"), "/qmp.rs"));
 pub type QmpMessageAny = QmpMessage<qapi_spec::Any>;
 
 pub trait QmpCommand: qapi_spec::Command { }
+impl<'a, T: QmpCommand> QmpCommand for &'a T { }
+impl<'a, T: QmpCommand> QmpCommand for &'a mut T { }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
