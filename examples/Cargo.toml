@@ -1,0 +1,11 @@
+[package]
+name = "qapi-examples"
+version = "0.0.0"
+authors = ["arcnmx"]
+edition = "2018"
+
+[dependencies]
+qapi = { version = "^0.4.0", path = "../qapi", features = ["qmp", "qga", "async-tokio-all"] }
+tokio = { version = "^0.2.0", default-features = false, features = ["macros", "rt-threaded"] }
+futures = "^0.3.5"
+env_logger = "^0.6.0"

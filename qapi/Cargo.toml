@@ -20,17 +20,29 @@ travis-ci = { repository = "arcnmx/qapi-rs" }
 maintenance = { status = "passively-maintained" }
 
 [dependencies]
+log = "^0.4.6"
 serde = "^1.0.27"
 serde_json = "^1.0.9"
-qapi-spec = { version = "^0.2.0", path = "../spec" }
 
-log = { version = "^0.4.6", optional = true }
+tokio = { version = "^0.2.0", default-features = false, features = ["io-util"], optional = true }
+tower-service = { version = "^0.3.0", optional = true }
+tokio-util = { version = "^0.3.1", features = ["codec"], optional = true }
+futures = { version = "^0.3.5", optional = true }
+futures_codec = { version = "^0.4.1", optional = true }
+memchr = { version = "^2.3.3", optional = true }
+bytes = { version = "^0.5.0", optional = true }
+
+qapi-spec = { version = "^0.2.0", path = "../spec" }
 qapi-qga = { version = "^0.4.0", path = "../qga", optional = true }
 qapi-qmp = { version = "^0.4.0", path = "../qmp", optional = true }
 
 [features]
-qga = ["qapi-qga", "log"]
-qmp = ["qapi-qmp", "log"]
-
-[dev-dependencies]
-env_logger = "^0.6.0"
+qga = ["qapi-qga"]
+qmp = ["qapi-qmp"]
+async = ["futures"]
+async-io = ["async", "futures_codec", "bytes", "memchr"]
+async-tokio = ["async", "tokio", "tokio-util", "bytes", "memchr"]
+async-tokio-uds = ["async-tokio", "tokio/uds"]
+async-tokio-spawn = ["async-tokio", "tokio/rt-core"]
+async-tokio-all = ["async-tokio-uds", "async-tokio-spawn"]
+async-tower = ["async", "tower-service"]
