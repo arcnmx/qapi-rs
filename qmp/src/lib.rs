@@ -1,7 +1,9 @@
 #![allow(non_snake_case, non_camel_case_types)]
 #![doc(html_root_url = "http://docs.rs/qapi-qmp/0.5.0")]
+#![allow(deprecated)]
 
-use std::{io, string};
+use std::io;
+use std::string::String as StdString;
 use std::convert::TryFrom;
 use serde::{Deserialize, Serialize};
 
@@ -68,17 +70,23 @@ impl QapiCapabilities {
 }
 
 impl device_add {
-    pub fn new<P: IntoIterator<Item=(string::String, qapi_spec::Any)>>(driver: string::String, id: Option<string::String>, bus: Option<string::String>, props: P) -> Self {
-        let mut dict = qapi_spec::Dictionary::default();
-        dict.insert("driver".into(), qapi_spec::Any::String(driver));
-        if let Some(id) = id {
-            dict.insert("id".into(), qapi_spec::Any::String(id));
+    pub fn new<D: Into<StdString>, I: Into<Option<StdString>>, B: Into<Option<StdString>>, P: IntoIterator<Item=(StdString, qapi_spec::Any)>>(driver: D, id: I, bus: B, props: P) -> Self {
+        device_add {
+            driver: driver.into(),
+            id: id.into(),
+            bus: bus.into(),
+            arguments: props.into_iter().collect(),
         }
-        if let Some(bus) = bus {
-            dict.insert("bus".into(), qapi_spec::Any::String(bus));
-        }
-        dict.extend(props);
+    }
+}
 
-        device_add(dict)
+impl object_add {
+    pub fn new<T: Into<StdString>, I: Into<StdString>, P: IntoIterator<Item=(StdString, qapi_spec::Any)>>(qom_type: T, id: I, props: P) -> Self {
+        object_add {
+            qom_type: qom_type.into(),
+            id: id.into(),
+            props: Default::default(), // deprecated as of 5.0, use `arguments` instead
+            arguments: props.into_iter().collect(),
+        }
     }
 }

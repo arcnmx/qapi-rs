@@ -1,4 +1,4 @@
-#![doc(html_root_url = "http://docs.rs/qapi-parser/0.4.0")]
+#![doc(html_root_url = "http://docs.rs/qapi-parser/0.5.0")]
 
 pub mod spec {
     use std::collections::HashMap;
@@ -61,10 +61,53 @@ pub mod spec {
             };
 
             Value {
-                name: name,
-                ty: ty,
+                name,
+                ty,
                 optional: opt,
             }
+        }
+    }
+
+    #[derive(Debug, Copy, Clone, PartialEq, Eq, Deserialize)]
+    #[serde(rename_all = "kebab-case")]
+    pub enum Feature {
+        Deprecated,
+        // what are these?
+        AllowWriteOnlyOverlay,
+        DynamicAutoReadOnly,
+        SavevmMonitorNodes,
+    }
+
+    #[derive(Debug, Clone, PartialEq, Eq, Deserialize)]
+    #[serde(untagged)]
+    pub enum ConditionalFeature {
+        Feature(Feature),
+        Conditional {
+            name: Feature,
+            #[serde(default)]
+            conditional: Option<Conditional>,
+        },
+    }
+
+    impl PartialEq<Feature> for ConditionalFeature {
+        fn eq(&self, rhs: &Feature) -> bool {
+            match self {
+                ConditionalFeature::Feature(name) => name == rhs,
+                ConditionalFeature::Conditional { name, .. } => name == rhs,
+            }
+        }
+    }
+
+    #[derive(Debug, Default, Clone, PartialEq, Eq, Deserialize)]
+    #[serde(transparent)]
+    pub struct Features {
+        // TODO: make this a set instead?
+        pub features: Vec<ConditionalFeature>,
+    }
+
+    impl Features {
+        pub fn is_deprecated(&self) -> bool {
+            self.features.iter().any(|f| f == &Feature::Deprecated)
         }
     }
 
@@ -73,6 +116,7 @@ pub mod spec {
         pub name: String,
         pub is_array: bool,
         pub conditional: Option<Conditional>,
+        pub features: Features,
     }
 
     impl fmt::Debug for Type {
@@ -107,6 +151,7 @@ pub mod spec {
                         name: v.into(),
                         is_array: false,
                         conditional: None,
+                        features: Default::default(),
                     })
                 }
 
@@ -115,13 +160,16 @@ pub mod spec {
                     struct ConditionalType {
                         #[serde(rename = "type")]
                         ty: Type,
-                        #[serde(rename = "if")]
-                        conditional: Conditional,
+                        #[serde(default, rename = "if")]
+                        conditional: Option<Conditional>,
+                        #[serde(default)]
+                        features: Features,
                     }
 
                     let ty = ConditionalType::deserialize(MapAccessDeserializer::new(map))?;
                     Ok(Type {
-                        conditional: Some(ty.conditional),
+                        conditional: ty.conditional,
+                        features: ty.features,
                         .. ty.ty
                     })
                 }
@@ -131,6 +179,7 @@ pub mod spec {
                         name: v,
                         is_array: false,
                         conditional: None,
+                        features: Default::default(),
                     })
                 }
 
@@ -142,6 +191,7 @@ pub mod spec {
                                 name: v,
                                 is_array: true,
                                 conditional: None,
+                                features: Default::default(),
                             })
                         } else {
                             Err(A::Error::invalid_length(2, &"single array item"))
@@ -177,6 +227,14 @@ pub mod spec {
         pub conditional: Option<Conditional>,
         #[serde(default)]
         pub allow_oob: bool,
+        #[serde(default)]
+        pub features: Features,
+        #[serde(default = "Command::gen_default")]
+        pub gen: bool,
+    }
+
+    impl Command {
+        fn gen_default() -> bool { true }
     }
 
     #[derive(Debug, Clone, Deserialize)]
@@ -190,6 +248,8 @@ pub mod spec {
         pub base: DataOrType,
         #[serde(default, rename = "if")]
         pub conditional: Option<Conditional>,
+        #[serde(default)]
+        pub features: Features,
     }
 
     #[derive(Debug, Clone, Deserialize)]
@@ -401,7 +461,7 @@ impl<'a, R: QemuRepo + ?Sized + 'a> QemuRepoContext<'a, R> {
 
         (
             QemuRepoContext {
-                repo: repo,
+                repo,
             },
             include_path,
         )

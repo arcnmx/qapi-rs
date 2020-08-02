@@ -1,4 +1,4 @@
-#![doc(html_root_url = "http://docs.rs/qapi-codegen/0.4.0")]
+#![doc(html_root_url = "http://docs.rs/qapi-codegen/0.5.0")]
 
 use qapi_parser::{Parser, QemuFileRepo, QemuRepo, spec};
 use qapi_parser::spec::Spec;
@@ -47,6 +47,14 @@ fn typename_s(ty: &str) -> String {
         "int" => "isize".into(), // ???
         ty => ty.into(),
     }
+}
+
+fn type_attrs(ty: &spec::Type) -> String {
+    feature_attrs(&ty.features)
+}
+
+fn feature_attrs(ty: &spec::Features) -> String {
+    if ty.is_deprecated() { " #[deprecated]".into() } else { String::new() }
 }
 
 fn typename(ty: &spec::Type) -> String {
@@ -109,9 +117,10 @@ fn valuety(value: &spec::Value, pubvis: bool, super_name: &str) -> String {
         (attr.into(), ty)
     };
 
-    format!("#[serde(rename = \"{}\"{})]\n{}{}: {}",
+    format!("#[serde(rename = \"{}\"{})]{}\n{}{}: {}",
         value.name,
         attr,
+        type_attrs(&value.ty),
         if pubvis { "pub " } else { "" },
         identifier(&value.name),
         ty
@@ -152,24 +161,26 @@ impl<W: Write> Context<W> {
                 let type_id = type_identifier(&v.id);
                 match v.data {
                     spec::DataOrType::Type(ref ty) if type_identifier(&ty.name) == type_id => (),
-                    _ => {
+                    ty => {
                         write!(self.out, "
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct {}", type_id)?;
-                        match v.data {
+#[derive(Debug, Clone, Serialize, Deserialize)]{}
+pub struct {}", feature_attrs(&v.features), type_id)?;
+                        match ty {
                             spec::DataOrType::Data(ref data) => {
-                                if v.id == "device_add" || v.id == "netdev_add" {
-                                    writeln!(self.out, "(pub ::qapi_spec::Dictionary);")?;
-                                } else {
-                                    writeln!(self.out, " {{")?;
-                                    for data in &data.fields {
-                                        writeln!(self.out, "\t{},", valuety(&data, true, &v.id))?;
-                                    }
-                                    writeln!(self.out, "}}")?;
+                                writeln!(self.out, " {{")?;
+                                for data in &data.fields {
+                                    writeln!(self.out, "\t{},", valuety(&data, true, &v.id))?;
                                 }
+                                if !v.gen {
+                                    writeln!(self.out, "
+    #[serde(flatten)]
+    pub arguments: ::qapi_spec::Dictionary,
+")?;
+                                }
+                                writeln!(self.out, "}}")?;
                             },
                             spec::DataOrType::Type(ref ty) => {
-                                writeln!(self.out, "(pub {});", type_identifier(&ty.name))?;
+                                writeln!(self.out, "({}pub {});", type_attrs(ty), type_identifier(&ty.name))?;
                             },
                         }
                     },
@@ -298,9 +309,9 @@ pub enum {} {{
 
         for v in self.types.values() {
             write!(self.out, "
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]{}
 pub struct {} {{
-", type_identifier(&v.id))?;
+", feature_attrs(&v.features), type_identifier(&v.id))?;
             match v.base {
                 spec::DataOrType::Data(ref data) => for base in &data.fields {
                     writeln!(self.out, "{},", valuety(base, true, &v.id))?;
