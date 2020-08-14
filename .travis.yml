@@ -1,6 +1,6 @@
 language: rust
 rust:
-#- stable
+- stable
 #- beta
 - nightly
 sudo: false
@@ -10,16 +10,17 @@ cache:
   directories:
   - "$HOME/.cargo"
   - target
-#matrix:
-#  fast_finish: true
-#  allow_failures:
-#  - rust: nightly
+matrix:
+  fast_finish: true
+  allow_failures:
+  - rust: nightly
 env:
   matrix:
   - CARGO_FEATURES=
   - CARGO_FEATURES=qmp
   - CARGO_FEATURES=qga
-  - CARGO_FEATURES="qga qmp"
+  - CARGO_FEATURES=qga,qmp
+  - CARGO_FEATURES=qga,qmp,async-tokio-all
   global:
   - CARGO_QUIET=
   - CARGO_INCREMENTAL=0
@@ -31,9 +32,6 @@ script:
 - cd $TRAVIS_BUILD_DIR/qapi
 - cargo test -p qapi
 - cargo build -p qapi
-- cd $TRAVIS_BUILD_DIR/tokio
-- cargo test -p tokio-qapi
-- cargo build -p tokio-qapi
 - cd $TRAVIS_BUILD_DIR/parser
 - CARGO_FEATURES= cargo test -p qapi-parser
 - CARGO_FEATURES= cargo build -p qapi-parser
@@ -55,6 +53,11 @@ script:
     CARGO_FEATURES= cargo test -p qapi-qmp
     CARGO_FEATURES= cargo build -p qapi-qmp
   fi
+- |
+  if [[ $CARGO_FEATURES = *qga,qmp* ]]; then
+    cd $TRAVIS_BUILD_DIR/examples
+    CARGO_FEATURES= cargo build --all
+  fi
 deploy:
   provider: script
   script: 'true'
@@ -70,8 +73,6 @@ before_deploy:
 - cargo doc -p qapi-qga
 - cargo doc -p qapi-qmp
 - cargo doc -p qapi
-- cd $TRAVIS_BUILD_DIR/tokio
-- cargo doc -p tokio-qapi
 - cd $TRAVIS_BUILD_DIR/spec
 - cargo package
 - cd $TRAVIS_BUILD_DIR/parser
@@ -86,8 +87,6 @@ after_deploy:
 - cd $TRAVIS_BUILD_DIR/qga
 - cargo publish
 - cd $TRAVIS_BUILD_DIR/qmp
-- cargo publish
-- cd $TRAVIS_BUILD_DIR/tokio
 - cargo publish
 - cd $TRAVIS_BUILD_DIR/qapi
 - cargo publish
