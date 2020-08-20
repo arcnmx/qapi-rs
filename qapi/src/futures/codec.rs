@@ -1,6 +1,6 @@
 use std::io;
 use std::marker::PhantomData;
-use bytes::{BytesMut, BufMut};
+use bytes::{BytesMut, BufMut, buf::BufMutExt};
 use serde::{de::DeserializeOwned, Serialize};
 
 pub struct JsonLinesCodec<D = ()> {
@@ -74,27 +74,10 @@ impl<D: DeserializeOwned> tokio_util::codec::Decoder for JsonLinesCodec<D> {
     }
 }
 
-struct BytesWriter<'a> {
-    bytes: &'a mut BytesMut,
-}
-
-impl<'a> io::Write for BytesWriter<'a> {
-    fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
-        self.bytes.put(buf);
-        Ok(buf.len())
-    }
-
-    fn flush(&mut self) -> io::Result<()> {
-        Ok(())
-    }
-}
-
-impl BytesWriter<'_> {
-    fn encode<S: Serialize>(&mut self, item: S) -> Result<(), io::Error> {
-        serde_json::to_writer(&mut *self, &item)?;
-        self.bytes.put_u8(b'\n');
-        Ok(())
-    }
+fn encode<S: Serialize>(item: S, bytes: &mut BytesMut) -> Result<(), io::Error> {
+    serde_json::to_writer(bytes.writer(), &item)?;
+    bytes.put_u8(b'\n');
+    Ok(())
 }
 
 #[cfg(feature = "futures_codec")]
@@ -103,7 +86,7 @@ impl<S: Serialize> futures_codec::Encoder for JsonLinesCodec<S> {
     type Error = io::Error;
 
     fn encode(&mut self, item: S, bytes: &mut BytesMut) -> Result<(), Self::Error> {
-        BytesWriter { bytes }.encode(item)
+        encode(item, bytes)
     }
 }
 
@@ -112,6 +95,6 @@ impl<T, S: Serialize> tokio_util::codec::Encoder<S> for JsonLinesCodec<T> {
     type Error = io::Error;
 
     fn encode(&mut self, item: S, bytes: &mut BytesMut) -> Result<(), Self::Error> {
-        BytesWriter { bytes }.encode(item)
+        encode(item, bytes)
     }
 }
