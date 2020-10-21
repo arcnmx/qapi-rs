@@ -56,7 +56,7 @@ impl<R> QgaStreamTokio<ReadHalf<R>> {
     }
 }
 
-#[cfg(feature = "async-tokio-uds")]
+#[cfg(feature = "async-tokio-net")]
 impl QgaStreamTokio<ReadHalf<tokio::net::UnixStream>> {
     pub async fn open_uds<P: AsRef<std::path::Path>>(socket_addr: P) -> io::Result<QapiStream<Self, QgaStreamTokio<WriteHalf<tokio::net::UnixStream>>>> {
         let socket = tokio::net::UnixStream::connect(socket_addr).await?;
@@ -196,7 +196,7 @@ impl<RW: AsyncRead + AsyncWrite> QmpStreamTokio<ReadHalf<RW>> {
     }
 }
 
-#[cfg(all(feature = "qapi-qmp", feature = "async-tokio-uds"))]
+#[cfg(all(feature = "qapi-qmp", feature = "async-tokio-net"))]
 impl QmpStreamTokio<ReadHalf<tokio::net::UnixStream>> {
     pub async fn open_uds<P: AsRef<std::path::Path>>(socket_addr: P) -> io::Result<QmpStreamNegotiation<Self, QmpStreamTokio<WriteHalf<tokio::net::UnixStream>>>> {
         let socket = tokio::net::UnixStream::connect(socket_addr).await?;
