@@ -1,6 +1,6 @@
 use std::io;
 use std::marker::PhantomData;
-use bytes::{BytesMut, BufMut, buf::BufMutExt};
+use bytes::{BytesMut, BufMut};
 use serde::{de::DeserializeOwned, Serialize};
 
 pub struct JsonLinesCodec<D = ()> {
