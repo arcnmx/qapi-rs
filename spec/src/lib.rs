@@ -1,4 +1,4 @@
-#![doc(html_root_url = "http://docs.rs/qapi-spec/0.2.2")]
+#![doc(html_root_url = "http://docs.rs/qapi-spec/0.3.1")]
 
 use std::{io, error, fmt, str};
 use std::marker::PhantomData;
