@@ -1,4 +1,4 @@
-#![doc(html_root_url = "http://docs.rs/qapi-codegen/0.5.0")]
+#![doc(html_root_url = "http://docs.rs/qapi-codegen/0.6.0")]
 
 use qapi_parser::{Parser, QemuFileRepo, QemuRepo, spec};
 use qapi_parser::spec::Spec;
@@ -17,7 +17,7 @@ fn type_identifier<S: AsRef<str>>(id: S) -> String {
 fn identifier<S: AsRef<str>>(id: S) -> String {
     let id = id.as_ref();
     match id {
-        "type" | "static" | "virtual" | "abstract" | "in" | "enum" | "match" => format!("{}_", id),
+        "type" | "static" | "virtual" | "abstract" | "in" | "if" | "enum" | "match" => format!("{}_", id),
         s if s.as_bytes()[0].is_ascii_digit() => format!("_{}", s),
         id => id.replace("-", "_")
     }
@@ -294,6 +294,7 @@ pub enum {} {{
                 self.unions.push(v);
             },
             Spec::PragmaWhitelist { .. } => (),
+            Spec::PragmaExceptions { .. } => (),
             Spec::PragmaDocRequired { .. } => (),
         }
 

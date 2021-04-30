@@ -1,6 +1,6 @@
 [package]
 name = "qapi-qmp"
-version = "0.7.0" # keep in sync with html_root_url
+version = "0.8.0" # keep in sync with html_root_url
 build = "build.rs"
 authors = ["arcnmx"]
 edition = "2018"
@@ -18,7 +18,7 @@ travis-ci = { repository = "arcnmx/qapi-rs" }
 maintenance = { status = "passively-maintained" }
 
 [build-dependencies]
-qapi-codegen = { version = "^0.5.0", path = "../codegen" }
+qapi-codegen = { version = "^0.6.0", path = "../codegen" }
 
 [dependencies]
 serde = { version = "^1.0.27", features = [ "derive" ] }

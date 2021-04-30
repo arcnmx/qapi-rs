@@ -1,5 +1,5 @@
 #![allow(non_snake_case, non_camel_case_types)]
-#![doc(html_root_url = "http://docs.rs/qapi-qmp/0.7.0")]
+#![doc(html_root_url = "http://docs.rs/qapi-qmp/0.8.0")]
 #![allow(deprecated)]
 
 use std::io;
@@ -80,6 +80,7 @@ impl device_add {
     }
 }
 
+/* TODO: new apis for typed ObjectOptions enum
 impl object_add {
     pub fn new<T: Into<StdString>, I: Into<StdString>, P: IntoIterator<Item=(StdString, qapi_spec::Any)>>(qom_type: T, id: I, props: P) -> Self {
         object_add {
@@ -89,4 +90,4 @@ impl object_add {
             arguments: props.into_iter().collect(),
         }
     }
-}
+}*/

@@ -1,4 +1,4 @@
-#![doc(html_root_url = "http://docs.rs/qapi-parser/0.5.0")]
+#![doc(html_root_url = "http://docs.rs/qapi-parser/0.6.0")]
 
 pub mod spec {
     use std::collections::HashMap;
@@ -20,6 +20,9 @@ pub mod spec {
         Union(Union),
         PragmaWhitelist {
             pragma: PragmaWhitelist
+        },
+        PragmaExceptions {
+            pragma: PragmaExceptions
         },
         PragmaDocRequired {
             pragma: PragmaDocRequired
@@ -338,6 +341,14 @@ pub mod spec {
         pub returns_whitelist: Vec<String>,
         #[serde(default)]
         pub name_case_whitelist: Vec<String>,
+    }
+
+    #[derive(Debug, Clone, Deserialize)]
+    #[serde(rename_all = "kebab-case")]
+    pub struct PragmaExceptions {
+        pub command_returns_exceptions: Vec<String>,
+        #[serde(default)]
+        pub member_name_exceptions: Vec<String>,
     }
 
     #[derive(Debug, Clone, Deserialize)]
