@@ -71,7 +71,7 @@ pub mod spec {
         }
     }
 
-    #[derive(Debug, Copy, Clone, PartialEq, Eq, Deserialize)]
+    #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Deserialize)]
     #[serde(rename_all = "kebab-case")]
     pub enum Feature {
         Deprecated,
@@ -81,7 +81,7 @@ pub mod spec {
         SavevmMonitorNodes,
     }
 
-    #[derive(Debug, Clone, PartialEq, Eq, Deserialize)]
+    #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Deserialize)]
     #[serde(untagged)]
     pub enum ConditionalFeature {
         Feature(Feature),
@@ -101,7 +101,7 @@ pub mod spec {
         }
     }
 
-    #[derive(Debug, Default, Clone, PartialEq, Eq, Deserialize)]
+    #[derive(Debug, Default, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Deserialize)]
     #[serde(transparent)]
     pub struct Features {
         // TODO: make this a set instead?
@@ -114,7 +114,7 @@ pub mod spec {
         }
     }
 
-    #[derive(Clone, PartialEq, Eq)]
+    #[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Type {
         pub name: String,
         pub is_array: bool,
@@ -320,6 +320,13 @@ pub mod spec {
             match self {
                 &DataOrType::Data(ref data) => data.fields.is_empty(),
                 &DataOrType::Type(..) => false,
+            }
+        }
+
+        pub fn len(&self) -> usize {
+            match self {
+                &DataOrType::Data(ref data) => data.fields.len(),
+                &DataOrType::Type(..) => 1,
             }
         }
     }
