@@ -6,6 +6,7 @@ use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::fs::File;
 use std::io::{self, Write};
+use std::fmt::Write as _;
 use std::mem::replace;
 
 // kebab-case to PascalCase?
@@ -345,72 +346,91 @@ pub struct {} {{
 
     fn process_unions(&mut self) -> io::Result<()> {
         for u in &self.unions {
-            let discrim = if let Some(ref tag) = u.discriminator { tag } else { "type" };
+            let discrim = u.discriminator.as_ref().map(|s| &s[..]).unwrap_or("type");
+            let type_id = type_identifier(&u.id);
             write!(self.out, "
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = \"{}\")]
 pub enum {} {{
-", discrim, type_identifier(&u.id))?;
+", discrim, type_id)?;
+
+            let (create_base, base, fields) = match &u.base {
+                spec::DataOrType::Data(data) if data.fields.len() > 2 => (true, Some(spec::Value {
+                    name: "base".into(),
+                    ty: spec::Type {
+                        name: format!("{}Base", type_id),
+                        is_array: false,
+                        conditional: None,
+                        features: Default::default(),
+                    },
+                    optional: false,
+                }), &data.fields),
+                spec::DataOrType::Data(data) => (false, data.fields.iter()
+                    .find(|f| f.name != discrim).cloned(), &data.fields),
+                spec::DataOrType::Type(ty) => {
+                    let base = spec::Value {
+                        name: "base".into(),
+                        ty: ty.clone(),
+                        optional: false,
+                    };
+
+                    let ty = self.types.get_mut(&ty.name).ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}", ty.name)))?;
+                    for field in &ty.data.fields {
+                        if field.name == discrim {
+                            self.struct_discriminators.insert(ty.id.clone(), field.name.clone());
+                        }
+                    }
+                    (false, if ty.data.fields.len() <= 1 { None } else { Some(base) }, &ty.data.fields)
+                },
+            };
+            let base_fields = fields.iter().filter(|f| f.name != discrim);
 
             let mut discrim_ty = None;
+            for field in fields {
+                if field.name == discrim {
+                    if let Some(ty) = discrim_ty {
+                        assert_eq!(ty, &field.ty);
+                    } else {
+                        discrim_ty = Some(&field.ty);
+                    }
+                }
+            }
+
             for variant in &u.data.fields {
                 assert!(!variant.optional);
                 assert!(!variant.ty.is_array);
-                let is_newtype = u.base.is_empty();
 
-                println!("doing union {}", u.id);
                 write!(self.out, "\t#[serde(rename = \"{}\")]\n\t{}", variant.name, type_identifier(&variant.name))?;
-                writeln!(self.out, "{}", if is_newtype { "(" } else { " {" })?;
-                match u.base {
-                    spec::DataOrType::Data(ref data) => {
-                        for base in &data.fields {
-                            if base.name == discrim {
-                                if let Some(ref ty) = discrim_ty {
-                                    assert_eq!(ty, &base.ty);
-                                } else {
-                                    discrim_ty = Some(base.ty.clone());
-                                }
-                            } else {
-                                writeln!(self.out, "\t\t{},", valuety(base, false, &u.id))?;
-                            }
-                        }
+                let base = match &base {
+                    None => {
+                        writeln!(self.out, "({}),", typename(&variant.ty))?;
+                        continue
                     },
-                    spec::DataOrType::Type(ref ty) => {
-                        let base = spec::Value {
-                            name: "base".into(),
-                            ty: ty.clone(),
-                            optional: false,
-                        };
-                        writeln!(self.out, "\t\t#[serde(flatten)] {},", valuety(&base, false, &u.id))?;
+                    Some(base) => base,
+                };
 
-                        let ty = self.types.get_mut(&ty.name).ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}", ty.name)))?;
-                        for base in &ty.data.fields {
-                            if base.name == discrim {
-                                self.struct_discriminators.insert(ty.id.clone(), base.name.clone());
-
-                                if let Some(ref ty) = discrim_ty {
-                                    assert_eq!(ty, &base.ty);
-                                } else {
-                                    discrim_ty = Some(base.ty.clone());
-                                }
-                            }
-                        }
-                    },
-                }
-
-                if is_newtype {
-                    write!(self.out, "{}", type_identifier(&variant.ty.name))?;
-                } else {
-                    let field = spec::Value {
-                        name: variant.name.clone(),
-                        ty: variant.ty.clone(),
-                        optional: false,
-                    };
-                    writeln!(self.out, "\t\t#[serde(flatten)] {},", valuety(&field, false, &u.id))?;
-                }
-                writeln!(self.out, "{}", if is_newtype { ")," } else { "\t}," })?;
+                let field = spec::Value {
+                    name: variant.name.clone(),
+                    ty: variant.ty.clone(),
+                    optional: false,
+                };
+                writeln!(self.out, " {{")?;
+                writeln!(self.out, "\t\t#[serde(flatten)] {},", valuety(base, false, &u.id))?;
+                writeln!(self.out, "\t\t#[serde(flatten)] {},", valuety(&field, false, &u.id))?;
+                writeln!(self.out, "\t}},")?;
             }
             writeln!(self.out, "}}")?;
+
+            if create_base {
+                write!(self.out, "
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct {} {{
+", base.as_ref().unwrap().ty.name)?;
+                for field in base_fields.clone() {
+                    writeln!(self.out, "\t{},", valuety(&field, true, &u.id))?;
+                }
+                writeln!(self.out, "}}")?;
+            }
 
             if let Some(discrim_ty) = discrim_ty {
                 write!(self.out, "
@@ -428,6 +448,41 @@ impl {} {{
 }}")?;
             } else {
                 panic!("missing discriminator type for {}", u.id);
+            };
+
+            let mut dups = HashSet::new();
+            for variant in &u.data.fields {
+                if dups.contains(&&variant.ty) {
+                    continue
+                }
+                dups.insert(&variant.ty);
+                let variant_ty = typename(&variant.ty);
+                match &base {
+                    None => {
+                        write!(self.out, "
+impl From<{}> for {} {{
+    fn from(v: {}) -> Self {{
+        Self::{}(v)
+    }}
+}}
+", variant_ty, type_id, variant_ty, type_identifier(&variant.name))?;
+                    },
+                    Some(base) => {
+                        let base_ty = typename(&base.ty);
+                        write!(self.out, "
+impl From<({}, {})> for {} {{
+    fn from(v: ({}, {})) -> Self {{
+        Self::{} {{
+            {}: v.0,
+            {}: v.1,
+", variant_ty, base_ty, type_id, variant_ty, base_ty, type_identifier(&variant.name), identifier(&variant.name), identifier(&base.name))?;
+                        write!(self.out, "
+        }}
+    }}
+}}
+")?;
+                    },
+                }
             }
         }
 
