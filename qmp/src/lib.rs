@@ -79,15 +79,3 @@ impl device_add {
         }
     }
 }
-
-/* TODO: new apis for typed ObjectOptions enum
-impl object_add {
-    pub fn new<T: Into<StdString>, I: Into<StdString>, P: IntoIterator<Item=(StdString, qapi_spec::Any)>>(qom_type: T, id: I, props: P) -> Self {
-        object_add {
-            qom_type: qom_type.into(),
-            id: id.into(),
-            props: Default::default(), // deprecated as of 5.0, use `arguments` instead
-            arguments: props.into_iter().collect(),
-        }
-    }
-}*/

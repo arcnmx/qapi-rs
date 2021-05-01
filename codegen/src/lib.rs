@@ -180,7 +180,15 @@ pub struct {}", feature_attrs(&v.features), type_id)?;
                                 writeln!(self.out, "}}")?;
                             },
                             spec::DataOrType::Type(ref ty) => {
-                                writeln!(self.out, "({}pub {});", type_attrs(ty), type_identifier(&ty.name))?;
+                                let ty_name = type_identifier(&ty.name);
+                                writeln!(self.out, "({}pub {});", type_attrs(ty), ty_name)?;
+                                writeln!(self.out, "
+impl From<{}> for {} {{
+    fn from(v: {}) -> Self {{
+        Self(v)
+    }}
+}}
+", ty_name, type_id, ty_name)?;
                             },
                         }
                     },
