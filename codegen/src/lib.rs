@@ -347,7 +347,7 @@ pub struct {} {{
     fn process_unions(&mut self) -> io::Result<()> {
         for u in &self.unions {
             let discrim = u.discriminator.as_ref().map(|s| &s[..]).unwrap_or("type");
-            let is_newtype = match &u.base {
+            let mut base_is_empty = match &u.base {
                 spec::DataOrType::Data(data) if data.fields.is_empty() => unimplemented!(),
                 spec::DataOrType::Data(data) => data.fields.len() == 1,
                 _ => false,
@@ -362,8 +362,8 @@ pub enum {} {{
             let mut base_types = String::new();
             let mut base_ids = String::new();
             let common_name = format!("{}Base", type_id);
-            let (base, fields) = match &u.base {
-                spec::DataOrType::Data(data) => (match &data.fields[..] {
+            let (create_base, base, fields) = match &u.base {
+                spec::DataOrType::Data(data) => (true, match &data.fields[..] {
                     [field] => field.clone(),
                     _ => spec::Value {
                         name: "base".into(),
@@ -389,7 +389,8 @@ pub enum {} {{
                             self.struct_discriminators.insert(ty.id.clone(), field.name.clone());
                         }
                     }
-                    (base, &ty.data.fields)
+                    base_is_empty = ty.data.fields.len() <= 1;
+                    (false, base, &ty.data.fields)
                 },
             };
             let base_fields = fields.iter().filter(|f| f.name != discrim);
@@ -412,36 +413,33 @@ pub enum {} {{
                 assert!(!variant.ty.is_array);
 
                 write!(self.out, "\t#[serde(rename = \"{}\")]\n\t{}", variant.name, type_identifier(&variant.name))?;
-                write!(self.out, "{}", if is_newtype { "(" } else { " {\n" })?;
-                match &u.base {
-                    spec::DataOrType::Data(..) => {
-                        if is_newtype {
-                            let field = base_fields.clone().next().unwrap();
-                            writeln!(self.out, "{}", typename(&field.ty))?;
-                        } else {
-                            for field in base_fields.clone() {
-                                writeln!(self.out, "\t\t{},", valuety(field, false, &u.id))?;
-                            }
-                        }
-                    },
-                    spec::DataOrType::Type(..) => {
-                        writeln!(self.out, "\t\t#[serde(flatten)] {},", valuety(&base, false, &u.id))?;
-                    },
+                if base_is_empty {
+                    writeln!(self.out, "({}),", typename(&variant.ty))?;
+                    continue
                 }
 
-                if is_newtype {
-                    write!(self.out, "{}", typename(&variant.ty))?;
-                } else {
-                    let field = spec::Value {
-                        name: variant.name.clone(),
-                        ty: variant.ty.clone(),
-                        optional: false,
-                    };
-                    writeln!(self.out, "\t\t#[serde(flatten)] {},", valuety(&field, false, &u.id))?;
-                }
-                writeln!(self.out, "{}", if is_newtype { ")," } else { "\t}," })?;
+                let field = spec::Value {
+                    name: variant.name.clone(),
+                    ty: variant.ty.clone(),
+                    optional: false,
+                };
+                writeln!(self.out, " {{")?;
+                writeln!(self.out, "\t\t#[serde(flatten)] {},", valuety(&base, false, &u.id))?;
+                writeln!(self.out, "\t\t#[serde(flatten)] {},", valuety(&field, false, &u.id))?;
+                writeln!(self.out, "\t}},")?;
             }
             writeln!(self.out, "}}")?;
+
+            if create_base {
+                write!(self.out, "
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct {} {{
+", common_name)?;
+                for field in base_fields.clone() {
+                    writeln!(self.out, "\t{},", valuety(&field, false, &u.id))?;
+                }
+                writeln!(self.out, "}}")?;
+            }
 
             if let Some(discrim_ty) = discrim_ty {
                 write!(self.out, "
@@ -468,7 +466,7 @@ impl {} {{
                 }
                 dups.insert(&variant.ty);
                 let variant_ty = typename(&variant.ty);
-                if is_newtype {
+                if base_is_empty {
                     write!(self.out, "
 impl From<{}> for {} {{
     fn from(v: {}) -> Self {{
@@ -477,11 +475,14 @@ impl From<{}> for {} {{
 }}
 ", variant_ty, type_id, variant_ty, type_identifier(&variant.name))?;
                 } else {
+                    let base_ty = type_identifier(&base.ty.name);
                     write!(self.out, "
-impl From<{}> for {} {{
+impl From<({}, {})> for {} {{
     fn from(v: ({}, {})) -> Self {{
         Self::{} {{
-", variant_ty, type_id, variant_ty, base_types, type_identifier(&variant.name))?;
+            {}: v.0,
+            base: v.1,
+", variant_ty, base_ty, type_id, variant_ty, base_ty, type_identifier(&variant.name), identifier(&variant.name))?;
                     write!(self.out, "
         }}
     }}
