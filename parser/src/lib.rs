@@ -366,6 +366,9 @@ pub mod spec {
             #[serde(rename = "if")]
             conditional: Conditional,
         },
+        Explicit {
+            name: String,
+        },
     }
 
     impl fmt::Display for SpecName {
@@ -376,7 +379,7 @@ pub mod spec {
     impl AsRef<str> for SpecName {
         fn as_ref(&self) -> &str {
             match self {
-                SpecName::Name(name) => &name[..],
+                SpecName::Name(name) | SpecName::Explicit { name } => &name[..],
                 SpecName::Conditional { name, .. } => &name[..],
             }
         }
