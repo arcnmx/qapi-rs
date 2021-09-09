@@ -450,12 +450,19 @@ impl {} {{
                 panic!("missing discriminator type for {}", u.id);
             };
 
+            let mut duptypes = HashSet::new();
             let mut dups = HashSet::new();
             for variant in &u.data.fields {
-                if dups.contains(&&variant.ty) {
+                if duptypes.contains(&&variant.ty.name) {
+                    dups.insert(&variant.ty.name);
+                } else {
+                    duptypes.insert(&variant.ty.name);
+                }
+            }
+            for variant in &u.data.fields {
+                if dups.contains(&&variant.ty.name) {
                     continue
                 }
-                dups.insert(&variant.ty);
                 let variant_ty = typename(&variant.ty);
                 match &base {
                     None => {
