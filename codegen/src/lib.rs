@@ -6,7 +6,6 @@ use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::fs::File;
 use std::io::{self, Write};
-use std::fmt::Write as _;
 use std::mem::replace;
 
 // kebab-case to PascalCase?
