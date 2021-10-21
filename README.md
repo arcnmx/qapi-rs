@@ -7,8 +7,8 @@ A rust library for interfacing with [QEMU](https://www.qemu.org/) QAPI sockets.
 ## [Documentation][docs]
 
 See the [documentation][docs] for up to date information, as well as the
-reference documentation for both the [QEMU Machine Protocol](https://qemu.weilnetz.de/doc/qemu-qmp-ref.html)
-and [Guest Agent](https://qemu.weilnetz.de/doc/qemu-ga-ref.html) APIs.
+reference documentation for both the [QEMU Machine Protocol](https://qemu-project.gitlab.io/qemu/interop/qemu-qmp-ref.html)
+and [Guest Agent](https://qemu-project.gitlab.io/qemu/interop/qemu-ga-ref.html) APIs.
 
 There are two features (`qga` and `qmp`) which enable their respective functionality.
 They can be enabled in your `Cargo.toml`:
