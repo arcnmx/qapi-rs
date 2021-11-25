@@ -1,0 +1,5 @@
+{
+	"rust-analyzer.cargo.features": [
+		"qapi-qmp", "qapi-qga", "tower-service"
+	]
+}
