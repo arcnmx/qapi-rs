@@ -1,6 +1,6 @@
 # qapi-rs
 
-[![travis-badge][]][travis] [![release-badge][]][cargo] [![docs-badge][]][docs] [![license-badge][]][license]
+[![release-badge][]][cargo] [![docs-badge][]][docs] [![license-badge][]][license]
 
 A rust library for interfacing with [QEMU](https://www.qemu.org/) QAPI sockets.
 
@@ -24,8 +24,6 @@ Short examples are available for both [QMP](examples/src/bin/qmp_query.rs) and [
 Agent](examples/src/bin/guest_info.rs). Async/nonblocking examples using tokio [are also
 available](examples/src/bin/tokio_qmp_query.rs).
 
-[travis-badge]: https://img.shields.io/travis/arcnmx/qapi-rs/master.svg?style=flat-square
-[travis]: https://travis-ci.org/arcnmx/qapi-rs
 [release-badge]: https://img.shields.io/crates/v/qapi.svg?style=flat-square
 [cargo]: https://crates.io/crates/qapi
 [docs-badge]: https://img.shields.io/badge/API-docs-blue.svg?style=flat-square
