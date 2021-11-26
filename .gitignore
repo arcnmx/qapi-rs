@@ -1,2 +1,3 @@
+/qemu/
 target/
 Cargo.lock

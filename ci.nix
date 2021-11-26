@@ -7,6 +7,10 @@
       })
     ];
   };
+  qapi-schema-filter = writeShellScriptBin "qapi-schema-filter" ''
+    cd ${toString ./.}
+    exec ${runtimeShell} ${./filter-schema.sh} "$@"
+  '';
   importShell = pkgs.writeText "shell.nix" ''
     import ${builtins.unsafeDiscardStringContext config.shell.drvPath}
   '';
@@ -62,7 +66,7 @@ in {
     shell = mkOption {
       type = types.unspecified;
       default = config.rustChannel.mkShell {
-        nativeBuildInputs = [ git-filter-repo ];
+        nativeBuildInputs = [ git-filter-repo qapi-schema-filter ];
         buildInputs = optional hostPlatform.isDarwin libiconv;
       };
     };
