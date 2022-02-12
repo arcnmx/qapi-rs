@@ -30,7 +30,7 @@ jobs:
         command: diff
   macos:
     name: qapi-rs-macos
-    runs-on: macOS-latest
+    runs-on: macos-10.15
     steps:
     - id: checkout
       name: git clone
