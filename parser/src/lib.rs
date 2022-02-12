@@ -75,6 +75,8 @@ pub mod spec {
     #[serde(rename_all = "kebab-case")]
     pub enum Feature {
         Deprecated,
+        Unstable,
+        JsonCli,
         // what are these?
         AllowWriteOnlyOverlay,
         DynamicAutoReadOnly,
@@ -131,7 +133,7 @@ pub mod spec {
             }
 
             if let Some(cond) = &self.conditional {
-                write!(fmt, " {}", cond)
+                write!(fmt, " {:?}", cond)
             } else {
                 Ok(())
             }
@@ -209,7 +211,20 @@ pub mod spec {
         }
     }
 
-    pub type Conditional = String;
+    /// A #define'd symbol such as `CONFIG_SPICE`
+    pub type ConditionalDefinition = String;
+
+    #[derive(Debug, Clone, Deserialize, PartialOrd, Ord, PartialEq, Eq, Hash)]
+    #[serde(untagged, rename_all = "kebab-case")]
+    pub enum Conditional {
+        Define(ConditionalDefinition),
+        All {
+            all: Vec<ConditionalDefinition>,
+        },
+        Any {
+            any: Vec<ConditionalDefinition>,
+        },
+    }
 
     #[derive(Debug, Clone, Deserialize)]
     #[serde(rename_all = "kebab-case")]
