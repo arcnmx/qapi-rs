@@ -38,6 +38,13 @@ pub mod spec {
         pub fn is_empty(&self) -> bool {
             self.fields.is_empty() || self.fields.iter().all(|f| f.optional)
         }
+
+        pub fn newtype(&self) -> Option<&Value> {
+            match self.fields.get(0) {
+                Some(data) if self.fields.len() == 1 => Some(data),
+                _ => None,
+            }
+        }
     }
 
     impl<'de> Deserialize<'de> for Data {
@@ -269,6 +276,27 @@ pub mod spec {
         pub conditional: Option<Conditional>,
         #[serde(default)]
         pub features: Features,
+    }
+
+    impl Struct {
+        pub fn newtype(&self) -> Option<&Value> {
+            match &self.base {
+                DataOrType::Data(d) if d.fields.is_empty() => (),
+                _ => return None,
+            }
+            self.data.newtype()
+        }
+
+        pub fn wrapper_type(&self) -> Option<&Value> {
+            match self.id.ends_with("Wrapper") {
+                true => self.newtype(),
+                false => None,
+            }
+        }
+
+        pub fn is_empty(&self) -> bool {
+            self.base.is_empty() && self.data.is_empty()
+        }
     }
 
     #[derive(Debug, Clone, Deserialize)]

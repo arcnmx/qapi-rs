@@ -10,7 +10,7 @@ async fn main() -> io::Result<()> {
     let stream = qapi::futures::QgaStreamTokio::open_uds(socket_addr).await?;
     let (qga, handle) = stream.spawn_tokio();
 
-    let sync_value = &qga as *const _ as usize as isize;
+    let sync_value = &qga as *const _ as usize as i32;
     qga.guest_sync(sync_value).await?;
 
     let info = qga.execute(qapi::qga::guest_info { }).await?;

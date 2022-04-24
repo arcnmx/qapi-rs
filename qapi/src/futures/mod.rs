@@ -168,7 +168,7 @@ impl<W> QapiService<W> {
     }*/
 
     #[cfg(feature = "qapi-qga")]
-    pub fn guest_sync(&self, sync_value: isize) -> impl Future<Output=Result<(), crate::ExecuteError>> where
+    pub fn guest_sync(&self, sync_value: i32) -> impl Future<Output=Result<(), crate::ExecuteError>> where
         W: Sink<Execute<qapi_qga::guest_sync, u32>, Error=io::Error> + Unpin
     {
         self.execute(qapi_qga::guest_sync {

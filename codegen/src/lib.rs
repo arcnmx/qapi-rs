@@ -44,7 +44,7 @@ fn typename_s(ty: &str) -> String {
         "int64" => "i64".into(),
         "uint64" => "u64".into(),
         "size" => "usize".into(),
-        "int" => "isize".into(), // ???
+        "int" => "i32".into(),
         ty => ty.into(),
     }
 }
@@ -184,8 +184,8 @@ pub struct {}", feature_attrs(&v.features), type_id)?;
                                 writeln!(self.out, "({}pub {});", type_attrs(ty), ty_name)?;
                                 writeln!(self.out, "
 impl From<{}> for {} {{
-    fn from(v: {}) -> Self {{
-        Self(v)
+    fn from(val: {}) -> Self {{
+        Self(val)
     }}
 }}
 ", ty_name, type_id, ty_name)?;
@@ -317,10 +317,11 @@ pub enum {} {{
         }
 
         for v in self.types.values() {
+            let struct_id = type_identifier(&v.id);
             write!(self.out, "
-#[derive(Debug, Clone, Serialize, Deserialize)]{}
+#[derive(Debug, Clone, Serialize, Deserialize{})]{}{}
 pub struct {} {{
-", feature_attrs(&v.features), type_identifier(&v.id))?;
+", if v.is_empty() { ", Default" } else { "" }, if v.wrapper_type().is_some() { "#[repr(transparent)]" } else { "" }, feature_attrs(&v.features), struct_id)?;
             match v.base {
                 spec::DataOrType::Data(ref data) => for base in &data.fields {
                     writeln!(self.out, "{},", valuety(base, true, &v.id))?;
@@ -338,6 +339,62 @@ pub struct {} {{
                 writeln!(self.out, "{},", valuety(item, true, &v.id))?;
             }
             writeln!(self.out, "}}")?;
+
+            let basetype = match v.data.is_empty() {
+                true => match v.base {
+                    spec::DataOrType::Type(ref ty) => Some(spec::Value::new("base", ty.clone())),
+                    spec::DataOrType::Data(ref data) => data.newtype().cloned(),
+                },
+                false => None,
+            };
+            let newtype = v.newtype();
+            let wrapper = v.wrapper_type();
+            if let Some(field) = v.newtype().or(basetype.as_ref()) {
+                let field_ty = typename(&field.ty);
+                let field_name = identifier(&field.name);
+                let into = if field.optional { ".into()" } else { "" };
+                write!(self.out, "
+impl<T: Into<{}>> From<T> for {} {{
+    fn from(val: T) -> Self {{
+        Self {{
+            {}: val.into(){},
+", field_ty, struct_id, field_name, into)?;
+                if newtype.is_none() {
+                    for field in &v.data.fields {
+                        writeln!(self.out, "{}: Default::default(),", identifier(&field.name))?;
+                    }
+                }
+                write!(self.out, "
+        }}
+    }}
+}}")?;
+                if !field.optional {
+                    write!(self.out, "
+    impl AsRef<{}> for {} {{
+        fn as_ref(&self) -> &{} {{
+            &self.{}
+        }}
+    }}", field_ty, struct_id, field_ty, field_name)?;
+                }
+            }
+            if let Some(field) = wrapper {
+                let field_ty = typename(&field.ty);
+                let field_name = identifier(&field.name);
+                write!(self.out, "
+impl ::std::ops::Deref for {} {{
+    type Target = {};
+
+    fn deref(&self) -> &Self::Target {{
+        &self.{}
+    }}
+}}", struct_id, field_ty, field_name)?;
+                write!(self.out, "
+impl {} {{
+    pub fn into_inner(self) -> {} {{
+        self.{}
+    }}
+}}", struct_id, field_ty, field_name)?;
+            }
         }
 
         Ok(())
@@ -463,24 +520,37 @@ impl {} {{
                     continue
                 }
                 let variant_ty = typename(&variant.ty);
+                let variant_name = type_identifier(&variant.name);
                 match &base {
                     None => {
                         write!(self.out, "
 impl From<{}> for {} {{
-    fn from(v: {}) -> Self {{
-        Self::{}(v)
+    fn from(val: {}) -> Self {{
+        Self::{}(val)
     }}
 }}
-", variant_ty, type_id, variant_ty, type_identifier(&variant.name))?;
+", variant_ty, type_id, variant_ty, variant_name)?;
+                        let ty = self.types.get(&variant.ty.name)
+                            .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}, needed by {}", variant.ty.name, u.id)))?;
+                        if let Some(newtype) = ty.wrapper_type() {
+                            let newtype_ty = typename(&newtype.ty);
+                            write!(self.out, "
+impl From<{}> for {} {{
+    fn from(val: {}) -> Self {{
+        Self::{}({}::from(val))
+    }}
+}}
+", newtype_ty, type_id, newtype_ty, variant_name, variant_ty)?;
+                        }
                     },
                     Some(base) => {
                         let base_ty = typename(&base.ty);
                         write!(self.out, "
 impl From<({}, {})> for {} {{
-    fn from(v: ({}, {})) -> Self {{
+    fn from(val: ({}, {})) -> Self {{
         Self::{} {{
-            {}: v.0,
-            {}: v.1,
+            {}: val.0,
+            {}: val.1,
 ", variant_ty, base_ty, type_id, variant_ty, base_ty, type_identifier(&variant.name), identifier(&variant.name), identifier(&base.name))?;
                         write!(self.out, "
         }}

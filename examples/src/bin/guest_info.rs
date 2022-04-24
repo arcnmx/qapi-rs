@@ -10,7 +10,7 @@ pub fn main() {
 
     let mut qga = Qga::from_stream(&stream);
 
-    let sync_value = &stream as *const _ as usize as isize;
+    let sync_value = &stream as *const _ as usize as i32;
     qga.guest_sync(sync_value).expect("handshake failed");
 
     let info = qga.execute(&qga::guest_info { }).unwrap();
