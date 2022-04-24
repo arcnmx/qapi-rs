@@ -1,6 +1,6 @@
 [package]
 name = "qapi-codegen"
-version = "0.6.0" # keep in sync with html_root_url
+version = "0.9.0" # keep in sync with html_root_url
 authors = ["arcnmx"]
 edition = "2018"
 
@@ -17,4 +17,4 @@ travis-ci = { repository = "arcnmx/qapi-rs" }
 maintenance = { status = "passively-maintained" }
 
 [dependencies]
-qapi-parser = { version = "^0.6.0", path = "../parser" }
+qapi-parser = { version = "^0.9.0", path = "../parser" }

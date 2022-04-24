@@ -1,4 +1,4 @@
-#![doc(html_root_url = "http://docs.rs/qapi-parser/0.6.0")]
+#![doc(html_root_url = "http://docs.rs/qapi-parser/0.9.0")]
 
 pub mod spec {
     use std::collections::HashMap;
