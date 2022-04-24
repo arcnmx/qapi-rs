@@ -77,6 +77,7 @@ pub mod spec {
         Deprecated,
         Unstable,
         JsonCli,
+        JsonCliHotplug,
         // what are these?
         AllowWriteOnlyOverlay,
         DynamicAutoReadOnly,
