@@ -22,6 +22,7 @@
     qmp = singleton "qmp";
     qga = singleton "qga";
     all = qmp ++ qga;
+    async = all ++ [ "async-io" "async-tower" ];
     tokio = all ++ singleton "async-tokio-all";
   };
 in {

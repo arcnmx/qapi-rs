@@ -2,10 +2,14 @@ use std::io;
 use std::pin::Pin;
 use std::task::{Context, Poll};
 use std::sync::Arc;
-use futures::{Sink, Stream};
+use futures::Stream;
+#[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
+use futures::Sink;
 use tokio::io::{AsyncRead, AsyncWrite, ReadHalf, WriteHalf, split};
 use tokio_util::codec::{Framed, FramedParts};
-use qapi_spec::{Execute, Response, Any};
+use qapi_spec::{Response, Any};
+#[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
+use qapi_spec::Execute;
 #[cfg(feature = "qapi-qmp")]
 use qapi_qmp::{QmpMessageAny, QmpCommand, QapiCapabilities, QMPCapability};
 #[cfg(feature = "qapi-qmp")]

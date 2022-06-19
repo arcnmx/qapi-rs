@@ -18,7 +18,7 @@ use futures::{Future, FutureExt, Sink, SinkExt, Stream};
 use serde::Deserialize;
 use log::{trace, info, warn};
 
-#[cfg(any(feature = "futures_codec", feature = "tokio-util"))]
+#[cfg(feature = "tokio-util")]
 mod codec;
 
 #[cfg(feature = "tokio")]
@@ -109,6 +109,7 @@ pub struct QapiService<W> {
 }
 
 impl<W> QapiService<W> {
+    #[cfg(feature = "tokio")]
     fn new(write: W, shared: Arc<QapiShared>) -> Self {
         QapiService {
             shared,
@@ -210,6 +211,7 @@ struct QapiShared {
 }
 
 impl QapiShared {
+    #[cfg(feature = "tokio")]
     fn new(supports_oob: bool) -> Self {
         Self {
             commands: Default::default(),

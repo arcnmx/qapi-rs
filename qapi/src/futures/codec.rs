@@ -46,20 +46,6 @@ impl<D: DeserializeOwned> JsonLinesCodec<D> {
     }
 }
 
-#[cfg(feature = "futures_codec")]
-impl<D: DeserializeOwned> futures_codec::Decoder for JsonLinesCodec<D> {
-    type Item = D;
-    type Error = io::Error;
-
-    fn decode(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
-        self.priv_decode(buf)
-    }
-
-    fn decode_eof(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
-        self.priv_decode_eof(buf)
-    }
-}
-
 #[cfg(feature = "tokio-util")]
 impl<D: DeserializeOwned> tokio_util::codec::Decoder for JsonLinesCodec<D> {
     type Item = D;
@@ -78,16 +64,6 @@ fn encode<S: Serialize>(item: S, bytes: &mut BytesMut) -> Result<(), io::Error> 
     serde_json::to_writer(bytes.writer(), &item)?;
     bytes.put_u8(b'\n');
     Ok(())
-}
-
-#[cfg(feature = "futures_codec")]
-impl<S: Serialize> futures_codec::Encoder for JsonLinesCodec<S> {
-    type Item = S;
-    type Error = io::Error;
-
-    fn encode(&mut self, item: S, bytes: &mut BytesMut) -> Result<(), Self::Error> {
-        encode(item, bytes)
-    }
 }
 
 #[cfg(feature = "tokio-util")]
