@@ -172,9 +172,10 @@ impl<W> QapiService<W> {
     pub fn guest_sync(&self, sync_value: i32) -> impl Future<Output=Result<(), crate::ExecuteError>> where
         W: Sink<Execute<qapi_qga::guest_sync, u32>, Error=io::Error> + Unpin
     {
+        let id = sync_value.into();
         self.execute(qapi_qga::guest_sync {
-            id: sync_value,
-        }).map(move |res| res.and_then(|res| if res == sync_value {
+            id,
+        }).map(move |res| res.and_then(|res| if res == id {
             Ok(())
         } else {
             Err(io::Error::new(io::ErrorKind::InvalidData, "QGA sync failed").into())

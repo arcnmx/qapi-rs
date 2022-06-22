@@ -325,7 +325,8 @@ mod qga_impl {
             self.read_response::<C>()
         }
 
-        pub fn guest_sync(&mut self, id: i32) -> Result<(), ExecuteError> {
+        pub fn guest_sync(&mut self, sync_value: i32) -> Result<(), ExecuteError> {
+            let id = sync_value.into();
             let sync = guest_sync {
                 id,
             };

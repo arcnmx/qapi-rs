@@ -43,8 +43,8 @@ fn typename_s(ty: &str) -> String {
         "uint32" => "u32".into(),
         "int64" => "i64".into(),
         "uint64" => "u64".into(),
-        "size" => "usize".into(),
-        "int" => "i32".into(),
+        "size" => "u64".into(),
+        "int" => "i64".into(),
         ty => ty.into(),
     }
 }
