@@ -39,7 +39,6 @@ qapi-qmp = { version = "^0.9.0", path = "../qmp", optional = true }
 qga = ["qapi-qga"]
 qmp = ["qapi-qmp"]
 async = ["futures"]
-async-io = ["async"]
 async-tokio = ["async", "tokio", "tokio-util", "bytes", "memchr"]
 async-tokio-net = ["async-tokio", "tokio/net"]
 async-tokio-spawn = ["async-tokio", "tokio/rt"]
