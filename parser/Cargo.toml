@@ -1,6 +1,6 @@
 [package]
 name = "qapi-parser"
-version = "0.9.0" # keep in sync with html_root_url
+version = "0.9.1" # keep in sync with html_root_url
 authors = ["arcnmx"]
 edition = "2018"
 
