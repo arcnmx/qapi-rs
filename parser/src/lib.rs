@@ -1,7 +1,6 @@
 #![doc(html_root_url = "http://docs.rs/qapi-parser/0.9.0")]
 
 pub mod spec {
-    use std::collections::HashMap;
     use std::fmt;
     use serde::de::{Deserializer, Visitor, SeqAccess, MapAccess, Error};
     use serde::de::value::MapAccessDeserializer;
@@ -49,8 +48,17 @@ pub mod spec {
 
     impl<'de> Deserialize<'de> for Data {
         fn deserialize<D: Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
-            <HashMap<String, Type>>::deserialize(d).map(|h| Data {
-                fields: h.into_iter().map(|(n, t)| Value::new(&n, t)).collect(),
+            use serde::de::IntoDeserializer;
+
+            let fields: serde_json::Map<String, serde_json::Value> = Deserialize::deserialize(d)?;
+            let fields = fields.into_iter().map(|(n, t)|
+                Type::deserialize(t.into_deserializer()).map(|t|
+                    Value::new(&n, t)
+                ).map_err(D::Error::custom)
+            ).collect::<Result<_, _>>()?;
+
+            Ok(Data {
+                fields,
             })
         }
     }

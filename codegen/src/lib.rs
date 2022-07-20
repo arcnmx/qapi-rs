@@ -2,7 +2,7 @@
 
 use qapi_parser::{Parser, QemuFileRepo, QemuRepo, spec};
 use qapi_parser::spec::Spec;
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::fs::File;
 use std::io::{self, Write};
@@ -132,8 +132,8 @@ struct Context<W> {
     included: HashSet<PathBuf>,
     events: Vec<spec::Event>,
     unions: Vec<spec::CombinedUnion>,
-    types: HashMap<String, spec::Struct>,
-    struct_discriminators: HashMap<String, String>,
+    types: BTreeMap<String, spec::Struct>,
+    struct_discriminators: BTreeMap<String, String>,
     command_trait: String,
     out: W,
 }
