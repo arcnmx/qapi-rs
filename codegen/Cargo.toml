@@ -1,6 +1,6 @@
 [package]
 name = "qapi-codegen"
-version = "0.10.1" # keep in sync with html_root_url
+version = "0.10.2" # keep in sync with html_root_url
 authors = ["arcnmx"]
 edition = "2018"
 
