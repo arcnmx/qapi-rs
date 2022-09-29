@@ -548,13 +548,14 @@ impl From<{}> for {} {{
                     },
                     Some(base) => {
                         let base_ty = typename(&base.ty);
+                        let base_into = if base.optional { ".into()" } else { "" };
                         write!(self.out, "
 impl From<({}, {})> for {} {{
     fn from(val: ({}, {})) -> Self {{
         Self::{} {{
             {}: val.0,
-            {}: val.1,
-", variant_ty, base_ty, type_id, variant_ty, base_ty, type_identifier(&variant.name), identifier(&variant.name), identifier(&base.name))?;
+            {}: val.1{},
+", variant_ty, base_ty, type_id, variant_ty, base_ty, type_identifier(&variant.name), identifier(&variant.name), identifier(&base.name), base_into)?;
                         write!(self.out, "
         }}
     }}
