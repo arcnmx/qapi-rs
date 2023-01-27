@@ -27,6 +27,6 @@ available](examples/src/bin/tokio_qmp_query.rs).
 [release-badge]: https://img.shields.io/crates/v/qapi.svg?style=flat-square
 [cargo]: https://crates.io/crates/qapi
 [docs-badge]: https://img.shields.io/badge/API-docs-blue.svg?style=flat-square
-[docs]: http://docs.rs/qapi/
+[docs]: https://docs.rs/qapi/
 [license-badge]: https://img.shields.io/badge/license-MIT-ff69b4.svg?style=flat-square
 [license]: https://github.com/arcnmx/qapi-rs/blob/master/COPYING

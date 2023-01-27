@@ -1,4 +1,4 @@
-#![doc(html_root_url = "http://docs.rs/qapi-parser/0.9.1")]
+#![doc(html_root_url = "https://docs.rs/qapi-parser/0.9.1")]
 
 pub mod spec {
     use std::fmt;
