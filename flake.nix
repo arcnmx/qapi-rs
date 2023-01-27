@@ -28,17 +28,25 @@
     libs = nixlib.filterAttrs (_: crate: crate.package.publish or true) crate.members;
     testCrate = package: { buildFeatures ? [ ], ... }@args: with nixlib; let
       crate = self.lib.crate.members.${package};
-    in { rustPlatform, source }: rustPlatform.buildRustPackage ({
+      flags = [ "-p" crate.name ];
+    in { rustPlatform, source }: rustPlatform.buildRustPackage (args // {
       pname = crate.name;
       inherit (crate) cargoLock version;
       src = source;
+      cargoTestFlags = flags ++ args.cargoTestFlags or [ ];
+      cargoBuildFlags = flags ++ args.cargoBuildFlags or [ ];
       buildType = "debug";
-      meta.name = let
-        features = " --features ${concatStringsSep "," buildFeatures}";
-        cmd = if args.doCheck or true then "test" else "build";
-      in "cargo ${cmd} -p ${crate.name}" + optionalString (buildFeatures != [ ]) features;
+      meta = {
+        name = let
+          features = " --features ${concatStringsSep "," buildFeatures}";
+          cmd = if args.doCheck or true then "test" else "build";
+        in "cargo ${cmd} -p ${crate.name}" + optionalString (buildFeatures != [ ]) features;
+      } // args.meta or { };
       auditable = false;
-    } // args);
+      passthru.ci = {
+        cache.inputs = [ (rustPlatform.importCargoLock crate.cargoLock) ];
+      };
+    });
   in flakelib {
     inherit inputs;
     systems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
