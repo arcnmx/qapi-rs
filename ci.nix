@@ -9,6 +9,7 @@ in {
       nixpkgs = "22.11";
     };
     tasks = with checks; {
+      fmt.inputs = [ checks.rustfmt ];
       test.inputs = [
         test-qapi test-qapi-all
         test-qapi-qmp test-qapi-qga

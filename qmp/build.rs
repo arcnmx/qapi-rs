@@ -1,6 +1,6 @@
 extern crate qapi_codegen;
 
-use std::{io, env, path};
+use std::{env, io, path};
 
 fn main() {
     match main_result() {

@@ -1,5 +1,4 @@
-use std::env::args;
-use std::io;
+use std::{env::args, io};
 
 #[tokio::main]
 pub async fn main() -> io::Result<()> {
@@ -15,7 +14,7 @@ pub async fn main() -> io::Result<()> {
     let stream = stream.negotiate().await?;
     let (qmp, handle) = stream.spawn_tokio();
 
-    let status = qmp.execute(qapi::qmp::query_status { }).await?;
+    let status = qmp.execute(qapi::qmp::query_status {}).await?;
     println!("VCPU status: {:#?}", status);
 
     {

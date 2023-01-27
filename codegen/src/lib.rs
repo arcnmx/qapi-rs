@@ -1,12 +1,18 @@
 #![doc(html_root_url = "https://docs.rs/qapi-codegen/0.10.2")]
 
-use qapi_parser::{Parser, QemuFileRepo, QemuRepo, spec};
-use qapi_parser::spec::Spec;
-use std::collections::{BTreeMap, HashSet};
-use std::path::{Path, PathBuf};
-use std::fs::File;
-use std::io::{self, Write};
-use std::mem::replace;
+use {
+    qapi_parser::{
+        spec::{self, Spec},
+        Parser, QemuFileRepo, QemuRepo,
+    },
+    std::{
+        collections::{BTreeMap, HashSet},
+        fs::File,
+        io::{self, Write},
+        mem::replace,
+        path::{Path, PathBuf},
+    },
+};
 
 // kebab-case to PascalCase?
 fn type_identifier<S: AsRef<str>>(id: S) -> String {
@@ -19,7 +25,7 @@ fn identifier<S: AsRef<str>>(id: S) -> String {
     match id {
         "type" | "static" | "virtual" | "abstract" | "in" | "if" | "enum" | "match" => format!("{}_", id),
         s if s.as_bytes()[0].is_ascii_digit() => format!("_{}", s),
-        id => id.replace("-", "_")
+        id => id.replace("-", "_"),
     }
 }
 
@@ -54,7 +60,11 @@ fn type_attrs(ty: &spec::Type) -> String {
 }
 
 fn feature_attrs(ty: &spec::Features) -> String {
-    if ty.is_deprecated() { " #[deprecated]".into() } else { String::new() }
+    if ty.is_deprecated() {
+        " #[deprecated]".into()
+    } else {
+        String::new()
+    }
 }
 
 fn typename(ty: &spec::Type) -> String {
@@ -77,19 +87,19 @@ fn valuety(value: &spec::Value, pubvis: bool, super_name: &str) -> String {
         false
     };
 
-    let base64 = value.ty.name == "str" && (
-        ((super_name == "GuestFileRead" || super_name == "guest-file-write") && value.name == "buf-b64") ||
-        (super_name == "guest-set-user-password" && value.name == "password") ||
-        (super_name == "GuestExecStatus" && (value.name == "out-data" || value.name == "err-data")) ||
-        (super_name == "guest-exec" && value.name == "input-data") ||
-        (super_name == "QCryptoSecretFormat" && value.name == "base64")
-        // "ringbuf-write", "ringbuf-read" can't be done because weird enums
-    );
+    let base64 = value.ty.name == "str"
+        && (
+            ((super_name == "GuestFileRead" || super_name == "guest-file-write") && value.name == "buf-b64")
+                || (super_name == "guest-set-user-password" && value.name == "password")
+                || (super_name == "GuestExecStatus" && (value.name == "out-data" || value.name == "err-data"))
+                || (super_name == "guest-exec" && value.name == "input-data")
+                || (super_name == "QCryptoSecretFormat" && value.name == "base64")
+            // "ringbuf-write", "ringbuf-read" can't be done because weird enums
+        );
 
-    let dict = value.ty.name == "any" && (
-        (super_name == "object-add" && value.name == "props") ||
-        (super_name == "CpuModelInfo" && value.name == "props")
-    );
+    let dict = value.ty.name == "any"
+        && ((super_name == "object-add" && value.name == "props")
+            || (super_name == "CpuModelInfo" && value.name == "props"));
 
     // TODO: handle optional Vec<>s specially?
 
@@ -112,12 +122,16 @@ fn valuety(value: &spec::Value, pubvis: bool, super_name: &str) -> String {
     };
 
     let (attr, ty) = if value.optional {
-        (format!("{}, default, skip_serializing_if = \"Option::is_none\"", attr), format!("Option<{}>", ty))
+        (
+            format!("{}, default, skip_serializing_if = \"Option::is_none\"", attr),
+            format!("Option<{}>", ty),
+        )
     } else {
         (attr.into(), ty)
     };
 
-    format!("#[serde(rename = \"{}\"{})]{}\n{}{}: {}",
+    format!(
+        "#[serde(rename = \"{}\"{})]{}\n{}{}: {}",
         value.name,
         attr,
         type_attrs(&value.ty),
@@ -162,9 +176,14 @@ impl<W: Write> Context<W> {
                 match v.data {
                     spec::DataOrType::Type(ref ty) if type_identifier(&ty.name) == type_id => (),
                     ty => {
-                        write!(self.out, "
+                        write!(
+                            self.out,
+                            "
 #[derive(Debug, Clone, Serialize, Deserialize)]{}
-pub struct {}", feature_attrs(&v.features), type_id)?;
+pub struct {}",
+                            feature_attrs(&v.features),
+                            type_id
+                        )?;
                         match ty {
                             spec::DataOrType::Data(ref data) => {
                                 writeln!(self.out, " {{")?;
@@ -172,35 +191,46 @@ pub struct {}", feature_attrs(&v.features), type_id)?;
                                     writeln!(self.out, "\t{},", valuety(&data, true, &v.id))?;
                                 }
                                 if !v.gen {
-                                    writeln!(self.out, "
+                                    writeln!(
+                                        self.out,
+                                        "
     #[serde(flatten)]
     pub arguments: ::qapi_spec::Dictionary,
-")?;
+"
+                                    )?;
                                 }
                                 writeln!(self.out, "}}")?;
                             },
                             spec::DataOrType::Type(ref ty) => {
                                 let ty_name = type_identifier(&ty.name);
                                 writeln!(self.out, "({}pub {});", type_attrs(ty), ty_name)?;
-                                writeln!(self.out, "
+                                writeln!(
+                                    self.out,
+                                    "
 impl From<{}> for {} {{
     fn from(val: {}) -> Self {{
         Self(val)
     }}
 }}
-", ty_name, type_id, ty_name)?;
+",
+                                    ty_name, type_id, ty_name
+                                )?;
                             },
                         }
                     },
                 }
 
-                write!(self.out, "
+                write!(
+                    self.out,
+                    "
 impl crate::{} for {} {{ }}
 impl ::qapi_spec::Command for {} {{
     const NAME: &'static str = \"{}\";
     const ALLOW_OOB: bool = {};
 
-    type Ok = ", self.command_trait, type_id, type_id, v.id, v.allow_oob)?;
+    type Ok = ",
+                    self.command_trait, type_id, type_id, v.id, v.allow_oob
+                )?;
                 if let Some(ret) = v.returns {
                     writeln!(self.out, "{};", typename(&ret))
                 } else {
@@ -212,11 +242,15 @@ impl ::qapi_spec::Command for {} {{
                 self.types.insert(v.id.clone(), v);
             },
             Spec::Alternate(v) => {
-                write!(self.out, "
+                write!(
+                    self.out,
+                    "
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum {} {{
-", type_identifier(&v.id))?;
+",
+                    type_identifier(&v.id)
+                )?;
                 for data in &v.data.fields {
                     assert!(!data.optional);
                     let boxed = if data.name == "definition" && data.ty.name == "BlockdevOptions" {
@@ -229,21 +263,33 @@ pub enum {} {{
                     } else {
                         typename(&data.ty)
                     };
-                    writeln!(self.out, "\t#[serde(rename = \"{}\")] {}({}),", data.name, type_identifier(&data.name), ty)?;
+                    writeln!(
+                        self.out,
+                        "\t#[serde(rename = \"{}\")] {}({}),",
+                        data.name,
+                        type_identifier(&data.name),
+                        ty
+                    )?;
                 }
                 writeln!(self.out, "}}")?;
             },
             Spec::Enum(v) => {
                 let type_id = type_identifier(&v.id);
-                write!(self.out, "
+                write!(
+                    self.out,
+                    "
 #[derive(Debug, Copy, Clone, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum {} {{
-", type_id)?;
+",
+                    type_id
+                )?;
                 for item in &v.data {
                     writeln!(self.out, "\t#[serde(rename = \"{}\")] {},", item, type_identifier(item))?;
                 }
                 writeln!(self.out, "}}")?;
-                writeln!(self.out, "
+                writeln!(
+                    self.out,
+                    "
 impl ::core::str::FromStr for {} {{
     type Err = ();
 
@@ -257,44 +303,79 @@ unsafe impl ::qapi_spec::Enum for {} {{
 
     const COUNT: usize = {};
     const VARIANTS: &'static [Self] = &[
-", type_id, type_id, v.data.len())?;
+",
+                    type_id,
+                    type_id,
+                    v.data.len()
+                )?;
                 for item in &v.data {
                     writeln!(self.out, "{}::{},", type_id, type_identifier(item))?;
                 }
-                writeln!(self.out, "
+                writeln!(
+                    self.out,
+                    "
     ];
     const NAMES: &'static [&'static str] = &[
-")?;
+"
+                )?;
                 for item in &v.data {
                     writeln!(self.out, "\"{}\",", item)?;
                 }
-                writeln!(self.out, "
+                writeln!(
+                    self.out,
+                    "
     ];
-}}")?;
+}}"
+                )?;
             },
             Spec::Event(v) => {
-                write!(self.out, "
+                write!(
+                    self.out,
+                    "
 #[derive(Debug, Clone, Serialize, Deserialize{})]
 pub struct {} {{
-", if v.data.is_empty() { ", Default" } else { "" }, event_identifier(&v.id))?;
+",
+                    if v.data.is_empty() { ", Default" } else { "" },
+                    event_identifier(&v.id)
+                )?;
                 for item in &v.data.fields {
                     writeln!(self.out, "{},", valuety(item, true, &v.id))?;
                 }
                 writeln!(self.out, "}}")?;
-                writeln!(self.out, "
+                writeln!(
+                    self.out,
+                    "
 impl ::qapi_spec::Event for {} {{
     const NAME: &'static str = \"{}\";
-}}", event_identifier(&v.id), v.id)?;
+}}",
+                    event_identifier(&v.id),
+                    v.id
+                )?;
                 self.events.push(v);
             },
             Spec::Union(v) => {
-                write!(self.out, "
+                write!(
+                    self.out,
+                    "
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = \"{}\")]
 pub enum {} {{
-", if let Some(ref tag) = v.discriminator { tag } else { "type" }, type_identifier(&v.id))?;
+",
+                    if let Some(ref tag) = v.discriminator {
+                        tag
+                    } else {
+                        "type"
+                    },
+                    type_identifier(&v.id)
+                )?;
                 for data in &v.data.fields {
-                    writeln!(self.out, "\t#[serde(rename = \"{}\")]\n\t{} {{ data: {} }},", data.name, type_identifier(&data.name), typename(&data.ty))?;
+                    writeln!(
+                        self.out,
+                        "\t#[serde(rename = \"{}\")]\n\t{} {{ data: {} }},",
+                        data.name,
+                        type_identifier(&data.name),
+                        typename(&data.ty)
+                    )?;
                 }
                 writeln!(self.out, "}}")?;
             },
@@ -311,21 +392,36 @@ pub enum {} {{
 
     fn process_structs(&mut self) -> io::Result<()> {
         for (id, discrim) in &self.struct_discriminators {
-            let ty = self.types.get_mut(id).ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}", id)))?;
+            let ty = self
+                .types
+                .get_mut(id)
+                .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}", id)))?;
             let fields = replace(&mut ty.data.fields, Vec::new());
             ty.data.fields = fields.into_iter().filter(|base| &base.name != discrim).collect();
         }
 
         for v in self.types.values() {
             let struct_id = type_identifier(&v.id);
-            write!(self.out, "
+            write!(
+                self.out,
+                "
 #[derive(Debug, Clone, Serialize, Deserialize{})]{}{}
 pub struct {} {{
-", if v.is_empty() { ", Default" } else { "" }, if v.wrapper_type().is_some() { "#[repr(transparent)]" } else { "" }, feature_attrs(&v.features), struct_id)?;
-            match v.base {
-                spec::DataOrType::Data(ref data) => for base in &data.fields {
-                    writeln!(self.out, "{},", valuety(base, true, &v.id))?;
+",
+                if v.is_empty() { ", Default" } else { "" },
+                if v.wrapper_type().is_some() {
+                    "#[repr(transparent)]"
+                } else {
+                    ""
                 },
+                feature_attrs(&v.features),
+                struct_id
+            )?;
+            match v.base {
+                spec::DataOrType::Data(ref data) =>
+                    for base in &data.fields {
+                        writeln!(self.out, "{},", valuety(base, true, &v.id))?;
+                    },
                 spec::DataOrType::Type(ref ty) => {
                     let base = spec::Value {
                         name: "base".into(),
@@ -353,47 +449,66 @@ pub struct {} {{
                 let field_ty = typename(&field.ty);
                 let field_name = identifier(&field.name);
                 let into = if field.optional { ".into()" } else { "" };
-                write!(self.out, "
+                write!(
+                    self.out,
+                    "
 impl<T: Into<{}>> From<T> for {} {{
     fn from(val: T) -> Self {{
         Self {{
             {}: val.into(){},
-", field_ty, struct_id, field_name, into)?;
+",
+                    field_ty, struct_id, field_name, into
+                )?;
                 if newtype.is_none() {
                     for field in &v.data.fields {
                         writeln!(self.out, "{}: Default::default(),", identifier(&field.name))?;
                     }
                 }
-                write!(self.out, "
+                write!(
+                    self.out,
+                    "
         }}
     }}
-}}")?;
+}}"
+                )?;
                 if !field.optional {
-                    write!(self.out, "
+                    write!(
+                        self.out,
+                        "
     impl AsRef<{}> for {} {{
         fn as_ref(&self) -> &{} {{
             &self.{}
         }}
-    }}", field_ty, struct_id, field_ty, field_name)?;
+    }}",
+                        field_ty, struct_id, field_ty, field_name
+                    )?;
                 }
             }
             if let Some(field) = wrapper {
                 let field_ty = typename(&field.ty);
                 let field_name = identifier(&field.name);
-                write!(self.out, "
+                write!(
+                    self.out,
+                    "
 impl ::std::ops::Deref for {} {{
     type Target = {};
 
     fn deref(&self) -> &Self::Target {{
         &self.{}
     }}
-}}", struct_id, field_ty, field_name)?;
-                write!(self.out, "
+}}",
+                    struct_id, field_ty, field_name
+                )?;
+                write!(
+                    self.out,
+                    "
 impl {} {{
     pub fn into_inner(self) -> {} {{
         self.{}
     }}
-}}", struct_id, field_ty, field_name)?;
+}}",
+                    struct_id, field_ty, field_name
+                )?;
             }
         }
 
@@ -404,25 +519,36 @@ impl {} {{
         for u in &self.unions {
             let discrim = u.discriminator.as_ref().map(|s| &s[..]).unwrap_or("type");
             let type_id = type_identifier(&u.id);
-            write!(self.out, "
+            write!(
+                self.out,
+                "
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = \"{}\")]
 pub enum {} {{
-", discrim, type_id)?;
+",
+                discrim, type_id
+            )?;
 
             let (create_base, base, fields) = match &u.base {
-                spec::DataOrType::Data(data) if data.fields.len() > 2 => (true, Some(spec::Value {
-                    name: "base".into(),
-                    ty: spec::Type {
-                        name: format!("{}Base", type_id),
-                        is_array: false,
-                        conditional: None,
-                        features: Default::default(),
-                    },
-                    optional: false,
-                }), &data.fields),
-                spec::DataOrType::Data(data) => (false, data.fields.iter()
-                    .find(|f| f.name != discrim).cloned(), &data.fields),
+                spec::DataOrType::Data(data) if data.fields.len() > 2 => (
+                    true,
+                    Some(spec::Value {
+                        name: "base".into(),
+                        ty: spec::Type {
+                            name: format!("{}Base", type_id),
+                            is_array: false,
+                            conditional: None,
+                            features: Default::default(),
+                        },
+                        optional: false,
+                    }),
+                    &data.fields,
+                ),
+                spec::DataOrType::Data(data) => (
+                    false,
+                    data.fields.iter().find(|f| f.name != discrim).cloned(),
+                    &data.fields,
+                ),
                 spec::DataOrType::Type(ty) => {
                     let base = spec::Value {
                         name: "base".into(),
@@ -430,13 +556,19 @@ pub enum {} {{
                         optional: false,
                     };
 
-                    let ty = self.types.get_mut(&ty.name).ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}", ty.name)))?;
+                    let ty = self.types.get_mut(&ty.name).ok_or_else(|| {
+                        io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}", ty.name))
+                    })?;
                     for field in &ty.data.fields {
                         if field.name == discrim {
                             self.struct_discriminators.insert(ty.id.clone(), field.name.clone());
                         }
                     }
-                    (false, if ty.data.fields.len() <= 1 { None } else { Some(base) }, &ty.data.fields)
+                    (
+                        false,
+                        if ty.data.fields.len() <= 1 { None } else { Some(base) },
+                        &ty.data.fields,
+                    )
                 },
             };
             let base_fields = fields.iter().filter(|f| f.name != discrim);
@@ -456,7 +588,12 @@ pub enum {} {{
                 assert!(!variant.optional);
                 assert!(!variant.ty.is_array);
 
-                write!(self.out, "\t#[serde(rename = \"{}\")]\n\t{}", variant.name, type_identifier(&variant.name))?;
+                write!(
+                    self.out,
+                    "\t#[serde(rename = \"{}\")]\n\t{}",
+                    variant.name,
+                    type_identifier(&variant.name)
+                )?;
                 let base = match &base {
                     None => {
                         writeln!(self.out, "({}),", typename(&variant.ty))?;
@@ -471,7 +608,9 @@ pub enum {} {{
                     optional: false,
                 };
                 writeln!(self.out, " {{")?;
-                writeln!(self.out, "\t\t{}{},",
+                writeln!(
+                    self.out,
+                    "\t\t{}{},",
                     if base.name == "base" { "#[serde(flatten)] " } else { "" },
                     valuety(base, false, &u.id)
                 )?;
@@ -481,10 +620,14 @@ pub enum {} {{
             writeln!(self.out, "}}")?;
 
             if create_base {
-                write!(self.out, "
+                write!(
+                    self.out,
+                    "
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct {} {{
-", base.as_ref().unwrap().ty.name)?;
+",
+                    base.as_ref().unwrap().ty.name
+                )?;
                 for field in base_fields.clone() {
                     writeln!(self.out, "\t{},", valuety(&field, true, &u.id))?;
                 }
@@ -492,19 +635,35 @@ pub struct {} {{
             }
 
             if let Some(discrim_ty) = discrim_ty {
-                write!(self.out, "
+                write!(
+                    self.out,
+                    "
 impl {} {{
     pub fn {}(&self) -> {} {{
         match *self {{
-", type_identifier(&u.id), identifier(&discrim), type_identifier(&discrim_ty.name))?;
+",
+                    type_identifier(&u.id),
+                    identifier(&discrim),
+                    type_identifier(&discrim_ty.name)
+                )?;
                 for variant in &u.data.fields {
-                    writeln!(self.out, "
-            {}::{} {{ .. }} => {}::{},", type_identifier(&u.id), type_identifier(&variant.name), type_identifier(&discrim_ty.name), type_identifier(&variant.name))?;
+                    writeln!(
+                        self.out,
+                        "
+            {}::{} {{ .. }} => {}::{},",
+                        type_identifier(&u.id),
+                        type_identifier(&variant.name),
+                        type_identifier(&discrim_ty.name),
+                        type_identifier(&variant.name)
+                    )?;
                 }
-                writeln!(self.out, "
+                writeln!(
+                    self.out,
+                    "
         }}
     }}
-}}")?;
+}}"
+                )?;
             } else {
                 panic!("missing discriminator type for {}", u.id);
             };
@@ -526,41 +685,68 @@ impl {} {{
                 let variant_name = type_identifier(&variant.name);
                 match &base {
                     None => {
-                        write!(self.out, "
+                        write!(
+                            self.out,
+                            "
 impl From<{}> for {} {{
     fn from(val: {}) -> Self {{
         Self::{}(val)
     }}
 }}
-", variant_ty, type_id, variant_ty, variant_name)?;
-                        let ty = self.types.get(&variant.ty.name)
-                            .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}, needed by {}", variant.ty.name, u.id)))?;
+",
+                            variant_ty, type_id, variant_ty, variant_name
+                        )?;
+                        let ty = self.types.get(&variant.ty.name).ok_or_else(|| {
+                            io::Error::new(
+                                io::ErrorKind::NotFound,
+                                format!("could not find qapi type {}, needed by {}", variant.ty.name, u.id),
+                            )
+                        })?;
                         if let Some(newtype) = ty.wrapper_type() {
                             let newtype_ty = typename(&newtype.ty);
-                            write!(self.out, "
+                            write!(
+                                self.out,
+                                "
 impl From<{}> for {} {{
     fn from(val: {}) -> Self {{
         Self::{}({}::from(val))
     }}
 }}
-", newtype_ty, type_id, newtype_ty, variant_name, variant_ty)?;
+",
+                                newtype_ty, type_id, newtype_ty, variant_name, variant_ty
+                            )?;
                         }
                     },
                     Some(base) => {
                         let base_ty = typename(&base.ty);
                         let base_into = if base.optional { ".into()" } else { "" };
-                        write!(self.out, "
+                        write!(
+                            self.out,
+                            "
 impl From<({}, {})> for {} {{
     fn from(val: ({}, {})) -> Self {{
         Self::{} {{
             {}: val.0,
             {}: val.1{},
-", variant_ty, base_ty, type_id, variant_ty, base_ty, type_identifier(&variant.name), identifier(&variant.name), identifier(&base.name), base_into)?;
-                        write!(self.out, "
+",
+                            variant_ty,
+                            base_ty,
+                            type_id,
+                            variant_ty,
+                            base_ty,
+                            type_identifier(&variant.name),
+                            identifier(&variant.name),
+                            identifier(&base.name),
+                            base_into
+                        )?;
+                        write!(
+                            self.out,
+                            "
         }}
     }}
 }}
-")?;
+"
+                        )?;
                     },
                 }
             }
@@ -570,30 +756,54 @@ impl From<({}, {})> for {} {{
     }
 
     fn process_events(&mut self) -> io::Result<()> {
-        writeln!(self.out, "
+        writeln!(
+            self.out,
+            "
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = \"event\")]
-pub enum Event {{")?;
+pub enum Event {{"
+        )?;
         for event in &self.events {
             let id = event_identifier(&event.id);
-            writeln!(self.out, "\t#[serde(rename = \"{}\")] {} {{
+            writeln!(
+                self.out,
+                "\t#[serde(rename = \"{}\")] {} {{
         {} data: {},
         timestamp: ::qapi_spec::Timestamp,
-    }},", event.id, id, if event.data.is_empty() { "#[serde(default)] " } else { "" }, id)?;
+    }},",
+                event.id,
+                id,
+                if event.data.is_empty() {
+                    "#[serde(default)] "
+                } else {
+                    ""
+                },
+                id
+            )?;
         }
         writeln!(self.out, "}}")?;
 
-        writeln!(self.out, "
+        writeln!(
+            self.out,
+            "
 impl Event {{
     pub fn timestamp(&self) -> ::qapi_spec::Timestamp {{
-        match *self {{")?;
+        match *self {{"
+        )?;
         for event in &self.events {
-            writeln!(self.out, "Event::{} {{ timestamp, .. }} => timestamp,", event_identifier(&event.id))?;
+            writeln!(
+                self.out,
+                "Event::{} {{ timestamp, .. }} => timestamp,",
+                event_identifier(&event.id)
+            )?;
         }
-        writeln!(self.out, "
+        writeln!(
+            self.out,
+            "
         }}
     }}
-}}")?;
+}}"
+        )?;
         Ok(())
     }
 }
@@ -621,7 +831,11 @@ fn include<W: Write>(context: &mut Context<W>, repo: &mut QemuFileRepo, path: &s
     Ok(())
 }
 
-pub fn codegen<S: AsRef<Path>, O: AsRef<Path>>(schema_path: S, out_path: O, command_trait: String) -> io::Result<HashSet<PathBuf>> {
+pub fn codegen<S: AsRef<Path>, O: AsRef<Path>>(
+    schema_path: S,
+    out_path: O,
+    command_trait: String,
+) -> io::Result<HashSet<PathBuf>> {
     let mut repo = QemuFileRepo::new(schema_path.as_ref());
     {
         let mut context = Context::new(File::create(out_path)?, command_trait);

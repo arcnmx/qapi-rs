@@ -1,22 +1,24 @@
 #[cfg(feature = "qapi-qmp")]
-use qapi_qmp::{QmpMessage, QmpMessageAny, QapiCapabilities, QMPCapability};
-
-use qapi_spec::Response;
-use crate::{Any, Execute, ExecuteResult, Command};
-
-use std::collections::BTreeMap;
-use std::convert::TryInto;
-use std::marker::Unpin;
-use std::sync::{Arc, Mutex as StdMutex, atomic::{AtomicUsize, AtomicBool, Ordering}};
-use std::task::{Context, Poll};
-use std::pin::Pin;
-use std::io;
-use futures::channel::oneshot;
-use futures::task::AtomicWaker;
-use futures::lock::Mutex;
-use futures::{Future, FutureExt, Sink, SinkExt, Stream};
-use serde::Deserialize;
-use log::{trace, info, warn};
+use qapi_qmp::{QMPCapability, QapiCapabilities, QmpMessage, QmpMessageAny};
+use {
+    crate::{Any, Command, Execute, ExecuteResult},
+    futures::{channel::oneshot, lock::Mutex, task::AtomicWaker, Future, FutureExt, Sink, SinkExt, Stream},
+    log::{info, trace, warn},
+    qapi_spec::Response,
+    serde::Deserialize,
+    std::{
+        collections::BTreeMap,
+        convert::TryInto,
+        io,
+        marker::Unpin,
+        pin::Pin,
+        sync::{
+            atomic::{AtomicBool, AtomicUsize, Ordering},
+            Arc, Mutex as StdMutex,
+        },
+        task::{Context, Poll},
+    },
+};
 
 #[cfg(feature = "tokio-util")]
 mod codec;
@@ -36,10 +38,7 @@ pub struct QapiStream<R, W> {
 
 impl<R, W> QapiStream<R, W> {
     pub fn with_parts(service: QapiService<W>, events: QapiEvents<R>) -> Self {
-        Self {
-            service,
-            events,
-        }
+        Self { service, events }
     }
 
     pub fn into_parts(self) -> (QapiService<W>, QapiEvents<R>) {
@@ -47,16 +46,18 @@ impl<R, W> QapiStream<R, W> {
     }
 
     #[cfg(feature = "async-tokio-spawn")]
-    pub fn spawn_tokio(self) -> (QapiService<W>, ::tokio::task::JoinHandle<()>) where
-        QapiEvents<R>: Future<Output=io::Result<()>> + Send + 'static,
+    pub fn spawn_tokio(self) -> (QapiService<W>, ::tokio::task::JoinHandle<()>)
+    where
+        QapiEvents<R>: Future<Output = io::Result<()>> + Send + 'static,
     {
         let handle = self.events.spawn_tokio();
         (self.service, handle)
     }
 
-    pub fn execute<'a, C: Command + 'a>(&'a mut self, command: C) -> impl Future<Output=ExecuteResult<C>> + 'a where
-        QapiEvents<R>: Future<Output=io::Result<()>> + Unpin,
-        W: Sink<Execute<C, u32>, Error=io::Error> + Unpin
+    pub fn execute<'a, C: Command + 'a>(&'a mut self, command: C) -> impl Future<Output = ExecuteResult<C>> + 'a
+    where
+        QapiEvents<R>: Future<Output = io::Result<()>> + Unpin,
+        W: Sink<Execute<C, u32>, Error = io::Error> + Unpin,
     {
         let execute = self.service.execute(command).fuse();
 
@@ -81,16 +82,21 @@ pub struct QmpStreamNegotiation<S, W> {
 }
 
 #[cfg(feature = "qapi-qmp")]
-impl<S, W> QmpStreamNegotiation<S, W> where
-    QapiEvents<S>: Future<Output=io::Result<()>> + Unpin,
-    W: Sink<Execute<qapi_qmp::qmp_capabilities, u32>, Error=io::Error> + Unpin,
+impl<S, W> QmpStreamNegotiation<S, W>
+where
+    QapiEvents<S>: Future<Output = io::Result<()>> + Unpin,
+    W: Sink<Execute<qapi_qmp::qmp_capabilities, u32>, Error = io::Error> + Unpin,
 {
-    pub async fn negotiate_caps<C>(mut self, caps: C) -> io::Result<QapiStream<S, W>> where
-        C: IntoIterator<Item=QMPCapability>,
+    pub async fn negotiate_caps<C>(mut self, caps: C) -> io::Result<QapiStream<S, W>>
+    where
+        C: IntoIterator<Item = QMPCapability>,
     {
-        let _ = self.stream.execute(qapi_qmp::qmp_capabilities {
-            enable: Some(caps.into_iter().collect()),
-        }).await?;
+        let _ = self
+            .stream
+            .execute(qapi_qmp::qmp_capabilities {
+                enable: Some(caps.into_iter().collect()),
+            })
+            .await?;
 
         Ok(self.stream)
     }
@@ -130,17 +136,19 @@ impl<W> QapiService<W> {
         }
     }
 
-    fn command_response<C: Command>(receiver: oneshot::Receiver<Result<Any, qapi_spec::Error>>) -> impl Future<Output=ExecuteResult<C>> {
+    fn command_response<C: Command>(
+        receiver: oneshot::Receiver<Result<Any, qapi_spec::Error>>,
+    ) -> impl Future<Output = ExecuteResult<C>> {
         receiver.map(|res| match res {
-            Ok(Ok(res)) => C::Ok::deserialize(&res)
-                .map_err(io::Error::from).map_err(From::from),
+            Ok(Ok(res)) => C::Ok::deserialize(&res).map_err(io::Error::from).map_err(From::from),
             Ok(Err(e)) => Err(e.into()),
             Err(_cancelled) => Err(io::Error::new(io::ErrorKind::UnexpectedEof, "QAPI stream disconnected").into()),
         })
     }
 
-    pub fn execute<C: Command>(&self, command: C) -> impl Future<Output=ExecuteResult<C>> where
-        W: Sink<Execute<C, u32>, Error=io::Error> + Unpin
+    pub fn execute<C: Command>(&self, command: C) -> impl Future<Output = ExecuteResult<C>>
+    where
+        W: Sink<Execute<C, u32>, Error = io::Error> + Unpin,
     {
         let id = self.command_id();
         let sink = self.write.clone();
@@ -169,17 +177,20 @@ impl<W> QapiService<W> {
     }*/
 
     #[cfg(feature = "qapi-qga")]
-    pub fn guest_sync(&self, sync_value: i32) -> impl Future<Output=Result<(), crate::ExecuteError>> where
-        W: Sink<Execute<qapi_qga::guest_sync, u32>, Error=io::Error> + Unpin
+    pub fn guest_sync(&self, sync_value: i32) -> impl Future<Output = Result<(), crate::ExecuteError>>
+    where
+        W: Sink<Execute<qapi_qga::guest_sync, u32>, Error = io::Error> + Unpin,
     {
         let id = sync_value.into();
-        self.execute(qapi_qga::guest_sync {
-            id,
-        }).map(move |res| res.and_then(|res| if res == id {
-            Ok(())
-        } else {
-            Err(io::Error::new(io::ErrorKind::InvalidData, "QGA sync failed").into())
-        }))
+        self.execute(qapi_qga::guest_sync { id }).map(move |res| {
+            res.and_then(|res| {
+                if res == id {
+                    Ok(())
+                } else {
+                    Err(io::Error::new(io::ErrorKind::InvalidData, "QGA sync failed").into())
+                }
+            })
+        })
     }
 
     fn stop(&self) {
@@ -291,8 +302,9 @@ impl<S> QapiEvents<S> {
         }
     }
 
-    pub async fn into_future(self) -> () where
-        Self: Future<Output=io::Result<()>>,
+    pub async fn into_future(self) -> ()
+    where
+        Self: Future<Output = io::Result<()>>,
     {
         if self.release().is_err() {
             info!("QAPI service abandoned before spawning");
@@ -301,14 +313,14 @@ impl<S> QapiEvents<S> {
 
         match self.await {
             Ok(()) => (),
-            Err(e) =>
-                warn!("QAPI stream closed with error {:?}", e),
+            Err(e) => warn!("QAPI stream closed with error {:?}", e),
         }
     }
 
-    pub fn spawn<SP: futures::task::Spawn>(self, spawn: SP) -> Result<(), futures::task::SpawnError> where
-        Self: Future<Output=io::Result<()>> + Send + 'static,
-        S: 'static
+    pub fn spawn<SP: futures::task::Spawn>(self, spawn: SP) -> Result<(), futures::task::SpawnError>
+    where
+        Self: Future<Output = io::Result<()>> + Send + 'static,
+        S: 'static,
     {
         use futures::task::SpawnExt;
 
@@ -316,9 +328,10 @@ impl<S> QapiEvents<S> {
     }
 
     #[cfg(feature = "async-tokio-spawn")]
-    pub fn spawn_tokio(self) -> ::tokio::task::JoinHandle<()> where
-        Self: Future<Output=io::Result<()>> + Send + 'static,
-        S: 'static
+    pub fn spawn_tokio(self) -> ::tokio::task::JoinHandle<()>
+    where
+        Self: Future<Output = io::Result<()>> + Send + 'static,
+        S: 'static,
     {
         ::tokio::spawn(self.into_future())
     }
@@ -334,16 +347,16 @@ impl<S> Drop for QapiEvents<S> {
 
 fn response_id<T>(res: &Response<T>, supports_oob: bool) -> io::Result<u32> {
     match (res.id().and_then(|id| id.as_u64()), supports_oob) {
-        (Some(id), true) =>
-            id.try_into().map_err(|e|
-                io::Error::new(io::ErrorKind::InvalidData, e)
-            ),
-        (None, false) =>
-            Ok(Default::default()),
-        (None, true) =>
-            Err(io::Error::new(io::ErrorKind::InvalidData, format!("QAPI expected response with numeric ID, got {:?}", res.id()))),
-        (Some(..), false) =>
-            Err(io::Error::new(io::ErrorKind::InvalidData, format!("QAPI expected response without ID, got {:?}", res.id()))),
+        (Some(id), true) => id.try_into().map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e)),
+        (None, false) => Ok(Default::default()),
+        (None, true) => Err(io::Error::new(
+            io::ErrorKind::InvalidData,
+            format!("QAPI expected response with numeric ID, got {:?}", res.id()),
+        )),
+        (Some(..), false) => Err(io::Error::new(
+            io::ErrorKind::InvalidData,
+            format!("QAPI expected response without ID, got {:?}", res.id()),
+        )),
     }
 }
 
@@ -351,16 +364,23 @@ fn handle_response(shared: &QapiShared, res: Response<Any>) -> io::Result<()> {
     let id = response_id(&res, shared.supports_oob)?;
 
     if let Some(sender) = shared.command_remove(id) {
-        sender.send(res.result()).map_err(|_e|
-            io::Error::new(io::ErrorKind::InvalidData, format!("failed to send response for ID {:?}", id))
-        )
+        sender.send(res.result()).map_err(|_e| {
+            io::Error::new(
+                io::ErrorKind::InvalidData,
+                format!("failed to send response for ID {:?}", id),
+            )
+        })
     } else {
-        Err(io::Error::new(io::ErrorKind::InvalidData, format!("unknown QAPI response with ID {:?}", res.id())))
+        Err(io::Error::new(
+            io::ErrorKind::InvalidData,
+            format!("unknown QAPI response with ID {:?}", res.id()),
+        ))
     }
 }
 
-impl<M, S> Future for QapiEvents<S> where
-    S: Stream<Item=io::Result<M>>,
+impl<M, S> Future for QapiEvents<S>
+where
+    S: Stream<Item = io::Result<M>>,
     M: TryInto<Response<Any>>,
 {
     type Output = io::Result<()>;
@@ -370,29 +390,33 @@ impl<M, S> Future for QapiEvents<S> where
         let stream = unsafe { Pin::new_unchecked(&mut this.stream) };
         let shared = &this.shared;
 
-        shared.poll_next(cx, |cx| Poll::Ready(Some(match futures::ready!(stream.poll_next(cx)) {
-            None => return Poll::Ready(None),
-            Some(Err(e)) => Err(e),
-            Some(Ok(res)) => match res.try_into() {
-                Ok(res) => match handle_response(shared, res) {
-                    Err(e) => Err(e),
-                    Ok(()) => {
-                        cx.waker().wake_by_ref(); // TODO: I've seen this not work with tokio?
-                        return Poll::Pending
+        shared
+            .poll_next(cx, |cx| {
+                Poll::Ready(Some(match futures::ready!(stream.poll_next(cx)) {
+                    None => return Poll::Ready(None),
+                    Some(Err(e)) => Err(e),
+                    Some(Ok(res)) => match res.try_into() {
+                        Ok(res) => match handle_response(shared, res) {
+                            Err(e) => Err(e),
+                            Ok(()) => {
+                                cx.waker().wake_by_ref(); // TODO: I've seen this not work with tokio?
+                                return Poll::Pending
+                            },
+                        },
+                        Err(..) => {
+                            trace!("Ignoring QAPI event");
+                            cx.waker().wake_by_ref(); // TODO: I've seen this not work with tokio?
+                            return Poll::Pending
+                        },
                     },
-                },
-                Err(..) => {
-                    trace!("Ignoring QAPI event");
-                    cx.waker().wake_by_ref(); // TODO: I've seen this not work with tokio?
-                    return Poll::Pending
-                },
-            },
-        }))).map(|res| res.unwrap_or(Ok(())))
+                }))
+            })
+            .map(|res| res.unwrap_or(Ok(())))
     }
 }
 
 #[cfg(feature = "qapi-qmp")]
-impl<S: Stream<Item=io::Result<QmpMessageAny>>> Stream for QapiEvents<S> {
+impl<S: Stream<Item = io::Result<QmpMessageAny>>> Stream for QapiEvents<S> {
     type Item = io::Result<qapi_qmp::Event>;
 
     fn poll_next(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Option<Self::Item>> {
@@ -400,17 +424,19 @@ impl<S: Stream<Item=io::Result<QmpMessageAny>>> Stream for QapiEvents<S> {
         let stream = unsafe { Pin::new_unchecked(&mut this.stream) };
         let shared = &this.shared;
 
-        shared.poll_next(cx, |cx| Poll::Ready(match futures::ready!(stream.poll_next(cx)) {
-            None => None, // eof
-            Some(Err(e)) => Some(Err(e)),
-            Some(Ok(QmpMessage::Event(e))) => Some(Ok(e)),
-            Some(Ok(QmpMessage::Response(res))) => match handle_response(shared, res) {
-                Err(e) => Some(Err(e)),
-                Ok(()) => {
-                    cx.waker().wake_by_ref(); // TODO: I've seen this not work with tokio?
-                    return Poll::Pending
+        shared.poll_next(cx, |cx| {
+            Poll::Ready(match futures::ready!(stream.poll_next(cx)) {
+                None => None, // eof
+                Some(Err(e)) => Some(Err(e)),
+                Some(Ok(QmpMessage::Event(e))) => Some(Ok(e)),
+                Some(Ok(QmpMessage::Response(res))) => match handle_response(shared, res) {
+                    Err(e) => Some(Err(e)),
+                    Ok(()) => {
+                        cx.waker().wake_by_ref(); // TODO: I've seen this not work with tokio?
+                        return Poll::Pending
+                    },
                 },
-            },
-        }))
+            })
+        })
     }
 }

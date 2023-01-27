@@ -1,5 +1,4 @@
-use std::env::args;
-use std::io;
+use std::{env::args, io};
 
 #[tokio::main]
 async fn main() -> io::Result<()> {
@@ -16,7 +15,7 @@ async fn main() -> io::Result<()> {
     let sync_value = &qga as *const _ as usize as i32;
     qga.guest_sync(sync_value).await?;
 
-    let info = qga.execute(qapi::qga::guest_info { }).await?;
+    let info = qga.execute(qapi::qga::guest_info {}).await?;
     println!("Guest Agent version: {}", info.version);
 
     {

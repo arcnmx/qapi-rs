@@ -1,22 +1,21 @@
 #![doc(html_root_url = "https://docs.rs/qapi/0.11.0")]
 
-#[cfg(feature = "qapi-qmp")]
-pub use qapi_qmp as qmp;
-
-#[cfg(feature = "qapi-qga")]
-pub use qapi_qga as qga;
-
-pub use qapi_spec::{Any, Dictionary, Empty, Never, Execute, ExecuteOob, Command, CommandResult, Event, Enum, Error, ErrorClass, Timestamp};
-
-pub use self::stream::Stream;
-
-#[cfg(feature = "qapi-qmp")]
-pub use self::qmp_impl::*;
-
 #[cfg(feature = "qapi-qga")]
 pub use self::qga_impl::*;
-
+#[cfg(feature = "qapi-qmp")]
+pub use self::qmp_impl::*;
+#[cfg(feature = "qapi-qga")]
+pub use qapi_qga as qga;
+#[cfg(feature = "qapi-qmp")]
+pub use qapi_qmp as qmp;
 use std::{error, fmt, io};
+pub use {
+    self::stream::Stream,
+    qapi_spec::{
+        Any, Command, CommandResult, Dictionary, Empty, Enum, Error, ErrorClass, Event, Execute, ExecuteOob, Never,
+        Timestamp,
+    },
+};
 
 #[cfg(feature = "async")]
 pub mod futures;
@@ -70,11 +69,13 @@ impl From<ExecuteError> for io::Error {
 
 #[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
 mod qapi {
-    use serde_json;
-    use serde::{Serialize, Deserialize};
-    use std::io::{self, BufRead, Write};
-    use crate::{Command, Execute};
-    use log::trace;
+    use {
+        crate::{Command, Execute},
+        log::trace,
+        serde::{Deserialize, Serialize},
+        serde_json,
+        std::io::{self, BufRead, Write},
+    };
 
     pub struct Qapi<S> {
         pub stream: S,
@@ -120,7 +121,11 @@ mod qapi {
         pub fn write_command<C: Command>(&mut self, command: &C) -> io::Result<()> {
             self.encode_line(&Execute::<&C>::from(command))?;
 
-            trace!("-> execute {}: {}", C::NAME, serde_json::to_string_pretty(command).unwrap());
+            trace!(
+                "-> execute {}: {}",
+                C::NAME,
+                serde_json::to_string_pretty(command).unwrap()
+            );
 
             Ok(())
         }
@@ -128,7 +133,7 @@ mod qapi {
 }
 
 mod stream {
-    use std::io::{Read, Write, BufRead, Result};
+    use std::io::{BufRead, Read, Result, Write};
 
     pub struct Stream<R, W> {
         r: R,
@@ -137,20 +142,28 @@ mod stream {
 
     impl<R, W> Stream<R, W> {
         pub fn new(r: R, w: W) -> Self {
-            Stream {
-                r,
-                w,
-            }
+            Stream { r, w }
         }
 
         pub fn into_inner(self) -> (R, W) {
             (self.r, self.w)
         }
 
-        pub fn get_ref_read(&self) -> &R { &self.r }
-        pub fn get_mut_read(&mut self) -> &mut R { &mut self.r }
-        pub fn get_ref_write(&self) -> &W { &self.w }
-        pub fn get_mut_write(&mut self) -> &mut W { &mut self.w }
+        pub fn get_ref_read(&self) -> &R {
+            &self.r
+        }
+
+        pub fn get_mut_read(&mut self) -> &mut R {
+            &mut self.r
+        }
+
+        pub fn get_ref_write(&self) -> &W {
+            &self.w
+        }
+
+        pub fn get_mut_write(&mut self) -> &mut W {
+            &mut self.w
+        }
     }
 
     impl<R: Read, W> Read for Stream<R, W> {
@@ -182,10 +195,14 @@ mod stream {
 
 #[cfg(feature = "qapi-qmp")]
 mod qmp_impl {
-    use std::io::{self, BufRead, Read, Write, BufReader};
-    use std::vec::Drain;
-    use qapi_qmp::{QMP, QapiCapabilities, QmpMessage, Event, qmp_capabilities, query_version};
-    use crate::{qapi::Qapi, Stream, ExecuteResult, ExecuteError, Command};
+    use {
+        crate::{qapi::Qapi, Command, ExecuteError, ExecuteResult, Stream},
+        qapi_qmp::{qmp_capabilities, query_version, Event, QapiCapabilities, QmpMessage, QMP},
+        std::{
+            io::{self, BufRead, BufReader, Read, Write},
+            vec::Drain,
+        },
+    };
 
     pub struct Qmp<S> {
         inner: Qapi<S>,
@@ -225,15 +242,16 @@ mod qmp_impl {
 
     impl<S: BufRead> Qmp<S> {
         pub fn read_capabilities(&mut self) -> io::Result<QMP> {
-            self.inner.decode_line().map(|v: Option<QapiCapabilities>|
-                v.expect("unexpected eof").QMP
-            )
+            self.inner
+                .decode_line()
+                .map(|v: Option<QapiCapabilities>| v.expect("unexpected eof").QMP)
         }
 
         pub fn read_response<C: Command>(&mut self) -> ExecuteResult<C> {
             loop {
                 match self.inner.decode_line()? {
-                    None => return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response").into()),
+                    None =>
+                        return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response").into()),
                     Some(QmpMessage::Response(res)) => return res.result().map_err(From::from),
                     Some(QmpMessage::Event(e)) => self.event_queue.push(e),
                 }
@@ -253,25 +271,24 @@ mod qmp_impl {
 
         pub fn handshake(&mut self) -> Result<QMP, ExecuteError> {
             let caps = self.read_capabilities()?;
-            self.execute(&qmp_capabilities { enable: None })
-                .map(|_| caps)
+            self.execute(&qmp_capabilities { enable: None }).map(|_| caps)
         }
 
         /// Can be used to poll the socket for pending events
         pub fn nop(&mut self) -> io::Result<()> {
-            self.execute(&query_version { })
-                .map_err(From::from)
-                .map(drop)
+            self.execute(&query_version {}).map_err(From::from).map(drop)
         }
     }
 }
 
 #[cfg(feature = "qapi-qga")]
 mod qga_impl {
-    use std::io::{self, BufRead, Read, Write, BufReader};
-    use qapi_qga::guest_sync;
-    use qapi_spec::Response;
-    use crate::{qapi::Qapi, Stream, Command, ExecuteResult, ExecuteError};
+    use {
+        crate::{qapi::Qapi, Command, ExecuteError, ExecuteResult, Stream},
+        qapi_qga::guest_sync,
+        qapi_spec::Response,
+        std::io::{self, BufRead, BufReader, Read, Write},
+    };
 
     pub struct Qga<S> {
         inner: Qapi<S>,
@@ -307,7 +324,8 @@ mod qga_impl {
         pub fn read_response<C: Command>(&mut self) -> ExecuteResult<C> {
             loop {
                 match self.inner.decode_line()?.map(|r: Response<_>| r.result()) {
-                    None => return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response").into()),
+                    None =>
+                        return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "expected command response").into()),
                     Some(Ok(res)) => return Ok(res),
                     Some(Err(e)) => return Err(e.into()),
                 }
@@ -327,9 +345,7 @@ mod qga_impl {
 
         pub fn guest_sync(&mut self, sync_value: i32) -> Result<(), ExecuteError> {
             let id = sync_value.into();
-            let sync = guest_sync {
-                id,
-            };
+            let sync = guest_sync { id };
 
             match self.execute(&sync) {
                 Ok(r) if r == sync.id => Ok(()),

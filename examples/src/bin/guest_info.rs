@@ -1,7 +1,9 @@
 #[cfg(unix)]
 use std::os::unix::net::UnixStream;
-use std::env::args;
-use qapi::{qga, Qga};
+use {
+    qapi::{qga, Qga},
+    std::env::args,
+};
 
 pub fn main() {
     ::env_logger::init();
@@ -17,6 +19,6 @@ pub fn main() {
     let sync_value = &stream as *const _ as usize as i32;
     qga.guest_sync(sync_value).expect("handshake failed");
 
-    let info = qga.execute(&qga::guest_info { }).unwrap();
+    let info = qga.execute(&qga::guest_info {}).unwrap();
     println!("Guest Agent version: {}", info.version);
 }

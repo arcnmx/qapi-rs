@@ -1,23 +1,27 @@
-use std::io;
-use std::pin::Pin;
-use std::task::{Context, Poll};
-use std::sync::Arc;
-use futures::Stream;
-#[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
-use futures::Sink;
-use tokio::io::{AsyncRead, AsyncWrite, ReadHalf, WriteHalf, split};
-use tokio_util::codec::{Framed, FramedParts};
-use qapi_spec::{Response, Any};
-#[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
-use qapi_spec::Execute;
-#[cfg(feature = "qapi-qmp")]
-use qapi_qmp::{QmpMessageAny, QmpCommand, QapiCapabilities, QMPCapability};
 #[cfg(feature = "qapi-qmp")]
 use super::QmpStreamNegotiation;
-use super::{codec::JsonLinesCodec, QapiEvents, QapiService, QapiStream, QapiShared};
+#[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
+use futures::Sink;
+#[cfg(feature = "qapi-qmp")]
+use qapi_qmp::{QMPCapability, QapiCapabilities, QmpCommand, QmpMessageAny};
+#[cfg(any(feature = "qapi-qmp", feature = "qapi-qga"))]
+use qapi_spec::Execute;
+use {
+    super::{codec::JsonLinesCodec, QapiEvents, QapiService, QapiShared, QapiStream},
+    futures::Stream,
+    qapi_spec::{Any, Response},
+    std::{
+        io,
+        pin::Pin,
+        sync::Arc,
+        task::{Context, Poll},
+    },
+    tokio::io::{split, AsyncRead, AsyncWrite, ReadHalf, WriteHalf},
+    tokio_util::codec::{Framed, FramedParts},
+};
 
 pub struct QgaStreamTokio<S> {
-    stream: Framed<S, JsonLinesCodec<Response<Any>>>
+    stream: Framed<S, JsonLinesCodec<Response<Any>>>,
 }
 
 impl<S> QgaStreamTokio<S> {
@@ -34,10 +38,7 @@ impl<S> QgaStreamTokio<S> {
             shared: shared.clone(),
         };
         let service = QapiService::new(write, shared);
-        QapiStream {
-            service,
-            events,
-        }
+        QapiStream { service, events }
     }
 
     pub fn open_split<W>(read: S, write: W) -> QapiStream<Self, QgaStreamTokio<W>> {
@@ -49,7 +50,8 @@ impl<S> QgaStreamTokio<S> {
 }
 
 impl<R> QgaStreamTokio<ReadHalf<R>> {
-    pub fn open(stream: R) -> QapiStream<Self, QgaStreamTokio<WriteHalf<R>>> where
+    pub fn open(stream: R) -> QapiStream<Self, QgaStreamTokio<WriteHalf<R>>>
+    where
         R: AsyncRead + AsyncWrite,
     {
         let (r, w) = split(stream);
@@ -62,7 +64,9 @@ impl<R> QgaStreamTokio<ReadHalf<R>> {
 
 #[cfg(all(unix, feature = "async-tokio-net"))]
 impl QgaStreamTokio<ReadHalf<tokio::net::UnixStream>> {
-    pub async fn open_uds<P: AsRef<std::path::Path>>(socket_addr: P) -> io::Result<QapiStream<Self, QgaStreamTokio<WriteHalf<tokio::net::UnixStream>>>> {
+    pub async fn open_uds<P: AsRef<std::path::Path>>(
+        socket_addr: P,
+    ) -> io::Result<QapiStream<Self, QgaStreamTokio<WriteHalf<tokio::net::UnixStream>>>> {
         let socket = tokio::net::UnixStream::connect(socket_addr).await?;
         let (r, w) = split(socket);
         Ok(Self::open_split(r, w))
@@ -71,7 +75,9 @@ impl QgaStreamTokio<ReadHalf<tokio::net::UnixStream>> {
 
 #[cfg(feature = "async-tokio-net")]
 impl QgaStreamTokio<ReadHalf<tokio::net::TcpStream>> {
-    pub async fn open_tcp<A: tokio::net::ToSocketAddrs>(socket_addr: A) -> io::Result<QapiStream<Self, QgaStreamTokio<WriteHalf<tokio::net::TcpStream>>>> {
+    pub async fn open_tcp<A: tokio::net::ToSocketAddrs>(
+        socket_addr: A,
+    ) -> io::Result<QapiStream<Self, QgaStreamTokio<WriteHalf<tokio::net::TcpStream>>>> {
         let socket = tokio::net::TcpStream::connect(socket_addr).await?;
         let (r, w) = split(socket);
         Ok(Self::open_split(r, w))
@@ -80,9 +86,7 @@ impl QgaStreamTokio<ReadHalf<tokio::net::TcpStream>> {
 
 impl<S> QgaStreamTokio<S> {
     fn stream(self: Pin<&mut Self>) -> Pin<&mut Framed<S, JsonLinesCodec<Response<Any>>>> {
-        unsafe {
-            self.map_unchecked_mut(|this| &mut this.stream)
-        }
+        unsafe { self.map_unchecked_mut(|this| &mut this.stream) }
     }
 }
 
@@ -123,9 +127,7 @@ pub struct QmpStreamTokio<S> {
 #[cfg(feature = "qapi-qmp")]
 impl<S> QmpStreamTokio<S> {
     fn stream(self: Pin<&mut Self>) -> Pin<&mut Framed<S, JsonLinesCodec<QmpMessageAny>>> {
-        unsafe {
-            self.map_unchecked_mut(|this| &mut this.stream)
-        }
+        unsafe { self.map_unchecked_mut(|this| &mut this.stream) }
     }
 }
 
@@ -167,16 +169,18 @@ impl<S> QmpStreamTokio<S> {
         }
     }
 
-    pub async fn open_split<W>(read: S, write: W) -> io::Result<QmpStreamNegotiation<Self, QmpStreamTokio<W>>> where
+    pub async fn open_split<W>(read: S, write: W) -> io::Result<QmpStreamNegotiation<Self, QmpStreamTokio<W>>>
+    where
         S: AsyncRead + Unpin,
     {
         use futures::StreamExt;
 
         let mut lines = Framed::from_parts(FramedParts::new::<()>(read, JsonLinesCodec::<QapiCapabilities>::new()));
 
-        let capabilities = lines.next().await.ok_or_else(||
-            io::Error::new(io::ErrorKind::UnexpectedEof, "QMP greeting expected")
-        )??;
+        let capabilities = lines
+            .next()
+            .await
+            .ok_or_else(|| io::Error::new(io::ErrorKind::UnexpectedEof, "QMP greeting expected"))??;
 
         let lines = lines.into_parts();
         let mut read = FramedParts::new::<()>(lines.io, JsonLinesCodec::new());
@@ -192,10 +196,7 @@ impl<S> QmpStreamTokio<S> {
         let service = QapiService::new(QmpStreamTokio::new(write), shared);
 
         Ok(QmpStreamNegotiation {
-            stream: QapiStream {
-                service,
-                events,
-            },
+            stream: QapiStream { service, events },
             capabilities,
         })
     }
@@ -203,7 +204,10 @@ impl<S> QmpStreamTokio<S> {
 
 #[cfg(feature = "qapi-qmp")]
 impl<RW: AsyncRead + AsyncWrite> QmpStreamTokio<ReadHalf<RW>> {
-    pub async fn open(stream: RW) -> io::Result<QmpStreamNegotiation<Self, QmpStreamTokio<WriteHalf<RW>>>> where RW: Unpin {
+    pub async fn open(stream: RW) -> io::Result<QmpStreamNegotiation<Self, QmpStreamTokio<WriteHalf<RW>>>>
+    where
+        RW: Unpin,
+    {
         let (r, w) = split(stream);
         Self::open_split(r, w).await
     }
@@ -211,7 +215,9 @@ impl<RW: AsyncRead + AsyncWrite> QmpStreamTokio<ReadHalf<RW>> {
 
 #[cfg(all(unix, feature = "qapi-qmp", feature = "async-tokio-net"))]
 impl QmpStreamTokio<ReadHalf<tokio::net::UnixStream>> {
-    pub async fn open_uds<P: AsRef<std::path::Path>>(socket_addr: P) -> io::Result<QmpStreamNegotiation<Self, QmpStreamTokio<WriteHalf<tokio::net::UnixStream>>>> {
+    pub async fn open_uds<P: AsRef<std::path::Path>>(
+        socket_addr: P,
+    ) -> io::Result<QmpStreamNegotiation<Self, QmpStreamTokio<WriteHalf<tokio::net::UnixStream>>>> {
         let socket = tokio::net::UnixStream::connect(socket_addr).await?;
         let (r, w) = split(socket);
         Self::open_split(r, w).await
@@ -220,7 +226,9 @@ impl QmpStreamTokio<ReadHalf<tokio::net::UnixStream>> {
 
 #[cfg(all(feature = "qapi-qmp", feature = "async-tokio-net"))]
 impl QmpStreamTokio<ReadHalf<tokio::net::TcpStream>> {
-    pub async fn open_tcp<A: tokio::net::ToSocketAddrs>(socket_addr: A) -> io::Result<QmpStreamNegotiation<Self, QmpStreamTokio<WriteHalf<tokio::net::TcpStream>>>> {
+    pub async fn open_tcp<A: tokio::net::ToSocketAddrs>(
+        socket_addr: A,
+    ) -> io::Result<QmpStreamNegotiation<Self, QmpStreamTokio<WriteHalf<tokio::net::TcpStream>>>> {
         let socket = tokio::net::TcpStream::connect(socket_addr).await?;
         let (r, w) = split(socket);
         Self::open_split(r, w).await

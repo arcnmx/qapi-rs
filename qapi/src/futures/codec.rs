@@ -1,7 +1,8 @@
-use std::io;
-use std::marker::PhantomData;
-use bytes::{BytesMut, BufMut};
-use serde::{de::DeserializeOwned, Serialize};
+use {
+    bytes::{BufMut, BytesMut},
+    serde::{de::DeserializeOwned, Serialize},
+    std::{io, marker::PhantomData},
+};
 
 pub struct JsonLinesCodec<D = ()> {
     next_index: usize,
@@ -24,9 +25,7 @@ impl<D: DeserializeOwned> JsonLinesCodec<D> {
                 let index = offset + self.next_index;
                 self.next_index = 0;
                 let line = buf.split_to(index + 1);
-                serde_json::from_slice(&line)
-                    .map_err(From::from)
-                    .map(Some)
+                serde_json::from_slice(&line).map_err(From::from).map(Some)
             },
             None => {
                 self.next_index = buf.len();
@@ -39,17 +38,15 @@ impl<D: DeserializeOwned> JsonLinesCodec<D> {
         if buf.is_empty() {
             Ok(None)
         } else {
-            serde_json::from_slice(buf)
-                .map_err(From::from)
-                .map(Some)
+            serde_json::from_slice(buf).map_err(From::from).map(Some)
         }
     }
 }
 
 #[cfg(feature = "tokio-util")]
 impl<D: DeserializeOwned> tokio_util::codec::Decoder for JsonLinesCodec<D> {
-    type Item = D;
     type Error = io::Error;
+    type Item = D;
 
     fn decode(&mut self, buf: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
         self.priv_decode(buf)

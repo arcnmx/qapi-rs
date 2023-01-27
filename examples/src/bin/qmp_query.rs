@@ -1,9 +1,9 @@
-use std::thread::sleep;
-use std::time::Duration;
-use std::env::args;
 #[cfg(unix)]
 use std::os::unix::net::UnixStream;
-use qapi::{qmp, Qmp};
+use {
+    qapi::{qmp, Qmp},
+    std::{env::args, thread::sleep, time::Duration},
+};
 
 pub fn main() {
     ::env_logger::init();
@@ -19,7 +19,7 @@ pub fn main() {
     let info = qmp.handshake().expect("handshake failed");
     println!("QMP info: {:#?}", info);
 
-    let status = qmp.execute(&qmp::query_status { }).unwrap();
+    let status = qmp.execute(&qmp::query_status {}).unwrap();
     println!("VCPU status: {:#?}", status);
 
     loop {

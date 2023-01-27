@@ -1,21 +1,20 @@
 #![doc(html_root_url = "https://docs.rs/qapi-spec/0.3.1")]
 
-use std::{io, error, fmt, str};
-use std::marker::PhantomData;
-use serde::{Serialize, Serializer, Deserialize, Deserializer};
-use serde::de::DeserializeOwned;
-
 pub use serde_json::Value as Any;
+use {
+    serde::{de::DeserializeOwned, Deserialize, Deserializer, Serialize, Serializer},
+    std::{error, fmt, io, marker::PhantomData, str},
+};
 pub type Dictionary = serde_json::Map<String, Any>;
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
-pub struct Empty { }
+pub struct Empty {}
 
-pub enum Never { }
+pub enum Never {}
 
 impl Serialize for Never {
     fn serialize<S: Serializer>(&self, _: S) -> Result<S::Ok, S::Error> {
-        match *self { }
+        match *self {}
     }
 }
 
@@ -29,9 +28,13 @@ impl<'de> Deserialize<'de> for Never {
 
 #[doc(hidden)]
 pub mod base64 {
-    use serde::{Serialize, Serializer, Deserialize, Deserializer};
-    use serde::de::{Error, Unexpected};
-    use base64::{prelude::*, DecodeError};
+    use {
+        base64::{prelude::*, DecodeError},
+        serde::{
+            de::{Error, Unexpected},
+            Deserialize, Deserializer, Serialize, Serializer,
+        },
+    };
 
     pub fn serialize<S: Serializer>(data: &[u8], serializer: S) -> Result<S::Ok, S::Error> {
         BASE64_STANDARD.encode(data).serialize(serializer)
@@ -41,16 +44,14 @@ pub mod base64 {
         // TODO: deserialize to borrowed &str
         let str = String::deserialize(deserializer)?;
 
-        BASE64_STANDARD.decode(&str)
-            .map_err(|e| de_err(&str, e))
+        BASE64_STANDARD.decode(&str).map_err(|e| de_err(&str, e))
     }
 
     pub fn de_err<E: Error>(str: &str, err: DecodeError) -> E {
         match err {
             DecodeError::InvalidByte(..) | DecodeError::InvalidPadding =>
                 E::invalid_value(Unexpected::Str(str), &"base64"),
-            DecodeError::InvalidLength =>
-                E::invalid_length(str.len(), &"valid base64 length"),
+            DecodeError::InvalidLength => E::invalid_length(str.len(), &"valid base64 length"),
             DecodeError::InvalidLastSymbol(..) =>
                 E::invalid_value(Unexpected::Str(str), &"truncated or corrupted base64"),
         }
@@ -59,9 +60,11 @@ pub mod base64 {
 
 #[doc(hidden)]
 pub mod base64_opt {
-    use serde::{Serializer, Deserialize, Deserializer};
-    use crate::base64;
-    use ::base64::prelude::*;
+    use {
+        crate::base64,
+        ::base64::prelude::*,
+        serde::{Deserialize, Deserializer, Serializer},
+    };
 
     pub fn serialize<S: Serializer>(data: &Option<Vec<u8>>, serializer: S) -> Result<S::Ok, S::Error> {
         base64::serialize(data.as_ref().expect("use skip_serializing_with"), serializer)
@@ -71,7 +74,8 @@ pub mod base64_opt {
         // TODO: deserialize to borrowed &str
         let str = <Option<String>>::deserialize(deserializer)?;
         if let Some(ref str) = str {
-            BASE64_STANDARD.decode(str)
+            BASE64_STANDARD
+                .decode(str)
                 .map(Some)
                 .map_err(|e| base64::de_err(str, e))
         } else {
@@ -81,8 +85,10 @@ pub mod base64_opt {
 }
 
 mod error_serde {
-    use serde::{Serialize, Serializer, Deserialize, Deserializer};
-    use crate::{Error, ErrorClass, Any};
+    use {
+        crate::{Any, Error, ErrorClass},
+        serde::{Deserialize, Deserializer, Serialize, Serializer},
+    };
 
     #[derive(Deserialize)]
     pub struct ErrorValue {
@@ -118,7 +124,8 @@ mod error_serde {
                     desc: &self.desc[..],
                 },
                 id: self.id.as_ref(),
-            }.serialize(serializer)
+            }
+            .serialize(serializer)
         }
     }
 
@@ -174,15 +181,15 @@ pub trait Command: Serialize + Sync + Send {
 impl<'a, C: Command> Command for &'a C {
     type Ok = C::Ok;
 
-    const NAME: &'static str = C::NAME;
     const ALLOW_OOB: bool = C::ALLOW_OOB;
+    const NAME: &'static str = C::NAME;
 }
 
 impl<'a, C: Command> Command for &'a mut C {
     type Ok = C::Ok;
 
-    const NAME: &'static str = C::NAME;
     const ALLOW_OOB: bool = C::ALLOW_OOB;
+    const NAME: &'static str = C::NAME;
 }
 
 pub trait Event: DeserializeOwned {
@@ -193,13 +200,13 @@ pub unsafe trait Enum: DeserializeOwned + str::FromStr + Copy + 'static {
     fn discriminant(&self) -> usize;
 
     fn name(&self) -> &'static str {
-        unsafe {
-            Self::NAMES.get_unchecked(self.discriminant())
-        }
+        unsafe { Self::NAMES.get_unchecked(self.discriminant()) }
     }
 
     fn from_name(s: &str) -> Option<Self> {
-        Self::NAMES.iter().zip(Self::VARIANTS)
+        Self::NAMES
+            .iter()
+            .zip(Self::VARIANTS)
             .find(|&(&n, _)| n == s)
             .map(|(_, &v)| v)
     }
@@ -211,7 +218,8 @@ pub unsafe trait Enum: DeserializeOwned + str::FromStr + Copy + 'static {
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 pub enum ErrorClass {
-    /// this is used for errors that don’t require a specific error class. This should be the default case for most errors
+    /// this is used for errors that don’t require a specific error class. This should be the
+    /// default case for most errors
     GenericError,
     /// the requested command has not been found
     CommandNotFound,
@@ -259,7 +267,11 @@ pub struct Execute<C, I = Never> {
 
 #[derive(Serialize)]
 pub struct ExecuteOob<C, I = Any> {
-    #[serde(rename = "exec-oob", serialize_with = "serialize_command_name::<C, _>", bound = "C: Command")]
+    #[serde(
+        rename = "exec-oob",
+        serialize_with = "serialize_command_name::<C, _>",
+        bound = "C: Command"
+    )]
     pub execute_oob: PhantomData<&'static str>,
     pub arguments: C,
     pub id: I,

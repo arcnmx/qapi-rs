@@ -1,6 +1,7 @@
-use std::env::args;
-use std::io;
-use futures::StreamExt;
+use {
+    futures::StreamExt,
+    std::{env::args, io},
+};
 
 #[tokio::main]
 async fn main() -> io::Result<()> {

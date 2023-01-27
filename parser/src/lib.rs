@@ -1,10 +1,13 @@
 #![doc(html_root_url = "https://docs.rs/qapi-parser/0.9.1")]
 
 pub mod spec {
-    use std::fmt;
-    use serde::de::{Deserializer, Visitor, SeqAccess, MapAccess, Error};
-    use serde::de::value::MapAccessDeserializer;
-    use serde::Deserialize;
+    use {
+        serde::{
+            de::{value::MapAccessDeserializer, Deserializer, Error, MapAccess, SeqAccess, Visitor},
+            Deserialize,
+        },
+        std::fmt,
+    };
 
     #[derive(Debug, Clone, Deserialize)]
     #[serde(untagged, rename_all = "lowercase")]
@@ -17,15 +20,9 @@ pub mod spec {
         Event(Event),
         CombinedUnion(CombinedUnion),
         Union(Union),
-        PragmaWhitelist {
-            pragma: PragmaWhitelist
-        },
-        PragmaExceptions {
-            pragma: PragmaExceptions
-        },
-        PragmaDocRequired {
-            pragma: PragmaDocRequired
-        },
+        PragmaWhitelist { pragma: PragmaWhitelist },
+        PragmaExceptions { pragma: PragmaExceptions },
+        PragmaDocRequired { pragma: PragmaDocRequired },
     }
 
     #[derive(Debug, Default, Clone)]
@@ -51,15 +48,16 @@ pub mod spec {
             use serde::de::IntoDeserializer;
 
             let fields: serde_json::Map<String, serde_json::Value> = Deserialize::deserialize(d)?;
-            let fields = fields.into_iter().map(|(n, t)|
-                Type::deserialize(t.into_deserializer()).map(|t|
-                    Value::new(&n, t)
-                ).map_err(D::Error::custom)
-            ).collect::<Result<_, _>>()?;
+            let fields = fields
+                .into_iter()
+                .map(|(n, t)| {
+                    Type::deserialize(t.into_deserializer())
+                        .map(|t| Value::new(&n, t))
+                        .map_err(D::Error::custom)
+                })
+                .collect::<Result<_, _>>()?;
 
-            Ok(Data {
-                fields,
-            })
+            Ok(Data { fields })
         }
     }
 
@@ -191,7 +189,7 @@ pub mod spec {
                     Ok(Type {
                         conditional: ty.conditional,
                         features: ty.features,
-                        .. ty.ty
+                        ..ty.ty
                     })
                 }
 
@@ -234,12 +232,8 @@ pub mod spec {
     #[serde(untagged, rename_all = "kebab-case")]
     pub enum Conditional {
         Define(ConditionalDefinition),
-        All {
-            all: Vec<ConditionalDefinition>,
-        },
-        Any {
-            any: Vec<ConditionalDefinition>,
-        },
+        All { all: Vec<ConditionalDefinition> },
+        Any { any: Vec<ConditionalDefinition> },
     }
 
     #[derive(Debug, Clone, Deserialize)]
@@ -268,7 +262,9 @@ pub mod spec {
     }
 
     impl Command {
-        fn gen_default() -> bool { true }
+        fn gen_default() -> bool {
+            true
+        }
     }
 
     #[derive(Debug, Clone, Deserialize)]
@@ -446,10 +442,11 @@ pub mod spec {
 }
 
 pub use self::spec::Spec;
-
-use std::path::{Path, PathBuf};
-use std::ops::{Deref, DerefMut};
-use std::io;
+use std::{
+    io,
+    ops::{Deref, DerefMut},
+    path::{Path, PathBuf},
+};
 
 pub struct Parser {
     data: String,
@@ -467,14 +464,18 @@ impl Parser {
     }
 
     pub fn strip_comments(s: &str) -> String {
-        let lines: Vec<String> = s.lines()
+        let lines: Vec<String> = s
+            .lines()
             .filter(|l| !l.trim().starts_with("#") && !l.trim().is_empty())
             .map(|s| s.replace("'", "\""))
-            .map(|s| if let Some(i) = s.find('#') {
-                s[..i].to_owned()
-            } else {
-                s
-            }).collect();
+            .map(|s| {
+                if let Some(i) = s.find('#') {
+                    s[..i].to_owned()
+                } else {
+                    s
+                }
+            })
+            .collect();
         lines.join("\n")
     }
 }
@@ -496,8 +497,8 @@ impl Iterator for Parser {
                     if line == 0 || col == 0 {
                         Err(e)
                     } else {
-                        let count: usize =  self.data[self.pos..].lines().map(|l| l.len() + 1).take(line - 1).sum();
-                        let str = &self.data[self.pos .. (self.pos + count + col - 1)];
+                        let count: usize = self.data[self.pos..].lines().map(|l| l.len() + 1).take(line - 1).sum();
+                        let str = &self.data[self.pos..(self.pos + count + col - 1)];
                         self.pos += count;
                         serde_json::from_str(str)
                     }
@@ -532,12 +533,7 @@ impl<'a, R: QemuRepo + ?Sized + 'a> QemuRepoContext<'a, R> {
         let include_path = repo.context().join(path);
         repo.push_context(include_path.parent().unwrap());
 
-        (
-            QemuRepoContext {
-                repo,
-            },
-            include_path,
-        )
+        (QemuRepoContext { repo }, include_path)
     }
 }
 
@@ -563,9 +559,7 @@ impl<'a, R: QemuRepo + ?Sized + 'a> Drop for QemuRepoContext<'a, R> {
 
 impl QemuFileRepo {
     pub fn new<P: Into<PathBuf>>(p: P) -> Self {
-        QemuFileRepo {
-            paths: vec![p.into()],
-        }
+        QemuFileRepo { paths: vec![p.into()] }
     }
 }
 
@@ -586,8 +580,7 @@ impl QemuRepo for QemuFileRepo {
     }
 
     fn include<P: AsRef<Path>>(&mut self, p: P) -> Result<(QemuRepoContext<Self>, String), Self::Error> {
-        use std::fs::File;
-        use std::io::Read;
+        use std::{fs::File, io::Read};
 
         let (context, path) = QemuRepoContext::from_include(self, p);
         let mut f = File::open(path)?;
@@ -599,8 +592,7 @@ impl QemuRepo for QemuFileRepo {
 
 #[cfg(test)]
 mod test {
-    use super::*;
-    use std::path::Path;
+    use {super::*, std::path::Path};
 
     fn parse_include<P: AsRef<Path>>(repo: &mut QemuFileRepo, include: P) {
         let include = include.as_ref();
@@ -621,11 +613,17 @@ mod test {
 
     #[test]
     fn parse_qapi() {
-        parse_schema(QemuFileRepo::new(concat!(env!("CARGO_MANIFEST_DIR"), "/../schema/qapi/")));
+        parse_schema(QemuFileRepo::new(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../schema/qapi/"
+        )));
     }
 
     #[test]
     fn parse_qga() {
-        parse_schema(QemuFileRepo::new(concat!(env!("CARGO_MANIFEST_DIR"), "/../schema/qga/")));
+        parse_schema(QemuFileRepo::new(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../schema/qga/"
+        )));
     }
 }
