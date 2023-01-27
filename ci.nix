@@ -30,7 +30,10 @@ in {
     name = "qapi-rs";
     ci.gh-actions.enable = true;
     cache.cachix.arc.enable = true;
-    channels.rust = "master";
+    channels = {
+      nixpkgs = "22.11";
+      rust = "master";
+    };
     environment.test = {
       inherit (config.rustChannel.buildChannel) cargo;
     };
