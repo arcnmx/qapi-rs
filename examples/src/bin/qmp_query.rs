@@ -1,6 +1,7 @@
 use std::thread::sleep;
 use std::time::Duration;
 use std::env::args;
+#[cfg(unix)]
 use std::os::unix::net::UnixStream;
 use qapi::{qmp, Qmp};
 
@@ -8,7 +9,10 @@ pub fn main() {
     ::env_logger::init();
 
     let socket_addr = args().nth(1).expect("argument: QMP socket path");
+    #[cfg(unix)]
     let stream = UnixStream::connect(socket_addr).expect("failed to connect to socket");
+    #[cfg(not(unix))]
+    let stream = std::net::TcpStream::connect(socket_addr).expect("failed to connect to socket");
 
     let mut qmp = Qmp::from_stream(&stream);
 

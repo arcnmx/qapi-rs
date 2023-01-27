@@ -60,10 +60,19 @@ impl<R> QgaStreamTokio<ReadHalf<R>> {
     }
 }
 
-#[cfg(feature = "async-tokio-net")]
+#[cfg(all(unix, feature = "async-tokio-net"))]
 impl QgaStreamTokio<ReadHalf<tokio::net::UnixStream>> {
     pub async fn open_uds<P: AsRef<std::path::Path>>(socket_addr: P) -> io::Result<QapiStream<Self, QgaStreamTokio<WriteHalf<tokio::net::UnixStream>>>> {
         let socket = tokio::net::UnixStream::connect(socket_addr).await?;
+        let (r, w) = split(socket);
+        Ok(Self::open_split(r, w))
+    }
+}
+
+#[cfg(feature = "async-tokio-net")]
+impl QgaStreamTokio<ReadHalf<tokio::net::TcpStream>> {
+    pub async fn open_tcp<A: tokio::net::ToSocketAddrs>(socket_addr: A) -> io::Result<QapiStream<Self, QgaStreamTokio<WriteHalf<tokio::net::TcpStream>>>> {
+        let socket = tokio::net::TcpStream::connect(socket_addr).await?;
         let (r, w) = split(socket);
         Ok(Self::open_split(r, w))
     }
@@ -200,10 +209,19 @@ impl<RW: AsyncRead + AsyncWrite> QmpStreamTokio<ReadHalf<RW>> {
     }
 }
 
-#[cfg(all(feature = "qapi-qmp", feature = "async-tokio-net"))]
+#[cfg(all(unix, feature = "qapi-qmp", feature = "async-tokio-net"))]
 impl QmpStreamTokio<ReadHalf<tokio::net::UnixStream>> {
     pub async fn open_uds<P: AsRef<std::path::Path>>(socket_addr: P) -> io::Result<QmpStreamNegotiation<Self, QmpStreamTokio<WriteHalf<tokio::net::UnixStream>>>> {
         let socket = tokio::net::UnixStream::connect(socket_addr).await?;
+        let (r, w) = split(socket);
+        Self::open_split(r, w).await
+    }
+}
+
+#[cfg(all(feature = "qapi-qmp", feature = "async-tokio-net"))]
+impl QmpStreamTokio<ReadHalf<tokio::net::TcpStream>> {
+    pub async fn open_tcp<A: tokio::net::ToSocketAddrs>(socket_addr: A) -> io::Result<QmpStreamNegotiation<Self, QmpStreamTokio<WriteHalf<tokio::net::TcpStream>>>> {
+        let socket = tokio::net::TcpStream::connect(socket_addr).await?;
         let (r, w) = split(socket);
         Self::open_split(r, w).await
     }

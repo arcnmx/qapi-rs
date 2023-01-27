@@ -7,7 +7,10 @@ async fn main() -> io::Result<()> {
 
     let socket_addr = args().nth(1).expect("argument: QEMU Guest Agent socket path");
 
+    #[cfg(unix)]
     let stream = qapi::futures::QgaStreamTokio::open_uds(socket_addr).await?;
+    #[cfg(not(unix))]
+    let stream = qapi::futures::QgaStreamTokio::open_tcp(socket_addr).await?;
     let (qga, handle) = stream.spawn_tokio();
 
     let sync_value = &qga as *const _ as usize as i32;
