@@ -1,9 +1,21 @@
 { config, channels, pkgs, lib, ... }: with pkgs; with lib; let
-  mingwW64-target = channels.rust.lib.targetForConfig.${lib.systems.examples.mingwW64.config};
+  rust-w64 = import channels.rust.path {
+    inherit (pkgsCross.mingwW64) pkgs;
+  };
+  mingwW64-target = rust-w64.lib.rustTargetEnvironment {
+    inherit (rust-w64) pkgs;
+    rustcFlags = [ "-L native=${rust-w64.pkgs.windows.pthreads}/lib" ];
+  };
   rustChannel = channels.rust.stable.override {
     channelOverlays = [
       (cself: csuper: {
-        sysroot-std = csuper.sysroot-std ++ [ cself.manifest.targets.${mingwW64-target}.rust-std ];
+        sysroot-std = csuper.sysroot-std ++ [ cself.manifest.targets.${mingwW64-target.triple}.rust-std ];
+        cargo-cc = csuper.cargo-cc // cself.context.rlib.cargoEnv {
+          target = mingwW64-target;
+        };
+        rustc-cc = csuper.rustc-cc // cself.context.rlib.rustcCcEnv {
+          target = mingwW64-target;
+        };
       })
     ];
   };
@@ -49,11 +61,11 @@ in {
       codegen.inputs = singleton (cargo "qapi-codegen" "test -p qapi-codegen");
       qga.inputs = singleton (cargo "qapi-qga" "test -p qapi-qga");
       qmp.inputs = singleton (cargo "qapi-qmp" "test -p qapi-qmp");
-      examples.inputs = singleton (cargo "examples" "build --examples");
+      examples.inputs = singleton (cargo "examples" "build --examples --bins");
     };
     jobs = {
       nixos = {
-        tasks.windows.inputs = singleton (cargo "build-windows" "build --examples --target ${mingwW64-target}");
+        tasks.windows.inputs = singleton (cargo "build-windows" "build --examples --bins --target ${mingwW64-target.triple}");
       };
       macos.system = "x86_64-darwin";
     };
