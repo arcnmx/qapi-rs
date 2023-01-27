@@ -31,23 +31,23 @@ impl<'de> Deserialize<'de> for Never {
 pub mod base64 {
     use serde::{Serialize, Serializer, Deserialize, Deserializer};
     use serde::de::{Error, Unexpected};
-    use base64::{self, DecodeError};
+    use base64::{prelude::*, DecodeError};
 
     pub fn serialize<S: Serializer>(data: &[u8], serializer: S) -> Result<S::Ok, S::Error> {
-        base64::encode(data).serialize(serializer)
+        BASE64_STANDARD.encode(data).serialize(serializer)
     }
 
     pub fn deserialize<'de, D: Deserializer<'de>>(deserializer: D) -> Result<Vec<u8>, D::Error> {
         // TODO: deserialize to borrowed &str
         let str = String::deserialize(deserializer)?;
 
-        base64::decode(&str)
+        BASE64_STANDARD.decode(&str)
             .map_err(|e| de_err(&str, e))
     }
 
     pub fn de_err<E: Error>(str: &str, err: DecodeError) -> E {
         match err {
-            DecodeError::InvalidByte(..) =>
+            DecodeError::InvalidByte(..) | DecodeError::InvalidPadding =>
                 E::invalid_value(Unexpected::Str(str), &"base64"),
             DecodeError::InvalidLength =>
                 E::invalid_length(str.len(), &"valid base64 length"),
@@ -61,7 +61,7 @@ pub mod base64 {
 pub mod base64_opt {
     use serde::{Serializer, Deserialize, Deserializer};
     use crate::base64;
-    use ::base64 as b64;
+    use ::base64::prelude::*;
 
     pub fn serialize<S: Serializer>(data: &Option<Vec<u8>>, serializer: S) -> Result<S::Ok, S::Error> {
         base64::serialize(data.as_ref().expect("use skip_serializing_with"), serializer)
@@ -71,7 +71,7 @@ pub mod base64_opt {
         // TODO: deserialize to borrowed &str
         let str = <Option<String>>::deserialize(deserializer)?;
         if let Some(ref str) = str {
-            b64::decode(str)
+            BASE64_STANDARD.decode(str)
                 .map(Some)
                 .map_err(|e| base64::de_err(str, e))
         } else {
