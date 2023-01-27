@@ -1,6 +1,6 @@
 [package]
 name = "qapi"
-version = "0.10.0" # keep in sync with README and html_root_url
+version = "0.10.1" # keep in sync with README and html_root_url
 authors = ["arcnmx"]
 edition = "2018"
 
