@@ -1,5 +1,5 @@
 #![allow(non_snake_case, non_camel_case_types)]
-#![doc(html_root_url = "http://docs.rs/qapi-qmp/0.10.1")]
+#![doc(html_root_url = "http://docs.rs/qapi-qmp/0.11.0")]
 #![allow(deprecated)]
 
 use std::io;

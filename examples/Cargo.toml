@@ -3,9 +3,10 @@ name = "qapi-examples"
 version = "0.0.0"
 authors = ["arcnmx"]
 edition = "2018"
+publish = false
 
 [dependencies]
-qapi = { version = "^0.10.1", path = "../qapi", features = ["qmp", "qga", "async-tokio-all"] }
+qapi = { version = "^0.11.0", path = "../qapi", features = ["qmp", "qga", "async-tokio-all"] }
 tokio = { version = "^1.0.0", default-features = false, features = ["macros", "rt-multi-thread"] }
 futures = "^0.3.5"
 env_logger = "^0.9.0"
