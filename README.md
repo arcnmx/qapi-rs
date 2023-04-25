@@ -15,7 +15,7 @@ They can be enabled in your `Cargo.toml`:
 
 ```toml
 [dependencies]
-qapi = { version = "0.11", features = [ "qmp" ] }
+qapi = { version = "0.12", features = [ "qmp" ] }
 ```
 
 ### Examples

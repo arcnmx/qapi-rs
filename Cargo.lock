@@ -297,7 +297,7 @@ dependencies = [
 
 [[package]]
 name = "qapi"
-version = "0.11.0"
+version = "0.12.0"
 dependencies = [
  "bytes",
  "futures",
@@ -315,7 +315,7 @@ dependencies = [
 
 [[package]]
 name = "qapi-codegen"
-version = "0.10.2"
+version = "0.10.3"
 dependencies = [
  "qapi-parser",
 ]
@@ -349,7 +349,7 @@ dependencies = [
 
 [[package]]
 name = "qapi-qmp"
-version = "0.11.0"
+version = "0.12.0"
 dependencies = [
  "qapi-codegen",
  "qapi-spec",
