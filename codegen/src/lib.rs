@@ -67,15 +67,7 @@ fn typename(ty: &spec::Type) -> String {
 
 fn valuety(value: &spec::Value, pubvis: bool, super_name: &str) -> String {
     // overrides for recursive types:
-    let boxed = if value.name == "backing-image" && value.ty.name == "ImageInfo" {
-        true
-    } else if value.name == "backing" && value.ty.name == "BlockStats" {
-        true
-    } else if value.name == "parent" && value.ty.name == "BlockStats" {
-        true
-    } else {
-        false
-    };
+    let boxed = value.ty.name == super_name;
 
     let base64 = value.ty.name == "str" && (
         ((super_name == "GuestFileRead" || super_name == "guest-file-write") && value.name == "buf-b64") ||
@@ -548,13 +540,18 @@ impl From<{}> for {} {{
                     },
                     Some(base) => {
                         let base_ty = typename(&base.ty);
-                        let base_into = if base.optional { ".into()" } else { "" };
+                        let boxed = type_id == base_ty;
+                        let base_into = match (base.optional, boxed) {
+                            (false, false) => "val.1",
+                            (false, true) | (true, false) => "val.1.into()",
+                            (true, true) => "Some(Box::new(val.1))",
+                        };
                         write!(self.out, "
 impl From<({}, {})> for {} {{
     fn from(val: ({}, {})) -> Self {{
         Self::{} {{
             {}: val.0,
-            {}: val.1{},
+            {}: {},
 ", variant_ty, base_ty, type_id, variant_ty, base_ty, type_identifier(&variant.name), identifier(&variant.name), identifier(&base.name), base_into)?;
                         write!(self.out, "
         }}
