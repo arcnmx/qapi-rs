@@ -13,7 +13,9 @@ fn main_result() -> io::Result<()> {
     println!("rerun-if-changed=build.rs");
 
     let out_dir = path::Path::new(&env::var("OUT_DIR").unwrap()).join("qga.rs");
-    let schema_dir = concat!(env!("CARGO_MANIFEST_DIR"), "/schema/qga/");
+    let schema_dir = path::Path::new(&env::var_os("CARGO_MANIFEST_DIR").unwrap())
+        .join("schema")
+        .join("qga");
 
     for inc in qapi_codegen::codegen(schema_dir, out_dir, "QgaCommand".into())? {
         println!("rerun-if-changed={}", inc.display());
