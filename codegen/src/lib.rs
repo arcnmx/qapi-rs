@@ -76,8 +76,10 @@ fn valuety(value: &spec::Value, pubvis: bool, super_name: &str) -> String {
         (super_name == "guest-set-user-password" && value.name == "password") ||
         (super_name == "GuestExecStatus" && (value.name == "out-data" || value.name == "err-data")) ||
         (super_name == "guest-exec" && value.name == "input-data") ||
-        (super_name == "QCryptoSecretFormat" && value.name == "base64")
-        // "ringbuf-write", "ringbuf-read" can't be done because weird enums
+        (super_name == "get-win32-socket" && value.name == "info") ||
+        (super_name == "SevGuestProperties" && (value.name == "dh-cert-file" || value.name == "session-file")) ||
+        (super_name == "SecretCommonProperties" && value.name == "iv")
+        // `ringbuf-write`, `ringbuf-read`, `SecretProperties` can't be done because weird enums
     );
 
     let dict = value.ty.name == "any" && (
