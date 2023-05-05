@@ -37,6 +37,7 @@
         features = " --features ${concatStringsSep "," buildFeatures}";
         cmd = if args.doCheck or true then "test" else "build";
       in "cargo ${cmd} -p ${crate.name}" + optionalString (buildFeatures != [ ]) features;
+      auditable = false;
     } // args);
   in flakelib {
     inherit inputs;
