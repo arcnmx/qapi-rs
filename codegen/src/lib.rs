@@ -1,5 +1,7 @@
 #![doc(html_root_url = "https://docs.rs/qapi-codegen/0.10.3")]
 
+//! Generates Rust types for the [QAPI schema language](https://qemu-project.gitlab.io/qemu/devel/qapi-code-gen.html#the-qapi-schema-language)
+
 use qapi_parser::{Parser, QemuFileRepo, QemuRepo, spec};
 use qapi_parser::spec::Spec;
 use std::collections::{BTreeMap, HashSet};
