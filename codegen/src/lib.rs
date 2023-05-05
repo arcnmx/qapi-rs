@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/qapi-codegen/0.10.3")]
+#![doc(html_root_url = "https://docs.rs/qapi-codegen/0.10.4")]
 
 use qapi_parser::{Parser, QemuFileRepo, QemuRepo, spec};
 use qapi_parser::spec::Spec;
