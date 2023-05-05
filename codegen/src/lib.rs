@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/qapi-codegen/0.10.3")]
+#![doc(html_root_url = "https://docs.rs/qapi-codegen/0.11.0")]
 
 //! Generates Rust types for the [QAPI schema language](https://qemu-project.gitlab.io/qemu/devel/qapi-code-gen.html#the-qapi-schema-language)
 
