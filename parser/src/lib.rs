@@ -97,6 +97,7 @@ pub mod spec {
         AllowWriteOnlyOverlay,
         DynamicAutoReadOnly,
         SavevmMonitorNodes,
+        Fdset,
     }
 
     #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Deserialize)]
