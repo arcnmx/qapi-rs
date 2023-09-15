@@ -1,13 +1,10 @@
-{ config, channels, pkgs, lib, ... }: with pkgs; with lib; let
-  inherit (import ./. { pkgs = null; }) checks packages devShells;
-  importShell = pkgs.writeText "shell.nix" ''
-    import ${builtins.unsafeDiscardStringContext devShells.default.drvPath}
-  '';
+{ config, channels, pkgs, env, lib, ... }: with pkgs; with lib; let
+  inherit (import ./. { pkgs = null; }) inputs checks packages legacyPackages;
   cargo = name: command: pkgs.ci.command {
     name = "cargo-${name}";
-    command = ''
-      nix-shell ${importShell} --run ${escapeShellArg ("cargo " + command)}
-    '';
+    displayName = "cargo ${command}";
+    sourceDep = legacyPackages.source;
+    command = "cargo ${command}";
     impure = true;
   };
   commas = concatStringsSep ",";
@@ -21,10 +18,18 @@
 in {
   config = {
     name = "qapi-rs";
+    ci.version = "v0.6";
     ci.gh-actions.enable = true;
-    cache.cachix.arc.enable = true;
+    cache.cachix = {
+      ci.signingKey = "";
+      arc.enable = true;
+    };
     channels = {
-      nixpkgs = "22.11";
+      nixpkgs = mkIf (env.platform != "impure") "23.05";
+    };
+    environment.test = {
+      inherit (inputs.nixpkgs.legacyPackages.${builtins.currentSystem}) cargo;
+      inherit (inputs.nixpkgs.legacyPackages.${builtins.currentSystem}.stdenv) cc;
     };
     tasks = with checks; {
       test.inputs = mapAttrsToList (key: features:

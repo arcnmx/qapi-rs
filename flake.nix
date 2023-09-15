@@ -83,7 +83,7 @@
       });
       default = { examples }: examples;
     };
-    legacyPackages = { callPackageSet }: callPackageSet {
+    legacyPackages = {
       # manual src fixup for submodule symlinks
       source = { runCommand }: runCommand crate.src.name {
         preferLocalBuild = true;
@@ -125,12 +125,11 @@
       outputHashes = { rust'builders }: rust'builders.cargoOutputHashes {
         inherit crate;
       };
-    } { };
+    };
     checks = with nixlib; {
       versions = { rust'builders, source }: rust'builders.check-contents {
         src = source;
-        patterns = let
-        in [
+        patterns = [
           { path = "README.md";
             plain = ''version = "${versions.majorMinor crate.members.qapi.version}"'';
           }
@@ -143,7 +142,7 @@
     // mapAttrs' (name: buildFeatures: nameValuePair "test-qapi-${name}" (testCrate "qapi" {
       inherit buildFeatures;
     })) featureMatrix;
-    lib = with nixlib; {
+    lib = {
       crate = rust.lib.importCargo {
         inherit self;
         path = ./Cargo.toml;
