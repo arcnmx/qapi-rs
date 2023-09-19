@@ -330,7 +330,7 @@ dependencies = [
 
 [[package]]
 name = "qapi"
-version = "0.13.0"
+version = "0.14.0"
 dependencies = [
  "bytes",
  "futures",
@@ -348,7 +348,7 @@ dependencies = [
 
 [[package]]
 name = "qapi-codegen"
-version = "0.11.0"
+version = "0.11.1"
 dependencies = [
  "qapi-parser",
 ]
@@ -365,7 +365,7 @@ dependencies = [
 
 [[package]]
 name = "qapi-parser"
-version = "0.9.1"
+version = "0.10.0"
 dependencies = [
  "serde",
  "serde_json",
@@ -373,7 +373,7 @@ dependencies = [
 
 [[package]]
 name = "qapi-qga"
-version = "0.11.0"
+version = "0.12.0"
 dependencies = [
  "qapi-codegen",
  "qapi-spec",
@@ -382,7 +382,7 @@ dependencies = [
 
 [[package]]
 name = "qapi-qmp"
-version = "0.13.0"
+version = "0.14.0"
 dependencies = [
  "qapi-codegen",
  "qapi-spec",

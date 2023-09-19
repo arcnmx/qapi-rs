@@ -1,6 +1,6 @@
 [package]
 name = "qapi-qga"
-version = "0.11.0" # keep in sync with html_root_url
+version = "0.12.0" # keep in sync with html_root_url
 build = "build.rs"
 authors = ["arcnmx"]
 edition = "2018"

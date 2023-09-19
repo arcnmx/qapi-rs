@@ -6,7 +6,7 @@ edition = "2018"
 publish = false
 
 [dependencies]
-qapi = { version = "0.13", path = "../qapi", features = ["qmp", "qga", "async-tokio-all"] }
+qapi = { version = "0.14", path = "../qapi", features = ["qmp", "qga", "async-tokio-all"] }
 tokio = { version = "1", default-features = false, features = ["macros", "rt-multi-thread"] }
 futures = "0.3"
 env_logger = "0.10"
