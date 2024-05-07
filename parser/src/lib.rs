@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/qapi-parser/0.10.0")]
+#![doc(html_root_url = "https://docs.rs/qapi-parser/0.11.0")]
 
 pub mod spec {
     use std::fmt;
@@ -235,6 +235,9 @@ pub mod spec {
     #[serde(untagged, rename_all = "kebab-case")]
     pub enum Conditional {
         Define(ConditionalDefinition),
+        Not {
+            not: ConditionalDefinition,
+        },
         All {
             all: Vec<ConditionalDefinition>,
         },
@@ -263,12 +266,21 @@ pub mod spec {
         #[serde(default)]
         pub allow_oob: bool,
         #[serde(default)]
+        pub coroutine: bool,
+        #[serde(default)]
+        pub boxed: bool,
+        #[serde(default = "Command::success_response_default")]
+        pub success_response: bool,
+        #[serde(default)]
+        pub allow_preconfig: bool,
+        #[serde(default)]
         pub features: Features,
         #[serde(default = "Command::gen_default")]
         pub gen: bool,
     }
 
     impl Command {
+        fn success_response_default() -> bool { true }
         fn gen_default() -> bool { true }
     }
 
@@ -326,6 +338,8 @@ pub mod spec {
         pub id: String,
         #[serde(default)]
         pub data: Vec<SpecName>,
+        #[serde(default)]
+        pub prefix: Option<String>,
         #[serde(default, rename = "if")]
         pub conditional: Option<Conditional>,
     }
@@ -390,9 +404,11 @@ pub mod spec {
         #[serde(rename = "event")]
         pub id: String,
         #[serde(default)]
-        pub data: Data,
+        pub data: DataOrType,
         #[serde(default, rename = "if")]
         pub conditional: Option<Conditional>,
+        #[serde(default)]
+        pub features: Features,
     }
 
     #[derive(Debug, Clone, Deserialize)]
@@ -425,10 +441,31 @@ pub mod spec {
             name: String,
             #[serde(rename = "if")]
             conditional: Conditional,
+            #[serde(default)]
+            features: Features,
         },
         Explicit {
             name: String,
+            #[serde(default)]
+            features: Features,
         },
+    }
+
+    impl SpecName {
+        pub fn name(&self) -> &String {
+            match self {
+                SpecName::Name(name) | SpecName::Explicit { name, .. } => name,
+                SpecName::Conditional { name, .. } => name,
+            }
+        }
+
+        pub fn features(&self) -> Option<&Features> {
+            match self {
+                SpecName::Name(..) => None,
+                SpecName::Explicit { features, .. } => Some(features),
+                SpecName::Conditional { features, .. } => Some(features),
+            }
+        }
     }
 
     impl fmt::Display for SpecName {
@@ -438,10 +475,7 @@ pub mod spec {
     }
     impl AsRef<str> for SpecName {
         fn as_ref(&self) -> &str {
-            match self {
-                SpecName::Name(name) | SpecName::Explicit { name } => &name[..],
-                SpecName::Conditional { name, .. } => &name[..],
-            }
+            &self.name()[..]
         }
     }
 }

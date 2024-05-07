@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/qapi-codegen/0.11.1")]
+#![doc(html_root_url = "https://docs.rs/qapi-codegen/0.11.2")]
 
 //! Generates Rust types for the [QAPI schema language](https://qemu-project.gitlab.io/qemu/devel/qapi-code-gen.html#the-qapi-schema-language)
 
@@ -127,7 +127,7 @@ struct Context<W> {
     includes: Vec<String>,
     included: HashSet<PathBuf>,
     events: Vec<spec::Event>,
-    unions: Vec<spec::CombinedUnion>,
+    unions: BTreeMap<String, spec::CombinedUnion>,
     enums: BTreeMap<String, spec::Enum>,
     types: BTreeMap<String, spec::Struct>,
     struct_discriminators: BTreeMap<String, String>,
@@ -274,10 +274,24 @@ unsafe impl ::qapi_spec::Enum for {} {{
             Spec::Event(v) => {
                 write!(self.out, "
 #[derive(Debug, Clone, Serialize, Deserialize{})]
-pub struct {} {{
-", if v.data.is_empty() { ", Default" } else { "" }, event_identifier(&v.id))?;
-                for item in &v.data.fields {
-                    writeln!(self.out, "{},", valuety(item, true, &v.id))?;
+", if v.data.is_empty() { ", Default" } else { "" })?;
+                if let spec::DataOrType::Type(..) = v.data {
+                    writeln!(self.out, "#[serde(transparent)]")?;
+                    writeln!(self.out, "#[repr(transparent)]")?;
+                }
+                writeln!(self.out, "pub struct {} {{", event_identifier(&v.id))?;
+                match v.data {
+                    spec::DataOrType::Type(ref ty) => {
+                        let data = spec::Value {
+                            name: "data".into(),
+                            ty: ty.clone(),
+                            optional: false,
+                        };
+                        writeln!(self.out, "{},", valuety(&data, true, &v.id))?
+                    },
+                    spec::DataOrType::Data(ref data) => for item in &data.fields {
+                        writeln!(self.out, "{},", valuety(item, true, &v.id))?;
+                    },
                 }
                 writeln!(self.out, "}}")?;
                 writeln!(self.out, "
@@ -298,7 +312,7 @@ pub enum {} {{
                 writeln!(self.out, "}}")?;
             },
             Spec::CombinedUnion(v) => {
-                self.unions.push(v);
+                self.unions.insert(v.id.clone(), v);
             },
             Spec::PragmaWhitelist { .. } => (),
             Spec::PragmaExceptions { .. } => (),
@@ -400,7 +414,7 @@ impl {} {{
     }
 
     fn process_unions(&mut self) -> io::Result<()> {
-        for u in &self.unions {
+        for u in self.unions.values() {
             let discrim = u.discriminator.as_ref().map(|s| &s[..]).unwrap_or("type");
             let type_id = type_identifier(&u.id);
             write!(self.out, "
@@ -540,8 +554,12 @@ impl From<{}> for {} {{
 }}
 ", variant_ty, type_id, variant_ty, variant_name)?;
                         let ty = self.types.get(&variant.ty.name)
+                            .map(|ty| ty.wrapper_type())
+                            .or_else(|| self.unions.get(&variant.ty.name)
+                                .map(|_e| None)
+                            )
                             .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, format!("could not find qapi type {}, needed by {}", variant.ty.name, u.id)))?;
-                        if let Some(newtype) = ty.wrapper_type() {
+                        if let Some(newtype) = ty {
                             let newtype_ty = typename(&newtype.ty);
                             write!(self.out, "
 impl From<{}> for {} {{
