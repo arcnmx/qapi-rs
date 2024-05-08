@@ -18,14 +18,14 @@
 in {
   config = {
     name = "qapi-rs";
-    ci.version = "v0.6";
+    ci.version = "v0.7";
     ci.gh-actions.enable = true;
     cache.cachix = {
       ci.signingKey = "";
       arc.enable = true;
     };
     channels = {
-      nixpkgs = mkIf (env.platform != "impure") "23.05";
+      nixpkgs = mkIf (env.platform != "impure") "23.11";
     };
     environment.test = {
       inherit (inputs.nixpkgs.legacyPackages.${builtins.currentSystem}) cargo;
