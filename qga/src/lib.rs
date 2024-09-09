@@ -1,5 +1,5 @@
 #![allow(non_snake_case, non_camel_case_types)]
-#![doc(html_root_url = "https://docs.rs/qapi-qga/0.12.0")]
+#![doc(html_root_url = "https://docs.rs/qapi-qga/0.13.0")]
 
 include!(concat!(env!("OUT_DIR"), "/qga.rs"));
 
