@@ -49,8 +49,8 @@ pub mod base64 {
         match err {
             DecodeError::InvalidByte(..) | DecodeError::InvalidPadding =>
                 E::invalid_value(Unexpected::Str(str), &"base64"),
-            DecodeError::InvalidLength =>
-                E::invalid_length(str.len(), &"valid base64 length"),
+            DecodeError::InvalidLength(len) =>
+                E::invalid_length(len, &"valid base64 length"),
             DecodeError::InvalidLastSymbol(..) =>
                 E::invalid_value(Unexpected::Str(str), &"truncated or corrupted base64"),
         }
