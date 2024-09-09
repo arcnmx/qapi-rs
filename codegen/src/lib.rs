@@ -19,7 +19,7 @@ fn type_identifier<S: AsRef<str>>(id: S) -> String {
 fn identifier<S: AsRef<str>>(id: S) -> String {
     let id = id.as_ref();
     match id {
-        "type" | "static" | "virtual" | "abstract" | "in" | "if" | "enum" | "match" => format!("{}_", id),
+        "type" | "static" | "virtual" | "abstract" | "in" | "if" | "enum" | "match" | "use" => format!("{}_", id),
         s if s.as_bytes()[0].is_ascii_digit() => format!("_{}", s),
         id => id.replace("-", "_")
     }
