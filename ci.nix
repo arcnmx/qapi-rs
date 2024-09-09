@@ -10,7 +10,7 @@ in {
       arc.enable = true;
     };
     channels = {
-      nixpkgs = mkIf (env.platform != "impure") "23.11";
+      nixpkgs = mkIf (env.platform != "impure") "24.05";
     };
     tasks = with checks; {
       test.inputs = [
