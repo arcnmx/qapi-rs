@@ -79,11 +79,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724981263,
-        "narHash": "sha256-970Tcg3upuYO9WZX5h7e5axmOT8ZEYg2cEDW8oZ6kZs=",
+        "lastModified": 1732847979,
+        "narHash": "sha256-037fkyB/HAZjl35geOt9fnE+JB3UvTIPYiQyfFz8/jw=",
         "owner": "arcnmx",
         "repo": "nixexprs-rust",
-        "rev": "113d5c75b62c11782914b97046dabe80122a2e4c",
+        "rev": "1bb6c5eb824224efe05447582652c872ddc1cee3",
         "type": "github"
       },
       "original": {
@@ -95,16 +95,16 @@
     "schema": {
       "flake": false,
       "locked": {
-        "lastModified": 1725380306,
-        "narHash": "sha256-CT+aY/JV4xuEEC26/e1NBUEPBlw3YQpAy2mm86d1Dn8=",
+        "lastModified": 1732659998,
+        "narHash": "sha256-IW3WvK3h1dfp2ry1KVLCsWB+MV1un+rHaPlMvEXB2kk=",
         "owner": "arcnmx",
         "repo": "qemu-qapi-filtered",
-        "rev": "69f820d7ff45927cce1f251a01a1b1a3da8b2d86",
+        "rev": "02071bce381356b96d35040386e0d7b2d11e1063",
         "type": "github"
       },
       "original": {
         "owner": "arcnmx",
-        "ref": "v9.1.0",
+        "ref": "v9.2.0-rc2",
         "repo": "qemu-qapi-filtered",
         "type": "github"
       }
