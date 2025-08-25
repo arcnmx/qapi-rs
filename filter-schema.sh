@@ -1,17 +1,15 @@
 #!/bin/sh
 set -e
 
-#cd ./schema/
-git filter-branch \
-	--prune-empty \
-	--tag-name-filter cat \
-	--index-filter '
-		git ls-tree -z -r --name-only --full-tree $GIT_COMMIT \
-		| grep -z -v "^qapi-schema\.json$" \
-		| grep -z -v "^qapi/.*\.json$" \
-		| grep -z -v "^qga/.*\.json$" \
-		| grep -z -v "^VERSION$" \
-		| xargs -0 -r git rm --cached -r
-	' \
-	-- \
-	--all
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <tag>"
+    exit 1
+fi
+
+TAG="$1"
+
+git switch --create="$TAG-filtered" "$TAG"
+git filter-repo \
+    --path-regex '^qapi-schema\.json$|^qapi/[^/]*\.json$|^qga/[^/]*\.json$|^VERSION$' \
+    --prune-empty always \
+		--force # --force flag tells `git filter-repo` to proceed even though it doesn't consider this a "fresh clone"
