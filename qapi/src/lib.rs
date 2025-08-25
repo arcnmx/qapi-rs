@@ -218,7 +218,7 @@ mod qmp_impl {
             &mut self.inner.stream
         }
 
-        pub fn events(&mut self) -> Drain<Event> {
+        pub fn events(&mut self) -> Drain<'_, Event> {
             self.event_queue.drain(..)
         }
     }

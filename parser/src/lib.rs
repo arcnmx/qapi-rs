@@ -549,7 +549,7 @@ pub trait QemuRepo {
     fn pop_context(&mut self);
     fn context(&self) -> &Path;
 
-    fn include<P: AsRef<Path>>(&mut self, p: P) -> Result<(QemuRepoContext<Self>, String), Self::Error>;
+    fn include<P: AsRef<Path>>(&mut self, p: P) -> Result<(QemuRepoContext<'_, Self>, String), Self::Error>;
 }
 
 #[derive(Debug, Clone)]
@@ -620,7 +620,7 @@ impl QemuRepo for QemuFileRepo {
         self.paths.last().unwrap()
     }
 
-    fn include<P: AsRef<Path>>(&mut self, p: P) -> Result<(QemuRepoContext<Self>, String), Self::Error> {
+    fn include<P: AsRef<Path>>(&mut self, p: P) -> Result<(QemuRepoContext<'_, Self>, String), Self::Error> {
         use std::fs::File;
         use std::io::Read;
 
