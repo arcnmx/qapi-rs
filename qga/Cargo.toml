@@ -11,7 +11,7 @@ keywords = ["qemu", "qga", "qapi"]
 documentation = "https://docs.rs/qapi-qga/"
 repository = "https://github.com/arcnmx/qapi-rs"
 readme = "../README.md"
-license = "MIT"
+license = "MIT AND GPL-2.0-or-later"
 
 [badges]
 travis-ci = { repository = "arcnmx/qapi-rs" }
