@@ -8,7 +8,7 @@
       type = "github";
       owner = "arcnmx";
       repo = "qemu-qapi-filtered";
-      ref = "v9.2.4"; # keep in sync with schema submodule
+      ref = "v10.0.3"; # keep in sync with schema submodule
     };
     rust = {
       url = "github:arcnmx/nixexprs-rust";
