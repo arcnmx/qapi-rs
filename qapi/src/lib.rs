@@ -225,9 +225,13 @@ mod qmp_impl {
 
     impl<S: BufRead> Qmp<S> {
         pub fn read_capabilities(&mut self) -> io::Result<QMP> {
-            self.inner.decode_line().map(|v: Option<QapiCapabilities>|
-                v.expect("unexpected eof").QMP
-            )
+            match self.inner.decode_line()? {
+                None => Err(io::Error::new(
+                    io::ErrorKind::UnexpectedEof,
+                    "expected capabilities response",
+                )),
+                Some(v) => Ok(v.QMP),
+            }
         }
 
         pub fn read_response<C: Command>(&mut self) -> ExecuteResult<C> {
